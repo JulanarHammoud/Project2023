@@ -1,12 +1,14 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
-import java.io.IOException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 
 public class SecondaryController {
 
     @FXML
-    private void switchToPrimary() throws IOException {
-        App.setRoot("primary");
-    }
+    private ListView<String> myListView;
+
+
 }

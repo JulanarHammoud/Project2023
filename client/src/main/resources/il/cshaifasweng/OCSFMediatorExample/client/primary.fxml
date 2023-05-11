@@ -3,12 +3,39 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.PrimaryController">
+<VBox alignment="CENTER" prefHeight="434.0" prefWidth="535.0" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.PrimaryController">
    <children>
-      <Label text="Welcome" />
-      <Button mnemonicParsing="false" onAction="#sendWarning" text="Send me a warning!" />
+      <StackPane prefHeight="150.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="459.0" fitWidth="692.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@school%20image.jpg" />
+               </image>
+            </ImageView>
+            <Label prefHeight="37.0" prefWidth="539.0" text="Welocme to Our High School Of Dreamers " textFill="#a19d21">
+               <font>
+                  <Font name="System Bold Italic" size="27.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets top="-80.0" />
+               </StackPane.margin>
+            </Label>
+            <Button fx:id="start_button" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#start" text="Click Here To Start" textOverrun="WORD_ELLIPSIS">
+               <StackPane.margin>
+                  <Insets top="25.0" />
+               </StackPane.margin>
+               <font>
+                  <Font name="Arial Narrow Italic" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </StackPane>
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
