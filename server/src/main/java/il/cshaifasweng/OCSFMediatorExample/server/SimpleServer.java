@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
+import il.cshaifasweng.OCSFMediatorExample.server.DataControl.Data;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 
@@ -11,7 +12,17 @@ public class SimpleServer extends AbstractServer {
 
 	public SimpleServer(int port) {
 		super(port);
-		
+		try {
+			Data.generateStusent();
+			//Data.main(null);
+			//System.out.println("why there is exeption");
+			//		Data.updatePrice(500,1);
+
+		} catch (Exception e) {
+			System.out.print("there is an error");
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
@@ -28,6 +39,5 @@ public class SimpleServer extends AbstractServer {
 		}
 
 	}
-	///////// whyyyyy
 
 }
