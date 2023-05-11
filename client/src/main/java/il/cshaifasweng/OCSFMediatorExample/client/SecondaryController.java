@@ -7,6 +7,7 @@ import javafx.scene.control.ListView;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
+import java.util.LinkedList;
 
 import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
@@ -16,8 +17,8 @@ public class SecondaryController {
     @FXML
     private ListView<String> myListView= new ListView<>();
     ObservableList<String> items = FXCollections.observableArrayList();
+
    public void initialize(){
-       items.add("Item 1");
        items.add("Item 2");
        items.add("Item 3");
 
@@ -31,7 +32,7 @@ public class SecondaryController {
         }else {
             int index=myListView.getSelectionModel().getSelectedIndex();
             try{
-                setRoot("primary");}
+                setRoot("Grades");}
             catch (IOException e) {
                 e.printStackTrace();
             }
