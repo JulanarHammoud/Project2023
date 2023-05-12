@@ -5,9 +5,15 @@ import org.greenrobot.eventbus.EventBus;
 import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
 
+import java.util.LinkedList;
+import java.util.List;
+import il.cshaifasweng.OCSFMediatorExample.entities.stlist;
+
+
 public class SimpleClient extends AbstractClient {
 	
 	private static SimpleClient client = null;
+	private  static List<Object> params=new LinkedList<>();
 
 	private SimpleClient(String host, int port) {
 		super(host, port);
@@ -18,7 +24,8 @@ public class SimpleClient extends AbstractClient {
 		if (msg.getClass().equals(Warning.class)) {
 			EventBus.getDefault().post(new WarningEvent((Warning) msg));
 		}
-
+			else if(msg.getClass().equals(stlist.class)){
+				EventBus.getDefault().post(new stdlEvent((stlist) msg));}
 	}
 	
 	public static SimpleClient getClient() {
@@ -26,6 +33,9 @@ public class SimpleClient extends AbstractClient {
 			client = new SimpleClient("localhost", 3000);
 		}
 		return client;
+	}
+	public static List<Object> getParams() {
+		return params;
 	}
 
 }

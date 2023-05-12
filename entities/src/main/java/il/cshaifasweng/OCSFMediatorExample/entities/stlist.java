@@ -7,7 +7,7 @@ import java.util.List;
 public class stlist implements Serializable {
     private List<Student> students ;
 
-    public List<Student> getFlower() {
+    public List<Student> getStudents() {
         return students;
     }
 
