@@ -13,7 +13,10 @@ public class SimpleServer extends AbstractServer {
 	public SimpleServer(int port) {
 		super(port);
 		try {
-			Data.generateStusent();
+			//Data.generateStusent();
+			Data.getAllStudents();
+			Data.printAllStudents();
+			System.out.print("aaa");
 			//Data.main(null);
 			//System.out.println("why there is exeption");
 			//		Data.updatePrice(500,1);

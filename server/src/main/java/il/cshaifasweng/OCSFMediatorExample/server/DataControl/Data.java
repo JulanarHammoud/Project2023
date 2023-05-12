@@ -61,6 +61,34 @@ public class Data {
             }
         }
         return;
+    }
 
+    public static List<Student> getAllStudents() throws Exception {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Student> query = builder.createQuery(Student.class);
+        query.from(Student.class);
+        List<Student> result = session.createQuery(query).getResultList();
+        session.close();
+        System.out.println(result.size());
+        return result;
+    }
+    public static void printAllStudents() throws Exception {
+        // System.out.print("11111 whyyyyyyyyyyyyyy!!!!!!");
+        List<Student> students = getAllStudents();
+        //System.out.print("22222 whyyyyyyyyyyyyyy!!!!!!");
+        for (Student student : students) {
+            System.out.print("Id: ");
+            System.out.print(student.getId());
+            System.out.print(", student name: ");
+            System.out.print(student.getSt_name());
+            System.out.print(", Grade1: ");
+            System.out.print(student.getGrade1());
+            System.out.print(", Grade2: ");
+            System.out.print(student.getGrade2());
+            System.out.print('\n');
+        }
     }
 }
