@@ -40,12 +40,20 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 		}
-		else if(msgString.startsWith("#ListStudents")) {
-			List<Student> students = Data.getAllStudents();
-			stlist studentList=new stlist(students);
-			client.sendToClient(studentList);
-			System.out.format("Sent list to client %s\n", client.getInetAddress().getHostAddress());
-
+		System.out.print("im out");
+		if(msgString.startsWith("#ListStudents")) {
+			try {
+				System.out.print("im in");
+				System.out.flush();
+				System.out.print("Id: ");
+				List<Student> students = Data.getAllStudents();
+				stlist studentList = new stlist(students);
+				client.sendToClient(studentList);
+				System.out.format("Sent list to client %s\n", client.getInetAddress().getHostAddress());
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
 
 		}
 
