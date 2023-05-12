@@ -16,6 +16,7 @@ public class PrimaryController {
 	@FXML
 	void start(ActionEvent event) {
 		try{
+			//SimpleClient.getClient().sendToServer("#ListStudents");
 			setRoot("secondary");}
 		catch (IOException e) {
 			e.printStackTrace();

@@ -76,9 +76,7 @@ public class Data {
         return result;
     }
     public static void printAllStudents() throws Exception {
-        // System.out.print("11111 whyyyyyyyyyyyyyy!!!!!!");
         List<Student> students = getAllStudents();
-        //System.out.print("22222 whyyyyyyyyyyyyyy!!!!!!");
         for (Student student : students) {
             System.out.print("Id: ");
             System.out.print(student.getId());
