@@ -1,10 +1,13 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.Student;
+import il.cshaifasweng.OCSFMediatorExample.entities.stlist;
 import il.cshaifasweng.OCSFMediatorExample.server.DataControl.Data;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 
 import java.io.IOException;
+import java.util.List;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
 
@@ -26,7 +29,7 @@ public class SimpleServer extends AbstractServer {
 	}
 
 	@Override
-	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
+	protected void handleMessageFromClient(Object msg, ConnectionToClient client) throws Exception {
 		String msgString = msg.toString();
 		if (msgString.startsWith("#warning")) {
 			Warning warning = new Warning("Warning from server!");
@@ -36,6 +39,14 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}
+		else if(msgString.startsWith("#ListStudents")) {
+			List<Student> students = Data.getAllStudents();
+			stlist studentList=new stlist(students);
+			client.sendToClient(studentList);
+			System.out.format("Sent list to client %s\n", client.getInetAddress().getHostAddress());
+
+
 		}
 
 	}
