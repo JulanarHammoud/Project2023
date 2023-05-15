@@ -18,7 +18,7 @@ public class PrimaryController {
 		try{
 			SimpleClient.getClient().sendToServer("#ListStudents");
 			System.out.println("we sent to server");
-			setRoot("secondary");}
+		}
 		catch (IOException e) {
 			e.printStackTrace();
 		}

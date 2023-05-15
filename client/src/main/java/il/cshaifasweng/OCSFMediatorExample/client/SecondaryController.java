@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.LinkedList;
 import java.util.List;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.stlist;
@@ -28,7 +29,7 @@ public class SecondaryController {
     List<Student> list =students.getStudents();
 
    public void initialize(){
-       for(int i=0;i<=list.size();i++){
+       for(int i=0;i<list.size();i++){
                    items.add(list.get(i).getSt_name());}
 
 

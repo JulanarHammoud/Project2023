@@ -63,6 +63,23 @@ public class App extends Application {
     	
     }
 
+    @Subscribe
+    public void onstdlEvent(stdlEvent event) {
+        Platform.runLater(() -> {
+            try {
+
+                System.out.println("im in stdlEvent");
+                SimpleClient.getParams().add(event.getStudent());
+                System.out.println(event.getStudent().getStudents().get(0).getSt_name());
+                setRoot("secondary");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+
+    }
+
 	public static void main(String[] args) {
         launch();
     }

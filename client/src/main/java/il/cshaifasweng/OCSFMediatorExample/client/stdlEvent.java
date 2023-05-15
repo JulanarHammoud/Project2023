@@ -11,5 +11,5 @@ public class stdlEvent {
     public void setStudent(stlist student) {
         this.stlist = student;
     }
-    public stdlEvent(stlist student){this.stlist=stlist;}
+    public stdlEvent(stlist student){this.stlist=student;}
 }

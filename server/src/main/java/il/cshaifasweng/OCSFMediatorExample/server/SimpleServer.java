@@ -45,10 +45,12 @@ public class SimpleServer extends AbstractServer {
 			try {
 				System.out.print("im in");
 				System.out.flush();
-				System.out.print("Id: ");
+				System.out.println("Id: ");
 				List<Student> students = Data.getAllStudents();
 				stlist studentList = new stlist(students);
 				client.sendToClient(studentList);
+				System.out.print("the first student is: " );
+				System.out.println( studentList.getStudents().get(0).getSt_name());
 				System.out.format("Sent list to client %s\n", client.getInetAddress().getHostAddress());
 			}
 			catch (IOException e) {
