@@ -75,6 +75,34 @@ public class Data {
         System.out.println(result.size());
         return result;
     }
+
+    public static Student getStudent(int id) throws Exception {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        Student student =session.get(Student.class,id);
+        session.close();
+      //  System.out.println(student.getSt_name());
+        return student;
+    }
+
+    public static void updateGrade(int newGrade , int currentid, int Grade){
+        // System.out.println("I am updating");
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        Student change =session.get(Student.class,currentid);
+        if(Grade==1){
+        change.setGrade1(newGrade);}
+        else if(Grade==2)
+            change.setGrade2(newGrade);
+        session.saveOrUpdate(change);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
+
+    }
+
     public static void printAllStudents() throws Exception {
         List<Student> students = getAllStudents();
         for (Student student : students) {

@@ -43,15 +43,21 @@ public class SecondaryController {
         if(myListView.getSelectionModel().isEmpty()){
             System.out.print("You Don't chose Any Student\n"+"Please choose one. ");
         }else {
-            System.out.println(" the index func");
-            int index=myListView.getSelectionModel().getSelectedIndex();
-            System.out.println(index);
-            this.grade1=list.get(index).getId();
+
+          //  this.grade1=list.get(index).getId();
             try{
-                setRoot("Grades");}
+                LinkedList<Object> message = new LinkedList<Object>();
+                System.out.println(" the index func");
+                int index=myListView.getSelectionModel().getSelectedIndex();
+                System.out.println(index);
+                message.add("#ClickGrades");
+                message.add(list.get(index).getId());
+                SimpleClient.getClient().sendToServer(message);
+            }
             catch (IOException e) {
                 e.printStackTrace();
             }
+
         }
 
     }

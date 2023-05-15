@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.StudentInfo;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -78,7 +79,22 @@ public class App extends Application {
 
         });
 
+
     }
+
+    @Subscribe
+    public void onStudentEvent(StudentEvent event) {
+        Platform.runLater(() -> {
+            try {
+                System.out.println("im in StudentEvent");
+                SimpleClient.getParams().add(event.getStudent());
+                System.out.println(event.getStudent().getStudent().getSt_name());
+                setRoot("Grades");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });}
 
 	public static void main(String[] args) {
         launch();

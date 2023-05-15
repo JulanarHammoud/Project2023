@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.StudentInfo;
 import org.greenrobot.eventbus.EventBus;
 
 import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
@@ -26,6 +27,8 @@ public class SimpleClient extends AbstractClient {
 		}
 			else if(msg.getClass().equals(stlist.class)){
 				EventBus.getDefault().post(new stdlEvent((stlist) msg));}
+		else if(msg.getClass().equals(StudentInfo.class)){
+			EventBus.getDefault().post(new StudentEvent((StudentInfo) msg));}
 	}
 	
 	public static SimpleClient getClient() {

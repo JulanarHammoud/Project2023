@@ -1,12 +1,14 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.Student;
+import il.cshaifasweng.OCSFMediatorExample.entities.StudentInfo;
 import il.cshaifasweng.OCSFMediatorExample.entities.stlist;
 import il.cshaifasweng.OCSFMediatorExample.server.DataControl.Data;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
@@ -31,6 +33,8 @@ public class SimpleServer extends AbstractServer {
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) throws Exception {
 		String msgString = msg.toString();
+
+		//System.out.println("Message = " + msgString + ", reached server");
 		if (msgString.startsWith("#warning")) {
 			Warning warning = new Warning("Warning from server!");
 			try {
@@ -40,8 +44,8 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 		}
-		System.out.print("im out");
-		if(msgString.startsWith("#ListStudents")) {
+
+		 else if(msgString.startsWith("#ListStudents")) {
 			try {
 				System.out.print("im in");
 				System.out.flush();
@@ -57,6 +61,32 @@ public class SimpleServer extends AbstractServer {
 				e.printStackTrace();
 			}
 
+		}
+		 else {
+			LinkedList<Object> message = (LinkedList<Object>) (msg);
+			System.out.println(message.get(0));
+			if (message.get(0).equals("#ClickGrades")) {
+				try {
+					System.out.println("whyyyyyyyyyyyyyy");
+					int id = (int) message.get(1);
+					StudentInfo student = new StudentInfo(Data.getStudent(id));
+					client.sendToClient(student);
+					System.out.println(student.getStudent().getSt_name());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			else if (message.get(0).equals("#UpdateGrade")){
+				try{
+				Data.updateGrade((int)message.get(2),(int)message.get(1),(int)message.get(3));
+					Warning updated = new Warning("Price Updated Successfully :) \n go back to the students list");
+					client.sendToClient(updated);
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			}
 		}
 
 	}
