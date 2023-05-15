@@ -21,12 +21,14 @@ import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
 public class SecondaryController {
 
+
     @FXML
     private ListView<String> myListView= new ListView<>();
     ObservableList<String> items = FXCollections.observableArrayList();
     int lastIndex=SimpleClient.getParams().size()-1;
     stlist students = (stlist) SimpleClient.getParams().get(lastIndex);
     List<Student> list =students.getStudents();
+    public int grade1,grade2;
 
    public void initialize(){
        for(int i=0;i<list.size();i++){
@@ -41,7 +43,10 @@ public class SecondaryController {
         if(myListView.getSelectionModel().isEmpty()){
             System.out.print("You Don't chose Any Student\n"+"Please choose one. ");
         }else {
+            System.out.println(" the index func");
             int index=myListView.getSelectionModel().getSelectedIndex();
+            System.out.println(index);
+            this.grade1=list.get(index).getId();
             try{
                 setRoot("Grades");}
             catch (IOException e) {
