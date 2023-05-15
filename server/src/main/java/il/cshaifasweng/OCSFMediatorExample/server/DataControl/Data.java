@@ -24,11 +24,18 @@ public class Data {
                 .build();
         return configuration.buildSessionFactory(serviceRegistry); }
     public static void generateStusent() throws Exception {
-        Student julnar = new Student("julnar", 100, 100);
-        Student rozaleen = new Student("rozaleen", 100, 100);
-        Student lana = new Student("lana", 100, 100);
-        Student reem = new Student("reem", 100, 100);
-        Student israa = new Student("israa", 100, 100);
+        Student julanar = new Student("Julanar", 95, 98);
+        Student rozaleen = new Student("Rozaleen", 99, 100);
+        Student lana = new Student("Lana", 100, 100);
+        Student reem = new Student("Reem", 100, 100);
+        Student israa = new Student("Israa", 100, 100);
+        Student yaman = new Student("Yaman", 80, 95);
+        Student reman = new Student("Reman", 90, 95);
+        Student marah = new Student("Marah", 100, 95);
+        Student sarah = new Student("Sarah", 100, 95);
+        Student nameer = new Student("Nameer", 100, 95);
+
+
 
 
         try {
@@ -38,11 +45,16 @@ public class Data {
             System.err.println("Generated starts ...");
 
 
-            session.saveOrUpdate(julnar);
+            session.saveOrUpdate(julanar);
             session.saveOrUpdate(rozaleen);
             session.saveOrUpdate(lana);
             session.saveOrUpdate(reem);
             session.saveOrUpdate(israa);
+            session.saveOrUpdate(yaman);
+            session.saveOrUpdate(reman);
+            session.saveOrUpdate(marah);
+            session.saveOrUpdate(sarah);
+            session.saveOrUpdate(nameer);
             System.err.println("Generated ends ...");
 
             session.flush();

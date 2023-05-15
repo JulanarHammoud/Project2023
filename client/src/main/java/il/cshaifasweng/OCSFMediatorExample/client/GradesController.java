@@ -36,6 +36,7 @@ public class GradesController {
 
     @FXML
     void initialize() {
+        Grademsg.clear();
         Grade1.setText(Integer.toString(student.getStudent().getGrade1()));
         Grade2.setText(Integer.toString(student.getStudent().getGrade2()));
 
@@ -77,7 +78,6 @@ public class GradesController {
     void backevent(ActionEvent event) {
         try{
             SimpleClient.getClient().sendToServer("#ListStudents");
-            Grademsg.clear();
             System.out.println("we sent to server");}
         catch (IOException e) {
             e.printStackTrace();

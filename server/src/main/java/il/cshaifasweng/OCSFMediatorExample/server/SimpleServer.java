@@ -79,7 +79,7 @@ public class SimpleServer extends AbstractServer {
 			else if (message.get(0).equals("#UpdateGrade")){
 				try{
 				Data.updateGrade((int)message.get(2),(int)message.get(1),(int)message.get(3));
-					Warning updated = new Warning("Price Updated Successfully :) \n go back to the students list");
+					Warning updated = new Warning("Grade Updated Successfully :) \n go back to the students list");
 					client.sendToClient(updated);
 				}
 				catch (IOException e) {
