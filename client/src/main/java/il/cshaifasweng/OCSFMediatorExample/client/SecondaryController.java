@@ -35,6 +35,9 @@ public class SecondaryController {
                    items.add(list.get(i).getSt_name());}
 
 
+
+
+
        // Set the items in the ListView
        myListView.setItems(items);
    }
