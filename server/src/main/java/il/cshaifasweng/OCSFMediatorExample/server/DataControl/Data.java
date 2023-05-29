@@ -6,6 +6,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.Student;
+import il.cshaifasweng.OCSFMediatorExample.entities.Subject;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,6 +20,7 @@ public class Data {
         Configuration configuration = new Configuration();
         // Add ALL of your entities here. You can also try adding a whole package.
         configuration.addAnnotatedClass(Student.class);
+        configuration.addAnnotatedClass(Subject.class);
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties())
                 .build();
@@ -128,5 +130,44 @@ public class Data {
             System.out.print(student.getGrade2());
             System.out.print('\n');
         }
+    }
+
+    public static void generateSubject() throws Exception {
+        Subject English = new Subject("English");
+        Subject History = new Subject("History");
+        Subject Math = new Subject("Math");
+        Subject Arabic = new Subject("Arabic");
+        Subject Hebrew = new Subject("Hebrew");
+
+        try {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            System.err.println("Generated starts ...");
+
+
+            session.saveOrUpdate(English);
+            session.saveOrUpdate(History);
+            session.saveOrUpdate(Hebrew);
+            session.saveOrUpdate(Math);
+            session.saveOrUpdate(Arabic);
+            System.err.println("Generated ends ...");
+
+            session.flush();
+            session.getTransaction().commit(); // Save everything.
+
+
+        } catch (Exception exception) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            exception.printStackTrace();
+        } finally {
+            if(session != null) {
+                session.close();
+            }
+        }
+        return;
     }
 }

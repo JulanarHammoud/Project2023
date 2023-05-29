@@ -19,6 +19,7 @@ public class SimpleServer extends AbstractServer {
 		super(port);
 		try {
 			//Data.generateStusent();
+			Data.generateSubject();
 			//Data.main(null);
 			//System.out.println("why there is exeption");
 			//		Data.updatePrice(500,1);
