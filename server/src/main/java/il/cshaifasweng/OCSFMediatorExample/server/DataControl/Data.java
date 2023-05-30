@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.server.DataControl;
 import java.sql.PreparedStatement;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -7,6 +8,7 @@ import javax.persistence.criteria.CriteriaQuery;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.Student;
 import il.cshaifasweng.OCSFMediatorExample.entities.Subject;
+import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,6 +23,7 @@ public class Data {
         // Add ALL of your entities here. You can also try adding a whole package.
         configuration.addAnnotatedClass(Student.class);
         configuration.addAnnotatedClass(Subject.class);
+        configuration.addAnnotatedClass(Teacher.class);
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties())
                 .build();
@@ -138,7 +141,13 @@ public class Data {
         Subject Math = new Subject("Math");
         Subject Arabic = new Subject("Arabic");
         Subject Hebrew = new Subject("Hebrew");
-
+        LinkedList<Subject> subject1=new LinkedList<>();
+        subject1.add(English);
+        subject1.add(Math);
+        LinkedList<Subject> subject2=new LinkedList<>();
+        subject2.add(History);
+        Teacher mona = new Teacher("Mona","Amara","mona123","1234",subject1);
+        Teacher noran = new Teacher("Noran","morad","noran123","1235",subject2);
         try {
             SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
@@ -151,6 +160,8 @@ public class Data {
             session.saveOrUpdate(Hebrew);
             session.saveOrUpdate(Math);
             session.saveOrUpdate(Arabic);
+            session.saveOrUpdate(mona);
+            session.saveOrUpdate(noran);
             System.err.println("Generated ends ...");
 
             session.flush();
