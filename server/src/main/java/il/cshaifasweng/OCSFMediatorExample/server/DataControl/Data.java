@@ -93,6 +93,19 @@ public class Data {
         return result;
     }
 
+    public static List<Teacher> getAllTeachers() throws Exception {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Teacher> query = builder.createQuery(Teacher.class);
+        query.from(Teacher.class);
+        List<Teacher> result = session.createQuery(query).getResultList();
+        session.close();
+        System.out.println(result.size());
+        return result;
+    }
+
     public static Student getStudent(int id) throws Exception {
 
         SessionFactory sessionFactory = getSessionFactory();
@@ -118,6 +131,21 @@ public class Data {
         session.flush();
         session.getTransaction().commit();
         session.close();
+
+    }
+
+    public static Teacher TeacherLog(String username, String password) throws Exception {
+        List<Teacher> teachers = getAllTeachers();
+        for (Teacher teacher : teachers)
+            if(teacher.getPassWord()==password&& teacher.getUserName()==username) {
+                return teacher;
+            }
+
+        Teacher notfond =new Teacher(null,null,null,null,null);
+        return notfond;
+
+
+
 
     }
 

@@ -1,8 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.server;
 
-import il.cshaifasweng.OCSFMediatorExample.entities.Student;
-import il.cshaifasweng.OCSFMediatorExample.entities.StudentInfo;
-import il.cshaifasweng.OCSFMediatorExample.entities.stlist;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import il.cshaifasweng.OCSFMediatorExample.server.DataControl.Data;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
@@ -11,15 +9,13 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
-
 public class SimpleServer extends AbstractServer {
 
 	public SimpleServer(int port) {
 		super(port);
 		try {
 			//Data.generateStusent();
-			Data.generateSubject();
+			//Data.generateSubject();
 			//Data.main(null);
 			//System.out.println("why there is exeption");
 			//		Data.updatePrice(500,1);
@@ -82,6 +78,28 @@ public class SimpleServer extends AbstractServer {
 				Data.updateGrade((int)message.get(2),(int)message.get(1),(int)message.get(3));
 					Warning updated = new Warning("Grade Updated Successfully :) \n go back to the students list");
 					client.sendToClient(updated);
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			}
+			else if (message.get(0).equals("#Login")){
+				try{
+					if(message.get(3)=="Teacher") {
+						Teacher teacherlog = Data.TeacherLog((String) message.get(1), (String) message.get(2));
+						if(teacherlog.getFirstName()==null){
+							Warning warning = new Warning("incorrect information, try again!!");
+							client.sendToClient(warning);
+						}
+						if(teacherlog.getActive()==true){
+							Warning warning = new Warning("you are already in");
+							client.sendToClient(warning);
+						}
+						client.sendToClient(teacherlog);
+					}
+
+
 				}
 				catch (IOException e) {
 					e.printStackTrace();

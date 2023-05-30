@@ -16,8 +16,9 @@ public class PrimaryController {
 	@FXML
 	void start(ActionEvent event) {
 		try{
-			SimpleClient.getClient().sendToServer("#ListStudents");
-			System.out.println("we sent to server");
+			//SimpleClient.getClient().sendToServer("#ListStudents");
+			//System.out.println("we sent to server");
+			setRoot("Login");
 		}
 		catch (IOException e) {
 			e.printStackTrace();

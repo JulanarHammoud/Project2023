@@ -25,6 +25,9 @@ public class Teacher extends Person{
         Subjects = subjects;
     }
 
+    public Teacher() {
+    }
+
     public List<Subject> getSubjects() {
         return Subjects;
     }

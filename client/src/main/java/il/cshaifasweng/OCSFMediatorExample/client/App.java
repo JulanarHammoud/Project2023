@@ -102,6 +102,20 @@ public class App extends Application {
 
         });}
 
+    @Subscribe
+    public void onTeacherEvent(TeacherLogEvent event) {
+        Platform.runLater(() -> {
+            try {
+                System.out.println("im in StudentEvent");
+                SimpleClient.getParams().add(event.getTeacher());
+               // System.out.println(event.getStudent().getStudent().getSt_name());
+                setRoot("teacherpage");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });}
+
 	public static void main(String[] args) {
         launch();
     }
