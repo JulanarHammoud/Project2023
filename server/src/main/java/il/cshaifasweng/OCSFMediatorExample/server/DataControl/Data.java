@@ -94,6 +94,7 @@ public class Data {
     }
 
     public static Student getStudent(int id) throws Exception {
+
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
