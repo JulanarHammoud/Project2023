@@ -60,11 +60,6 @@ public class App extends Application {
         					event.getWarning().getTime().toString())
         	);
         	alert.show();
-        	try{
-            SimpleClient.getClient().sendToServer("#ListStudents");}
-            catch (IOException e) {
-                e.printStackTrace();
-            }
 
     	});
     	

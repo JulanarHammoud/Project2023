@@ -85,18 +85,25 @@ public class SimpleServer extends AbstractServer {
 
 			}
 			else if (message.get(0).equals("#Login")){
+				System.out.println("im in login ");
 				try{
-					if(message.get(3)=="Teacher") {
+					if(message.get(3).equals("Teacher")) {
+						System.out.println("the user is a teacher ");
 						Teacher teacherlog = Data.TeacherLog((String) message.get(1), (String) message.get(2));
+						Data.TeacherLog((String) message.get(1),(String) message.get(2) );
+						System.out.println("the username is " + (String) message.get(1));
+						System.out.println(teacherlog.getFirstName());
 						if(teacherlog.getFirstName()==null){
+							System.out.println("the user is not in the database ");
 							Warning warning = new Warning("incorrect information, try again!!");
 							client.sendToClient(warning);
 						}
-						if(teacherlog.getActive()==true){
+						else if(teacherlog.getActive()==true){
 							Warning warning = new Warning("you are already in");
 							client.sendToClient(warning);
 						}
-						client.sendToClient(teacherlog);
+						else
+							client.sendToClient(teacherlog);
 					}
 
 

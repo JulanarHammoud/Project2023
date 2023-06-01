@@ -136,17 +136,15 @@ public class Data {
 
     public static Teacher TeacherLog(String username, String password) throws Exception {
         List<Teacher> teachers = getAllTeachers();
-        for (Teacher teacher : teachers)
-            if(teacher.getPassWord()==password&& teacher.getUserName()==username) {
+        //System.out.println(teachers);
+        for (Teacher teacher : teachers) {
+            if (password.equals(teacher.getPassWord()) && teacher.getUserName().equals(username) ) {
                 return teacher;
             }
+        }
 
         Teacher notfond =new Teacher(null,null,null,null,null);
         return notfond;
-
-
-
-
     }
 
     public static void printAllStudents() throws Exception {
