@@ -101,7 +101,7 @@ public class App extends Application {
     public void onTeacherEvent(TeacherLogEvent event) {
         Platform.runLater(() -> {
             try {
-                System.out.println("im in StudentEvent");
+                System.out.println("im in teacherlog event");
                 SimpleClient.getParams().add(event.getTeacher());
                // System.out.println(event.getStudent().getStudent().getSt_name());
                 setRoot("teacherpage");
