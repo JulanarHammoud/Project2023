@@ -33,12 +33,6 @@ public class SecondaryController {
    public void initialize(){
        for(int i=0;i<list.size();i++){
                    items.add(list.get(i).getSt_name());}
-
-
-
-
-
-       // Set the items in the ListView
        myListView.setItems(items);
    }
     @FXML

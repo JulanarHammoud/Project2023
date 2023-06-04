@@ -3,9 +3,11 @@ import java.sql.PreparedStatement;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.Question;
 import il.cshaifasweng.OCSFMediatorExample.entities.Student;
 import il.cshaifasweng.OCSFMediatorExample.entities.Subject;
 import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
@@ -22,8 +24,10 @@ public class Data {
         Configuration configuration = new Configuration();
         // Add ALL of your entities here. You can also try adding a whole package.
         configuration.addAnnotatedClass(Student.class);
+        configuration.addAnnotatedClass(Question.class);
         configuration.addAnnotatedClass(Subject.class);
         configuration.addAnnotatedClass(Teacher.class);
+
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties())
                 .build();
@@ -39,17 +43,11 @@ public class Data {
         Student marah = new Student("Marah", 100, 95);
         Student sarah = new Student("Sarah", 100, 95);
         Student nameer = new Student("Nameer", 100, 95);
-
-
-
-
         try {
             SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
             session.beginTransaction();
             System.err.println("Generated starts ...");
-
-
             session.saveOrUpdate(julanar);
             session.saveOrUpdate(rozaleen);
             session.saveOrUpdate(lana);
@@ -61,11 +59,8 @@ public class Data {
             session.saveOrUpdate(sarah);
             session.saveOrUpdate(nameer);
             System.err.println("Generated ends ...");
-
             session.flush();
             session.getTransaction().commit(); // Save everything.
-
-
         } catch (Exception exception) {
             if (session != null) {
                 session.getTransaction().rollback();
@@ -163,11 +158,16 @@ public class Data {
     }
 
     public static void generateSubject() throws Exception {
-        Subject English = new Subject("English");
-        Subject History = new Subject("History");
-        Subject Math = new Subject("Math");
-        Subject Arabic = new Subject("Arabic");
-        Subject Hebrew = new Subject("Hebrew");
+        Question Num1 = new Question("How??");
+        Question Num2 =new Question("What?");
+        LinkedList<Question> questions1 =new LinkedList<>();
+        questions1.add(Num1);
+        questions1.add(Num2);
+        Subject English = new Subject("English",questions1);
+        Subject History = new Subject("History",questions1);
+        Subject Math = new Subject("Math",questions1);
+        Subject Arabic = new Subject("Arabic",questions1);
+        Subject Hebrew = new Subject("Hebrew",questions1);
         LinkedList<Subject> subject1=new LinkedList<>();
         subject1.add(English);
         subject1.add(Math);
@@ -181,7 +181,8 @@ public class Data {
             session.beginTransaction();
             System.err.println("Generated starts ...");
 
-
+            session.saveOrUpdate(Num1);
+            session.saveOrUpdate(Num2);
             session.saveOrUpdate(English);
             session.saveOrUpdate(History);
             session.saveOrUpdate(Hebrew);
@@ -208,4 +209,34 @@ public class Data {
         }
         return;
     }
+    /*public static void generateEnglishQusetions() throws Exception {
+        Question Num1 = new Question("How??");
+        Question Num2 =new Question("What?");
+        LinkedList<Question> questions1 =new LinkedList<>();
+        questions1.add(Num1);
+        questions1.add(Num2);
+        try {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            System.err.println("Generated starts ...");
+            session.saveOrUpdate(Num1);
+            session.saveOrUpdate(Num2);
+            System.err.println("Generated ends ...");
+            session.flush();
+            session.getTransaction().commit(); // Save everything.
+        } catch (Exception exception) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            exception.printStackTrace();
+        } finally {
+            if(session != null) {
+                session.close();
+            }
+        }
+        return;
+    }*/
+
 }
