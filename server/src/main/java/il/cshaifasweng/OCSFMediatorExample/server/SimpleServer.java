@@ -14,8 +14,8 @@ public class SimpleServer extends AbstractServer {
 	public SimpleServer(int port) {
 		super(port);
 		try {
-			Data.generateStusent();
-			Data.generateSubject();
+			///Data.generateStusent();
+			//Data.generateSubject();
 			//Data.generateEnglishQusetions();
 			//Data.main(null);
 			//System.out.println("why there is exeption");

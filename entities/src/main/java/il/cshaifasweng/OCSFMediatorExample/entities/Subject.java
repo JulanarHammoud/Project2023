@@ -46,4 +46,5 @@ public class Subject implements Serializable {
         this.sb_name=sb_name;
         Questions=questions;
     }
+    public Subject(){}
 }
