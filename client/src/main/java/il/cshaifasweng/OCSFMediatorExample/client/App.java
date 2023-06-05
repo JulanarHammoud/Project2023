@@ -72,7 +72,7 @@ public class App extends Application {
 
                 System.out.println("im in stdlEvent");
                 SimpleClient.getParams().add(event.getStudent());
-                System.out.println(event.getStudent().getStudents().get(0).getSt_name());
+               // System.out.println(event.getStudent().getStudents().get(0).getSt_name());
                 setRoot("secondary");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -89,7 +89,7 @@ public class App extends Application {
             try {
                 System.out.println("im in StudentEvent");
                 SimpleClient.getParams().add(event.getStudent());
-                System.out.println(event.getStudent().getStudent().getSt_name());
+               // System.out.println(event.getStudent().getStudent().getSt_name());
                 setRoot("Grades");
             } catch (IOException e) {
                 e.printStackTrace();

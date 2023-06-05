@@ -14,8 +14,8 @@ public class SimpleServer extends AbstractServer {
 	public SimpleServer(int port) {
 		super(port);
 		try {
-			Data.generateStusent();
-			Data.generateSubject();
+			//Data.generateStusent();
+			//Data.generateSubject();
 			//Data.generateEnglishQusetions();
 			//Data.main(null);
 			//System.out.println("why there is exeption");
@@ -52,7 +52,7 @@ public class SimpleServer extends AbstractServer {
 				stlist studentList = new stlist(students);
 				client.sendToClient(studentList);
 				System.out.print("the first student is: " );
-				System.out.println( studentList.getStudents().get(0).getSt_name());
+				System.out.println( studentList.getStudents().get(0).getFirstName());
 				System.out.format("Sent list to client %s\n", client.getInetAddress().getHostAddress());
 			}
 			catch (IOException e) {
@@ -69,20 +69,20 @@ public class SimpleServer extends AbstractServer {
 					int id = (int) message.get(1);
 					StudentInfo student = new StudentInfo(Data.getStudent(id));
 					client.sendToClient(student);
-					System.out.println(student.getStudent().getSt_name());
+
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
 			else if (message.get(0).equals("#UpdateGrade")){
-				try{
+				/*try{
 				Data.updateGrade((int)message.get(2),(int)message.get(1),(int)message.get(3));
 					Warning updated = new Warning("Grade Updated Successfully :) \n go back to the students list");
 					client.sendToClient(updated);
 				}
 				catch (IOException e) {
 					e.printStackTrace();
-				}
+				}*/
 
 			}
 			else if (message.get(0).equals("#Login")){
@@ -91,7 +91,7 @@ public class SimpleServer extends AbstractServer {
 					if(message.get(3).equals("Teacher")) {
 						System.out.println("the user is a teacher ");
 						Teacher teacherlog = Data.TeacherLog((String) message.get(1), (String) message.get(2));
-						Data.TeacherLog((String) message.get(1),(String) message.get(2) );
+						//Data.TeacherLog((String) message.get(1),(String) message.get(2) );
 						System.out.println("the username is " + (String) message.get(1));
 						System.out.println(teacherlog.getFirstName());
 						if(teacherlog.getFirstName()==null){

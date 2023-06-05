@@ -37,8 +37,8 @@ public class GradesController {
     @FXML
     void initialize() {
         Grademsg.clear();
-        Grade1.setText(Integer.toString(student.getStudent().getGrade1()));
-        Grade2.setText(Integer.toString(student.getStudent().getGrade2()));
+       // Grade1.setText(Integer.toString(student.getStudent().getGrade1()));
+      //  Grade2.setText(Integer.toString(student.getStudent().getGrade2()));
 
     }
 

@@ -1,53 +1,27 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
-@Table(name= "Student")
-public class Student implements Serializable{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
-    private String st_name;
-    private int grade1;
-    private int grade2;
+@Table(name ="Student",uniqueConstraints= @UniqueConstraint(columnNames={"PassWord"}))
+public class Student extends Person{
 
-    public Student(String st_name, int grade1,int grade2){
-        this.st_name=st_name;
-        this.grade1=grade1;
-        this.grade2=grade2;
-    }
-    public Student(){}
+   /* @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinTable(name = "Student_Subject",joinColumns = @JoinColumn(name = "Student_ID"),inverseJoinColumns = {@JoinColumn(name = "Subject_ID")})
+    private List<SubjectStudent> Subjects ;
 
-    public int getId() {
-        return Id;
+    public Student(String firstName, String lastName, String userName, String passWord, List<SubjectStudent> subjects) {
+        super(firstName, lastName, userName, passWord);
+        Subjects = subjects;
     }
 
-    public String getSt_name() {
-        return st_name;
-    }
-
-    public int getGrade1() {
-        return grade1;
-    }
-
-    public int getGrade2() {
-        return grade2;
-    }
-
-    public void setId(int id) {
-        Id = id;
-    }
-
-    public void setSt_name(String st_name) {
-        this.st_name = st_name;
-    }
-
-    public void setGrade1(int grade1) {
-        this.grade1 = grade1;
-    }
-
-    public void setGrade2(int grade2) {
-        this.grade2 = grade2;
-    }
+    public List<SubjectStudent> getSubjects() {
+        return Subjects;
+    }*/
+   public Student(){}
 }

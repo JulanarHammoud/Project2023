@@ -7,10 +7,7 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
-import il.cshaifasweng.OCSFMediatorExample.entities.Question;
-import il.cshaifasweng.OCSFMediatorExample.entities.Student;
-import il.cshaifasweng.OCSFMediatorExample.entities.Subject;
-import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -27,12 +24,14 @@ public class Data {
         configuration.addAnnotatedClass(Question.class);
         configuration.addAnnotatedClass(Subject.class);
         configuration.addAnnotatedClass(Teacher.class);
+        configuration.addAnnotatedClass(SubjectTeacher.class);
+        configuration.addAnnotatedClass(SubjectStudent.class);
 
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties())
                 .build();
         return configuration.buildSessionFactory(serviceRegistry); }
-    public static void generateStusent() throws Exception {
+   /* public static void generateStusent() throws Exception {
         Student julanar = new Student("Julanar", 95, 98);
         Student rozaleen = new Student("Rozaleen", 99, 100);
         Student lana = new Student("Lana", 100, 100);
@@ -73,7 +72,7 @@ public class Data {
             }
         }
         return;
-    }
+    }*/
 
     public static List<Student> getAllStudents() throws Exception {
         SessionFactory sessionFactory = getSessionFactory();
@@ -89,13 +88,21 @@ public class Data {
     }
 
     public static List<Teacher> getAllTeachers() throws Exception {
+        System.out.println("line 1");
         SessionFactory sessionFactory = getSessionFactory();
+        System.out.println("line 2");
         session = sessionFactory.openSession();
+        System.out.println("line 3");
         session.beginTransaction();
+        System.out.println("line 4");
         CriteriaBuilder builder = session.getCriteriaBuilder();
+        System.out.println("line 5");
         CriteriaQuery<Teacher> query = builder.createQuery(Teacher.class);
+        System.out.println("line 6");
         query.from(Teacher.class);
+        System.out.println("line 7");
         List<Teacher> result = session.createQuery(query).getResultList();
+        System.out.println("line 8");
         session.close();
         System.out.println(result.size());
         return result;
@@ -112,7 +119,7 @@ public class Data {
         return student;
     }
 
-    public static void updateGrade(int newGrade , int currentid, int Grade){
+   /* public static void updateGrade(int newGrade , int currentid, int Grade){
         // System.out.println("I am updating");
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
@@ -127,7 +134,7 @@ public class Data {
         session.getTransaction().commit();
         session.close();
 
-    }
+    }*/
 
     public static Teacher TeacherLog(String username, String password) throws Exception {
         List<Teacher> teachers = getAllTeachers();
@@ -138,8 +145,8 @@ public class Data {
             }
         }
 
-        Teacher notfond =new Teacher(null,null,null,null,null);
-        return notfond;
+        Teacher notfound =new Teacher(null,null,null,null,null);
+        return notfound;
     }
 
     public static void printAllStudents() throws Exception {
@@ -148,11 +155,11 @@ public class Data {
             System.out.print("Id: ");
             System.out.print(student.getId());
             System.out.print(", student name: ");
-            System.out.print(student.getSt_name());
+            System.out.print(student.getActive());
             System.out.print(", Grade1: ");
-            System.out.print(student.getGrade1());
+            System.out.print(student.getFirstName());
             System.out.print(", Grade2: ");
-            System.out.print(student.getGrade2());
+            System.out.print(student.getFirstName());
             System.out.print('\n');
         }
     }
@@ -163,18 +170,19 @@ public class Data {
         LinkedList<Question> questions1 =new LinkedList<>();
         questions1.add(Num1);
         questions1.add(Num2);
-        Subject English = new Subject("English",questions1);
-        Subject History = new Subject("History",questions1);
-        Subject Math = new Subject("Math",questions1);
-        Subject Arabic = new Subject("Arabic",questions1);
-        Subject Hebrew = new Subject("Hebrew",questions1);
-        LinkedList<Subject> subject1=new LinkedList<>();
+        SubjectTeacher English = new SubjectTeacher("English",questions1);
+        SubjectTeacher History = new SubjectTeacher("History",questions1);
+        SubjectTeacher Math = new SubjectTeacher("Math",questions1);
+        SubjectTeacher Arabic = new SubjectTeacher("Arabic",questions1);
+        SubjectTeacher Hebrew = new SubjectTeacher("Hebrew",questions1);
+        LinkedList<SubjectTeacher> subject1=new LinkedList<>();
         subject1.add(English);
         subject1.add(Math);
-        LinkedList<Subject> subject2=new LinkedList<>();
+        LinkedList<SubjectTeacher> subject2=new LinkedList<>();
         subject2.add(History);
         Teacher mona = new Teacher("Mona","Amara","mona123","1234",subject1);
         Teacher noran = new Teacher("Noran","morad","noran123","1235",subject2);
+        //Student lana = new Student("Lana", "Abbass","lana98","0303",subject1 );
         try {
             SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
