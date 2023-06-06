@@ -1,4 +1,4 @@
-package il.cshaifasweng.OCSFMediatorExample.client;
+package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

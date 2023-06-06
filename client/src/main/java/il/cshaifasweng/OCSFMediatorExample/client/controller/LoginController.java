@@ -1,12 +1,12 @@
-package il.cshaifasweng.OCSFMediatorExample.client;
+package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
+import il.cshaifasweng.OCSFMediatorExample.client.EventBus.SimpleClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.List;
 
 public class LoginController {
 

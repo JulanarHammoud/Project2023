@@ -1,5 +1,6 @@
-package il.cshaifasweng.OCSFMediatorExample.client;
+package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
+import il.cshaifasweng.OCSFMediatorExample.client.EventBus.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,15 +9,10 @@ import javafx.scene.control.ListView;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.LinkedList;
 import java.util.LinkedList;
 import java.util.List;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.stlist;
-
-
-import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
 
 public class SecondaryController {
@@ -25,7 +21,7 @@ public class SecondaryController {
     @FXML
     private ListView<String> myListView= new ListView<>();
     ObservableList<String> items = FXCollections.observableArrayList();
-    int lastIndex=SimpleClient.getParams().size()-1;
+    int lastIndex= SimpleClient.getParams().size()-1;
     stlist students = (stlist) SimpleClient.getParams().get(lastIndex);
     List<Student> list =students.getStudents();
     public int grade1,grade2;

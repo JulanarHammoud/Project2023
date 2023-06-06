@@ -1,5 +1,5 @@
-package il.cshaifasweng.OCSFMediatorExample.client;
-import il.cshaifasweng.OCSFMediatorExample.client.App;
+package il.cshaifasweng.OCSFMediatorExample.client.controller;
+import il.cshaifasweng.OCSFMediatorExample.client.EventBus.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public class TeacherController {
     @FXML
     private ListView<String> ListViewSubject=new ListView<>();
 
-    int lastIndex=SimpleClient.getParams().size()-1;
+    int lastIndex= SimpleClient.getParams().size()-1;
     Teacher teacher = (Teacher) SimpleClient.getParams().get(lastIndex);
     List<SubjectTeacher> list =teacher.getSubjects();
     ObservableList<String> items = FXCollections.observableArrayList();

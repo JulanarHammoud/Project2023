@@ -1,8 +1,6 @@
-package il.cshaifasweng.OCSFMediatorExample.client;
-import il.cshaifasweng.OCSFMediatorExample.client.SecondaryController;
-import il.cshaifasweng.OCSFMediatorExample.entities.Student;
+package il.cshaifasweng.OCSFMediatorExample.client.controller;
+import il.cshaifasweng.OCSFMediatorExample.client.EventBus.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.StudentInfo;
-import il.cshaifasweng.OCSFMediatorExample.entities.stlist;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
@@ -11,14 +9,12 @@ import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.util.LinkedList;
 
-import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
-
 public class GradesController {
 
     private  static LinkedList<Object> Grademsg =new LinkedList<>();
 
     @FXML
-    int lastIndex=SimpleClient.getParams().size()-1;
+    int lastIndex= SimpleClient.getParams().size()-1;
     StudentInfo student = (StudentInfo) SimpleClient.getParams().get(lastIndex);
     @FXML
     private TextField Grade1;
