@@ -14,7 +14,7 @@ public class SimpleServer extends AbstractServer {
 	public SimpleServer(int port) {
 		super(port);
 		try {
-			//Data.generateStusent();
+			//Data.generateStusent(); yaman
 			//Data.generateSubject();
 			//Data.generateEnglishQusetions();
 			//Data.main(null);
