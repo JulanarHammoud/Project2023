@@ -1,9 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.server.DataControl;
-import java.sql.PreparedStatement;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -31,32 +29,28 @@ public class Data {
                 .applySettings(configuration.getProperties())
                 .build();
         return configuration.buildSessionFactory(serviceRegistry); }
-   /* public static void generateStusent() throws Exception {
-        Student julanar = new Student("Julanar", 95, 98);
-        Student rozaleen = new Student("Rozaleen", 99, 100);
-        Student lana = new Student("Lana", 100, 100);
-        Student reem = new Student("Reem", 100, 100);
-        Student israa = new Student("Israa", 100, 100);
-        Student yaman = new Student("Yaman", 80, 95);
-        Student reman = new Student("Reman", 90, 95);
-        Student marah = new Student("Marah", 100, 95);
-        Student sarah = new Student("Sarah", 100, 95);
-        Student nameer = new Student("Nameer", 100, 95);
+    public static void generateStusent() throws Exception {
+        SubjectStudent ST11 = new SubjectStudent("History");
+        SubjectStudent ST2 = new SubjectStudent("Math");
+        SubjectStudent ST1 = new SubjectStudent("English");
+        LinkedList<SubjectStudent> subjectst=new LinkedList<>();
+        subjectst.add(ST1);
+        subjectst.add(ST11);
+        LinkedList<SubjectStudent> subjectst2=new LinkedList<>();
+        subjectst2.add(ST2);
+        Student julanar = new Student("Julanar", "Hammoud","jula123","0101",subjectst);
+        Student rozaleen = new Student("Rozaleen", "Hassanin", "roza99","1999",subjectst2);
+
         try {
             SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
             session.beginTransaction();
             System.err.println("Generated starts ...");
+            session.saveOrUpdate(ST1);
+            session.saveOrUpdate(ST11);
+            session.saveOrUpdate(ST2);
             session.saveOrUpdate(julanar);
             session.saveOrUpdate(rozaleen);
-            session.saveOrUpdate(lana);
-            session.saveOrUpdate(reem);
-            session.saveOrUpdate(israa);
-            session.saveOrUpdate(yaman);
-            session.saveOrUpdate(reman);
-            session.saveOrUpdate(marah);
-            session.saveOrUpdate(sarah);
-            session.saveOrUpdate(nameer);
             System.err.println("Generated ends ...");
             session.flush();
             session.getTransaction().commit(); // Save everything.
@@ -72,7 +66,7 @@ public class Data {
             }
         }
         return;
-    }*/
+    }
 
     public static List<Student> getAllStudents() throws Exception {
         SessionFactory sessionFactory = getSessionFactory();
@@ -118,6 +112,33 @@ public class Data {
       //  System.out.println(student.getSt_name());
         return student;
     }
+    public static void LogOutSt(int id) throws Exception {
+      // Student student = getStudent(id);
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        Student change =session.get(Student.class,id);
+       change.setActive(false);
+        session.saveOrUpdate(change);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
+
+    }
+
+    public static void activateSt(int id) throws Exception {
+        // Student student = getStudent(id);
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        Student change =session.get(Student.class,id);
+        change.setActive(true);
+        session.saveOrUpdate(change);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
+
+    }
 
    /* public static void updateGrade(int newGrade , int currentid, int Grade){
         // System.out.println("I am updating");
@@ -146,6 +167,19 @@ public class Data {
         }
 
         Teacher notfound =new Teacher(null,null,null,null,null);
+        return notfound;
+    }
+
+    public static Student StudentLog(String username, String password) throws Exception {
+        List<Student> students = getAllStudents();
+        //System.out.println(teachers);
+        for (Student student : students) {
+            if (password.equals(student.getPassWord()) && student.getUserName().equals(username) ) {
+                return student;
+            }
+        }
+
+        Student notfound =new Student(null,null,null,null,null);
         return notfound;
     }
 
@@ -182,7 +216,7 @@ public class Data {
         subject2.add(History);
         Teacher mona = new Teacher("Mona","Amara","mona123","1234",subject1);
         Teacher noran = new Teacher("Noran","morad","noran123","1235",subject2);
-        //Student lana = new Student("Lana", "Abbass","lana98","0303",subject1 );
+
         try {
             SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();

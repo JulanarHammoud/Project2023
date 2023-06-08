@@ -1,6 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
-import il.cshaifasweng.OCSFMediatorExample.client.EventBus.SimpleClient;
+import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

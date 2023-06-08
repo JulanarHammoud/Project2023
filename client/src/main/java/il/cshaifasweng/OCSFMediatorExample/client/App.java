@@ -111,6 +111,31 @@ public class App extends Application {
 
         });}
 
+    @Subscribe
+    public void onStudentLogEvent(StudentLogEvent event) {
+        Platform.runLater(() -> {
+            try {
+                System.out.println("im in teacherlog event");
+                SimpleClient.getParams().add(event.getStudent());
+                // System.out.println(event.getStudent().getStudent().getSt_name());
+                setRoot("PrimaryStudent");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });}
+
+    @Subscribe
+    public void onLogOutEvent(LogOutEvent event) throws IOException {
+        Platform.runLater(() -> {
+            try {
+                setRoot("primary");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
 	public static void main(String[] args) {
         launch();
     }

@@ -1,15 +1,13 @@
-package il.cshaifasweng.OCSFMediatorExample.client.EventBus;
+package il.cshaifasweng.OCSFMediatorExample.client;
 
-import il.cshaifasweng.OCSFMediatorExample.entities.StudentInfo;
-import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
+import il.cshaifasweng.OCSFMediatorExample.client.EventBus.*;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import org.greenrobot.eventbus.EventBus;
 
 import il.cshaifasweng.OCSFMediatorExample.client.ocsf.AbstractClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.Warning;
 
 import java.util.LinkedList;
 import java.util.List;
-import il.cshaifasweng.OCSFMediatorExample.entities.stlist;
 
 
 public class SimpleClient extends AbstractClient {
@@ -33,6 +31,12 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new StudentEvent((StudentInfo) msg));}
 		else if(msg.getClass().equals(Teacher.class)){
 			EventBus.getDefault().post(new TeacherLogEvent((Teacher) msg));}
+		else if(msg.getClass().equals(Student.class)){
+			EventBus.getDefault().post(new StudentLogEvent((Student) msg));
+		}
+		else if(msg.getClass().equals(LogOut.class)){
+			EventBus.getDefault().post(new LogOutEvent((LogOut) msg));
+		}
 
 	}
 	

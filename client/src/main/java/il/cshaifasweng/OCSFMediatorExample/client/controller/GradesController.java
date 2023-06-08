@@ -1,5 +1,5 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
-import il.cshaifasweng.OCSFMediatorExample.client.EventBus.SimpleClient;
+import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.StudentInfo;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;

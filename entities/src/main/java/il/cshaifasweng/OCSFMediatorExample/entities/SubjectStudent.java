@@ -11,6 +11,10 @@ import java.util.List;
 @Table(name ="SubjectStudent")
 public class SubjectStudent extends Subject {
 
+    public SubjectStudent(String sb_name) {
+        super(sb_name);
+    }
+
     public SubjectStudent(){}
 }
 

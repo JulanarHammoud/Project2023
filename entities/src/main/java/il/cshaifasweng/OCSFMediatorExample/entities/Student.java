@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name ="Student",uniqueConstraints= @UniqueConstraint(columnNames={"PassWord"}))
 public class Student extends Person{
 
-   /* @ManyToMany
+    @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "Student_Subject",joinColumns = @JoinColumn(name = "Student_ID"),inverseJoinColumns = {@JoinColumn(name = "Subject_ID")})
     private List<SubjectStudent> Subjects ;
@@ -22,6 +22,6 @@ public class Student extends Person{
 
     public List<SubjectStudent> getSubjects() {
         return Subjects;
-    }*/
+    }
    public Student(){}
 }

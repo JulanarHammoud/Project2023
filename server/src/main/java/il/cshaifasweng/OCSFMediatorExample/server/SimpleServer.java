@@ -14,12 +14,14 @@ public class SimpleServer extends AbstractServer {
 	public SimpleServer(int port) {
 		super(port);
 		try {
-			//Data.generateStusent(); yaman
+			//Data.LogOutSt(3);
+			//Data.LogOutSt(4);
+			//Data.generateStusent();
 			//Data.generateSubject();
 			//Data.generateEnglishQusetions();
 			//Data.main(null);
 			//System.out.println("why there is exeption");
-			//		Data.updatePrice(500,1);
+			//Data.updatePrice(500,1);
 
 		} catch (Exception e) {
 			System.out.print("there is an error");
@@ -103,13 +105,50 @@ public class SimpleServer extends AbstractServer {
 							Warning warning = new Warning("you are already in");
 							client.sendToClient(warning);
 						}
-						else
-							client.sendToClient(teacherlog);
+						else{
+							client.sendToClient(teacherlog);}
+					}
+					else if(message.get(3).equals("Student")){
+						System.out.println("the user is a student ");
+						Student studentlog = Data.StudentLog((String) message.get(1), (String) message.get(2));
+						System.out.println("the username is " + (String) message.get(1));
+						System.out.println(studentlog.getFirstName());
+						if(studentlog.getFirstName()==null){
+							System.out.println("the user is not in the database ");
+							Warning warning = new Warning("incorrect information, try again!!");
+							client.sendToClient(warning);
+						}
+						else if(studentlog.getActive()==true){
+							Warning warning = new Warning("you are already in");
+							client.sendToClient(warning);
+						}
+						else {
+							Data.activateSt(studentlog.getId());
+							client.sendToClient(studentlog);
+						}
 					}
 
 
 				}
 				catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			}
+
+			else if(message.get(0).equals("#LogOut")){
+				System.out.println("are you in the log out?");
+				LogOut logOut=new LogOut("success");
+				try {
+					System.out.println("the id of the user is: "+ (int)message.get(1));
+					Data.LogOutSt((int)message.get(1));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				try {
+					client.sendToClient(logOut);
+					System.out.format("Sent logout to client %s\n", client.getInetAddress().getHostAddress());
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 
