@@ -16,11 +16,11 @@ public class SimpleServer extends AbstractServer {
 		try {
 			//Data.LogOutSt(3);
 			//Data.LogOutSt(4);
-			//Data.generateStusent();
-			//Data.generateSubject();
+			Data.generateStusent();
+			Data.generateSubject();
 			//Data.generateEnglishQusetions();
 			//Data.main(null);
-			//System.out.println("why there is exeption");
+			System.out.println("why there is exeption");
 			//Data.updatePrice(500,1);
 
 		} catch (Exception e) {

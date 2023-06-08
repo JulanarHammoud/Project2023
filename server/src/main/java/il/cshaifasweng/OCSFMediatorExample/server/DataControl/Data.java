@@ -199,8 +199,8 @@ public class Data {
     }
 
     public static void generateSubject() throws Exception {
-        Question Num1 = new Question("How??");
-        Question Num2 =new Question("What?");
+        Question Num1 = new Question("How??","","","","","");
+        Question Num2 =new Question("What?","","","","","");
         LinkedList<Question> questions1 =new LinkedList<>();
         questions1.add(Num1);
         questions1.add(Num2);
