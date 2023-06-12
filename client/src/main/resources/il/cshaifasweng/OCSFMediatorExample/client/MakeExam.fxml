@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="453.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.ExamController">
+   <children>
+      <TextField fx:id="timer" layoutX="81.0" layoutY="51.0" prefHeight="25.0" prefWidth="143.0" text="Timer" />
+      <TextField fx:id="PutTimer" layoutX="290.0" layoutY="55.0" prefHeight="25.0" prefWidth="155.0" />
+      <TextField fx:id="NumQ" layoutX="78.0" layoutY="105.0" prefHeight="25.0" prefWidth="143.0" text="Num Of Q" />
+      <TextField fx:id="putNumQ" layoutX="293.0" layoutY="105.0" prefHeight="25.0" prefWidth="155.0" />
+      <TextField fx:id="Course" layoutX="75.0" layoutY="171.0" text="Course" />
+      <TextField fx:id="TNotes" layoutX="75.0" layoutY="235.0" text="TeacherNotes" />
+      <TextField fx:id="SNotes" layoutX="75.0" layoutY="307.0" text="StudentNotes" />
+      <TextField fx:id="PutTNotes" layoutX="293.0" layoutY="235.0" />
+      <TextField fx:id="PutSNotes" layoutX="294.0" layoutY="320.0" />
+      <ComboBox fx:id="chooseCourse" layoutX="293.0" layoutY="171.0" prefWidth="150.0" />
+      <Button fx:id="Next" layoutX="517.0" layoutY="407.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Next" />
+   </children>
+</AnchorPane>

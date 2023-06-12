@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.ChooseQes">
+   <children>
+      <TableView fx:id="Qtable" layoutX="167.0" layoutY="98.0" prefHeight="488.0" prefWidth="538.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="139.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn fx:id="theQ" prefWidth="90.0" text="The Q" />
+            <TableColumn prefWidth="75.0" text="          possible answers">
+               <columns>
+                <TableColumn fx:id="ans1" prefWidth="90.0" text="ans 1" />
+                  <TableColumn fx:id="ans2" prefWidth="90.0" text="ans2" />
+                  <TableColumn fx:id="ans3" prefWidth="90.0" text="ans3" />
+                  <TableColumn fx:id="ans4" prefWidth="90.0" text="ans4" />
+               </columns>
+            </TableColumn>
+            <TableColumn fx:id="RightAns" prefWidth="90.0" text="The Right one " />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
