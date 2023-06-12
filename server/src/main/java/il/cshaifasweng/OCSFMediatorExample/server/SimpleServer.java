@@ -9,18 +9,20 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+
+
 public class SimpleServer extends AbstractServer {
 
 	public SimpleServer(int port) {
 		super(port);
 		try {
-			//Data.LogOutSt(3);
+			//Data.LogOutSt(1);
 			//Data.LogOutSt(4);
-			Data.generateStusent();
-			Data.generateSubject();
+			//Data.generateSubject();
+			//Data.generateStusent();
 			//Data.generateEnglishQusetions();
 			//Data.main(null);
-			System.out.println("why there is exeption");
+			//System.out.println("why there is exeption");
 			//Data.updatePrice(500,1);
 
 		} catch (Exception e) {
@@ -31,7 +33,7 @@ public class SimpleServer extends AbstractServer {
 	}
 
 	@Override
-	protected void handleMessageFromClient(Object msg, ConnectionToClient client) throws Exception {
+	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		String msgString = msg.toString();
 
 		//System.out.println("Message = " + msgString + ", reached server");
@@ -59,6 +61,8 @@ public class SimpleServer extends AbstractServer {
 			}
 			catch (IOException e) {
 				e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 
 		}
@@ -73,6 +77,8 @@ public class SimpleServer extends AbstractServer {
 					client.sendToClient(student);
 
 				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -131,6 +137,8 @@ public class SimpleServer extends AbstractServer {
 
 				}
 				catch (IOException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 

@@ -13,27 +13,17 @@ public class Teacher extends Person{
 
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JoinTable(name = "Teacher_Subject",joinColumns = @JoinColumn(name = "Teacher_ID"),inverseJoinColumns = {@JoinColumn(name = "Subject_ID")})
-    private List<SubjectTeacher> Subjects ;
+    @JoinTable(name = "Teacher_Course",joinColumns = @JoinColumn(name = "Teacher_ID"),inverseJoinColumns = {@JoinColumn(name = "Course_ID")})
+    private List<CourseTeacher> courses ;
 
-    public Teacher(String firstName, String lastName, String userName, String passWord, List<SubjectTeacher> subjects) {
+    public Teacher(String firstName, String lastName, String userName, String passWord, List<CourseTeacher> courses) {
         super(firstName, lastName, userName, passWord);
-        Subjects = subjects;
+        this.courses = courses;
     }
 
-    public void setSubjects(List<SubjectTeacher> subjects) {
-        Subjects = subjects;
+    public List<CourseTeacher> getCourses() {
+        return courses;
     }
-
-    public Teacher() {
+    public Teacher(){
     }
-
-    public List<SubjectTeacher> getSubjects() {
-        return Subjects;
-    }
-
-    public Teacher(List<SubjectTeacher> subjects) {
-        Subjects = subjects;
-    }
-
 }

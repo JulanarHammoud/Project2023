@@ -16,12 +16,12 @@ public class TeacherController {
 
     int lastIndex= SimpleClient.getParams().size()-1;
     Teacher teacher = (Teacher) SimpleClient.getParams().get(lastIndex);
-    List<SubjectTeacher> list =teacher.getSubjects();
+    List<CourseTeacher> list =teacher.getCourses();
     ObservableList<String> items = FXCollections.observableArrayList();
 
     public void initialize(){
         for(int i=0;i<list.size();i++){
-            items.add(String.valueOf(list.get(i).getSb_name()));}
+            items.add(String.valueOf(list.get(i).getName()));}
         ListViewSubject.setItems(items);
     }
 

@@ -1,20 +1,16 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
+import il.cshaifasweng.OCSFMediatorExample.entities.CourseStudent;
 import il.cshaifasweng.OCSFMediatorExample.entities.SubjectStudent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Student;
-import javafx.scene.control.*;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 
 import javafx.event.ActionEvent;
@@ -26,7 +22,7 @@ import java.util.List;
 public class StudentController {
     int lastIndex= SimpleClient.getParams().size()-1;
     Student student = (Student) SimpleClient.getParams().get(lastIndex);
-    List<SubjectStudent> list =student.getSubjects();
+    List<CourseStudent> list =student.getCourses();
 
     @FXML
     private Label StName;
@@ -50,7 +46,7 @@ public class StudentController {
         for(int i=0;i<list.size();i++){
             // Create TitledPane
             TitledPane titledPane = new TitledPane();
-            titledPane.setText(list.get(i).getSb_name());
+            titledPane.setText(list.get(i).getName());
             // Add content to TitledPane 1
             VBox content1 = new VBox();
             Button button = new Button("test1");

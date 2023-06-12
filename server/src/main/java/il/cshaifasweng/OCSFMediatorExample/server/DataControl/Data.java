@@ -24,22 +24,29 @@ public class Data {
         configuration.addAnnotatedClass(Teacher.class);
         configuration.addAnnotatedClass(SubjectTeacher.class);
         configuration.addAnnotatedClass(SubjectStudent.class);
+        configuration.addAnnotatedClass(CourseTeacher.class);
+        configuration.addAnnotatedClass(CourseStudent.class);
 
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties())
                 .build();
         return configuration.buildSessionFactory(serviceRegistry); }
     public static void generateStusent() throws Exception {
-        SubjectStudent ST11 = new SubjectStudent("History");
-        SubjectStudent ST2 = new SubjectStudent("Math");
-        SubjectStudent ST1 = new SubjectStudent("English");
+        SubjectStudent ST11 = new SubjectStudent("Grammar");
+        SubjectStudent ST2 = new SubjectStudent("Geometry");
+        SubjectStudent ST1 = new SubjectStudent("comprehension");
         LinkedList<SubjectStudent> subjectst=new LinkedList<>();
         subjectst.add(ST1);
         subjectst.add(ST11);
+        CourseStudent English = new CourseStudent("English",subjectst);
         LinkedList<SubjectStudent> subjectst2=new LinkedList<>();
         subjectst2.add(ST2);
-        Student julanar = new Student("Julanar", "Hammoud","jula123","0101",subjectst);
-        Student rozaleen = new Student("Rozaleen", "Hassanin", "roza99","1999",subjectst2);
+        CourseStudent Math = new CourseStudent("Math",subjectst2);
+        LinkedList<CourseStudent> course = new LinkedList<>();
+        course.add(Math);
+        Student julanar = new Student("Julanar", "Hammoud","jula123","0101",course);
+        course.add(English);
+        Student rozaleen = new Student("Rozaleen", "Hassanin", "roza99","1999",course);
 
         try {
             SessionFactory sessionFactory = getSessionFactory();
@@ -49,6 +56,8 @@ public class Data {
             session.saveOrUpdate(ST1);
             session.saveOrUpdate(ST11);
             session.saveOrUpdate(ST2);
+            session.saveOrUpdate(English);
+            session.saveOrUpdate(Math);
             session.saveOrUpdate(julanar);
             session.saveOrUpdate(rozaleen);
             System.err.println("Generated ends ...");
@@ -204,18 +213,23 @@ public class Data {
         LinkedList<Question> questions1 =new LinkedList<>();
         questions1.add(Num1);
         questions1.add(Num2);
-        SubjectTeacher English = new SubjectTeacher("English",questions1);
-        SubjectTeacher History = new SubjectTeacher("History",questions1);
-        SubjectTeacher Math = new SubjectTeacher("Math",questions1);
-        SubjectTeacher Arabic = new SubjectTeacher("Arabic",questions1);
-        SubjectTeacher Hebrew = new SubjectTeacher("Hebrew",questions1);
+        SubjectTeacher Grammar = new SubjectTeacher("Grammar",questions1);
+        SubjectTeacher Geometry = new SubjectTeacher("Geometry",questions1);
+        SubjectTeacher algebra = new SubjectTeacher("Algebra",questions1);
+        SubjectTeacher comprehension = new SubjectTeacher("comprehension",questions1);
         LinkedList<SubjectTeacher> subject1=new LinkedList<>();
-        subject1.add(English);
-        subject1.add(Math);
+        subject1.add(Grammar);
+        subject1.add(comprehension);
+        CourseTeacher English =new CourseTeacher("English",subject1);
         LinkedList<SubjectTeacher> subject2=new LinkedList<>();
-        subject2.add(History);
-        Teacher mona = new Teacher("Mona","Amara","mona123","1234",subject1);
-        Teacher noran = new Teacher("Noran","morad","noran123","1235",subject2);
+        subject2.add(algebra);
+        subject2.add(Geometry);
+        CourseTeacher Math =new CourseTeacher("Math",subject2);
+        LinkedList<CourseTeacher> courses = new LinkedList<>();
+        courses.add(English);
+        Teacher mona = new Teacher("Mona","Amara","mona123","1234",courses);
+        courses.add(Math);
+        Teacher noran = new Teacher("Noran","morad","noran123","1235",courses);
 
         try {
             SessionFactory sessionFactory = getSessionFactory();
@@ -225,11 +239,12 @@ public class Data {
 
             session.saveOrUpdate(Num1);
             session.saveOrUpdate(Num2);
+            session.saveOrUpdate(Grammar);
+            session.saveOrUpdate(Geometry);
+            session.saveOrUpdate(algebra);
+            session.saveOrUpdate(comprehension);
             session.saveOrUpdate(English);
-            session.saveOrUpdate(History);
-            session.saveOrUpdate(Hebrew);
             session.saveOrUpdate(Math);
-            session.saveOrUpdate(Arabic);
             session.saveOrUpdate(mona);
             session.saveOrUpdate(noran);
             System.err.println("Generated ends ...");
