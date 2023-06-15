@@ -12,6 +12,7 @@ public abstract class Course implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
+    private String Id_String;
     private String name;
 
    /* @ManyToMany
@@ -24,7 +25,15 @@ public abstract class Course implements Serializable {
     @JoinTable(name = "course_subject",joinColumns = @JoinColumn(name = "course_ID" ),inverseJoinColumns = {@JoinColumn(name = "subject_id")})
     private List<SubjectStudent> subjectStudent;*/
 
-    public Course( String name) {
+    public String getId_String() {
+        return Id_String;
+    }
+
+    public void setId_String(String id_String) {
+        Id_String = id_String;
+    }
+
+    public Course(String name) {
         this.name = name;
     }
     public Course(){

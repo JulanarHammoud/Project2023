@@ -6,6 +6,7 @@ import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -221,7 +222,10 @@ public class SimpleServer extends AbstractServer {
 					System.out.println(choose);
 					CourseTeacher course =Data.FindCourse(choose);
 					System.out.println("after data find");
-					System.out.println(course.getName());
+					System.out.println(course.getName()); 			//ex. english esraa
+					DecimalFormat formatter=new DecimalFormat("00");
+					String aFormatted=formatter.format(course.getId());
+					System.out.println(aFormatted);
 					//System.out.println(message.getClass());
 					client.sendToClient(course);
 
