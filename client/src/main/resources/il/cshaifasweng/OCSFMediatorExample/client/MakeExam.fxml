@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TextField?>
@@ -8,15 +9,17 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="453.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.ExamController">
    <children>
       <TextField fx:id="timer" layoutX="81.0" layoutY="51.0" prefHeight="25.0" prefWidth="143.0" text="Timer" />
-      <TextField fx:id="PutTimer" layoutX="290.0" layoutY="55.0" prefHeight="25.0" prefWidth="155.0" />
-      <TextField fx:id="NumQ" layoutX="78.0" layoutY="105.0" prefHeight="25.0" prefWidth="143.0" text="Num Of Q" />
-      <TextField fx:id="putNumQ" layoutX="293.0" layoutY="105.0" prefHeight="25.0" prefWidth="155.0" />
-      <TextField fx:id="Course" layoutX="75.0" layoutY="171.0" text="Course" />
-      <TextField fx:id="TNotes" layoutX="75.0" layoutY="235.0" text="TeacherNotes" />
-      <TextField fx:id="SNotes" layoutX="75.0" layoutY="307.0" text="StudentNotes" />
-      <TextField fx:id="PutTNotes" layoutX="293.0" layoutY="235.0" />
-      <TextField fx:id="PutSNotes" layoutX="294.0" layoutY="320.0" />
-      <ComboBox fx:id="chooseCourse" layoutX="293.0" layoutY="171.0" prefWidth="150.0" />
-      <Button fx:id="Next" layoutX="517.0" layoutY="407.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Next" />
+      <TextField fx:id="PutTimer" layoutX="281.0" layoutY="51.0" prefHeight="25.0" prefWidth="155.0" />
+      <TextField fx:id="NumQ" layoutX="81.0" layoutY="86.0" prefHeight="25.0" prefWidth="143.0" text="Num Of Q" />
+      <TextField fx:id="putNumQ" layoutX="281.0" layoutY="86.0" prefHeight="25.0" prefWidth="155.0" />
+      <TextField fx:id="TNotes" layoutX="78.0" layoutY="121.0" text="TeacherNotes" />
+      <TextField fx:id="SNotes" layoutX="78.0" layoutY="159.0" text="StudentNotes" />
+      <TextField fx:id="PutTNotes" layoutX="281.0" layoutY="121.0" />
+      <TextField fx:id="PutSNotes" layoutX="281.0" layoutY="159.0" />
+      <Button fx:id="Next" layoutX="517.0" layoutY="407.0" mnemonicParsing="false" onAction="#Next" prefHeight="25.0" prefWidth="51.0" text="Next" />
+      <Accordion />
+      <Accordion fx:id="accordian" layoutX="224.0" layoutY="196.0" prefHeight="30.0" prefWidth="162.0">
+      </Accordion>
+      <ComboBox fx:id="Combobox" layoutX="145.0" layoutY="254.0" prefHeight="25.0" prefWidth="241.0" promptText="choose a course and a subject" />
    </children>
 </AnchorPane>

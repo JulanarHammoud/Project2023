@@ -26,6 +26,7 @@ public class Data {
         configuration.addAnnotatedClass(SubjectStudent.class);
         configuration.addAnnotatedClass(CourseTeacher.class);
         configuration.addAnnotatedClass(CourseStudent.class);
+        configuration.addAnnotatedClass(Exam.class);
 
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties())
@@ -266,6 +267,104 @@ public class Data {
         }
         return;
     }
+
+    public static void MakeExam(int NumQ,String TNotes,String SNotes,String choose)
+    {
+        System.out.println("in make Data1 ");
+        Exam ex=new Exam(0,NumQ,choose,"T",TNotes,SNotes,"0");
+        try {
+            System.out.println("in make Data2 ");
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            System.err.println("Generated starts ...");
+
+            session.saveOrUpdate(ex);
+            System.err.println("Generated ends ...");
+
+            session.flush();
+            session.getTransaction().commit(); // Save everything.
+
+
+        } catch (Exception exception) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            exception.printStackTrace();
+        } finally {
+            if(session != null) {
+                session.close();
+            }
+        }
+    }
+    public static List<CourseTeacher> getAllCourses() throws Exception {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<CourseTeacher> query = builder.createQuery(CourseTeacher.class);
+        query.from(CourseTeacher.class);
+        List<CourseTeacher> result = session.createQuery(query).getResultList();
+        session.close();
+        System.out.println(result.size());
+        return result;
+    }
+
+    public static CourseTeacher FindCourse(String name) throws Exception {
+        System.out.println(name);
+        List<CourseTeacher> CourseTeacher = getAllCourses();
+        //System.out.println(teachers);
+
+        for (CourseTeacher coursee : CourseTeacher) {
+           // System.out.println(coursee.getName());
+            System.out.println(name.equals(coursee.getName()));
+            if (name.equals(coursee.getName())) {
+                return coursee;
+            }
+        }
+        return null;
+    }
+
+    public static List<SubjectTeacher> getAllSubjects()   {
+        System.out.println("line 1");
+        SessionFactory sessionFactory = getSessionFactory();
+        System.out.println("line 2");
+        session = sessionFactory.openSession();
+        System.out.println("line 3");
+        session.beginTransaction();
+        System.out.println("line 4");
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        System.out.println("line 5");
+        CriteriaQuery<SubjectTeacher> query = builder.createQuery(SubjectTeacher.class);
+        System.out.println("line 6");
+        query.from(SubjectTeacher.class);
+        System.out.println("line 7");
+        List<SubjectTeacher> result = session.createQuery(query).getResultList();
+        System.out.println("line 8");
+        session.close();
+        System.out.println(result.size());
+        return result;
+    }
+
+    public static SubjectTeacher findsubject (String choose)  {
+        System.out.println("I'm in findsubject method");
+        System.out.println(choose);
+        List<SubjectTeacher> list =  Data.getAllSubjects();
+        // System.out.println(list.get(1).getName());
+        // System.out.println(list.get(0).getName());
+        for(SubjectTeacher subjectTeacher :list){
+            if(subjectTeacher.getSb_name().equals(choose)){
+                System.out.println(subjectTeacher.getSb_name());
+                return subjectTeacher;
+            }
+        }
+        SubjectTeacher notfound = new SubjectTeacher(null,null);
+        return notfound;
+
+    }
+
+
     /*public static void generateEnglishQusetions() throws Exception {
         Question Num1 = new Question("How??");
         Question Num2 =new Question("What?");

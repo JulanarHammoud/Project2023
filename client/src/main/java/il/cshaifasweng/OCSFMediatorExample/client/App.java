@@ -1,6 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.client.EventBus.*;
+import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -111,6 +112,7 @@ public class App extends Application {
 
         });}
 
+
     @Subscribe
     public void onStudentLogEvent(StudentLogEvent event) {
         Platform.runLater(() -> {
@@ -125,11 +127,26 @@ public class App extends Application {
 
         });}
 
+
     @Subscribe
     public void onLogOutEvent(LogOutEvent event) throws IOException {
         Platform.runLater(() -> {
             try {
                 setRoot("primary");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    @Subscribe
+    public void onCourseTeacherEvent(CourseTeacherEvent event) {
+
+        Platform.runLater(() -> {
+            try {
+                System.out.println("in handle");
+                SimpleClient.getParams().add(event.getCt());
+                setRoot("choosesubject");
             } catch (IOException e) {
                 e.printStackTrace();
             }

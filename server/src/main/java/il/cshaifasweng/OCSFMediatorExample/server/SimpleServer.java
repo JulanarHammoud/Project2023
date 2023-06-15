@@ -21,6 +21,7 @@ public class SimpleServer extends AbstractServer {
 			//Data.generateSubject();
 			//Data.generateStusent();
 			//Data.generateEnglishQusetions();
+
 			//Data.main(null);
 			//System.out.println("why there is exeption");
 			//Data.updatePrice(500,1);
@@ -161,7 +162,75 @@ public class SimpleServer extends AbstractServer {
 				}
 
 			}
+
+			else if(message.get(0).equals("#MakeExam")){
+					try{
+						System.out.println("in make exam ");
+						//System.out.println("the username is " + (String) message.get(1));
+						String one=(String) message.get(1);
+						int rr=Integer.valueOf(one);
+						String t=(String)message.get(2);
+						String w=(String)message.get(3);
+						String z=(String)message.get(4);
+						System.out.println(z);
+						//System.out.println(""+(String)message.get(2));
+						//System.out.println(""+(String)message.get(3));
+						//System.out.println(""+(String)message.get(4));
+						//Data.MakeExam((int)message.get(1),(String) message.get(2),(String)message.get(3),(String)message.get(4));
+						Data.MakeExam(rr,t,w,z);
+
+						CourseTeacher course= Data.FindCourse((String)message.get(5));
+
+						client.sendToClient(course);
+					} catch (IOException e){
+
+				} catch (Exception e) {
+						throw new RuntimeException(e);
+					}
+			}
+			//else if(message.get(0).equals("#MakeExam2")){
+			//	try{
+			//		System.out.println("in make exam2 ");
+					//System.out.println("the username is " + (String) message.get(1));
+			//		String coourse=(String) message.get(1);
+					//int rr=Integer.valueOf(one);
+					//String t=(String)message.get(2);
+					//String w=(String)message.get(3);
+					//String z=(String)message.get(4);
+					//System.out.println(z);
+					//System.out.println(""+(String)message.get(2));
+					//System.out.println(""+(String)message.get(3));
+					//System.out.println(""+(String)message.get(4));
+					//Data.MakeExam2((int)message.get(1));
+					//Data.MakeExam(rr,t,w,z);
+
+					//CourseTeacher course= Data.FindCourse((String)message.get(5));
+
+					//client.sendToClient(course);
+			//	} catch (IOException e){
+
+			//	} catch (Exception e) {
+			//		throw new RuntimeException(e);
+			//	}
+		//	}
+
+			else if (message.get(0).equals("#SubjectTeacher")) {
+				try {
+					System.out.println("I'm in server subjectteacher");
+					String choose= (String) message.get(1);
+					System.out.println(choose);
+					CourseTeacher course =Data.FindCourse(choose);
+					System.out.println("after data find");
+					System.out.println(course.getName());
+					//System.out.println(message.getClass());
+					client.sendToClient(course);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
+
 
 	}
 

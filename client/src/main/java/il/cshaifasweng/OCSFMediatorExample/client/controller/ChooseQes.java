@@ -1,5 +1,8 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
+import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
+import il.cshaifasweng.OCSFMediatorExample.entities.CourseTeacher;
 import il.cshaifasweng.OCSFMediatorExample.entities.Question;
+import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -35,6 +38,9 @@ public class ChooseQes  {
 
             @FXML
             private TableColumn<Question, String> theQ;
+
+    int lastIndex= SimpleClient.getParams().size()-1;
+    CourseTeacher teacher = (CourseTeacher) SimpleClient.getParams().get(lastIndex);
 
             ObservableList<Question> list= FXCollections.observableArrayList(
                     new Question("the student ** crying","is","are","they","none","is")
