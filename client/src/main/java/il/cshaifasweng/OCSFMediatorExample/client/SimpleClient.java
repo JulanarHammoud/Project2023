@@ -49,7 +49,7 @@ public class SimpleClient extends AbstractClient {
 			System.out.println("SubjectTeacher Clienr");
 			//EventBus.getDefault().post(new SubjectTeacherEvent((SubjectTeacher) msg));
 			EventBus.getDefault().post(new SubjectTeacherEvent((SubjectTeacher) msg));
-		}
+		     }
 
 	}
 	
