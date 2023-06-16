@@ -138,20 +138,34 @@ public class App extends Application {
             }
         });
     }
-
     @Subscribe
-    public void onCourseTeacherEvent(CourseTeacherEvent event) {
+    public void onExamCourseEvent(ExamCourseEvent event) {
 
         Platform.runLater(() -> {
             try {
                 System.out.println("in handle");
-                SimpleClient.getParams().add(event.getCt());
-                setRoot("choosesubject");
+                SimpleClient.getParams().add(event.getExx());
+                setRoot("subject");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
     }
+
+    @Subscribe
+    public void onSubjectTeacherEvent(SubjectTeacherEvent event) {
+
+        Platform.runLater(() -> {
+            try {
+                System.out.println("in app aa");
+                SimpleClient.getParams().add(event.getSubjectTeacher());
+                setRoot("ChooseQes");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+   }
+
 
 	public static void main(String[] args) {
         launch();

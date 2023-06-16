@@ -15,11 +15,13 @@ public class Exam implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
-    private int IdCode;
-   // private Timer timer;
+    private String IdCode;
+
+    private int timerr;
     private int NumOfQuestions;
     private String subject;
     private String teacher;
+   // private String course;
     private String TeacherNotes;
     private String StudentNotes;
     private String code;
@@ -29,21 +31,33 @@ public class Exam implements Serializable {
     @JoinTable(name = "Questions_Exam",joinColumns = @JoinColumn(name = "Exam_ID" ),inverseJoinColumns = {@JoinColumn(name = "Question_id")})
     private List<Question> Questions ;
 
-    public Exam(int idCode, int numOfQuestions, String subject, String teacher, String teacherNotes, String studentNotes, String code) {
-        IdCode = idCode;
+    public Exam(int numOfQuestions, String teacherNotes,String timerr, String studentNotes, String subject, String teacher) {
+       timerr = timerr;
         NumOfQuestions = numOfQuestions;
         this.subject = subject;
         this.teacher = teacher;
+        //this.course = course;
         TeacherNotes = teacherNotes;
         StudentNotes = studentNotes;
-        this.code = code;
     }
 
-    public int getIdCode() {
+    public Exam() {
+
+    }
+
+    public int getTimerr() {
+        return timerr;
+    }
+
+    public void setTimerr(int timerr) {
+        this.timerr = timerr;
+    }
+
+    public String getIdCode() {
         return IdCode;
     }
 
-    public void setIdCode(int idCode) {
+    public void setIdCode(String idCode) {
         IdCode = idCode;
     }
 

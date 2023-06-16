@@ -1,23 +1,22 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
+import il.cshaifasweng.OCSFMediatorExample.client.EventBus.SubjectTeacherEvent;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.CourseTeacher;
 import il.cshaifasweng.OCSFMediatorExample.entities.Question;
-import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
+import il.cshaifasweng.OCSFMediatorExample.entities.SubjectTeacher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
-public class ChooseQes  {
+public class ChooseQesController {
             @FXML
             private TableView<Question> Qtable;
 
@@ -40,7 +39,8 @@ public class ChooseQes  {
             private TableColumn<Question, String> theQ;
 
     int lastIndex= SimpleClient.getParams().size()-1;
-    CourseTeacher teacher = (CourseTeacher) SimpleClient.getParams().get(lastIndex);
+    SubjectTeacher teacher = (SubjectTeacher) SimpleClient.getParams().get(lastIndex);
+    List<Question> q = teacher.getQuestions();
 
             ObservableList<Question> list= FXCollections.observableArrayList(
                     new Question("the student ** crying","is","are","they","none","is")
@@ -57,6 +57,9 @@ public class ChooseQes  {
 
                 Qtable.setItems(list);
             }
+
+
+
 
         }
 

@@ -11,6 +11,7 @@ public abstract class Subject implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
+    private String Id_String;
     private String sb_name;
 
 
@@ -19,6 +20,13 @@ public abstract class Subject implements Serializable {
     }
 
 
+    public String getId_String() {
+        return Id_String;
+    }
+
+    public void setId_String(String id_String) {
+        Id_String = id_String;
+    }
 
     public String getSb_name() {
         return sb_name;

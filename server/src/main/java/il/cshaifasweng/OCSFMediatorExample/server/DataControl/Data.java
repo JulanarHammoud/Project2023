@@ -1,10 +1,12 @@
 package il.cshaifasweng.OCSFMediatorExample.server.DataControl;
+import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
+import antlr.Grammar;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -167,6 +169,31 @@ public class Data {
 
     }*/
 
+     public static void updateExamId(String IdCourse , int currentid, String IdSubject){
+        // System.out.println("I am updating");
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        Exam change =session.get(Exam.class,currentid);
+        String s=IdCourse+IdSubject;
+        //String hh= Integer.toString(currentid);
+         DecimalFormat formatter=new DecimalFormat("00");
+         String aFormatted=formatter.format(currentid);
+         //System.out.println(aFormatted);
+         s=s+aFormatted;
+        //int n= Integer.parseInt(s);
+        change.setIdCode(s);
+      //  if(Grade==1){
+      //  change.setGrade1(newGrade);}
+      //  else if(Grade==2)
+      //      change.setGrade2(newGrade);
+        session.saveOrUpdate(change);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
+
+    }
+
     public static Teacher TeacherLog(String username, String password) throws Exception {
         List<Teacher> teachers = getAllTeachers();
         //System.out.println(teachers);
@@ -268,18 +295,23 @@ public class Data {
         return;
     }
 
-    public static void MakeExam(int NumQ,String TNotes,String SNotes,String choose)
+    public static void MakeQes(int id, String question,String ans1,String ans2,String ans3,String ans4,String the_right_ans)
     {
-        System.out.println("in make Data1 ");
-        Exam ex=new Exam(0,NumQ,choose,"T",TNotes,SNotes,"0");
+        System.out.println("in make Data33 ");
+        Question q1 = new Question("israa *** crying?", "is", "are", "an", "none of the answers", "is");
+        Question q2 = new Question("reem *** happy?", "is", "are", "an", "none of the answers", "is");
+
         try {
-            System.out.println("in make Data2 ");
+            System.out.println("in make Data3 ");
             SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
             session.beginTransaction();
             System.err.println("Generated starts ...");
 
-            session.saveOrUpdate(ex);
+            session.saveOrUpdate(q1);
+            System.err.println("Generated ends ...");
+
+            session.saveOrUpdate(q2);
             System.err.println("Generated ends ...");
 
             session.flush();
@@ -296,7 +328,40 @@ public class Data {
             if(session != null) {
                 session.close();
             }
+        }}
+
+
+    public static int MakeExam(int NumQ,String TNotes ,String timm,String SNotes,String chose,String tt)
+    {
+        System.out.println("in make Data1 ");
+       // Exam ex=new Exam(0,NumQ,chose,"T",TNotes,SNotes,cc);
+        Exam ex=new Exam(NumQ,TNotes,timm,SNotes,chose,tt);
+        try {
+            System.out.println("in make Data2 ");
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            System.err.println("Generated starts ...");
+
+            session.saveOrUpdate(ex);
+            System.err.println("Generated ends ...");
+
+            session.flush();
+            session.getTransaction().commit(); // Save everything.
+            return ex.getId();
+
+        } catch (Exception exception) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            exception.printStackTrace();
+        } finally {
+            if(session != null) {
+                session.close();
+            }
         }
+        return 0;
     }
     public static List<CourseTeacher> getAllCourses() throws Exception {
         SessionFactory sessionFactory = getSessionFactory();

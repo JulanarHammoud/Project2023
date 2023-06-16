@@ -1,47 +1,30 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.CourseTeacher;
-import il.cshaifasweng.OCSFMediatorExample.entities.SubjectTeacher;
-import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TitledPane;
-import javafx.scene.layout.VBox;
 
 import java.util.LinkedList;
 import java.util.List;
 
 
-import il.cshaifasweng.OCSFMediatorExample.client.EventBus.*;
-import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
-
 import java.io.IOException;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-public class choosesubjectController {
+public class subjectController {
 
     @FXML
     private ComboBox<String> Combo;
     @FXML
     private Button Next;
     int lastIndex= SimpleClient.getParams().size()-1;
-    CourseTeacher courseTeacher = (CourseTeacher) SimpleClient.getParams().get(lastIndex);
+    ExamCourse cr = (ExamCourse) SimpleClient.getParams().get(lastIndex);
 
-   List<SubjectTeacher> list = (List<SubjectTeacher>) courseTeacher.getSubjectTeacher();
+   List<SubjectTeacher> list =  cr.getCourse().getSubjectTeacher();
 
-    public choosesubjectController() {
+    public subjectController() {
     }
 
     public void initialize(){
@@ -52,11 +35,15 @@ public class choosesubjectController {
     @FXML
     void Next(ActionEvent event) {
         try{
+            System.out.println("I WILL GRAMMAR");
             String choose = Combo.getSelectionModel().getSelectedItem();
+           //  cr.getCourse().setName(choose);
              LinkedList<Object> message = new LinkedList<Object>();
                 message.add("#MakeExam2");
                 message.add(choose);
-
+                message.add(cr.getExamId());
+                message.add(cr.getCourse().getId_String());
+                //message.add(cr);
                 System.out.println("Selected item: " + choose);
                 SimpleClient.getClient().sendToServer(message);
         }

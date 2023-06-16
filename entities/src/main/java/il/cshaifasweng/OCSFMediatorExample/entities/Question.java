@@ -8,7 +8,6 @@ public class Question implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
-
     private String question;
     private String ans1; //israa
     private String ans2; //israa
@@ -16,15 +15,14 @@ public class Question implements Serializable{
     private String ans4; //israa
     private String the_right_ans; //israa
 
-
-
-    public Question(String question,String ans1,String ans2,String ans3,String ans4,String the_right_ans) {
-        this.ans1=ans1;
-        this.ans2=ans2;
-        this.ans3=ans3;
-        this.ans4=ans4;
-        this.the_right_ans=the_right_ans;
+    public Question(String question, String ans1, String ans2, String ans3, String ans4, String the_right_ans) {
+        //Id = id;
         this.question = question;
+        this.ans1 = ans1;
+        this.ans2 = ans2;
+        this.ans3 = ans3;
+        this.ans4 = ans4;
+        this.the_right_ans = the_right_ans;
     }
 
     public String GetAns1() {

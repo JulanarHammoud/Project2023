@@ -170,50 +170,58 @@ public class SimpleServer extends AbstractServer {
 						//System.out.println("the username is " + (String) message.get(1));
 						String one=(String) message.get(1);
 						int rr=Integer.valueOf(one);
-						String t=(String)message.get(2);
-						String w=(String)message.get(3);
-						String z=(String)message.get(4);
-						System.out.println(z);
+						String t_N=(String)message.get(2);
+						String timm=(String)message.get(3);
+						String S_N=(String)message.get(4);
+						//System.out.println(S_N);
+						String choose= (String) message.get(5);
+						String teacherr= (String) message.get(6);
+						//String cc= (String) message.get(7);
+						//System.out.println(choose);
 						//System.out.println(""+(String)message.get(2));
 						//System.out.println(""+(String)message.get(3));
 						//System.out.println(""+(String)message.get(4));
 						//Data.MakeExam((int)message.get(1),(String) message.get(2),(String)message.get(3),(String)message.get(4));
-						Data.MakeExam(rr,t,w,z);
-
-						CourseTeacher course= Data.FindCourse((String)message.get(5));
-
-						client.sendToClient(course);
+						int id =Data.MakeExam(rr,t_N,timm,S_N,choose,teacherr);
+						CourseTeacher course =Data.FindCourse(choose);
+						System.out.println("after data find");
+						System.out.println(course.getName()); 			//ex. english esraa
+						DecimalFormat formatter=new DecimalFormat("00");
+						String aFormatted=formatter.format(course.getId());
+						System.out.println(aFormatted);
+						course.setId_String(aFormatted);
+						//CourseTeacher course= Data.FindCourse((String)message.get(5));
+						ExamCourse exam = new ExamCourse(course,id);
+						client.sendToClient(exam);
 					} catch (IOException e){
 
 				} catch (Exception e) {
 						throw new RuntimeException(e);
 					}
 			}
-			//else if(message.get(0).equals("#MakeExam2")){
-			//	try{
-			//		System.out.println("in make exam2 ");
+			else if(message.get(0).equals("#MakeExam2")){
+				try{
+					System.out.println("in make exam2 ");
 					//System.out.println("the username is " + (String) message.get(1));
-			//		String coourse=(String) message.get(1);
-					//int rr=Integer.valueOf(one);
-					//String t=(String)message.get(2);
-					//String w=(String)message.get(3);
-					//String z=(String)message.get(4);
-					//System.out.println(z);
-					//System.out.println(""+(String)message.get(2));
-					//System.out.println(""+(String)message.get(3));
-					//System.out.println(""+(String)message.get(4));
+					String sub=(String) message.get(1);   //ex. Grammar
+					int ex_id=(int) message.get(2);
+					String cor_id=(String) message.get(3);
+					SubjectTeacher sub2 =Data.findsubject(sub);
+					System.out.println(""+(String)message.get(1));
 					//Data.MakeExam2((int)message.get(1));
-					//Data.MakeExam(rr,t,w,z);
-
 					//CourseTeacher course= Data.FindCourse((String)message.get(5));
+					DecimalFormat formatter=new DecimalFormat("00");
+					String aFormatted=formatter.format(sub2.getId());
+					System.out.println(aFormatted);
+					Data.updateExamId(cor_id,ex_id,aFormatted);
+					//System.out.println(message.getClass());
+					client.sendToClient(sub2);
+				} catch (IOException e){
 
-					//client.sendToClient(course);
-			//	} catch (IOException e){
-
-			//	} catch (Exception e) {
-			//		throw new RuntimeException(e);
-			//	}
-		//	}
+				} catch (Exception e) {
+			    	throw new RuntimeException(e);
+				}
+			}
 
 			else if (message.get(0).equals("#SubjectTeacher")) {
 				try {
@@ -226,6 +234,7 @@ public class SimpleServer extends AbstractServer {
 					DecimalFormat formatter=new DecimalFormat("00");
 					String aFormatted=formatter.format(course.getId());
 					System.out.println(aFormatted);
+					course.setId_String(aFormatted);
 					//System.out.println(message.getClass());
 					client.sendToClient(course);
 

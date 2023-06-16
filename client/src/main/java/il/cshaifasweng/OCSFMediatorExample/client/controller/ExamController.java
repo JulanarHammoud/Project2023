@@ -89,23 +89,29 @@ public class ExamController {
         void Next(ActionEvent event) {
         try{
 
-               /* LinkedList<Object> message = new LinkedList<Object>();
+               LinkedList<Object> message = new LinkedList<Object>();
                 message.add("#MakeExam");
+            String choose = Combobox.getSelectionModel().getSelectedItem();
                 message.add(putNumQ.getText());
                 message.add(PutTNotes.getText());
                 message.add(PutTimer.getText());
                 message.add(PutSNotes.getText());
+                message.add(choose);
+                String kl=teacher.getFirstName();
+                kl=kl+" ";
+                kl=kl+teacher.getLastName();
+                message.add(kl);
 
                 System.out.println("Selected item: " + putNumQ.getText());
                 System.out.println("Selected item: " + PutTNotes.getText());
                 System.out.println("Selected item: " + PutTimer.getText());
                 System.out.println("Selected item: " + PutSNotes.getText());
-                SimpleClient.getClient().sendToServer(message);*/
-            String choose = Combobox.getSelectionModel().getSelectedItem();
-            LinkedList<Object> list1=new LinkedList<>();
+                SimpleClient.getClient().sendToServer(message);
+
+         /*   LinkedList<Object> list1=new LinkedList<>();
             list1.add("#SubjectTeacher");
             list1.add(choose);
-            SimpleClient.getClient().sendToServer(list1);
+            SimpleClient.getClient().sendToServer(list1);*/
 
         }
         catch (IOException e) {
