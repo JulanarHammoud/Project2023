@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXML;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
@@ -48,13 +49,8 @@ public class ChooseQesController {
     private AnchorPane pane;
 
     @FXML
-    private CheckBox chooseq1;
+    private TableColumn<Question, Boolean> choose;
 
-    @FXML
-    private CheckBox chooseq2;
-
-    @FXML
-    private CheckBox chooseq3;
     int lastIndex= SimpleClient.getParams().size()-1;
     SubjectAndId subId = (SubjectAndId) SimpleClient.getParams().get(lastIndex);
     SubjectTeacher subjectteacher = subId.getSubject();
@@ -65,18 +61,30 @@ public class ChooseQesController {
 
     public void initialize()  {
         //rrr
+        for(Question q :listquestions){
+            q.setExist(false);
+        }
+        Qtable.setEditable(true);
         question.setCellValueFactory(new PropertyValueFactory<Question, String>("question"));
         ans1.setCellValueFactory(new PropertyValueFactory<Question, String>("ans1"));
         ans2.setCellValueFactory(new PropertyValueFactory<Question, String>("ans2"));
         ans3.setCellValueFactory(new PropertyValueFactory<Question, String>("ans3"));
         ans4.setCellValueFactory(new PropertyValueFactory<Question, String>("ans4"));
         the_right_ans.setCellValueFactory(new PropertyValueFactory<Question, String>("the_right_ans"));
+        choose.setCellValueFactory(new PropertyValueFactory<Question, Boolean>("exist"));
+        choose.setCellFactory(CheckBoxTableCell.forTableColumn(choose));
+        choose.setEditable(true);
+        choose.setOnEditCommit(event -> {
+            Question person = event.getRowValue();
+            person.setExist(event.getNewValue());
+        });
         Qtable.setItems(data);
 
+
+
+
         if (subId.getId()==-1){
-            pane.getChildren().remove(chooseq1);
-            pane.getChildren().remove(chooseq2);
-            pane.getChildren().remove(chooseq3);
+            Qtable.getColumns().remove(choose);
 
         }
     }

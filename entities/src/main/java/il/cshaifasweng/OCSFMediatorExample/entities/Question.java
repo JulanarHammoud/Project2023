@@ -14,6 +14,7 @@ public class Question implements Serializable{
     private String ans3; //israa
     private String ans4; //israa
     private String the_right_ans; //israa
+    private Boolean exist = false;
 
     public Question(String question, String ans1, String ans2, String ans3, String ans4, String the_right_ans) {
         //Id = id;
@@ -79,6 +80,14 @@ public class Question implements Serializable{
 
     public void setThe_right_ans(String the_right_ans) {
         this.the_right_ans = the_right_ans;
+    }
+
+    public Boolean getExist() {
+        return exist;
+    }
+
+    public void setExist(Boolean exist) {
+        this.exist = exist;
     }
 
     public Question(){}
