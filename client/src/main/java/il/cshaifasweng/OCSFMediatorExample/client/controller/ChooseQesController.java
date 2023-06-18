@@ -64,6 +64,7 @@ public class ChooseQesController {
 
 
     public void initialize()  {
+        //rrr
         question.setCellValueFactory(new PropertyValueFactory<Question, String>("question"));
         ans1.setCellValueFactory(new PropertyValueFactory<Question, String>("ans1"));
         ans2.setCellValueFactory(new PropertyValueFactory<Question, String>("ans2"));
