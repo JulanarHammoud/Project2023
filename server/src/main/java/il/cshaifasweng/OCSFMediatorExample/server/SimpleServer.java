@@ -199,7 +199,8 @@ public class SimpleServer extends AbstractServer {
 					System.out.println(aFormatted);
 					Data.updateExamId(cor_id, ex_id, aFormatted);
 					//System.out.println(message.getClass());
-					client.sendToClient(sub2);
+					SubjectAndId subId= new SubjectAndId(sub2,ex_id);
+					client.sendToClient(subId);
 				} catch (IOException e) {
 
 				} catch (Exception e) {
@@ -233,7 +234,8 @@ public class SimpleServer extends AbstractServer {
 					SubjectTeacher subject =Data.findsubject(choose);
 					System.out.println("after data find");
 					System.out.println(subject.getSb_name());
-					client.sendToClient(subject);
+					SubjectAndId subId= new SubjectAndId(subject,-1);
+					client.sendToClient(subId);
 
 				} catch (IOException e) {
 					e.printStackTrace();

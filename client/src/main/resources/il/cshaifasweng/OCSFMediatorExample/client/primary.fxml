@@ -11,7 +11,7 @@
 
 <VBox alignment="CENTER" prefHeight="434.0" prefWidth="535.0" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.PrimaryController">
    <children>
-      <StackPane prefHeight="150.0" prefWidth="200.0">
+      <StackPane fx:id="ok" prefHeight="150.0" prefWidth="200.0">
          <children>
             <ImageView fitHeight="459.0" fitWidth="692.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
                <image>

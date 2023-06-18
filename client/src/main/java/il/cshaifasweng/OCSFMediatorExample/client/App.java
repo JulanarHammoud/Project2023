@@ -5,10 +5,13 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,6 +26,7 @@ public class App extends Application {
 
     private static Scene scene;
     private SimpleClient client;
+    private static Stage stage;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -30,6 +34,7 @@ public class App extends Application {
     	client = SimpleClient.getClient();
     	client.openConnection();
         scene = new Scene(loadFXML("primary"), 640, 480);
+        this.stage=stage;
         stage.setScene(scene);
         stage.show();
     }
@@ -38,7 +43,13 @@ public class App extends Application {
         scene.setRoot(loadFXML(fxml));
     }
 
-    private static Parent loadFXML(String fxml) throws IOException {
+    public static void set(Parent root) {
+        scene = new Scene(root, 640, 480);
+        App.stage.setScene(scene);
+        App.stage.show();
+    }
+
+    public static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
@@ -164,6 +175,20 @@ public class App extends Application {
                 e.printStackTrace();
             }
         });}
+
+    @Subscribe
+    public void onSubIdEvent(SubIdEvent event) {
+
+        Platform.runLater(() -> {
+            try {
+                System.out.println("saving SubId");
+                SimpleClient.getParams().add(event.getSubId());
+                setRoot("ChooseQes");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });}
+
         @Subscribe
         public void onCourseTeacherEvent (CourseTeacherEvent event){
             Platform.runLater(() -> {

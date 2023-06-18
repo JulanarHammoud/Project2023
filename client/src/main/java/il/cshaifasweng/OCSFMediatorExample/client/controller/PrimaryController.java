@@ -3,6 +3,7 @@ package il.cshaifasweng.OCSFMediatorExample.client.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 

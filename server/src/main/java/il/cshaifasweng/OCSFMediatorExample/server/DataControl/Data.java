@@ -137,7 +137,6 @@ public class Data {
         session.close();
 
     }
-
     public static void activateSt(int id) throws Exception {
         // Student student = getStudent(id);
         SessionFactory sessionFactory = getSessionFactory();

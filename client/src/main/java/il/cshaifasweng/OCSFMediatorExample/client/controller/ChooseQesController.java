@@ -1,4 +1,5 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
+import il.cshaifasweng.OCSFMediatorExample.entities.SubjectAndId;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
@@ -46,7 +47,8 @@ public class ChooseQesController {
     private Button next;
 
     int lastIndex= SimpleClient.getParams().size()-1;
-    SubjectTeacher subjectteacher = (SubjectTeacher) SimpleClient.getParams().get(lastIndex);
+    SubjectAndId subId = (SubjectAndId) SimpleClient.getParams().get(lastIndex);
+    SubjectTeacher subjectteacher = subId.getSubject();
     List<Question> listquestions = subjectteacher.getQuestions();
     ObservableList<Question> data = FXCollections.observableArrayList(listquestions);
     // new Question(listquestions.get(0).getQuestion(),listquestions.get(0).getAns1(),listquestions.get(0).getAns2(),listquestions.get(0).getAns3(),listquestions.get(0).getAns4(),listquestions.get(0).getThe_right_ans())
