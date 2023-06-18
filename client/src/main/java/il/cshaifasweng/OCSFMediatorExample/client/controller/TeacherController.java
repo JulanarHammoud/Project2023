@@ -75,7 +75,7 @@ public class TeacherController {
     void questionaction(ActionEvent event) {
         try{
             SimpleClient.getParams().add(teacher);
-            setRoot("ChooseQes");
+            setRoot("choose_course");
         }
         catch (IOException e) {
             e.printStackTrace();

@@ -163,8 +163,22 @@ public class App extends Application {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        });
-   }
+        });}
+        @Subscribe
+        public void onCourseTeacherEvent (CourseTeacherEvent event){
+            Platform.runLater(() -> {
+                try {
+                    //System.out.println("im in teacherlog event");
+                    SimpleClient.getParams().add(event.getCt());
+                    // System.out.println(event.getStudent().getStudent().getSt_name());
+                    setRoot("choose_subject");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            });
+        }
+
 
 
 	public static void main(String[] args) {

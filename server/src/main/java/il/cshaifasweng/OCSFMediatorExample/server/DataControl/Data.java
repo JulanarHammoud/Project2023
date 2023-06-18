@@ -236,15 +236,34 @@ public class Data {
     }
 
     public static void generateSubject() throws Exception {
-        Question Num1 = new Question("How??","","","","","");
-        Question Num2 =new Question("What?","","","","","");
+        Question Num1 = new Question("I'm very happy _____ in India. I really miss being there.","to live","to have lived","to be lived","to be living","to live");
+        Question Num2 =new Question("They didn't reach an agreement ______ their differences.","on account of","due","because","owing","owing");
+        Question Num3= new Question("I wish I _____ those words. But now it's too late."," not having said"," have never said","never said","had never said","have never said");
+        Question Num4= new Question("Each term in the sequence below is five times the previous term. What is the eighth term in the sequence? 4, 20, 100, 500,....","500 * 8"," 4 * 5^7"," 4 * 5^8","4^8","4 * 5^7");
+        Question Num5= new Question("The inequality –4(x – 1) ≤ 2(x + 1) is equivalent to"," x => -1/3"," x=> 1/3","x <= 1/3","x <= -1/3","x=> 1/3");
+        Question Num6= new Question(" For what values of x is the expression : 3x2 – 3x – 18 equal to 0?","  x = 3, x = –6"," . x = –3, x = 2"," x = 3, x = –2"," x = -3, x = –6"," x = 3, x = –2");
+        Question Num7= new Question("A circle has an area of 64π ft.2. What is the circumference of the circle?","  8π ft","  32π ft"," 18π ft"," 16π ft"," 8π ft");
+        Question Num8= new Question("A circle has an area of 64π ft.2. What is the circumference of the circle?","  8π ft","  32π ft"," 18π ft"," 16π ft"," 8π ft");
+        Question Num9= new Question("Which of the following statements is true?"," All squares are rectangles and rhombuses."," All rectangles are rhombuses, but not allrhombuses are rectangles"," All rhombuses are parallelograms and all parallelograms are rhombuses."," All rhombuses are squares, but not all squaresare rhombuses."," All rhombuses are squares, but not all squares are rhombuses.");
+        Question Num10 =new Question("When winding an old clock, it is important not to overwind it. ","clocks have changed over the years. ","old-fashioned clocks become fragile with age. ",". old-fashioned clocks were operated by an internal spring. "," time flies when you’re having fun ","old-fashioned clocks were operated by an internal spring.");
         LinkedList<Question> questions1 =new LinkedList<>();
+        LinkedList<Question> questions2 =new LinkedList<>();
+        LinkedList<Question> questions3 =new LinkedList<>();
+        LinkedList<Question> questions4 =new LinkedList<>();
         questions1.add(Num1);
         questions1.add(Num2);
+        questions1.add(Num3);
+        questions2.add(Num4);
+        questions2.add(Num5);
+        questions2.add(Num6);
+        questions3.add(Num7);
+        questions3.add(Num8);
+        questions3.add(Num9);
+        questions4.add(Num10);
         SubjectTeacher Grammar = new SubjectTeacher("Grammar",questions1);
-        SubjectTeacher Geometry = new SubjectTeacher("Geometry",questions1);
-        SubjectTeacher algebra = new SubjectTeacher("Algebra",questions1);
-        SubjectTeacher comprehension = new SubjectTeacher("comprehension",questions1);
+        SubjectTeacher Geometry = new SubjectTeacher("Geometry",questions3);
+        SubjectTeacher algebra = new SubjectTeacher("Algebra",questions2);
+        SubjectTeacher comprehension = new SubjectTeacher("comprehension",questions4);
         LinkedList<SubjectTeacher> subject1=new LinkedList<>();
         subject1.add(Grammar);
         subject1.add(comprehension);
@@ -267,6 +286,14 @@ public class Data {
 
             session.saveOrUpdate(Num1);
             session.saveOrUpdate(Num2);
+            session.saveOrUpdate(Num3);
+            session.saveOrUpdate(Num4);
+            session.saveOrUpdate(Num5);
+            session.saveOrUpdate(Num6);
+            session.saveOrUpdate(Num7);
+            session.saveOrUpdate(Num8);
+            session.saveOrUpdate(Num9);
+            session.saveOrUpdate(Num10);
             session.saveOrUpdate(Grammar);
             session.saveOrUpdate(Geometry);
             session.saveOrUpdate(algebra);
@@ -412,7 +439,7 @@ public class Data {
         return result;
     }
 
-    public static SubjectTeacher findsubject (String choose)  {
+   /* public static SubjectTeacher findsubject (String choose)  {
         System.out.println("I'm in findsubject method");
         System.out.println(choose);
         List<SubjectTeacher> list =  Data.getAllSubjects();
@@ -427,7 +454,7 @@ public class Data {
         SubjectTeacher notfound = new SubjectTeacher(null,null);
         return notfound;
 
-    }
+    }*/
 
 
     /*public static void generateEnglishQusetions() throws Exception {
@@ -459,5 +486,55 @@ public class Data {
         }
         return;
     }*/
+    public static List<CourseTeacher> getAllCoutsrss()   {
+        System.out.println("line 1");
+        SessionFactory sessionFactory = getSessionFactory();
+        System.out.println("line 2");
+        session = sessionFactory.openSession();
+        System.out.println("line 3");
+        session.beginTransaction();
+        System.out.println("line 4");
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        System.out.println("line 5");
+        CriteriaQuery<CourseTeacher> query = builder.createQuery(CourseTeacher.class);
+        System.out.println("line 6");
+        query.from(CourseTeacher.class);
+        System.out.println("line 7");
+        List<CourseTeacher> result = session.createQuery(query).getResultList();
+        System.out.println("line 8");
+        session.close();
+        System.out.println(result.size());
+        return result;
+    }
 
+    public static CourseTeacher findcourse (String choose)  {
+        System.out.println("I'm in findcourse method");
+        System.out.println(choose);
+        List<CourseTeacher> list =  Data.getAllCoutsrss();
+        System.out.println(list.get(1).getName());
+        System.out.println(list.get(0).getName());
+        for(CourseTeacher course :list){
+            if(course.getName().equals(choose)){
+                System.out.println(course.getName());
+                return course;
+            }
+        }
+        CourseTeacher notfound = new CourseTeacher(null,null);
+        return notfound;
+    }
+    public static SubjectTeacher findsubject (String choose)  {
+        System.out.println("I'm in findsubject method");
+        System.out.println(choose);
+        List<SubjectTeacher> list =  Data.getAllSubjects();
+        // System.out.println(list.get(1).getName());
+        // System.out.println(list.get(0).getName());
+        for(SubjectTeacher subjectTeacher :list){
+            if(subjectTeacher.getSb_name().equals(choose)){
+                System.out.println(subjectTeacher.getSb_name());
+                return subjectTeacher;
+            }
+        }
+        SubjectTeacher notfound = new SubjectTeacher(null,null);
+        return notfound;
+    }
 }
