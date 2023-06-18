@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.ChooseQesController">
+<AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.ChooseQesController">
     <children>
         <Button fx:id="next" layoutX="601.0" layoutY="448.0" mnemonicParsing="false" onAction="#nextaction" text="Next" />
-        <TableView fx:id="Qtable" layoutX="167.0" layoutY="98.0" prefHeight="441.0" prefWidth="677.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <TableView fx:id="Qtable" layoutX="167.0" layoutY="98.0" prefHeight="441.0" prefWidth="595.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="82.0" AnchorPane.topAnchor="0.0">
             <columns>
                 <TableColumn fx:id="question" prefWidth="90.0" text="The Q" />
                 <TableColumn fx:id="ans1" prefWidth="90.0" text="ans 1" />
@@ -18,5 +19,8 @@
                 <TableColumn fx:id="the_right_ans" prefWidth="90.0" text="The Right one " />
             </columns>
         </TableView>
+      <CheckBox fx:id="chooseq1" layoutX="556.0" layoutY="36.0" mnemonicParsing="false" text="choose q1" />
+      <CheckBox fx:id="chooseq2" layoutX="556.0" layoutY="65.0" mnemonicParsing="false" text="choose q2" />
+      <CheckBox fx:id="chooseq3" layoutX="556.0" layoutY="96.0" mnemonicParsing="false" text="choose q3" />
     </children>
 </AnchorPane>

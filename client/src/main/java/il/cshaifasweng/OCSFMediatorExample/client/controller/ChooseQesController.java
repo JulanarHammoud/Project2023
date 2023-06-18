@@ -1,6 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 import il.cshaifasweng.OCSFMediatorExample.entities.SubjectAndId;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.CourseTeacher;
@@ -9,12 +9,10 @@ import il.cshaifasweng.OCSFMediatorExample.entities.SubjectTeacher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -46,6 +44,17 @@ public class ChooseQesController {
     @FXML
     private Button next;
 
+    @FXML
+    private AnchorPane pane;
+
+    @FXML
+    private CheckBox chooseq1;
+
+    @FXML
+    private CheckBox chooseq2;
+
+    @FXML
+    private CheckBox chooseq3;
     int lastIndex= SimpleClient.getParams().size()-1;
     SubjectAndId subId = (SubjectAndId) SimpleClient.getParams().get(lastIndex);
     SubjectTeacher subjectteacher = subId.getSubject();
@@ -62,6 +71,13 @@ public class ChooseQesController {
         ans4.setCellValueFactory(new PropertyValueFactory<Question, String>("ans4"));
         the_right_ans.setCellValueFactory(new PropertyValueFactory<Question, String>("the_right_ans"));
         Qtable.setItems(data);
+
+        if (subId.getId()==-1){
+            pane.getChildren().remove(chooseq1);
+            pane.getChildren().remove(chooseq2);
+            pane.getChildren().remove(chooseq3);
+
+        }
     }
 
     @FXML
