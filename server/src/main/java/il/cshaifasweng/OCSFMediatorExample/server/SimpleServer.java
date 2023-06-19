@@ -183,6 +183,7 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					throw new RuntimeException(e);
 				}
+
 			} else if (message.get(0).equals("#MakeExam2")) {
 				try {
 					System.out.println("in make exam2 ");
@@ -206,7 +207,8 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					throw new RuntimeException(e);
 				}
-			} /*else if (message.get(0).equals("#SubjectTeacher")) {
+			}
+			/*else if (message.get(0).equals("#SubjectTeacher")) {
 				try {
 					System.out.println("I'm in server subjectteacher");
 					String choose = (String) message.get(1);
@@ -252,6 +254,52 @@ public class SimpleServer extends AbstractServer {
 					client.sendToClient(course);
 				} catch (Exception e) {
 					e.printStackTrace();
+				}
+			}
+			else if (message.get(0).equals("editquestion")) {
+				try {
+					System.out.println("in edit question ");
+					String ques1 = (String) message.get(2);
+					String ans1 = (String) message.get(3);
+					String ans2 = (String) message.get(4);
+					String ans3 = (String) message.get(5);
+					String ans4 = (String) message.get(6);
+					String right = (String) message.get(7);
+					int id = (int)  message.get(8);
+					SubjectTeacher subjectTeacher = (SubjectTeacher) message.get(1);
+					SubjectTeacher subjectTeacher1 = Data.MakeQuestion(ques1, ans1, ans2, ans3, ans4, right ,subjectTeacher);
+					SubjectAndId subid =new SubjectAndId(subjectTeacher1,id);
+					Warning warning = new Warning("The Question added Successfully!!");
+
+					client.sendToClient(warning);
+					client.sendToClient(subid);
+				} catch (IOException e) {
+
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}
+			else if (message.get(0).equals("MakenewQuestion")) {
+				try {
+					System.out.println("in make question ");
+					String ques1 = (String) message.get(2);
+					String ans1 = (String) message.get(3);
+					String ans2 = (String) message.get(4);
+					String ans3 = (String) message.get(5);
+					String ans4 = (String) message.get(6);
+					String right = (String) message.get(7);
+					int id = (int)  message.get(8);
+					SubjectTeacher subjectTeacher = (SubjectTeacher) message.get(1);
+					SubjectTeacher subjectTeacher1 = Data.MakeQuestion(ques1, ans1, ans2, ans3, ans4, right ,subjectTeacher);
+					SubjectAndId subid =new SubjectAndId(subjectTeacher1,id);
+					Warning warning = new Warning("The Question added Successfully!!");
+
+					client.sendToClient(warning);
+					client.sendToClient(subid);
+				} catch (IOException e) {
+
+				} catch (Exception e) {
+					throw new RuntimeException(e);
 				}
 			}
 

@@ -1,11 +1,8 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
-import il.cshaifasweng.OCSFMediatorExample.entities.SubjectAndId;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.CourseTeacher;
-import il.cshaifasweng.OCSFMediatorExample.entities.Question;
-import il.cshaifasweng.OCSFMediatorExample.entities.SubjectTeacher;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
@@ -24,6 +22,12 @@ import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 public class ChooseQesController {
     @FXML
     private TableView<Question> Qtable;
+
+    @FXML
+    private Button add;
+
+    @FXML
+    private Button edit;
 
     @FXML
     private TableColumn<Question, String> the_right_ans;
@@ -99,6 +103,38 @@ public class ChooseQesController {
             e.printStackTrace();
         }
 
+    }
+    @FXML
+    void addQuestion(ActionEvent event) {
+        try{
+            SimpleClient.getParams().add(subId.getId());
+            SimpleClient.getParams().add(Qtable);
+        SimpleClient.getParams().add(subjectteacher);
+        setRoot("addQuestion");}
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    @FXML
+    void editQuestion(ActionEvent event) {
+
+        Qtable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        Qtable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                System.out.println(newSelection);
+                LinkedList<Object> message = new LinkedList<Object>();
+                message.add("editquestion");
+                message.add(newSelection);
+                message.add(subId.getId());
+                message.add(subjectteacher);
+                try {
+                    SimpleClient.getClient().sendToServer(message);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 }

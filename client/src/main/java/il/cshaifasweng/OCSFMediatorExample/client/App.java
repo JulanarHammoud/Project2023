@@ -1,6 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.client.EventBus.*;
+import il.cshaifasweng.OCSFMediatorExample.client.controller.ChooseQesController;
 import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -74,6 +75,7 @@ public class App extends Application {
         	alert.show();
 
     	});
+
     	
     }
 
@@ -86,6 +88,23 @@ public class App extends Application {
                 SimpleClient.getParams().add(event.getStudent());
                // System.out.println(event.getStudent().getStudents().get(0).getSt_name());
                 setRoot("secondary");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+
+
+    }
+    @Subscribe
+    public void onQuestionlEvent(QuestionEvent event) {
+        Platform.runLater(() -> {
+            try {
+
+                System.out.println("im in Question");
+                SimpleClient.getParams().add(event.getQuestion());
+                // System.out.println(event.getStudent().getStudents().get(0).getSt_name());
+                setRoot("ChooseQes");
             } catch (IOException e) {
                 e.printStackTrace();
             }

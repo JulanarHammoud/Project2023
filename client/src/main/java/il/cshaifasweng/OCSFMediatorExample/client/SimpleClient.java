@@ -60,6 +60,9 @@ public class SimpleClient extends AbstractClient {
 			//EventBus.getDefault().post(new SubjectTeacherEvent((SubjectTeacher) msg));
 			EventBus.getDefault().post(new SubIdEvent((SubjectAndId) msg));
 		}
+		else if(msg.getClass().equals(Question.class)){
+			EventBus.getDefault().post(new QuestionEvent((Question) msg));
+		}
 
 	}
 	

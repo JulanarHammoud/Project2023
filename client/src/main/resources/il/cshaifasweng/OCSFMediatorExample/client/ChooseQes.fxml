@@ -8,7 +8,7 @@
 <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.ChooseQesController">
     <children>
         <Button fx:id="next" layoutX="601.0" layoutY="448.0" mnemonicParsing="false" onAction="#nextaction" text="Next" />
-        <TableView fx:id="Qtable" layoutX="14.0" prefHeight="441.0" prefWidth="612.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="0.0">
+        <TableView fx:id="Qtable" layoutX="167.0" layoutY="98.0" prefHeight="441.0" prefWidth="677.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columns>
                 <TableColumn fx:id="question" prefWidth="90.0" text="The Q" />
                 <TableColumn fx:id="ans1" prefWidth="90.0" text="ans 1" />
@@ -16,8 +16,10 @@
                 <TableColumn fx:id="ans3" prefWidth="90.0" text="ans3" />
                 <TableColumn fx:id="ans4" prefWidth="90.0" text="ans4" />
                 <TableColumn fx:id="the_right_ans" prefWidth="90.0" text="The Right one " />
-            <TableColumn fx:id="choose" prefWidth="75.0" text="select" />
+                <TableColumn fx:id="choose" prefWidth="75.0" text="select" />
             </columns>
         </TableView>
+      <Button fx:id="add" layoutX="72.0" layoutY="448.0" mnemonicParsing="false" onAction="#addQuestion" text="Add Question" />
+      <Button fx:id="edit" layoutX="192.0" layoutY="448.0" mnemonicParsing="false" onAction="#editQuestion" text="Edit Question" />
     </children>
 </AnchorPane>

@@ -389,6 +389,40 @@ public class Data {
         }
         return 0;
     }
+    public static SubjectTeacher MakeQuestion(String Q ,String an1 ,String an2,String an3,String an4,String right,SubjectTeacher sub)
+    {
+        System.out.println("in make Question ");
+        // Exam ex=new Exam(0,NumQ,chose,"T",TNotes,SNotes,cc);
+        Question newquestion =new Question(Q,an1,an2,an3,an4,right);
+        try {
+            System.out.println("in make Question2 ");
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            System.err.println("Generated starts ...");
+
+            session.saveOrUpdate(newquestion);
+            System.err.println("Generated ends ...");
+            SubjectTeacher change = session.get(SubjectTeacher.class,sub.getId());
+            change.getQuestions().add(newquestion);
+            session.saveOrUpdate(change);
+            session.flush();
+            session.getTransaction().commit(); // Save everything.
+            return change;
+
+        } catch (Exception exception) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            exception.printStackTrace();
+        } finally {
+            if(session != null) {
+                session.close();
+            }
+        }
+        return null;
+    }
     public static List<CourseTeacher> getAllCourses() throws Exception {
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
