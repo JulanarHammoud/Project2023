@@ -223,6 +223,21 @@ public class App extends Application {
             });
         }
 
+    @Subscribe
+    public void onExamShowEvent (ExamShowEvent event){
+        Platform.runLater(() -> {
+            try {
+                //System.out.println("im in teacherlog event");
+                SimpleClient.getParams().add(event.getExam());
+                // System.out.println(event.getStudent().getStudent().getSt_name());
+                setRoot("ShowExam");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+    }
+
 
 
 	public static void main(String[] args) {

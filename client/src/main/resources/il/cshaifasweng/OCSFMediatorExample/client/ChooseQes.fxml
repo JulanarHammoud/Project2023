@@ -16,7 +16,6 @@
                 <TableColumn fx:id="ans3" prefWidth="90.0" text="ans3" />
                 <TableColumn fx:id="ans4" prefWidth="90.0" text="ans4" />
                 <TableColumn fx:id="the_right_ans" prefWidth="90.0" text="The Right one " />
-                <TableColumn fx:id="choose" prefWidth="75.0" text="select" />
             </columns>
         </TableView>
       <Button fx:id="add" layoutX="72.0" layoutY="448.0" mnemonicParsing="false" onAction="#addQuestion" text="Add Question" />

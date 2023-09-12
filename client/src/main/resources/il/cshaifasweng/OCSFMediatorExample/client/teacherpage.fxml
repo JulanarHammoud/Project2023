@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.Accordion?>
 <AnchorPane prefHeight="376.0" prefWidth="535.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.TeacherController">
    <children>
       <ImageView fitHeight="520.0" fitWidth="720.0" layoutX="-3.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true">
@@ -34,5 +35,7 @@
             <Font name="Bell MT" size="23.0" />
          </font>
       </Button>
+      <Accordion fx:id="container" layoutX="275.0" layoutY="91.0" prefHeight="123.0" prefWidth="213.0">
+      </Accordion>
    </children>
 </AnchorPane>

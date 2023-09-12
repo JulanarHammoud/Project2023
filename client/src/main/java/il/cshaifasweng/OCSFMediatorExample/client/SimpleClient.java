@@ -63,6 +63,9 @@ public class SimpleClient extends AbstractClient {
 		else if(msg.getClass().equals(Question.class)){
 			EventBus.getDefault().post(new QuestionEvent((Question) msg));
 		}
+		else if(msg.getClass().equals(Exam.class)){
+			EventBus.getDefault().post(new ExamShowEvent((Exam) msg));
+		}
 
 	}
 	

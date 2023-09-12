@@ -1,5 +1,8 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
@@ -10,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -60,7 +64,6 @@ public class ChooseQesController {
     SubjectTeacher subjectteacher = subId.getSubject();
     List<Question> listquestions = subjectteacher.getQuestions();
     ObservableList<Question> data = FXCollections.observableArrayList(listquestions);
-    // new Question(listquestions.get(0).getQuestion(),listquestions.get(0).getAns1(),listquestions.get(0).getAns2(),listquestions.get(0).getAns3(),listquestions.get(0).getAns4(),listquestions.get(0).getThe_right_ans())
 
 
     public void initialize()  {
@@ -75,35 +78,84 @@ public class ChooseQesController {
         ans3.setCellValueFactory(new PropertyValueFactory<Question, String>("ans3"));
         ans4.setCellValueFactory(new PropertyValueFactory<Question, String>("ans4"));
         the_right_ans.setCellValueFactory(new PropertyValueFactory<Question, String>("the_right_ans"));
-        choose.setCellValueFactory(new PropertyValueFactory<Question, Boolean>("exist"));
-        choose.setCellFactory(CheckBoxTableCell.forTableColumn(choose));
-        choose.setEditable(true);
-        choose.setOnEditCommit(event -> {
-            Question person = event.getRowValue();
-            person.setExist(event.getNewValue());
-        });
+
         Qtable.setItems(data);
 
 
 
 
-        if (subId.getId()==-1){
-            Qtable.getColumns().remove(choose);
+        if (subId.getId()!=-1){
+            TableColumn select = new TableColumn("Choose");
+            select.setMinWidth(200);
+            select.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Question, CheckBox>, ObservableValue<CheckBox>>() {
+
+                @Override
+                public ObservableValue<CheckBox> call(
+                        TableColumn.CellDataFeatures<Question, CheckBox> arg0) {
+                    Question question = arg0.getValue();
+
+                    CheckBox checkBox = new CheckBox();
+
+                    checkBox.selectedProperty().setValue(question.getExist());
+
+
+
+                    checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+                        public void changed(ObservableValue<? extends Boolean> ov,
+                                            Boolean old_val, Boolean new_val) {
+
+                            question.setExist(new_val);
+
+                        }
+                    });
+
+                    return new SimpleObjectProperty<CheckBox>(checkBox);
+
+                }
+
+            });
+            Qtable.getColumns().addAll( select);
 
         }
     }
 
     @FXML
     void nextaction(ActionEvent event) {
-        try {
-            System.out.println("next");
-            setRoot("Login");
+        
+
+        LinkedList<Question> selectedQuestions = new LinkedList<>() ;
+        LinkedList<Object> message = new LinkedList<Object>();
+        message.add("#BuildExam");
+        message.add(subId.getId());
+        System.out.println("client is sendeing these questions");
+
+
+        for(Question selectedQ :listquestions){
+            if(selectedQ.getExist()==true){
+                selectedQuestions.add(selectedQ);
+                System.out.println(selectedQ.getQuestion());
+            }
         }
-        catch (IOException e) {
+        System.out.println("im here");
+        System.out.println(selectedQuestions.isEmpty());
+        message.add(selectedQuestions);
+        System.out.println( "the list is null:" + selectedQuestions == null);
+        if(selectedQuestions.isEmpty()){
+            message.clear();
+            message.add("#warningNoQes");
+        }
+        try {
+            SimpleClient.getClient().sendToServer(message);
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
+            //setRoot("Login");
+
+
+
     }
+
     @FXML
     void addQuestion(ActionEvent event) {
         try{

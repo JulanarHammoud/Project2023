@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
+import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

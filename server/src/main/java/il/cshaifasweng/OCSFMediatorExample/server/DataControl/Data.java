@@ -570,4 +570,35 @@ public class Data {
         SubjectTeacher notfound = new SubjectTeacher(null,null);
         return notfound;
     }
+    public static Exam findExam (int id)  {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        Exam exam =session.get(Exam.class,id);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
+        return exam;
+
+    }
+
+    public static Exam setQuestions(int exId, LinkedList<Question> questions){
+        System.out.println("the server is sitting the questions");
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+//        LinkedList<Question> setQ = new LinkedList<>();
+//        for(Question set : questions){
+//            setQ.add(session.get(Question.class,set.getId()));
+//        }
+        Exam exam =session.get(Exam.class,exId);
+        exam.setQuestions(questions);
+
+        session.saveOrUpdate(exam);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
+        return exam;
+
+    }
 }

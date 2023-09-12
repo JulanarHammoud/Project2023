@@ -17,6 +17,9 @@ public class SimpleServer extends AbstractServer {
 	public SimpleServer(int port) {
 		super(port);
 		try {
+
+//			SubjectTeacher grammar=  Data.findsubject("Grammar");
+//			Data.MakeQuestion("aaa","bbb","ccc","ddd","ddd","ttt",grammar);
 			//Data.LogOutSt(1);
 			//Data.LogOutSt(4);
 			//Data.generateSubject();
@@ -38,7 +41,8 @@ public class SimpleServer extends AbstractServer {
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		String msgString = msg.toString();
 
-		//System.out.println("Message = " + msgString + ", reached server");
+		System.out.println("Message = " + msgString + ", reached server");
+		System.out.println(msgString.startsWith("#warningNoQes"));
 		if (msgString.startsWith("#warning")) {
 			Warning warning = new Warning("Warning from server!");
 			try {
@@ -47,6 +51,15 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}else if (msgString.equals("[#warningNoQes]")) {
+				Warning warning = new Warning("pleaes choose a question !!");
+				System.out.println("im in the if");
+				try {
+					client.sendToClient(warning);
+					System.out.format("Sent warning to client %s\n", client.getInetAddress().getHostAddress());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 		} else if (msgString.startsWith("#ListStudents")) {
 			try {
 				System.out.print("im in");
@@ -300,6 +313,21 @@ public class SimpleServer extends AbstractServer {
 
 				} catch (Exception e) {
 					throw new RuntimeException(e);
+				}
+			}
+
+			//BuildExam
+			else if (message.get(0).equals("#BuildExam")) {
+				try {
+					System.out.println("I'm in server BuildExam");
+					Exam exam = Data.setQuestions((int)message.get(1),(LinkedList<Question>) message.get(2));
+					for(Question question: exam.getQuestions()){
+						//System.out.println(" im in the loop");
+						System.out.println(question.getQuestion());
+					}
+					client.sendToClient(exam);
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 

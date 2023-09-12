@@ -1,6 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.entities.CourseStudent;
+import il.cshaifasweng.OCSFMediatorExample.entities.Subject;
 import il.cshaifasweng.OCSFMediatorExample.entities.SubjectStudent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -42,6 +43,7 @@ public class StudentController {
     @FXML
     void initialize() {
         StName.setText(String.valueOf(student.getFirstName()+ " " + student.getLastName()));
+
 
         for(int i=0;i<list.size();i++){
             // Create TitledPane
