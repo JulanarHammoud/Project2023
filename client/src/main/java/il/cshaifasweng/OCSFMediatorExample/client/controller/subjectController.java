@@ -34,20 +34,19 @@ public class subjectController {
 
     @FXML
     void Next(ActionEvent event) {
-        try{
+        try {
             System.out.println("I WILL GRAMMAR");
             String choose = Combo.getSelectionModel().getSelectedItem();
-           //  cr.getCourse().setName(choose);
-             LinkedList<Object> message = new LinkedList<Object>();
-                message.add("#MakeExam2");
-                message.add(choose);
-                message.add(cr.getExamId());
-                message.add(cr.getCourse().getId_String());
-                //message.add(cr);
-                System.out.println("Selected item: " + choose);
-                SimpleClient.getClient().sendToServer(message);
-        }
-        catch (IOException e) {
+            cr.getCourse().setName(choose);
+            LinkedList<Object> message = new LinkedList<Object>();
+            message.add("#MakeExam2");
+            message.add(choose);
+            message.add(cr.getExamId());
+            message.add(cr.getCourse().getId_String());
+            message.add(cr);
+            System.out.println("Selected item: " + choose);
+            SimpleClient.getClient().sendToServer(message);
+        }catch (IOException e) {
             e.printStackTrace();
         }
     }

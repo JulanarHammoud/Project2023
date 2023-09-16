@@ -38,7 +38,6 @@ public class ChooseCourseController {
         list.add(teacher);
         list.add(choose);
         System.out.println("QuestionPage");
-
             SimpleClient.getClient().sendToServer(list);}
          catch (IOException e) {
             e.printStackTrace();

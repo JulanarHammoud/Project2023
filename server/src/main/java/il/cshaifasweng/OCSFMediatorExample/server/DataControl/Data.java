@@ -193,30 +193,40 @@ public class Data {
 
     }
 
-    public static Teacher TeacherLog(String username, String password) throws Exception {
-        List<Teacher> teachers = getAllTeachers();
-        //System.out.println(teachers);
-        for (Teacher teacher : teachers) {
-            if (password.equals(teacher.getPassWord()) && teacher.getUserName().equals(username) ) {
-                return teacher;
-            }
-        }
 
-        Teacher notfound =new Teacher(null,null,null,null,null);
-        return notfound;
-    }
+       public static Teacher TeacherLog(String username, String password) throws Exception {
+                 List<Teacher> teachers = getAllTeachers();
+                 System.out.println(teachers);
+                   for (Teacher teacher : teachers) {
+                       if (teacher.getUserName().equals(username)) {
+                           if (password.equals(teacher.getPassWord())) {
+                               return teacher;
+                           } else {
+                               teacher.setFirstName("wrongteacherpassword");
+                               return teacher;
+                           }
+                       }
+                   }
+                   Teacher teachernotfound = new Teacher(null, null, null, null, null);
+                   return teachernotfound;
+                }
+
 
     public static Student StudentLog(String username, String password) throws Exception {
         List<Student> students = getAllStudents();
-        //System.out.println(teachers);
+        System.out.println(students);
         for (Student student : students) {
-            if (password.equals(student.getPassWord()) && student.getUserName().equals(username) ) {
-                return student;
+            if (student.getUserName().equals(username)) {
+                if (password.equals(student.getPassWord())) {
+                    return student;
+                } else {
+                    student.setFirstName("wrongstudentpassword");
+                    return student;
+                }
             }
         }
-
-        Student notfound =new Student(null,null,null,null,null);
-        return notfound;
+        Student studentnotfound = new Student(null, null, null, null, null);
+        return studentnotfound;
     }
 
     public static void printAllStudents() throws Exception {

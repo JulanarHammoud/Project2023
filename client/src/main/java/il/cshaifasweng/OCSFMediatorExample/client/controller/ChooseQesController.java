@@ -121,7 +121,7 @@ public class ChooseQesController {
 
     @FXML
     void nextaction(ActionEvent event) {
-        
+
 
         LinkedList<Question> selectedQuestions = new LinkedList<>() ;
         LinkedList<Object> message = new LinkedList<Object>();
@@ -150,7 +150,7 @@ public class ChooseQesController {
             e.printStackTrace();
         }
 
-            //setRoot("Login");
+        //setRoot("Login");
 
 
 
@@ -161,8 +161,8 @@ public class ChooseQesController {
         try{
             SimpleClient.getParams().add(subId.getId());
             SimpleClient.getParams().add(Qtable);
-        SimpleClient.getParams().add(subjectteacher);
-        setRoot("addQuestion");}
+            SimpleClient.getParams().add(subjectteacher);
+            setRoot("addQuestion");}
         catch (IOException e) {
             e.printStackTrace();
         }
