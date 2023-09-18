@@ -21,7 +21,7 @@ public class Exam implements Serializable {
     private int NumOfQuestions;
     private String subject;
     private String teacher;
-   // private String course;
+    private String course;
     private String TeacherNotes;
     private String StudentNotes;
     private String code;
@@ -31,12 +31,12 @@ public class Exam implements Serializable {
     @JoinTable(name = "Questions_Exam",joinColumns = @JoinColumn(name = "Exam_ID" ),inverseJoinColumns = {@JoinColumn(name = "Question_id")})
     private List<Question> Questions ;
 
-    public Exam(int numOfQuestions, String teacherNotes,String timerr, String studentNotes, String subject, String teacher) {
-       timerr = timerr;
+    public Exam(int numOfQuestions, String teacherNotes,String timerr, String studentNotes,String course, String subject, String teacher) {
+       this.timerr = Integer.valueOf(timerr);
         NumOfQuestions = numOfQuestions;
         this.subject = subject;
         this.teacher = teacher;
-        //this.course = course;
+        this.course = course;
         TeacherNotes = teacherNotes;
         StudentNotes = studentNotes;
     }

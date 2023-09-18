@@ -30,11 +30,11 @@ package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.CourseTeacher;
-import il.cshaifasweng.OCSFMediatorExample.entities.Subject;
 import il.cshaifasweng.OCSFMediatorExample.entities.SubjectTeacher;
 import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
@@ -42,14 +42,13 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
 public class TeacherController {
-    int lastIndex= SimpleClient.getParams().size()-1;
+    int lastIndex = SimpleClient.getParams().size() - 1;
     Teacher teacher = (Teacher) SimpleClient.getParams().get(lastIndex);
     List<CourseTeacher> courses = teacher.getCourses();
 
@@ -68,15 +67,23 @@ public class TeacherController {
     @FXML
     private Button subjects;
 
+    String selectedSub, selectedCour;
+
 
     @FXML
     void initialize() throws IOException {
-        for(CourseTeacher course : courses){
+        for (CourseTeacher course : courses) {
             Accordion content = new Accordion();
             TitledPane courseContainer = new TitledPane();
             courseContainer.setText(course.getName());
+            courseContainer.expandedProperty().addListener(new ChangeListener<Boolean>() {
+                @Override
+                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                    if(newValue) selectedCour = courseContainer.getText();
+                }
+            });
             List<SubjectTeacher> subjects = course.getSubjectTeacher();
-            for (SubjectTeacher sub : subjects){
+            for (SubjectTeacher sub : subjects) {
                 TitledPane subContainer = new TitledPane();
                 subContainer.setText(sub.getSb_name());
                 VBox buttons = new VBox(4);
@@ -85,8 +92,14 @@ public class TeacherController {
                 makeExam.setOnAction(this::examsaction);
                 Button qes = new Button("Questions");
                 Button grades = new Button("Gardes");
-                buttons.getChildren().addAll(showExams,makeExam,qes,grades);
+                buttons.getChildren().addAll(showExams, makeExam, qes, grades);
                 subContainer.setContent(buttons);
+                subContainer.expandedProperty().addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                        if (newValue) selectedSub = subContainer.getText();
+                    }
+                });
                 content.getPanes().add(subContainer);
             }
             courseContainer.setContent(content);
@@ -98,11 +111,22 @@ public class TeacherController {
 
     @FXML
     void examsaction(ActionEvent event) {
-        try{
-            SimpleClient.getParams().add(teacher);
+        try {
+            LinkedList<Object> message = new LinkedList<Object>();
+            message.add(teacher);
+            for(CourseTeacher c :courses){
+                if(c.getName().equals(selectedCour)){
+                    message.add(c);
+                    List<SubjectTeacher> subjects = c.getSubjectTeacher();
+                    for(SubjectTeacher sub: subjects)
+                        if(sub.getSb_name().equals(selectedSub))
+                            message.add(sub);
+                }
+            }
+            SimpleClient.getParams().add(message);
+            System.out.println(" sending "+ selectedCour + " and " + selectedSub);
             setRoot("MakeExam");
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -111,19 +135,19 @@ public class TeacherController {
     void gradesaction(ActionEvent event) {
 
 
-
     }
 
     @FXML
     void questionaction(ActionEvent event) {
-        try{
+        try {
             SimpleClient.getParams().add(teacher);
             setRoot("choose_course");
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
 
 }
 

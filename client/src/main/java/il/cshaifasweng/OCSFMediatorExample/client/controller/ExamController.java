@@ -32,8 +32,6 @@ import javafx.scene.control.ComboBox;
 
 public class ExamController {
 
-    @FXML
-    private ComboBox<String> Combobox;
                 @FXML
                 private Button Next;
 
@@ -62,26 +60,16 @@ public class ExamController {
                 @FXML
                 private TextField timer;
 
+
         int lastIndex= SimpleClient.getParams().size()-1;
-         Teacher teacher = (Teacher) SimpleClient.getParams().get(lastIndex);
-    List<CourseTeacher> list=teacher.getCourses();
+        LinkedList<Object> mes = (LinkedList<Object>)SimpleClient.getParams().get(lastIndex);
+         Teacher teacher = (Teacher) mes.getFirst();
+         CourseTeacher course = (CourseTeacher) mes.get(1);
+         SubjectTeacher sub = (SubjectTeacher) mes.get(2);
 
 
     public void initialize(){
-            for(int i=0;i<list.size();i++){
-                Combobox.getItems().addAll(list.get(i).getName());
-                TitledPane titledPane = new TitledPane();
-                titledPane.setText(list.get(i).getName());
-                List<SubjectTeacher> sub = list.get(i).getSubjectTeacher();
-                VBox content1 = new VBox();
-                // Add content to TitledPane
-                for(int j=0; j< sub.size();j++){
-                Button button = new Button(sub.get(j).getSb_name());
-                content1.getChildren().add(button);
-                    titledPane.setContent(content1);
-                }
-                // Add TitledPanes to the Accordion
-                }
+
     }
 
 
@@ -91,12 +79,13 @@ public class ExamController {
 
                LinkedList<Object> message = new LinkedList<Object>();
                 message.add("#MakeExam");
-            String choose = Combobox.getSelectionModel().getSelectedItem();
+
                 message.add(putNumQ.getText());
                 message.add(PutTNotes.getText());
                 message.add(PutTimer.getText());
                 message.add(PutSNotes.getText());
-                message.add(choose);
+                message.add(course);
+                message.add(sub);
                 String kl=teacher.getFirstName();
                 kl=kl+" ";
                 kl=kl+teacher.getLastName();

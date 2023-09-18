@@ -367,11 +367,11 @@ public class Data {
         }}
 
 
-    public static int MakeExam(int NumQ,String TNotes ,String timm,String SNotes,String chose,String tt)
+    public static int MakeExam(int NumQ,String TNotes ,String timm,String SNotes,String course,String sub,String tt)
     {
         System.out.println("in make Data1 ");
        // Exam ex=new Exam(0,NumQ,chose,"T",TNotes,SNotes,cc);
-        Exam ex=new Exam(NumQ,TNotes,timm,SNotes,chose,tt);
+        Exam ex = new Exam(NumQ,TNotes,timm,SNotes,course,sub,tt);
         try {
             System.out.println("in make Data2 ");
             SessionFactory sessionFactory = getSessionFactory();
