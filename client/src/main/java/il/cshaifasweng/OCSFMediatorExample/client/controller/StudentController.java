@@ -1,13 +1,10 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
-import il.cshaifasweng.OCSFMediatorExample.entities.CourseStudent;
-import il.cshaifasweng.OCSFMediatorExample.entities.Subject;
-import il.cshaifasweng.OCSFMediatorExample.entities.SubjectStudent;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.Student;
 
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TitledPane;
@@ -18,6 +15,8 @@ import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+
+import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
 
 public class StudentController {
@@ -70,6 +69,6 @@ public class StudentController {
     }
 
 
-}
 
+}
 

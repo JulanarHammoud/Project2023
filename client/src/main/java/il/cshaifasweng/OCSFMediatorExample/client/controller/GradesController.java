@@ -26,9 +26,7 @@ public class GradesController {
 
     @FXML
     private Button update2;
-
-    @FXML
-    private Button back;
+    
 
     @FXML
     void initialize() {

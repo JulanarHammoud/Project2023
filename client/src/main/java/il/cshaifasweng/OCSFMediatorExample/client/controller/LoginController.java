@@ -8,6 +8,8 @@ import javafx.scene.control.*;
 import java.io.IOException;
 import java.util.LinkedList;
 
+import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
+
 public class LoginController {
     @FXML
     private PasswordField password;
@@ -36,5 +38,15 @@ public class LoginController {
         message.add(choose);
         SimpleClient.getClient().sendToServer(message);
 
+    }
+
+    @FXML
+    void returnbutton1(ActionEvent event) {
+        try{
+            setRoot("primary");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

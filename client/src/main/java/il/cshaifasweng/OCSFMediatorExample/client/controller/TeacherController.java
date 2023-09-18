@@ -35,13 +35,16 @@ import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -55,24 +58,16 @@ public class TeacherController {
 
     @FXML
     private Accordion container;
-
     @FXML
-    private Button exams;
-
-    @FXML
-    private Button grades;
-
-    @FXML
-    private Button questions;
-    @FXML
-    private Button subjects;
+    private Label tName;
 
     String selectedSub, selectedCour;
 
 
     @FXML
     void initialize() throws IOException {
-        for (CourseTeacher course : courses) {
+        tName.setText(String.valueOf(teacher.getFirstName()+ " " + teacher.getLastName()));
+        for(CourseTeacher course : courses){
             Accordion content = new Accordion();
             TitledPane courseContainer = new TitledPane();
             courseContainer.setText(course.getName());
@@ -83,7 +78,7 @@ public class TeacherController {
                 }
             });
             List<SubjectTeacher> subjects = course.getSubjectTeacher();
-            for (SubjectTeacher sub : subjects) {
+            for (SubjectTeacher sub : subjects){
                 TitledPane subContainer = new TitledPane();
                 subContainer.setText(sub.getSb_name());
                 VBox buttons = new VBox(4);
@@ -91,8 +86,10 @@ public class TeacherController {
                 Button makeExam = new Button("Make Exam");
                 makeExam.setOnAction(this::examsaction);
                 Button qes = new Button("Questions");
-                Button grades = new Button("Gardes");
-                buttons.getChildren().addAll(showExams, makeExam, qes, grades);
+                qes.setOnAction(this::questionaction);
+                Button grades = new Button("Grades");
+                grades.setOnAction(this::gradesaction);
+                buttons.getChildren().addAll(showExams,makeExam,qes,grades);
                 subContainer.setContent(buttons);
                 subContainer.expandedProperty().addListener(new ChangeListener<Boolean>() {
                     @Override
@@ -135,6 +132,7 @@ public class TeacherController {
     void gradesaction(ActionEvent event) {
 
 
+
     }
 
     @FXML
@@ -147,6 +145,15 @@ public class TeacherController {
         }
     }
 
+    @FXML
+    public void LogOut(ActionEvent event) throws IOException {
+
+        LinkedList<Object> message = new LinkedList<Object>();
+        message.add("#LogOut");
+        message.add(teacher.getId());
+        SimpleClient.getClient().sendToServer(message);
+
+    }
 
 
 }

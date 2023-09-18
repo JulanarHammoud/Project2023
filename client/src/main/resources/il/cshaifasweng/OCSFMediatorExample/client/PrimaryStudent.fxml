@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Accordion?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.StudentController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.StudentController">
    <children>
       <ImageView fitHeight="500.0" fitWidth="700.0">
          <image>
             <Image url="@Student.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="StName" layoutX="58.0" layoutY="14.0" prefHeight="41.0" prefWidth="149.0" text="Label" textFill="WHITE">
+      <Label fx:id="StName" layoutX="58.0" layoutY="14.0" prefHeight="58.0" prefWidth="301.0" text="Student:" textFill="#a19c22">
          <font>
-            <Font size="16.0" />
+            <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <Button fx:id="grades" layoutX="401.0" layoutY="115.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="138.0" text="Grades">
+      <Button fx:id="grades" layoutX="401.0" layoutY="115.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="138.0" text="Grades" textFill="#a19c22">
          <font>
-            <Font size="26.0" />
+            <Font name="System Bold" size="25.0" />
          </font>
       </Button>
-      <Button fx:id="exams" layoutX="198.0" layoutY="115.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="138.0" text="Exams">
+      <Button fx:id="exams" layoutX="198.0" layoutY="115.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="138.0" text="Exams" textFill="#a19c22">
          <font>
-            <Font size="26.0" />
+            <Font name="System Bold" size="25.0" />
          </font>
       </Button>
       <Accordion />
       <Accordion fx:id="accordian" layoutX="216.0" layoutY="268.0" prefHeight="30.0" prefWidth="162.0">
       </Accordion>
-      <Button fx:id="logout" layoutX="591.0" layoutY="22.0" mnemonicParsing="false" onAction="#LogOut" text="logout" />
+      <Button fx:id="logout" layoutX="591.0" layoutY="22.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#a19c22">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font></Button>
    </children>
 </AnchorPane>

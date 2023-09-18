@@ -30,6 +30,8 @@ import java.util.LinkedList;
 import java.util.List;
 import javafx.scene.control.ComboBox;
 
+import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
+
 public class ExamController {
 
                 @FXML
@@ -60,7 +62,6 @@ public class ExamController {
                 @FXML
                 private TextField timer;
 
-
         int lastIndex= SimpleClient.getParams().size()-1;
         LinkedList<Object> mes = (LinkedList<Object>)SimpleClient.getParams().get(lastIndex);
          Teacher teacher = (Teacher) mes.getFirst();
@@ -79,7 +80,6 @@ public class ExamController {
 
                LinkedList<Object> message = new LinkedList<Object>();
                 message.add("#MakeExam");
-
                 message.add(putNumQ.getText());
                 message.add(PutTNotes.getText());
                 message.add(PutTimer.getText());
@@ -106,6 +106,26 @@ public class ExamController {
         catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+
+    @FXML
+    void returnbutton(ActionEvent event) {
+        try{
+            setRoot("teacherpage");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void LogOut(ActionEvent event) throws IOException {
+
+        LinkedList<Object> message = new LinkedList<Object>();
+        message.add("#LogOut");
+        //message.add(teacher.getId());
+        SimpleClient.getClient().sendToServer(message);
 
     }
 

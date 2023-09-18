@@ -13,6 +13,8 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.util.LinkedList;
 
+import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
+
 public class addQuestionController {
 
     @FXML
@@ -70,4 +72,36 @@ public class addQuestionController {
         }
     }
 
+    //@FXML
+    //void LogOutButton4(ActionEvent event) {
+      // try{
+      //      setRoot("primary");
+      //  }
+       // catch (IOException e) {
+        //    e.printStackTrace();
+       // }
+    //}
+
+    @FXML
+    void returnbutton4(ActionEvent event) { //ymkn lazm af7s ada jai mn make exam wla mn questions??
+        try{
+            setRoot("ChooseQes");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void LogOut(ActionEvent event) throws IOException {
+
+        LinkedList<Object> message = new LinkedList<Object>();
+        message.add("#LogOut");
+        //message.add(teacher.getId());
+        SimpleClient.getClient().sendToServer(message);
+
+    }
+
 }
+
+

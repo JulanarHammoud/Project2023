@@ -13,16 +13,24 @@ import java.util.List;
 
 import java.io.IOException;
 
+import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
+
 public class subjectController {
 
     @FXML
     private ComboBox<String> Combo;
     @FXML
     private Button Next;
+    @FXML
+    private Button returnbutton;
     int lastIndex= SimpleClient.getParams().size()-1;
     ExamCourse cr = (ExamCourse) SimpleClient.getParams().get(lastIndex);
 
    List<SubjectTeacher> list =  cr.getCourse().getSubjectTeacher();
+
+    //int lastsecIndex= SimpleClient.getParams().size()-2;
+    //Teacher teacher = (Teacher) SimpleClient.getParams().get(lastsecIndex);
+   // List<CourseTeacher> list=teacher.getCourses();
 
     public subjectController() {
     }

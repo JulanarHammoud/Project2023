@@ -10,17 +10,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
+import static java.awt.SystemColor.*;
 
 
 public class ChooseQesController {
@@ -64,6 +67,9 @@ public class ChooseQesController {
     SubjectTeacher subjectteacher = subId.getSubject();
     List<Question> listquestions = subjectteacher.getQuestions();
     ObservableList<Question> data = FXCollections.observableArrayList(listquestions);
+
+   // int lastsecIndex= SimpleClient.getParams().size()-2;
+   // Teacher teacher = (Teacher) SimpleClient.getParams().get(lastsecIndex);
 
 
     public void initialize()  {
@@ -187,6 +193,36 @@ public class ChooseQesController {
                 }
             }
         });
+    }
+
+   // @FXML
+    //void Back(ActionEvent event) {
+     //   try{
+    //        setRoot("teacherpage");
+    //    }
+    //    catch (IOException e) {
+    //        e.printStackTrace();
+    //    }
+    //}
+
+    @FXML
+    void returnbutton(ActionEvent event) {
+        try{
+            setRoot("teacherpage");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void LogOut(ActionEvent event) throws IOException {
+
+        LinkedList<Object> message = new LinkedList<Object>();
+        message.add("#LogOut");
+        //message.add(teacher.getId());
+        SimpleClient.getClient().sendToServer(message);
+
     }
 
 }
