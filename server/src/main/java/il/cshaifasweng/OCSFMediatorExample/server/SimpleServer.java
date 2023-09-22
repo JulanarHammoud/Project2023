@@ -10,6 +10,7 @@ import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.List;
 
+import static il.cshaifasweng.OCSFMediatorExample.server.DataControl.Data.updateExamId;
 
 
 public class SimpleServer extends AbstractServer {
@@ -166,10 +167,11 @@ public class SimpleServer extends AbstractServer {
 								System.out.println("wrong password to this teacher's name ");
 								Warning warning = new Warning("wrong password, please try again!!");
 								client.sendToClient(warning);
-							} else if (studentlog.getActive() == true) {
-								Warning warning = new Warning("you are already in");
-								client.sendToClient(warning);
-							} else {
+							} //else if (studentlog.getActive() == true) {
+							//	Warning warning = new Warning("you are already in");
+							//	client.sendToClient(warning);
+							//}
+						else {
 								Data.activateSt(studentlog.getId());
 								client.sendToClient(studentlog);
 							}
@@ -199,75 +201,75 @@ public class SimpleServer extends AbstractServer {
 				}
 
 			} else if (message.get(0).equals("#MakeExam")) {
-					try {
-						System.out.println("in make exam ");
-						//System.out.println("the username is " + (String) message.get(1));
-						String one = (String) message.get(1);
+				try {
+					System.out.println("in make exam ");
+					//System.out.println("the username is " + (String) message.get(1));
+					String one = (String) message.get(1);
 
-						String t_N = (String) message.get(2);
-						String timm = (String) message.get(3);
-						String S_N = (String) message.get(4);
-						//System.out.println(S_N);
-						CourseTeacher course = (CourseTeacher) message.get(5);
-						SubjectTeacher sub = (SubjectTeacher) message.get(6);
-						String teacherr = (String) message.get(7);
+					String t_N = (String) message.get(2);
+					String timm = (String) message.get(3);
+					String S_N = (String) message.get(4);
+					//System.out.println(S_N);
+					CourseTeacher course = (CourseTeacher) message.get(5);
+					SubjectTeacher sub = (SubjectTeacher) message.get(6);
+					String teacherr = (String) message.get(7);
 
-						if(timm.isEmpty()){
-							if(one.isEmpty()){
-								System.out.println("there is no time or number of questions filled yet");
-								Warning warning = new Warning("please fill the informations!!");
-								client.sendToClient(warning);
-							} else{
-								System.out.println("the user did not fill the time");
-								Warning warning = new Warning("please fill the time!!");
-								client.sendToClient(warning);
-							}
-						}
-						else if(one.isEmpty()){
-							System.out.println("the user did not fill the number of questions");
-							Warning warning = new Warning("please fill the number of questions!!");
+					if(timm.isEmpty()){
+						if(one.isEmpty()){
+							System.out.println("there is no time or number of questions filled yet");
+							Warning warning = new Warning("please fill the informations!!");
+							client.sendToClient(warning);
+						} else{
+							System.out.println("the user did not fill the time");
+							Warning warning = new Warning("please fill the time!!");
 							client.sendToClient(warning);
 						}
-						else{
-							boolean result1= timm.matches("[0-9]+");
-							boolean result2= one.matches("[0-9]+");
-							if(result1==false && result2==false){
-								System.out.println("ellegal time and number of questions");
-								Warning warning = new Warning("please fill a legal time and a legal number of questions!!");
-								client.sendToClient(warning);
-							}
-							else if(result1==false) {
-								System.out.println("ellegal time");
-								Warning warning = new Warning("please fill a legal time!!");
-								client.sendToClient(warning);
+					}
+					else if(one.isEmpty()){
+						System.out.println("the user did not fill the number of questions");
+						Warning warning = new Warning("please fill the number of questions!!");
+						client.sendToClient(warning);
+					}
+					else{
+						boolean result1= timm.matches("[0-9]+");
+						boolean result2= one.matches("[0-9]+");
+						if(result1==false && result2==false){
+							System.out.println("ellegal time and number of questions");
+							Warning warning = new Warning("please fill a legal time and a legal number of questions!!");
+							client.sendToClient(warning);
+						}
+						else if(result1==false) {
+							System.out.println("ellegal time");
+							Warning warning = new Warning("please fill a legal time!!");
+							client.sendToClient(warning);
 
-							}else if(result2==false) {
-								System.out.println("ellegal num of questions");
-								Warning warning = new Warning("please fill a legal number of questions!!");
-								client.sendToClient(warning);
-							}else {
+						}else if(result2==false) {
+							System.out.println("ellegal num of questions");
+							Warning warning = new Warning("please fill a legal number of questions!!");
+							client.sendToClient(warning);
+						}else {
 
-								int rr = Integer.valueOf(one);
-								//String cc= (String) message.get(7);
-								//System.out.println(choose);
-								//System.out.println(""+(String)message.get(2));
-								//System.out.println(""+(String)message.get(3));
-								//System.out.println(""+(String)message.get(4));
-								//Data.MakeExam((int)message.get(1),(String) message.get(2),(String)message.get(3),(String)message.get(4));
-								int id = Data.MakeExam(rr, t_N, timm, S_N, course.getName(),sub.getSb_name(), teacherr);
-								System.out.println("after data find");
-								System.out.println(course.getName());            //ex. english esraa
-								DecimalFormat formatter = new DecimalFormat("00");
-								String cor_id = formatter.format(course.getId());
-								String sub_id = formatter.format(sub.getId());
-								Data.updateExamId(cor_id, id, sub_id);
-								SubjectAndId subId= new SubjectAndId(sub,id);
-								client.sendToClient(subId);
+							int rr = Integer.valueOf(one);
+							//String cc= (String) message.get(7);
+							//System.out.println(choose);
+							//System.out.println(""+(String)message.get(2));
+							//System.out.println(""+(String)message.get(3));
+							//System.out.println(""+(String)message.get(4));
+							//Data.MakeExam((int)message.get(1),(String) message.get(2),(String)message.get(3),(String)message.get(4));
+							int id = Data.MakeExam(rr, t_N, timm, S_N, course.getName(),sub.getSb_name(), teacherr);
+							System.out.println("after data find");
+							System.out.println(course.getName());            //ex. english esraa
+							DecimalFormat formatter = new DecimalFormat("00");
+							String cor_id = formatter.format(course.getId());
+							String sub_id = formatter.format(sub.getId());
+							Data.updateExamId(cor_id, id, sub_id);
+							SubjectAndId subId= new SubjectAndId(sub,id);
+							client.sendToClient(subId);
 //             //CourseTeacher course= Data.FindCourse((String)message.get(5));
 //             ExamCourse exam = new ExamCourse(course, id);
 //             client.sendToClient(exam);
-							}
-				}} catch (IOException e) {
+						}
+					}} catch (IOException e) {
 
 				} catch (Exception e) {
 					throw new RuntimeException(e);
@@ -305,6 +307,65 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					throw new RuntimeException(e);
 				}
+			}
+			else if (message.get(0).equals("#GoToExStudent")) {			//israaa
+				try {
+					int idd = Data.MakeExam(12,"","1","","English","mona","esra");
+					String i=updateExamId("01",idd,"04");
+
+					String code = (String) message.get(1);
+					String type = (String) message.get(2);
+					String studentID = (String) message.get(3);
+					Student student=Data.getStudent(Integer.parseInt(studentID));
+
+//					int FoundId=-1;
+//					List<CourseStudent> y=student.getCourses();
+//					int size=y.size();
+//					int j=0;
+//					while(size!=0)
+//					{
+//						List<Exam> g=y.get(j).getEx();
+//						int hg=g.size();
+//						int m=0;
+//						while(hg!=0)
+//						{
+//							Exam singleEx=g.get(m);
+//							String name=singleEx.getCodeGivenByTeacher();
+//							if(name==code)
+//							{
+//								FoundId=singleEx.getId();
+//								size=0;
+//								hg=0;
+//							}
+//							else{
+//								hg--;
+//								m++;
+//							}
+//						}
+//						size--;
+//						j++;
+//					}
+
+					System.out.println(""+code+type+student.getFirstName());
+					Exam n=Data.BringExamBasedOnCode(idd);
+					System.out.println(";;;;"+n.getIdCode());
+					StudentWillMakeEx StEx=new StudentWillMakeEx(n);
+					System.out.println("gkl"+StEx.getEx().getCodeGivenByTeacher());
+					////	PROBLEM	//StEx.getStudentsMakeThisEx().add(StEx.getStudentsMakeThisEx().size(),dd);
+					//System.out.println("JJ"+StEx.getStudentsMakeThisEx().size());
+					System.out.println("pp"+student.getUserName());
+					StEx.setTypee(type);
+					StEx.setIdCodeForExam(idd);
+					System.out.println("kl"+StEx.getTypee()+StEx.getIdCodeForExam());
+
+
+					client.sendToClient(StEx);
+				} catch (IOException e) {
+
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+
 			}
 			/*else if (message.get(0).equals("#SubjectTeacher")) {
 				try {

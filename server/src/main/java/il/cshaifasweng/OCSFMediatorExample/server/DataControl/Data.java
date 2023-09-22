@@ -113,6 +113,22 @@ public class Data {
         System.out.println(result.size());
         return result;
     }
+    public static Exam BringExamBasedOnCode(int Id) throws Exception {
+        System.out.println("in BringExamBasedOnCode "+Id);
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        System.out.println("mmmmmmmmm");
+        Exam exam = session.get(Exam.class,Id); ////?????
+        System.out.println("lllll");
+        System.out.println("lklklklklkl");
+        session.close();
+        System.out.println("gggg");
+        System.out.println(exam.getIdCode());
+        System.out.println(exam.getId()+"kl");
+        //  System.out.println(student.getSt_name());
+        return exam;
+    }
 
     public static Student getStudent(int id) throws Exception {
 
@@ -123,6 +139,18 @@ public class Data {
         session.close();
       //  System.out.println(student.getSt_name());
         return student;
+    }
+    public static void codeStudentId(int id) throws Exception {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        Student change =session.get(Student.class,id);
+        //change.setActive(false);
+        session.saveOrUpdate(change);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
+
     }
     public static void LogOutSt(int id) throws Exception {
       // Student student = getStudent(id);
@@ -182,28 +210,33 @@ public class Data {
 
     }*/
 
-     public static void updateExamId(String IdCourse , int currentid, String IdSubject){
-        // System.out.println("I am updating");
+    public static String updateExamId(String IdCourse , int currentid, String IdSubject){
+        System.out.println("I am updating"+IdCourse+"ll"+currentid+"kk"+IdSubject);
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
         Exam change =session.get(Exam.class,currentid);
+        //StudentWillMakeEx changee=session.get(StudentWillMakeEx.class,currentid);
+
         String s=IdCourse+IdSubject;
         //String hh= Integer.toString(currentid);
-         DecimalFormat formatter=new DecimalFormat("00");
-         String aFormatted=formatter.format(currentid);
-         //System.out.println(aFormatted);
-         s=s+aFormatted;
+        DecimalFormat formatter=new DecimalFormat("00");
+        String aFormatted=formatter.format(currentid);
+        //System.out.println(aFormatted);
+        s=s+aFormatted;
+        System.out.println(""+s);
         //int n= Integer.parseInt(s);
         change.setIdCode(s);
-      //  if(Grade==1){
-      //  change.setGrade1(newGrade);}
-      //  else if(Grade==2)
-      //      change.setGrade2(newGrade);
+        //  changee.setIdCodeForExam(Integer.parseInt(s));
+        //  if(Grade==1){
+        //  change.setGrade1(newGrade);}
+        //  else if(Grade==2)
+        //      change.setGrade2(newGrade);
         session.saveOrUpdate(change);
         session.flush();
         session.getTransaction().commit();
         session.close();
+        return s;////////////////////////////
 
     }
 
@@ -381,11 +414,13 @@ public class Data {
         }}
 
 
-    public static int MakeExam(int NumQ,String TNotes ,String timm,String SNotes,String course,String sub,String tt)
+    public static int MakeExam(int NumQ,String TNotes ,String timm,String SNotes,String chose,String tt,String StudentCode)
     {
         System.out.println("in make Data1 ");
-       // Exam ex=new Exam(0,NumQ,chose,"T",TNotes,SNotes,cc);
-        Exam ex = new Exam(NumQ,TNotes,timm,SNotes,course,sub,tt);
+        // Exam ex=new Exam(0,NumQ,chose,"T",TNotes,SNotes,cc);
+        Exam ex=new Exam(NumQ,TNotes,timm,SNotes,chose,tt);
+        ex.setCodeGivenByTeacher(StudentCode);
+        //StudentWillMakeEx exx=new StudentWillMakeEx(ex);
         try {
             System.out.println("in make Data2 ");
             SessionFactory sessionFactory = getSessionFactory();
@@ -398,6 +433,9 @@ public class Data {
 
             session.flush();
             session.getTransaction().commit(); // Save everything.
+            // exx.setIdCodeForExam(ex.getId());
+            System.out.println("ex.id"+ex.getId());
+            //MakeExam2(ex);
             return ex.getId();
 
         } catch (Exception exception) {

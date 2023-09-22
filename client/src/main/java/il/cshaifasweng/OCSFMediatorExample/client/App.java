@@ -188,6 +188,33 @@ public class App extends Application {
     }
 
     @Subscribe
+    public void onExamEvent(ExamEvent event) {
+
+        Platform.runLater(() -> {
+            try {
+                System.out.println("in handle onExamEvent");
+                SimpleClient.getParams().add(event.getExx());
+                setRoot("TheExPage");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    @Subscribe
+    public void onStudentWillMakeExEvent(StudentWillMakeExEvent event) {
+
+        Platform.runLater(() -> {
+            try {
+                System.out.println("in handle StudentWillMakeEx");
+                SimpleClient.getParams().add(event.getStEx());
+                System.out.println("after");
+                setRoot("ManualExSt");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    @Subscribe
     public void onSubjectTeacherEvent(SubjectTeacherEvent event) {
 
         Platform.runLater(() -> {
