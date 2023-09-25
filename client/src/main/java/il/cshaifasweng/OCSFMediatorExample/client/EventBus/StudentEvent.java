@@ -14,6 +14,6 @@ public class StudentEvent {
         return student;
     }
 
-    public StudentEvent() {
+    public StudentEvent(Student msg) {
     }
 }

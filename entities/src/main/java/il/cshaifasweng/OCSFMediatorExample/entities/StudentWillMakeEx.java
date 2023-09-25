@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 public class StudentWillMakeEx implements Serializable{
@@ -8,6 +9,26 @@ public class StudentWillMakeEx implements Serializable{
 
     private String typee;
     private int IdCodeForExam;
+    Date d;
+    Student theLastStJoined;
+
+
+
+    public Student getTheLastStJoined() {
+        return theLastStJoined;
+    }
+
+    public void setTheLastStJoined(Student theLastStJoined) {
+        this.theLastStJoined = theLastStJoined;
+    }
+
+    public Date getD() {
+        return d;
+    }
+
+    public void setD(Date d) {
+        this.d = d;
+    }
 
     public int getIdCodeForExam() {
         return IdCodeForExam;

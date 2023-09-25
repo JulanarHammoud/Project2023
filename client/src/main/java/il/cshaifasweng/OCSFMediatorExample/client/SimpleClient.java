@@ -21,11 +21,19 @@ public class SimpleClient extends AbstractClient {
 
 	@Override
 	protected void handleMessageFromServer(Object msg) {
+		System.out.println("fatttt1");
+		System.out.println("Received message class: " + msg.getClass().getName());
 		System.out.println(msg.getClass());
 		if (msg.getClass().equals(Warning.class)) {
 			EventBus.getDefault().post(new WarningEvent((Warning) msg));
 			System.out.println("im in the warning");
 		}
+
+		else if(msg.getClass().equals(StudentWillDoEx.class)){
+			System.out.println("fatttt2");
+			EventBus.getDefault().post(new StudentWillDoExEvent((StudentWillDoEx) msg));
+		}
+
 			else if(msg.getClass().equals(stlist.class)){
 				EventBus.getDefault().post(new stdlEvent((stlist) msg));}
 		else if(msg.getClass().equals(StudentInfo.class)){
@@ -44,7 +52,6 @@ public class SimpleClient extends AbstractClient {
 			System.out.println("else if");
 			EventBus.getDefault().post(new CourseTeacherEvent((CourseTeacher) msg));
 		}
-
 
 		else if(msg.getClass().equals(ExamCourse.class)){
 			System.out.println("else if");

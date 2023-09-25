@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="pane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.ManualExStController">
-    <children>
-        <TextArea fx:id="text" layoutX="300.0" layoutY="25.0" prefHeight="273.0" prefWidth="262.0" />
-        <Button fx:id="downloadBut" layoutX="57.0" layoutY="36.0" mnemonicParsing="false" onAction="#downloadButAct" prefHeight="31.0" prefWidth="143.0" text="Download the exam" />
-        <Button fx:id="FinishBut" layoutX="57.0" layoutY="298.0" mnemonicParsing="false" onAction="#FinishButAct" prefHeight="31.0" prefWidth="143.0" text="Finish the exam" />
-        <Text layoutX="46.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hour" wrappingWidth="47.13671875" />
-        <Text layoutX="94.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Minute" wrappingWidth="47.13671875" />
-        <Text fx:id="hourr" layoutX="46.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00" wrappingWidth="32.9375" />
-        <Text fx:id="Minutee" layoutX="105.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00" />
-    </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.ManualExStController">
+   <children>
+      <Button fx:id="downloaded" layoutX="233.0" layoutY="33.0" mnemonicParsing="false" onAction="#downloadedAct" prefHeight="40.0" prefWidth="149.0" text="Download the exam" />
+      <Button fx:id="submitt" layoutX="233.0" layoutY="221.0" mnemonicParsing="false" onAction="#submittAct" prefHeight="40.0" prefWidth="149.0" text="Submitt the exam" />
+      <Text fill="#dd3c30" layoutX="153.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hour" textAlignment="CENTER" wrappingWidth="79.13671875" />
+      <Text fill="#dd3636" layoutX="261.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Minute" textAlignment="CENTER" wrappingWidth="73.13671875" />
+      <Text fill="#e14848" layoutX="366.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Second" textAlignment="CENTER" wrappingWidth="73.13671875" />
+      <Text fx:id="hourN" fill="#b50a0a" layoutX="156.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="hour" textAlignment="CENTER" wrappingWidth="73.13671875" />
+      <Text fx:id="minuteN" fill="#9e0913" layoutX="261.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="minute" textAlignment="CENTER" wrappingWidth="73.13671875" />
+      <Text fx:id="secondN" fill="#b90505" layoutX="366.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="second" textAlignment="CENTER" wrappingWidth="73.13671875" />
+      <Text fill="#0ad32b" layoutX="253.0" layoutY="391.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GOOD LUCK :)" textAlignment="CENTER" wrappingWidth="108.13671875" />
+      <Button fx:id="finish" layoutX="233.0" layoutY="292.0" mnemonicParsing="false" onAction="#finishACt" prefHeight="40.0" prefWidth="149.0" text="Finish" />
+   </children>
 </AnchorPane>

@@ -256,7 +256,7 @@ public class SimpleServer extends AbstractServer {
 							//System.out.println(""+(String)message.get(3));
 							//System.out.println(""+(String)message.get(4));
 							//Data.MakeExam((int)message.get(1),(String) message.get(2),(String)message.get(3),(String)message.get(4));
-							int id = Data.MakeExam(rr, t_N, timm, S_N, course.getName(),sub.getSb_name(), teacherr);
+							int id = Data.MakeExam(rr, t_N, timm, S_N, course.getName(),sub.getSb_name(), teacherr,"","");
 							System.out.println("after data find");
 							System.out.println(course.getName());            //ex. english esraa
 							DecimalFormat formatter = new DecimalFormat("00");
@@ -308,15 +308,19 @@ public class SimpleServer extends AbstractServer {
 					throw new RuntimeException(e);
 				}
 			}
-			else if (message.get(0).equals("#GoToExStudent")) {			//israaa
+			else if (message.get(0).equals("#GoToExStudentA")) {			//israaa
 				try {
-					int idd = Data.MakeExam(12,"","1","","English","mona","esra");
+					int idd = Data.MakeExam(12,"","130","","English","mona","esra","25.09.2023","manual");
 					String i=updateExamId("01",idd,"04");
-
-					String code = (String) message.get(1);
-					String type = (String) message.get(2);
-					String studentID = (String) message.get(3);
-					Student student=Data.getStudent(Integer.parseInt(studentID));
+System.out.println("sssssss");
+//					String code = (String) message.get(1);
+//					String type = (String) message.get(2);
+//					String studentID = (String) message.get(3);
+					String stt= (String) message.get(1);
+					Student st=Data.getStudent(Integer.parseInt(stt));
+					System.out.println("s"+st.getFirstName());
+					System.out.println("jjjjjjjj");
+//					Student student=Data.getStudent(Integer.parseInt(studentID));
 
 //					int FoundId=-1;
 //					List<CourseStudent> y=student.getCourses();
@@ -346,26 +350,89 @@ public class SimpleServer extends AbstractServer {
 //						j++;
 //					}
 
-					System.out.println(""+code+type+student.getFirstName());
+//					System.out.println(""+code+type+student.getFirstName());
+					System.out.println(""+st.getFirstName());
 					Exam n=Data.BringExamBasedOnCode(idd);
 					System.out.println(";;;;"+n.getIdCode());
-					StudentWillMakeEx StEx=new StudentWillMakeEx(n);
-					System.out.println("gkl"+StEx.getEx().getCodeGivenByTeacher());
+					StudentWillDoEx studentWillDo=new StudentWillDoEx(st,n);
+					//StudentWillMakeEx StEx=new StudentWillMakeEx(n);
+					//System.out.println("gkl"+StEx.getEx().getCodeGivenByTeacher()+"date"+StEx.getEx().getDate());
 					////	PROBLEM	//StEx.getStudentsMakeThisEx().add(StEx.getStudentsMakeThisEx().size(),dd);
 					//System.out.println("JJ"+StEx.getStudentsMakeThisEx().size());
-					System.out.println("pp"+student.getUserName());
-					StEx.setTypee(type);
-					StEx.setIdCodeForExam(idd);
-					System.out.println("kl"+StEx.getTypee()+StEx.getIdCodeForExam());
+//					System.out.println("pp"+student.getUserName());
+//					StEx.setTypee(type);
+					//StEx.setIdCodeForExam(idd);
+					//StEx.setTheLastStJoined(st);
+					//System.out.println("kl"+StEx.getTypee()+StEx.getIdCodeForExam());
 
-
-					client.sendToClient(StEx);
-				} catch (IOException e) {
-
-				} catch (Exception e) {
-					throw new RuntimeException(e);
+				System.out.println(""+studentWillDo.getStudent().getFirstName()+studentWillDo.getExamWillBeDone().getType());
+					System.out.println("Received message class: " + msg.getClass().getName());
+					client.sendToClient(studentWillDo);
+				}catch (Exception e) {
+					e.printStackTrace();
 				}
 
+			}
+			else if (message.get(0).equals("#GoToExStudentBUTTON")){
+				try {
+					int idd = Data.MakeExam(12,"","130","","English","mona","esra","25.09.2023","manual");
+					String i=updateExamId("01",idd,"04");
+
+					String code = (String) message.get(1);
+					String type = (String) message.get(2);
+					String studentID = (String) message.get(3);
+
+					Student st=Data.getStudent(Integer.parseInt(studentID));
+					System.out.println("s"+st.getFirstName());
+
+//					int FoundId=-1;
+//					List<CourseStudent> y=student.getCourses();
+//					int size=y.size();
+//					int j=0;
+//					while(size!=0)
+//					{
+//						List<Exam> g=y.get(j).getEx();
+//						int hg=g.size();
+//						int m=0;
+//						while(hg!=0)
+//						{
+//							Exam singleEx=g.get(m);
+//							String name=singleEx.getCodeGivenByTeacher();
+//							if(name==code)
+//							{
+//								FoundId=singleEx.getId();
+//								size=0;
+//								hg=0;
+//							}
+//							else{
+//								hg--;
+//								m++;
+//							}
+//						}
+//						size--;
+//						j++;
+//					}
+
+//					System.out.println(""+code+type+student.getFirstName());
+					System.out.println(""+st.getFirstName());
+					Exam n=Data.BringExamBasedOnCode(idd);
+					System.out.println(";;;;"+n.getIdCode());
+
+					StudentWillMakeEx StEx=new StudentWillMakeEx(n);
+					System.out.println("gkl"+StEx.getEx().getCodeGivenByTeacher()+"date"+StEx.getEx().getDate());
+					////	PROBLEM	//StEx.getStudentsMakeThisEx().add(StEx.getStudentsMakeThisEx().size(),dd);
+					//System.out.println("JJ"+StEx.getStudentsMakeThisEx().size());
+//					System.out.println("pp"+student.getUserName());
+					StEx.setTypee(type);
+					StEx.setIdCodeForExam(idd);
+					StEx.setTheLastStJoined(st);
+					//System.out.println("kl"+StEx.getTypee()+StEx.getIdCodeForExam());
+					client.sendToClient(StEx);
+
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			/*else if (message.get(0).equals("#SubjectTeacher")) {
 				try {

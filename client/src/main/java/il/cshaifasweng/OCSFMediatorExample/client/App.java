@@ -2,6 +2,7 @@ package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.client.EventBus.*;
 import il.cshaifasweng.OCSFMediatorExample.client.controller.ChooseQesController;
+import il.cshaifasweng.OCSFMediatorExample.entities.StudentWillMakeEx;
 import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -201,12 +202,28 @@ public class App extends Application {
         });
     }
     @Subscribe
-    public void onStudentWillMakeExEvent(StudentWillMakeExEvent event) {
+    public void onStudentWillDoExEvent(StudentWillDoExEvent event) {
+
+        Platform.runLater(() -> {
+            try {
+                System.out.println("in handle StudentDOOOOMakeEx");
+                SimpleClient.getParams().add(event.getSs());
+                System.out.println("");
+                System.out.println("after"+event.getSs().getExamWillBeDone().getType()+event.getSs().getStudent().getFirstName());
+                setRoot("StExamButton");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    @Subscribe
+    public void onStudentWillMakeExEvent( StudentWillMakeExEvent event) {
 
         Platform.runLater(() -> {
             try {
                 System.out.println("in handle StudentWillMakeEx");
                 SimpleClient.getParams().add(event.getStEx());
+                System.out.println("");
                 System.out.println("after");
                 setRoot("ManualExSt");
             } catch (IOException e) {

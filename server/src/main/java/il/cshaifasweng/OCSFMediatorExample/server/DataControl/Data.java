@@ -1,5 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.server.DataControl;
 import java.text.DecimalFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -414,11 +415,11 @@ public class Data {
         }}
 
 
-    public static int MakeExam(int NumQ,String TNotes ,String timm,String SNotes,String chose,String tt,String StudentCode)
+    public static int MakeExam(int NumQ, String TNotes , String timm, String SNotes, String chose, String tt, String StudentCode, String date,String type)
     {
         System.out.println("in make Data1 ");
         // Exam ex=new Exam(0,NumQ,chose,"T",TNotes,SNotes,cc);
-        Exam ex=new Exam(NumQ,TNotes,timm,SNotes,chose,tt);
+        Exam ex=new Exam(NumQ,TNotes,timm,SNotes,chose,tt,date,type);
         ex.setCodeGivenByTeacher(StudentCode);
         //StudentWillMakeEx exx=new StudentWillMakeEx(ex);
         try {

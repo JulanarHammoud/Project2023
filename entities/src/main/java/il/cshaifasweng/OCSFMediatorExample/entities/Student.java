@@ -13,8 +13,8 @@ public class Student extends Person{
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "Student_course",joinColumns = @JoinColumn(name = "Student_ID"),inverseJoinColumns = {@JoinColumn(name = "course_ID")})
     private List<CourseStudent> courses ;
-
     private static List<Exam> StudentExams;
+
     public Student(String firstName, String lastName, String userName, String passWord, List<CourseStudent> courses) {
         super(firstName, lastName, userName, passWord);
         this.courses = courses;
@@ -34,4 +34,5 @@ public class Student extends Person{
     public static void setStudentExams(List<Exam> studentExams) {
         StudentExams = studentExams;
     }
+
 }

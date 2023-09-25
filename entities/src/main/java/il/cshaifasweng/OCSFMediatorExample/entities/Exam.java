@@ -5,6 +5,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -24,12 +25,14 @@ public class Exam implements Serializable {
     private String StudentNotes;
     private static String code;
     private String CodeGivenByTeacher;
+    private String date;
+    private String type;
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "Questions_Exam",joinColumns = @JoinColumn(name = "Exam_ID" ),inverseJoinColumns = {@JoinColumn(name = "Question_id")})
     private List<Question> Questions ;
 
-    public Exam(int numOfQuestions, String teacherNotes,String timerr, String studentNotes, String subject, String teacher) {
+    public Exam(int numOfQuestions, String teacherNotes,String timerr, String studentNotes, String subject, String teacher,String date,String type) {
         this.timerr = Integer.parseInt(timerr);
         NumOfQuestions = numOfQuestions;
         this.subject = subject;
@@ -37,6 +40,16 @@ public class Exam implements Serializable {
         //this.course = course;
         TeacherNotes = teacherNotes;
         StudentNotes = studentNotes;
+        this.date=date;
+        this.type=type;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public Exam() {
@@ -125,5 +138,13 @@ public class Exam implements Serializable {
 
     public int getId() {
         return Id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
