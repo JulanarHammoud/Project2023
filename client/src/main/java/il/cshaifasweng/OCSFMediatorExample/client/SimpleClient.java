@@ -11,7 +11,7 @@ import java.util.List;
 
 
 public class SimpleClient extends AbstractClient {
-	
+
 	private static SimpleClient client = null;
 	private  static List<Object> params=new LinkedList<>();
 
@@ -34,8 +34,8 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new StudentWillDoExEvent((StudentWillDoEx) msg));
 		}
 
-			else if(msg.getClass().equals(stlist.class)){
-				EventBus.getDefault().post(new stdlEvent((stlist) msg));}
+		else if(msg.getClass().equals(stlist.class)){
+			EventBus.getDefault().post(new stdlEvent((stlist) msg));}
 		else if(msg.getClass().equals(StudentInfo.class)){
 			EventBus.getDefault().post(new StudentEvent((StudentInfo) msg));}
 		else if(msg.getClass().equals(Teacher.class)){
@@ -61,12 +61,16 @@ public class SimpleClient extends AbstractClient {
 			System.out.println("else if");
 			EventBus.getDefault().post(new SubWITHidEvent((SubWITHid) msg));
 		}
-
+		else if(msg.getClass().equals(GetSubject.class)){
+			System.out.println("GetSubject Client");
+			//EventBus.getDefault().post(new SubjectTeacherEvent((SubjectTeacher) msg));
+			EventBus.getDefault().post(new GetSubjectEvent((GetSubject) msg));
+		}
 		else if(msg.getClass().equals(SubjectTeacher.class)){
 			System.out.println("SubjectTeacher Client");
 			//EventBus.getDefault().post(new SubjectTeacherEvent((SubjectTeacher) msg));
 			EventBus.getDefault().post(new SubjectTeacherEvent((SubjectTeacher) msg));
-		     }
+		}
 		else if(msg.getClass().equals(SubjectAndId.class)){
 			System.out.println("SubjectAndId Client");
 			//EventBus.getDefault().post(new SubjectTeacherEvent((SubjectTeacher) msg));
@@ -75,15 +79,21 @@ public class SimpleClient extends AbstractClient {
 		else if(msg.getClass().equals(Question.class)){
 			EventBus.getDefault().post(new QuestionEvent((Question) msg));
 		}
-		else if(msg.getClass().equals(Exam.class)){
-			EventBus.getDefault().post(new ExamShowEvent((Exam) msg));
+		else if(msg.getClass().equals(ExamSubjectTeacher.class)){
+			System.out.println("Exam Subject teacher client");
+			EventBus.getDefault().post(new ExamShowEvent((ExamSubjectTeacher) msg));
+
+		}
+		else if(msg.getClass().equals(ExamSubjectTeacherEdit.class)){
+			System.out.println("Exam Subject teacher edit simpleclient");
+			EventBus.getDefault().post(new EditExamEvent((ExamSubjectTeacherEdit) msg));
 		}
 		else if (msg.getClass().equals(StudentWillMakeEx.class)) {
 			EventBus.getDefault().post(new StudentWillMakeExEvent((StudentWillMakeEx) msg));
 		}
 
 	}
-	
+
 	public static SimpleClient getClient() {
 		if (client == null) {
 			client = new SimpleClient("localhost", 3000);

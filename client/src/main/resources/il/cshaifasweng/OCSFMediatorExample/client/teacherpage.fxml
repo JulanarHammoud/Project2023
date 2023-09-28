@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="376.0" prefWidth="535.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.TeacherController">
@@ -13,10 +14,26 @@
             <Image url="@student.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="tName" layoutX="50.0" layoutY="14.0" text="Teacher:" textFill="#a19c22">
+      <Label fx:id="tName" layoutX="50.0" layoutY="14.0" text="Teacher:">
          <font>
             <Font name="System Bold" size="40.0" />
          </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.6313725709915161" green="0.6117647290229797" blue="0.13333334028720856" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
       </Label>
       <Accordion fx:id="container" layoutX="50.0" layoutY="123.0" prefHeight="173.0" prefWidth="213.0">
       </Accordion>

@@ -1,25 +1,18 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.client.EventBus.*;
-import il.cshaifasweng.OCSFMediatorExample.client.controller.ChooseQesController;
-import il.cshaifasweng.OCSFMediatorExample.entities.StudentWillMakeEx;
-import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.io.IOException;
 
 /**
  * JavaFX App
@@ -209,7 +202,7 @@ public class App extends Application {
                 System.out.println("in handle StudentDOOOOMakeEx");
                 SimpleClient.getParams().add(event.getSs());
                 System.out.println("");
-                System.out.println("after"+event.getSs().getExamWillBeDone().getType()+event.getSs().getStudent().getFirstName());
+              //  System.out.println("after"+event.getSs().getExamWillBeDone().getType()+event.getSs().getStudent().getFirstName());
                 setRoot("StExamButton");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -245,12 +238,26 @@ public class App extends Application {
         });}
 
     @Subscribe
+    public void onGetSubjectEvent(GetSubjectEvent event) {
+
+        Platform.runLater(() -> {
+                System.out.println("in app aa");
+                SimpleClient.getParams().add(event.getGetSubject());
+            try {
+                setRoot("allExams");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });}
+
+    @Subscribe
     public void onSubIdEvent(SubIdEvent event) {
 
         Platform.runLater(() -> {
             try {
                 System.out.println("saving SubId");
                 SimpleClient.getParams().add(event.getSubId());
+                System.out.println(event.getSubId().getQuestions().getFirst().getQuestion());
                 setRoot("ChooseQes");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -277,7 +284,8 @@ public class App extends Application {
         Platform.runLater(() -> {
             try {
                 //System.out.println("im in teacherlog event");
-                SimpleClient.getParams().add(event.getExam());
+                System.out.println("Exam Show App-client");
+                SimpleClient.getParams().add(event.getExamSubjectTeacher());
                 // System.out.println(event.getStudent().getStudent().getSt_name());
                 setRoot("ShowExam");
             } catch (IOException e) {
@@ -287,6 +295,17 @@ public class App extends Application {
         });
     }
 
+    @Subscribe
+    public void onEditExamEvent(EditExamEvent event) {
+        Platform.runLater(() -> {
+            System.out.println("ExamEdit App-client");
+            SimpleClient.getParams().add(event.getExamSubjectTeacherEdit());
+            try {
+                setRoot("ExamEdit");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });}
 
 
 	public static void main(String[] args) {

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.AllExamsController">
+    <children>
+        <TableView fx:id="Etable" onSort="#edit" prefHeight="355.0" prefWidth="600.0">
+            <columns>
+                <TableColumn fx:id="IdCode" prefWidth="81.0" text="exam Code" />
+                <!--                <TableColumn fx:id="course" prefWidth="99.0" text="course" />-->
+                <TableColumn fx:id="subjectExam" prefWidth="107.0" text="subject" />
+                <TableColumn fx:id="teacherExam" prefWidth="120.0" text="teacher" />
+                <TableColumn fx:id="NumOfQuestions" prefWidth="107.0" text="num of questions" />
+                <TableColumn fx:id="timerr" prefWidth="78.0" text="timer" />
+            </columns>
+        </TableView>
+        <Button layoutX="467.0" layoutY="361.0" mnemonicParsing="false" onAction="#back" text="Back" textFill="#a19c22">
+            <font>
+                <Font name="System Bold Italic" size="12.0" />
+            </font></Button>
+        <Button layoutX="517.0" layoutY="361.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#a19c22">
+            <font>
+                <Font name="System Bold Italic" size="12.0" />
+            </font></Button>
+        <Button layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#show" text="Show Exam" textFill="#a19c22">
+            <font>
+                <Font name="System Bold Italic" size="12.0" />
+            </font></Button>
+      <Button layoutX="114.0" layoutY="361.0" mnemonicParsing="false" onAction="#edit" text="Edit Exam" textFill="#a19c22">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="204.0" layoutY="361.0" mnemonicParsing="false" onAction="#makeExam" text="Make Exam" textFill="#a19c22">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="300.0" layoutY="361.0" mnemonicParsing="false" text="Delete Exam" textFill="#a19c22">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Button>
+    </children>
+
+</AnchorPane>

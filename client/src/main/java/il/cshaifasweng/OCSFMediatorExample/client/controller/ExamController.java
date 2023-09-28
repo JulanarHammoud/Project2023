@@ -1,72 +1,54 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
+
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.*;
+import il.cshaifasweng.OCSFMediatorExample.entities.CourseTeacher;
+import il.cshaifasweng.OCSFMediatorExample.entities.SubjectTeacher;
+import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
-import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.List;
-
-
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-
-import javafx.scene.control.Accordion;
-import javafx.scene.control.TitledPane;
-import javafx.scene.layout.VBox;
-
-
-import javafx.event.ActionEvent;
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
-import javafx.scene.control.ComboBox;
 
 import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
 public class ExamController {
 
-                @FXML
-                private Button Next;
+    @FXML
+    private Button Next;
 
-                @FXML
-                private TextField NumQ;
+    @FXML
+    private TextField NumQ;
 
-                @FXML
-                private TextField PutSNotes;
+    @FXML
+    private TextField PutSNotes;
 
-                @FXML
-                private TextField PutTNotes;
+    @FXML
+    private TextField PutTNotes;
 
-                @FXML
-                private TextField PutTimer;
+    @FXML
+    private TextField PutTimer;
 
-                @FXML
-                private TextField SNotes;
+    @FXML
+    private TextField SNotes;
 
-                @FXML
-                private TextField TNotes;
+    @FXML
+    private TextField TNotes;
 
 
-                @FXML
-                private TextField putNumQ;
+    @FXML
+    private TextField putNumQ;
 
-                @FXML
-                private TextField timer;
+    @FXML
+    private TextField timer;
 
-        int lastIndex= SimpleClient.getParams().size()-1;
-        LinkedList<Object> mes = (LinkedList<Object>)SimpleClient.getParams().get(lastIndex);
-         Teacher teacher = (Teacher) mes.getFirst();
-         CourseTeacher course = (CourseTeacher) mes.get(1);
-         SubjectTeacher sub = (SubjectTeacher) mes.get(2);
+    int lastIndex= SimpleClient.getParams().size()-1;
+    LinkedList<Object> mes = (LinkedList<Object>)SimpleClient.getParams().get(lastIndex);
+    Teacher teacher = (Teacher) mes.getFirst();
+    CourseTeacher course = (CourseTeacher) mes.get(1);
+    SubjectTeacher sub = (SubjectTeacher) mes.get(2);
 
 
     public void initialize(){
@@ -74,28 +56,29 @@ public class ExamController {
     }
 
 
-        @FXML
-        void Next(ActionEvent event) {
+    @FXML
+    void Next(ActionEvent event) {
         try{
 
-               LinkedList<Object> message = new LinkedList<Object>();
-                message.add("#MakeExam");
-                message.add(putNumQ.getText());
-                message.add(PutTNotes.getText());
-                message.add(PutTimer.getText());
-                message.add(PutSNotes.getText());
-                message.add(course);
-                message.add(sub);
-                String kl=teacher.getFirstName();
-                kl=kl+" ";
-                kl=kl+teacher.getLastName();
-                message.add(kl);
+            LinkedList<Object> message = new LinkedList<Object>();
+            message.add("#MakeExam");
+            message.add(putNumQ.getText());
+            message.add(PutTNotes.getText());
+            message.add(PutTimer.getText());
+            message.add(PutSNotes.getText());
+            message.add(course);
+            message.add(sub);
+            String kl=teacher.getFirstName();
+            kl=kl+" ";
+            kl=kl+teacher.getLastName();
+            message.add(kl);
+            message.add(teacher);
 
-                System.out.println("Selected item: " + putNumQ.getText());
-                System.out.println("Selected item: " + PutTNotes.getText());
-                System.out.println("Selected item: " + PutTimer.getText());
-                System.out.println("Selected item: " + PutSNotes.getText());
-                SimpleClient.getClient().sendToServer(message);
+            System.out.println("Selected item: " + putNumQ.getText());
+            System.out.println("Selected item: " + PutTNotes.getText());
+            System.out.println("Selected item: " + PutTimer.getText());
+            System.out.println("Selected item: " + PutSNotes.getText());
+            SimpleClient.getClient().sendToServer(message);
 
          /*   LinkedList<Object> list1=new LinkedList<>();
             list1.add("#SubjectTeacher");
@@ -112,6 +95,7 @@ public class ExamController {
     @FXML
     void returnbutton(ActionEvent event) {
         try{
+            SimpleClient.getParams().add(teacher);
             setRoot("teacherpage");
         }
         catch (IOException e) {

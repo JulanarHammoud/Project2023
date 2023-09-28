@@ -4,10 +4,10 @@ import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.Question;
 import il.cshaifasweng.OCSFMediatorExample.entities.SubjectAndId;
 import il.cshaifasweng.OCSFMediatorExample.entities.SubjectTeacher;
+import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -38,16 +38,27 @@ public class addQuestionController {
     @FXML
     private TextField theQ;
     int lastIndex= SimpleClient.getParams().size()-1;
-    SubjectTeacher subjectTeacher = (SubjectTeacher) SimpleClient.getParams().get(lastIndex);
-    int lastIndex2= SimpleClient.getParams().size()-2;
-    TableView<Question> Table = (TableView<Question>) SimpleClient.getParams().get(lastIndex2);
-    int lastIndex3= SimpleClient.getParams().size()-3;
-    int id = (int) SimpleClient.getParams().get(lastIndex3);
+    SubjectAndId subid = (SubjectAndId) SimpleClient.getParams().get(lastIndex);
+    Teacher teacher = subid.getTeacher();
+    SubjectTeacher subjectTeacher = subid.getSubject();
+    int id = subid.getId();
+    LinkedList<Question> questions = subid.getQuestions();
+
+    //Teacher teacher = (Teacher) SimpleClient.getParams().get(lastIndex0);
+    //int lastIndex= SimpleClient.getParams().size()-2;
+    //SubjectTeacher subjectTeacher = (SubjectTeacher) SimpleClient.getParams().get(lastIndex);
+    //int lastIndex2= SimpleClient.getParams().size()-3;
+   // TableView<Question> Table = (TableView<Question>) SimpleClient.getParams().get(lastIndex2);
+    //int lastIndex3= SimpleClient.getParams().size()-4;
+    //int id = (int) SimpleClient.getParams().get(lastIndex3);
+   // int lastIndex4= SimpleClient.getParams().size()-5;
+   // LinkedList<Question> questions = (LinkedList<Question>) SimpleClient.getParams().get(lastIndex2);
 
 
     @FXML
     void submitaction(ActionEvent event) {
         try {
+            System.out.println("Im in add question controller");
             LinkedList<Object> message = new LinkedList<Object>();
             String question = theQ.getText();
             String answer1 = answ1.getText();
@@ -65,8 +76,10 @@ public class addQuestionController {
             message.add(answer4);
             message.add(right);
             message.add(id);
+            message.add(teacher);
+            message.add(questions);
             SimpleClient.getClient().sendToServer(message);
-               }
+        }
         catch (IOException e) {
             e.printStackTrace();
         }
@@ -74,17 +87,26 @@ public class addQuestionController {
 
     //@FXML
     //void LogOutButton4(ActionEvent event) {
-      // try{
-      //      setRoot("primary");
-      //  }
-       // catch (IOException e) {
-        //    e.printStackTrace();
-       // }
+    // try{
+    //      setRoot("primary");
+    //  }
+    // catch (IOException e) {
+    //    e.printStackTrace();
+    // }
     //}
 
     @FXML
-    void returnbutton4(ActionEvent event) { //ymkn lazm af7s ada jai mn make exam wla mn questions??
+    void returnbutton4(ActionEvent event) {
         try{
+            LinkedList<Object> message = new LinkedList<Object>();
+            if(subid.getQuestions()==null){
+                SubjectAndId sub = new SubjectAndId(subjectTeacher,id,teacher);
+                SimpleClient.getParams().add(sub);
+            }
+            else{
+                SubjectAndId sub = new SubjectAndId(subjectTeacher,id,teacher,questions);
+                SimpleClient.getParams().add(sub);
+            }
             setRoot("ChooseQes");
         }
         catch (IOException e) {

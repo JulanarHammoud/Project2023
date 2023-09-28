@@ -1,8 +1,10 @@
 
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
+import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.CourseStudent;
-import il.cshaifasweng.OCSFMediatorExample.entities.SubjectStudent;
+import il.cshaifasweng.OCSFMediatorExample.entities.Student;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
@@ -28,6 +30,18 @@ public class StudentController {
     private Label StName;
 
     @FXML
+    private Accordion accordian;
+
+    @FXML
+    private ComboBox<String> combo;
+
+    @FXML
+    private Button examButton;
+
+    @FXML
+    private TextField examCode;
+
+    @FXML
     private Button exams;
 
     @FXML
@@ -35,6 +49,7 @@ public class StudentController {
 
     @FXML
     private Button logout;
+
 
     @FXML
     void initialize() {

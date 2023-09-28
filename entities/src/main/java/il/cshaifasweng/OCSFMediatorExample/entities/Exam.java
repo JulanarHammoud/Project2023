@@ -5,7 +5,6 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,36 +19,49 @@ public class Exam implements Serializable {
     private int NumOfQuestions;
     private String subject;
     private String teacher;
-    // private String course;
+    private String course;
     private String TeacherNotes;
     private String StudentNotes;
     private static String code;
     private String CodeGivenByTeacher;
-    private String date;
-    private String type;
+    @Transient
+    private Boolean exist = false;
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "Questions_Exam",joinColumns = @JoinColumn(name = "Exam_ID" ),inverseJoinColumns = {@JoinColumn(name = "Question_id")})
     private List<Question> Questions ;
 
-    public Exam(int numOfQuestions, String teacherNotes,String timerr, String studentNotes, String subject, String teacher,String date,String type) {
+    public Exam(int numOfQuestions, String teacherNotes,String timerr, String studentNotes,String course, String subject, String teacher) {
         this.timerr = Integer.parseInt(timerr);
         NumOfQuestions = numOfQuestions;
         this.subject = subject;
         this.teacher = teacher;
-        //this.course = course;
+        this.course = course;
         TeacherNotes = teacherNotes;
         StudentNotes = studentNotes;
-        this.date=date;
-        this.type=type;
     }
 
-    public String getDate() {
-        return date;
+    public Exam(int id, String idCode, int timerr, int numOfQuestions, String subject, String teacher, String course, String teacherNotes, String studentNotes, String codeGivenByTeacher, Boolean exist, List<Question> questions) {
+        Id = id;
+        IdCode = idCode;
+        this.timerr = timerr;
+        NumOfQuestions = numOfQuestions;
+        this.subject = subject;
+        this.teacher = teacher;
+        this.course = course;
+        TeacherNotes = teacherNotes;
+        StudentNotes = studentNotes;
+        CodeGivenByTeacher = codeGivenByTeacher;
+        this.exist = exist;
+        Questions = questions;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
     }
 
     public Exam() {
@@ -139,12 +151,11 @@ public class Exam implements Serializable {
     public int getId() {
         return Id;
     }
-
-    public String getType() {
-        return type;
+    public Boolean getExist() {
+        return exist;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setExist(Boolean exist) {
+        this.exist = exist;
     }
 }

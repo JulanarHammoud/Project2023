@@ -112,31 +112,31 @@ public class StExamButtonController implements Serializable {
         int s=st.size();
         while (j<s)
         {
-            if((Sub1.getText().equals(st.get(j).getSubject()))&&((Sub1.getText().equals(list.get(j).getName()))))
-            {
-                date1.setText(st.get(j).getDate());
-            }
-            if((sub2.getText().equals(st.get(j).getSubject()))&&((sub2.getText().equals(list.get(j).getName()))))
-            {
-                date2.setText(st.get(j).getDate());
-            }
-            if((sub3.getText().equals(st.get(j).getSubject()))&&((sub3.getText().equals(list.get(j).getName()))))
-            {
-                date3.setText(st.get(j).getDate());
-            }
-            if((sub4.getText().equals(st.get(j).getSubject()))&&((sub4.getText().equals(list.get(j).getName()))))
-            {
-                date4.setText(st.get(j).getDate());
-            }
+//            if((Sub1.getText().equals(st.get(j).getSubject()))&&((Sub1.getText().equals(list.get(j).getName()))))
+//            {
+//                date1.setText(st.get(j).getDate());
+//            }
+//            if((sub2.getText().equals(st.get(j).getSubject()))&&((sub2.getText().equals(list.get(j).getName()))))
+//            {
+//                date2.setText(st.get(j).getDate());
+//            }
+//            if((sub3.getText().equals(st.get(j).getSubject()))&&((sub3.getText().equals(list.get(j).getName()))))
+//            {
+//                date3.setText(st.get(j).getDate());
+//            }
+//            if((sub4.getText().equals(st.get(j).getSubject()))&&((sub4.getText().equals(list.get(j).getName()))))
+//            {
+//                date4.setText(st.get(j).getDate());
+//            } // ----------------> Yaman And Lana turned it off
             j++;
         }
 
         int i=0;
             while((i<list.size())&&(i<st.size()))
             {
-                String datee=st.get(i).getDate();
-                LocalDate date = LocalDate.parse(datee, formatter);
-                formattedDate = date.format(formatter);
+               // String datee=st.get(i).getDate();
+                //LocalDate date = LocalDate.parse(datee, formatter);
+               // formattedDate = date.format(formatter);
                 formattedLocalDate = LocalDate.parse(formattedDate, formatter);
 
                 if((Sub1.getText().equals(list.get(i).getName()))&&(currentDate.isEqual(formattedLocalDate)))
@@ -201,12 +201,12 @@ public class StExamButtonController implements Serializable {
     void nextAct(ActionEvent event) throws IOException {
         LinkedList<Object> message = new LinkedList<Object>();
         message.add("#GoToExStudentBUTTON");
-        if("manual".equals(StEx.getExamWillBeDone().getType())) {
-            message.add(codee);
-            message.add(StEx.getExamWillBeDone().getType());
-            message.add(String.valueOf(StEx.getStudent().getId()));
-            System.out.println("" + StEx.getExamWillBeDone().getTimerr()+StEx.getExamWillBeDone().getType());
-            SimpleClient.getClient().sendToServer(message);
-        }
+//        if("manual".equals(StEx.getExamWillBeDone().getType())) {
+//            message.add(codee);
+//            message.add(StEx.getExamWillBeDone().getType());
+//            message.add(String.valueOf(StEx.getStudent().getId()));
+//            System.out.println("" + StEx.getExamWillBeDone().getTimerr()+StEx.getExamWillBeDone().getType());
+//            SimpleClient.getClient().sendToServer(message);
+//        }// -----------> Yaman And Lana turned it off
     }
 }

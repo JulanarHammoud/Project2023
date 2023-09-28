@@ -1,26 +1,17 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
-import il.cshaifasweng.OCSFMediatorExample.client.App;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
 
-import static il.cshaifasweng.OCSFMediatorExample.client.App.*;
+import static il.cshaifasweng.OCSFMediatorExample.client.App.set;
+import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 //import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
 public class studentExamController {
@@ -33,7 +24,7 @@ public class studentExamController {
     @FXML
     void initialize() throws IOException {
         //FXMLLoader loader = new FXMLLoader(getClass().getResource("studentExam.fxml"));
-       // Parent root = loader.load();
+        // Parent root = loader.load();
         //Parent root = App.loadFXML("studentExam");
         ok.setText("please");
         button1= new RadioButton("true");
@@ -74,9 +65,9 @@ public class studentExamController {
 
             }
             else{
-            RadioButton button2= new RadioButton(Integer.toString(j));
-            button2.setToggleGroup(bg);
-            listr.add(button2);
+                RadioButton button2= new RadioButton(Integer.toString(j));
+                button2.setToggleGroup(bg);
+                listr.add(button2);
 
             }
             j++;
@@ -106,5 +97,5 @@ public class studentExamController {
     }
 
 
-    }
+}
 

@@ -1,6 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client.EventBus;
 
-import il.cshaifasweng.OCSFMediatorExample.entities.Student;
+
 import il.cshaifasweng.OCSFMediatorExample.entities.StudentInfo;
 
 public class StudentEvent {
@@ -14,6 +14,6 @@ public class StudentEvent {
         return student;
     }
 
-    public StudentEvent(Student msg) {
-    }
+    //public StudentEvent(Student msg) {
+    //}
 }

@@ -23,23 +23,23 @@ public class ChooseCourseController {
     public void initialize() throws IOException {
         for(int i=0;i<list.size();i++){
             //System.out.println(list.get(i));
-        role.getItems().add(String.valueOf(list.get(i).getName()));}
-       // String choose = role.getSelectionModel().getSelectedItem();
+            role.getItems().add(String.valueOf(list.get(i).getName()));}
+        // String choose = role.getSelectionModel().getSelectedItem();
     }
 
 
     @FXML
     void submitaction(ActionEvent event)  {
         try {
-        LinkedList list =new LinkedList();
-        System.out.println(role.getSelectionModel().getSelectedItem());
-        String choose = role.getSelectionModel().getSelectedItem();
-        list.add("#CoursetTeacher");
-        list.add(teacher);
-        list.add(choose);
-        System.out.println("QuestionPage");
+            LinkedList list =new LinkedList();
+            System.out.println(role.getSelectionModel().getSelectedItem());
+            String choose = role.getSelectionModel().getSelectedItem();
+            list.add("#CoursetTeacher");
+            list.add(teacher);
+            list.add(choose);
+            System.out.println("QuestionPage");
             SimpleClient.getClient().sendToServer(list);}
-         catch (IOException e) {
+        catch (IOException e) {
             e.printStackTrace();
         }
 

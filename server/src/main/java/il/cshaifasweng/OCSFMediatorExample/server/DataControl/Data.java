@@ -1,13 +1,5 @@
 package il.cshaifasweng.OCSFMediatorExample.server.DataControl;
-import java.text.DecimalFormat;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-
-import antlr.Grammar;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -15,6 +7,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import java.text.DecimalFormat;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Data {
     private static Session session;
@@ -138,7 +136,7 @@ public class Data {
         session.beginTransaction();
         Student student =session.get(Student.class,id);
         session.close();
-      //  System.out.println(student.getSt_name());
+        //  System.out.println(student.getSt_name());
         return student;
     }
     public static void codeStudentId(int id) throws Exception {
@@ -154,12 +152,12 @@ public class Data {
 
     }
     public static void LogOutSt(int id) throws Exception {
-      // Student student = getStudent(id);
+        // Student student = getStudent(id);
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
         Student change =session.get(Student.class,id);
-       change.setActive(false);
+        change.setActive(false);
         session.saveOrUpdate(change);
         session.flush();
         session.getTransaction().commit();
@@ -415,13 +413,10 @@ public class Data {
         }}
 
 
-    public static int MakeExam(int NumQ, String TNotes , String timm, String SNotes, String chose, String tt, String StudentCode, String date,String type)
+    public static int MakeExam(int NumQ,String TNotes ,String timm,String SNotes,String course,SubjectTeacher sub, String teacher)
     {
         System.out.println("in make Data1 ");
-        // Exam ex=new Exam(0,NumQ,chose,"T",TNotes,SNotes,cc);
-        Exam ex=new Exam(NumQ,TNotes,timm,SNotes,chose,tt,date,type);
-        ex.setCodeGivenByTeacher(StudentCode);
-        //StudentWillMakeEx exx=new StudentWillMakeEx(ex);
+        Exam ex=new Exam(NumQ,TNotes,timm,SNotes,course,sub.getSb_name(),teacher);
         try {
             System.out.println("in make Data2 ");
             SessionFactory sessionFactory = getSessionFactory();
@@ -431,7 +426,9 @@ public class Data {
 
             session.saveOrUpdate(ex);
             System.err.println("Generated ends ...");
-
+            SubjectTeacher change = session.get(SubjectTeacher.class,sub.getId());
+            change.getExams().add(ex);
+            session.saveOrUpdate(change);
             session.flush();
             session.getTransaction().commit(); // Save everything.
             // exx.setIdCodeForExam(ex.getId());
@@ -505,7 +502,7 @@ public class Data {
         //System.out.println(teachers);
 
         for (CourseTeacher coursee : CourseTeacher) {
-           // System.out.println(coursee.getName());
+            // System.out.println(coursee.getName());
             System.out.println(name.equals(coursee.getName()));
             if (name.equals(coursee.getName())) {
                 return coursee;
@@ -663,5 +660,21 @@ public class Data {
         session.close();
         return exam;
 
+    }
+    public static SubjectTeacher GetSubjectById(int id){
+        System.out.println("the server is getting the subject");
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+//        LinkedList<Question> setQ = new LinkedList<>();
+//        for(Question set : questions){
+//            setQ.add(session.get(Question.class,set.getId()));
+//        }
+       SubjectTeacher sub =session.get(SubjectTeacher.class,id);
+
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
+        return sub;
     }
 }

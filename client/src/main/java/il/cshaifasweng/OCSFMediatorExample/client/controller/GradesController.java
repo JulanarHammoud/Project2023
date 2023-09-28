@@ -26,13 +26,13 @@ public class GradesController {
 
     @FXML
     private Button update2;
-    
+
 
     @FXML
     void initialize() {
         Grademsg.clear();
-       // Grade1.setText(Integer.toString(student.getStudent().getGrade1()));
-      //  Grade2.setText(Integer.toString(student.getStudent().getGrade2()));
+        // Grade1.setText(Integer.toString(student.getStudent().getGrade1()));
+        //  Grade2.setText(Integer.toString(student.getStudent().getGrade2()));
 
     }
 
@@ -42,12 +42,12 @@ public class GradesController {
     void updateGrade1(ActionEvent event) {
         try{
 
-        int newGrade=Integer.valueOf(Grade1.getText());
-        Grademsg.add("#UpdateGrade");
-        Grademsg.add(student.getStudent().getId());
-        Grademsg.add(newGrade);
-        Grademsg.add(1);
-        SimpleClient.getClient().sendToServer(Grademsg);}
+            int newGrade=Integer.valueOf(Grade1.getText());
+            Grademsg.add("#UpdateGrade");
+            Grademsg.add(student.getStudent().getId());
+            Grademsg.add(newGrade);
+            Grademsg.add(1);
+            SimpleClient.getClient().sendToServer(Grademsg);}
         catch (IOException e) {
             e.printStackTrace();
         }
@@ -57,15 +57,15 @@ public class GradesController {
     @FXML
     void updateGrade2(ActionEvent event) {
         try{
-        int newGrade=Integer.valueOf(Grade2.getText());
-        Grademsg.add("#UpdateGrade");
-        Grademsg.add(student.getStudent().getId());
-        Grademsg.add(newGrade);
-        Grademsg.add(2);
-        SimpleClient.getClient().sendToServer(Grademsg);}
+            int newGrade=Integer.valueOf(Grade2.getText());
+            Grademsg.add("#UpdateGrade");
+            Grademsg.add(student.getStudent().getId());
+            Grademsg.add(newGrade);
+            Grademsg.add(2);
+            SimpleClient.getClient().sendToServer(Grademsg);}
         catch (IOException e) {
-        e.printStackTrace();
-    }
+            e.printStackTrace();
+        }
 
     }
     @FXML

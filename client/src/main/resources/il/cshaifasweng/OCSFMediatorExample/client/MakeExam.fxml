@@ -6,7 +6,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="458.0" prefWidth="584.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.ExamController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="458.0" prefWidth="584.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.ExamController">
    <children>
       <ImageView fitHeight="580.0" fitWidth="550.0" layoutX="10.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -22,27 +22,6 @@
             <Font name="System Bold Italic" size="14.0" />
          </font></Button>
       <Accordion />
-      <Text fill="#391cae" layoutX="98.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Timer">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-         <fill>
-            <LinearGradient endX="0.5308056872037914" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.6313725709915161" green="0.6117647290229797" blue="0.13333334028720856" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="1.0" green="1.0" blue="1.0" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Text>
       <Text layoutX="90.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="StudentNotes">
          <font>
             <Font name="System Bold" size="20.0" />
@@ -110,9 +89,30 @@
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-      <Button layoutX="122.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnbutton" prefHeight="24.0" prefWidth="66.0" text="Return" textFill="#a19c22">
+      <Button layoutX="122.0" layoutY="14.0" mnemonicParsing="false" onAction="#returnbutton" prefHeight="24.0" prefWidth="66.0" text="Back" textFill="#a19c22">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
+      <Label layoutX="92.0" layoutY="59.0" prefHeight="27.0" prefWidth="95.0" text="Timer">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="0.3459715639810427" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.6313725709915161" green="0.6117647290229797" blue="0.13333334028720856" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.9490196108818054" green="0.9411764740943909" blue="0.8470588326454163" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
    </children>
 </AnchorPane>

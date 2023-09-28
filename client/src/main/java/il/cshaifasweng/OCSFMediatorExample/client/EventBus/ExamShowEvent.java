@@ -1,19 +1,19 @@
 package il.cshaifasweng.OCSFMediatorExample.client.EventBus;
 
-import il.cshaifasweng.OCSFMediatorExample.entities.Exam;
+import il.cshaifasweng.OCSFMediatorExample.entities.ExamSubjectTeacher;
 
 public class ExamShowEvent {
-    Exam exam;
+    ExamSubjectTeacher examSubjectTeacher;
 
-    public Exam getExam() {
-        return exam;
+    public ExamShowEvent(ExamSubjectTeacher examSubjectTeacher) {
+        this.examSubjectTeacher = examSubjectTeacher;
     }
 
-    public void setExam(Exam exam) {
-        this.exam = exam;
+    public ExamSubjectTeacher getExamSubjectTeacher() {
+        return examSubjectTeacher;
     }
 
-    public ExamShowEvent(Exam exam) {
-        this.exam = exam;
+    public void setExamSubjectTeacher(ExamSubjectTeacher examSubjectTeacher) {
+        this.examSubjectTeacher = examSubjectTeacher;
     }
 }
