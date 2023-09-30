@@ -635,6 +635,12 @@ public class SimpleServer extends AbstractServer {
 									subject, exFromClient.getTeacher());
 //							CourseTeacher course = Data.findcourse(exFromClient.getCourse());
 						}
+						else{
+							String TeacherNote = (String) message.get(9);
+							String StudentNote = (String) message.get(10);
+							int Time = (Integer) message.get(11);
+							exam=Data.updateExam(id,TeacherNote,StudentNote,Time);
+						}
 						exam = Data.setQuestions(id, (LinkedList<Question>) message.get(7));
 						DecimalFormat formatter = new DecimalFormat("00");
 						String cor_id = formatter.format(course.getId());//course

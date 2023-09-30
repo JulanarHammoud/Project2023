@@ -227,6 +227,9 @@ public class ExamEditController {
             message.add(subId.getId());
             message.add(selectedQuestions);
             message.add(1);
+            message.add(exam.getTeacherNotes());
+            message.add(exam.getStudentNotes());
+            message.add(Integer.valueOf(exam.getTimerr()));
         }
         try {
             SimpleClient.getClient().sendToServer(message);
@@ -274,6 +277,9 @@ public class ExamEditController {
             message.add(subId.getId());
             message.add(selectedQuestions);
             message.add(1);
+            message.add(exam.getTeacherNotes());
+            message.add(exam.getStudentNotes());
+            message.add(exam.getTimerr());
         }
         try {
             SimpleClient.getClient().sendToServer(message);

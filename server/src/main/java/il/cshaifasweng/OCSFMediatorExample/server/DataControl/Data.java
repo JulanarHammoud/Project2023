@@ -522,6 +522,24 @@ public class Data {
         return result;
     }
 
+    public static Exam updateExam(int examId, String TeacherNote , String StudentNote, int ExamTime){
+        System.out.println("I am updating: " + TeacherNote + " " + StudentNote + " "+ExamTime);
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        Exam exam =session.get(Exam.class,examId);
+        exam.setTimerr(ExamTime);
+        exam.setTeacherNotes(TeacherNote);
+        exam.setStudentNotes(StudentNote);
+        session.saveOrUpdate(exam);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
+        return exam;
+    }
+
+
+
    /* public static SubjectTeacher findsubject (String choose)  {
         System.out.println("I'm in findsubject method");
         System.out.println(choose);
