@@ -17,6 +17,7 @@ import java.util.List;
 
 import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
+
 public class AllExamsController {
 
     int lastIndex = SimpleClient.getParams().size() - 1;
@@ -24,6 +25,7 @@ public class AllExamsController {
     Teacher teacher =  message.getTeacher();
     SubjectTeacher subject =  message.getSubjectTeacher();
     List<Exam> exams = subject.getExams();
+    CourseTeacher courseteacher = message.getCourseTeacher();
 
     @FXML
     private TableView<Exam> Etable;
@@ -89,18 +91,16 @@ public class AllExamsController {
 
     @FXML
     void makeExam(ActionEvent event) {
-//        try {
-////            Course course = message.getCourse();
-////            Subject subject1 = message.getSubject();
-////            LinkedList<Object> message = new LinkedList<Object>();
-////            message.add(teacher);
-////            message.add(course);
-////            message.add(subject1);
-////            SimpleClient.getParams().add(message);
-////            setRoot("MakeExam");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            LinkedList<Object> message = new LinkedList<Object>();
+            message.add(teacher);
+            message.add(courseteacher);
+            message.add(subject);
+            SimpleClient.getParams().add(message);
+            setRoot("MakeExam");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

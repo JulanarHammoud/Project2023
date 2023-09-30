@@ -1,10 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.Question;
-import il.cshaifasweng.OCSFMediatorExample.entities.SubjectAndId;
-import il.cshaifasweng.OCSFMediatorExample.entities.SubjectTeacher;
-import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -66,6 +63,7 @@ public class ChooseQesController {
     Teacher teacher = subId.getTeacher();
     List<Question> listquestions = subjectteacher.getQuestions();
     ObservableList<Question> data = FXCollections.observableArrayList(listquestions);
+    CourseTeacher courseTeacher=subId.getCourseTeacher();
 
     public void initialize()  {
         Qtable.setEditable(true);
@@ -121,18 +119,19 @@ public class ChooseQesController {
                     System.out.println(selectedQ.getQuestion());
                 }
             }
-                System.out.println(selectedQuestions.isEmpty());
-                message.add(selectedQuestions);
-                System.out.println( "the list is null:" + selectedQuestions == null);
-                if(selectedQuestions.isEmpty()){
-                    message.clear();
-                    message.add("#warningNoQes");
-                }
-                try {
-                    SimpleClient.getClient().sendToServer(message);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            System.out.println(selectedQuestions.isEmpty());
+            message.add(courseTeacher);
+            message.add(selectedQuestions);
+            System.out.println( "the list is null:" + selectedQuestions == null);
+            if(selectedQuestions.isEmpty()){
+                message.clear();
+                message.add("#warningNoQes");
+            }
+            try {
+                SimpleClient.getClient().sendToServer(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         else{ //we are in question page
             SimpleClient.getParams().add(teacher);
@@ -178,7 +177,6 @@ public class ChooseQesController {
     public void LogOut(ActionEvent event) throws IOException {
         LinkedList<Object> message = new LinkedList<Object>();
         message.add("#LogOut");
-        //message.add(teacher.getId());
         SimpleClient.getClient().sendToServer(message);
     }
 

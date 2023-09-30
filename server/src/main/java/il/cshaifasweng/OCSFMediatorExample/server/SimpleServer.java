@@ -240,11 +240,8 @@ public class SimpleServer extends AbstractServer {
 							String cor_id = formatter.format(course.getId());
 							String sub_id = formatter.format(sub.getId());
 							Data.updateExamId(cor_id, id, sub_id);
-							SubjectAndId subId = new SubjectAndId(sub, id, teacher);
+							SubjectAndId subId = new SubjectAndId(sub, id, teacher,course);
 							client.sendToClient(subId);
-//             //CourseTeacher course= Data.FindCourse((String)message.get(5));
-//             ExamCourse exam = new ExamCourse(course, id);
-//             client.sendToClient(exam);
 						}
 					}
 				} catch (IOException e) {
@@ -529,10 +526,9 @@ public class SimpleServer extends AbstractServer {
 			} else if (message.get(0).equals("#GetSubject")) {
 				int sub_id = (int) message.get(1);
 				Teacher teacher = (Teacher) message.get(2);
-//				Course course = (Course) message.get(3);
-//				Subject subject = (Subject) message.get(4);
+				CourseTeacher courseTeacher = (CourseTeacher) message.get(3);
 				SubjectTeacher subjectTeacher = Data.GetSubjectById(sub_id);
-				GetSubject sub = new GetSubject(subjectTeacher, teacher);
+				GetSubject sub = new GetSubject(subjectTeacher, teacher,courseTeacher);
 				try {
 					client.sendToClient(sub);
 				} catch (IOException e) {
@@ -546,12 +542,13 @@ public class SimpleServer extends AbstractServer {
 					System.out.println("I'm in server BuildExam");
 					Teacher teacher = (Teacher) message.get(1);
 					SubjectTeacher subject = (SubjectTeacher) message.get(2);
-					Exam exam = Data.setQuestions((int) message.get(3), (LinkedList<Question>) message.get(4));
+					CourseTeacher courseTeacher=(CourseTeacher) message.get(4);
+					Exam exam = Data.setQuestions((int) message.get(3), (LinkedList<Question>) message.get(5));
 					for (Question question : exam.getQuestions()) {
 						//System.out.println(" im in the loop");
 						System.out.println(question.getQuestion());
 					}
-					ExamSubjectTeacher examsubjectteacher = new ExamSubjectTeacher(teacher, subject, exam);
+					ExamSubjectTeacher examsubjectteacher = new ExamSubjectTeacher(teacher, subject, exam,courseTeacher);
 					System.out.println("we made the class:");
 					System.out.println(examsubjectteacher.getExam().getSubject());
 					client.sendToClient(examsubjectteacher);
@@ -585,60 +582,65 @@ public class SimpleServer extends AbstractServer {
 			//Edit_Q_Exam
 			else if (message.get(0).equals("#Edit_Q_Exam")) {
 				try {
-					int flag = (Integer) message.get(1);
 					System.out.println("I'm in server Edit_Q_Exam");
-					ExamSubjectTeacherEdit examSubjectTeacherEdit = (ExamSubjectTeacherEdit) message.get(4);
+					int flag = (Integer) message.get(1);
+					Exam exFromClient = (Exam) message.get(2);
+					CourseTeacher course = Data.findcourse(exFromClient.getCourse());
+					Teacher teacher = (Teacher) message.get(4);
+					SubjectTeacher subject = (SubjectTeacher) message.get(5);
+					int id = (Integer) message.get(6);
+					if(flag==1) { //save the exam copy
+						flag = 2;
+					}
+					else{
+						flag = 4;
+					}
+					ExamSubjectTeacherEdit examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject, exFromClient,flag,course);
 					if(flag==3){
 						System.out.println("Not selecting any the exam copy");
 						Warning warning = new Warning("please select the exam copy!!");
 						client.sendToClient(warning);
 						client.sendToClient(examSubjectTeacherEdit);
-					} else if(message.get(2)==null){
-						if(message.get(3)==null){
-							if(message.get(5)==null){
-								System.out.println("deleting all questions from exam");
-								Warning warning = new Warning("you can't delete all the questions from the exam!!" + "\n" +
-										"you can try these solutions:" + "\n" +
-										"1. keep at least one question in the exam" + "\n" +
-										"2. delete the exam" + "\n" +
-										"3. make a new exam");
-								client.sendToClient(warning);
-								client.sendToClient(examSubjectTeacherEdit);
-							}else{
-								System.out.println("Not selecting any question to delete");
-								Warning warning = new Warning("you didn't select any question to delete");
-								client.sendToClient(warning);
-								client.sendToClient(examSubjectTeacherEdit);
-							}
-						}else{
+					}
+					else if((Integer)message.get(8)==0){
+						int wrong =(Integer) message.get(9);
+						if(wrong==1){
+							System.out.println("deleting all questions from exam");
+							Warning warning = new Warning("you can't delete all the questions from the exam!!" + "\n" +
+									"you can try these solutions:" + "\n" +
+									"1. keep at least one question in the exam" + "\n" +
+									"2. delete the exam" + "\n" +
+									"3. make a new exam");
+							client.sendToClient(warning);
+							client.sendToClient(examSubjectTeacherEdit);
+						}
+						else if(wrong==2){
+							System.out.println("Not selecting any question to delete");
+							Warning warning = new Warning("you didn't select any question to delete");
+							client.sendToClient(warning);
+							client.sendToClient(examSubjectTeacherEdit);
+						}
+						else if(wrong==3){
 							System.out.println("Not selecting any question to add");
 							Warning warning = new Warning("you didn't select any question to add");
 							client.sendToClient(warning);
 							client.sendToClient(examSubjectTeacherEdit);
 						}
-					} else {//No problems
-						Teacher teacher = (Teacher) message.get(2);
-						SubjectTeacher subject = (SubjectTeacher) message.get(3);
-						Exam exFromClient;
+					}
+					else {//No problems
 						Exam exam;
-						int id = (Integer) message.get(5);
-						exFromClient = (Exam) message.get(6);;
-						CourseTeacher course = Data.findcourse(exFromClient.getCourse());
-						if(flag==1) { //New Exam Copy
+						if(flag==2) { //New Exam Copy
 							id = Data.MakeExam(exFromClient.getNumOfQuestions(), exFromClient.getTeacherNotes(),
 									Integer.toString(exFromClient.getTimerr()), exFromClient.getStudentNotes(), exFromClient.getCourse(),
 									subject, exFromClient.getTeacher());
-							flag = 2;
-						}
-						else{
-							flag = 4;
+//							CourseTeacher course = Data.findcourse(exFromClient.getCourse());
 						}
 						exam = Data.setQuestions(id, (LinkedList<Question>) message.get(7));
 						DecimalFormat formatter = new DecimalFormat("00");
-						String cor_id = formatter.format(course.getId());
+						String cor_id = formatter.format(course.getId());//course
 						String sub_id = formatter.format(subject.getId());
 						Data.updateExamId(cor_id, id, sub_id);
-						examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject, exam,flag);
+						examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject, exam,flag,course);
 						client.sendToClient(examSubjectTeacherEdit);
 					}
 				} catch (Exception e) {

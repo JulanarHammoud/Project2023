@@ -29,6 +29,7 @@ public class ShowExamController {
         List<Question> questions = exam.getQuestions();
         Teacher teacher = message.getTeacher();
         SubjectTeacher subject = message.getSubjectTeacher();
+        CourseTeacher courseTeacher = message.getCourseTeacher();
     @FXML
     private AnchorPane testshow;
 
@@ -86,65 +87,13 @@ public class ShowExamController {
             set(scroll);
     }
 
-    /*class DynamicButtonApp extends Application {
-
-        @Override
-        public void start(Stage primaryStage) {
-            Button dynamicButton = new Button("Click Me");
-            dynamicButton.setOnAction(e -> {
-                System.out.println("Button Clicked!");
-            });
-
-            VBox root = new VBox();
-            root.getChildren().add(dynamicButton);
-
-            Scene scene = new Scene(root, 300, 200);
-
-            primaryStage.setScene(scene);
-            primaryStage.setTitle("Dynamic Button Example");
-            primaryStage.show();
-
-            Button deleatequestions = new Button("deleatequestions");
-            HBox dlt_b = new HBox(1);
-            dlt_b.getChildren().add(deleatequestions);
-            Scene scene4 = new Scene(dlt_b, 300, 200);
-
-            primaryStage.setScene(scene4);
-            primaryStage.setTitle("Deleate Questions");
-            primaryStage.show();
-
-            Button addquestions = new Button("addquestions");
-            HBox add_b = new HBox(1);
-            add_b.getChildren().add(deleatequestions);
-            Scene scene1 = new Scene(add_b, 300, 200);
-            primaryStage.setScene(scene);
-            primaryStage.setTitle("Add Questions");
-            primaryStage.show();
-        }
-
-        public static void main(String[] args) {
-            launch(args);
-        }
-    }
-    @FXML
-    public void deleatequestions (ActionEvent event) {
-        LinkedList<Object> message = new LinkedList<Object>();
-        message.add("#GetSubject");
-        message.add(subject.getId());
-        message.add(teacher);
-        try {
-            SimpleClient.getClient().sendToServer(message);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }*/
-
     @FXML
     public void Finish (ActionEvent event) {
             LinkedList<Object> message = new LinkedList<Object>();
             message.add("#GetSubject");
             message.add(subject.getId());
             message.add(teacher);
+            message.add(courseTeacher);
             try {
                 SimpleClient.getClient().sendToServer(message);
             } catch (IOException e) {

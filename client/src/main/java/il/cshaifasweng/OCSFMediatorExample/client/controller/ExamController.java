@@ -47,9 +47,8 @@ public class ExamController {
     int lastIndex= SimpleClient.getParams().size()-1;
     LinkedList<Object> mes = (LinkedList<Object>)SimpleClient.getParams().get(lastIndex);
     Teacher teacher = (Teacher) mes.getFirst();
-    CourseTeacher course = (CourseTeacher) mes.get(1);
+    CourseTeacher courseteacher = (CourseTeacher) mes.get(1);
     SubjectTeacher sub = (SubjectTeacher) mes.get(2);
-
 
     public void initialize(){
 
@@ -66,7 +65,7 @@ public class ExamController {
             message.add(PutTNotes.getText());
             message.add(PutTimer.getText());
             message.add(PutSNotes.getText());
-            message.add(course);
+            message.add(courseteacher);
             message.add(sub);
             String kl=teacher.getFirstName();
             kl=kl+" ";

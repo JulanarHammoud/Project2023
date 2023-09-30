@@ -6,11 +6,28 @@ public class ExamSubjectTeacher implements Serializable {
     Teacher teacher;
     SubjectTeacher subjectTeacher;
     Exam exam;
+    CourseTeacher courseTeacher;
 
     public ExamSubjectTeacher(Teacher teacher, SubjectTeacher subjectTeacher, Exam exam) {
         this.teacher = teacher;
         this.subjectTeacher = subjectTeacher;
         this.exam = exam;
+        this.courseTeacher=null;
+    }
+
+    public ExamSubjectTeacher(Teacher teacher, SubjectTeacher subjectTeacher, Exam exam, CourseTeacher courseTeacher) {
+        this.teacher = teacher;
+        this.subjectTeacher = subjectTeacher;
+        this.exam = exam;
+        this.courseTeacher = courseTeacher;
+    }
+
+    public CourseTeacher getCourseTeacher() {
+        return courseTeacher;
+    }
+
+    public void setCourseTeacher(CourseTeacher courseTeacher) {
+        this.courseTeacher = courseTeacher;
     }
 
     public Teacher getTeacher() {

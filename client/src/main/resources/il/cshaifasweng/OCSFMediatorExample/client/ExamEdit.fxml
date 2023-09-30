@@ -20,7 +20,7 @@
                               <Font name="System Bold Italic" size="12.0" />
                            </font>
                         </Button>
-                        <Button layoutX="358.0" layoutY="347.0" mnemonicParsing="false" onAction="#deletequestions" text="Deleate Questions" textFill="#a14d23">
+                        <Button layoutX="358.0" layoutY="347.0" mnemonicParsing="false" onAction="#deletequestions" text="Delete Question" textFill="#a14d23">
                            <font>
                               <Font name="System Bold Italic" size="12.0" />
                            </font>
@@ -44,12 +44,17 @@
                         <TextField fx:id="Tnote" layoutX="347.0" layoutY="44.0" prefHeight="25.0" prefWidth="177.0" />
                         <TextField fx:id="Snote" layoutX="347.0" layoutY="76.0" prefHeight="25.0" prefWidth="177.0" />
                         <Accordion fx:id="addquestion" layoutX="345.0" layoutY="122.0" prefHeight="212.0" prefWidth="234.0" />
-                        <Button layoutX="486.0" layoutY="347.0" mnemonicParsing="false" onAction="#addquestions" text="Aqq Questions" textFill="#2f721f">
+                        <Button layoutX="486.0" layoutY="347.0" mnemonicParsing="false" onAction="#addquestions" text="Add Questions" textFill="#2f721f">
                            <font>
                               <Font name="System Bold Italic" size="12.0" />
                            </font>
                         </Button>
-                        <Accordion fx:id="CopyAccordion" layoutX="6.0" layoutY="45.0" prefHeight="88.0" prefWidth="104.0" />
+                        <Accordion fx:id="CopyAccordion" layoutX="5.0" layoutY="69.0" prefHeight="88.0" prefWidth="104.0" />
+                        <Label fx:id="ExamCopy" layoutX="21.0" layoutY="40.0" prefHeight="29.0" prefWidth="67.0" text="Exam Copy" textFill="#a19c22">
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                </children>

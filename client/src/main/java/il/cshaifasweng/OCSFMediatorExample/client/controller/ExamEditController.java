@@ -31,6 +31,7 @@ public class ExamEditController {
     List<Question> listquestions = subject.getQuestions();
     ObservableList<Question> data = FXCollections.observableArrayList(listquestions);
     SubjectAndId subId = new SubjectAndId(subject, exam.getId(), teacher);
+    CourseTeacher courseTeacher=subId.getCourseTeacher();
 
     @FXML
     private Label ETime;
@@ -50,7 +51,8 @@ public class ExamEditController {
     private Accordion addquestion;
     @FXML
     private Accordion CopyAccordion;
-    private TitledPane Copy;
+    @FXML
+    private Label ExamCopy;
 
     @FXML
     void initialize() throws IOException {
@@ -147,9 +149,11 @@ public class ExamEditController {
             examSubjectTeacherEdit.setFlag(2);
             Copy.setDisable(true);
             examSubjectTeacherEdit.setPressed(true);
+            ExamCopy.setText("New Copy");
         }else{
             if(examSubjectTeacherEdit.getFlag()==4){
                 examSubjectTeacherEdit.setPressed(true);
+                ExamCopy.setText("Same Copy");
             }
         }
     }
@@ -159,6 +163,7 @@ public class ExamEditController {
     public void Old_copy (ActionEvent event){
         examSubjectTeacherEdit.setFlag(0);
         examSubjectTeacherEdit.setPressed(true);
+        ExamCopy.setText("Same Copy");
     }
 
 
@@ -166,6 +171,7 @@ public class ExamEditController {
     public void New_Copy (ActionEvent event){
         examSubjectTeacherEdit.setFlag(1);
         examSubjectTeacherEdit.setPressed(true);
+        ExamCopy.setText("New Copy");
     }
 
 
@@ -187,18 +193,26 @@ public class ExamEditController {
 
         if(selectedQuestions.isEmpty()){
             System.out.println("ERROR: ExamEditController deleting all the questions");
-            message.add(null);
-            message.add(null);
-            message.add(examSubjectTeacherEdit);
-            message.add(null);
+            message.add(examSubjectTeacherEdit.getFlag());
+            message.add(exam);
+            message.add(courseTeacher);
+            message.add(teacher);
+            message.add(subject);
+            message.add(subId.getId());
+            message.add(selectedQuestions);
+            message.add(0);
+            message.add(1);
         } else if(selectedQuestions.equals(questions)){
             System.out.println("ERROR: ExamEditController not selecting anything to delete");
             message.add(examSubjectTeacherEdit.getFlag());
-            message.add(null);
-            message.add(null);
-            message.add(examSubjectTeacherEdit);
-            message.add(1);
-
+            message.add(exam);
+            message.add(courseTeacher);
+            message.add(teacher);
+            message.add(subject);
+            message.add(subId.getId());
+            message.add(selectedQuestions);
+            message.add(0);
+            message.add(2);
         }
         else{ //if the copy button have been pressed
             if(!examSubjectTeacherEdit.getPressed()){
@@ -206,12 +220,13 @@ public class ExamEditController {
             } else{
                 message.add(examSubjectTeacherEdit.getFlag());
             }// Deleting questions
+            message.add(exam);
+            message.add(courseTeacher);
             message.add(teacher);
             message.add(subject);
-            message.add(examSubjectTeacherEdit);
             message.add(subId.getId());
-            message.add(exam);
             message.add(selectedQuestions);
+            message.add(1);
         }
         try {
             SimpleClient.getClient().sendToServer(message);
@@ -237,21 +252,28 @@ public class ExamEditController {
 
         if (selectedQuestions.equals(questions)) {
             System.out.println("ERROR: no selected questions to add, at ExamEditController");
-            message.add(null);
-            message.add(1);
-            message.add(examSubjectTeacherEdit);
+            message.add(examSubjectTeacherEdit.getFlag());
+            message.add(exam);
+            message.add(courseTeacher);
+            message.add(teacher);
+            message.add(subject);
+            message.add(subId.getId());
+            message.add(selectedQuestions);
+            message.add(0);
+            message.add(3);
         } else {//if the copy button have been pressed
             if(!examSubjectTeacherEdit.getPressed()){
                 message.add(3);
             } else{
                 message.add(examSubjectTeacherEdit.getFlag());
             }// Add questions
+            message.add(exam);
+            message.add(courseTeacher);
             message.add(teacher);
             message.add(subject);
-            message.add(examSubjectTeacherEdit);
             message.add(subId.getId());
-            message.add(exam);
             message.add(selectedQuestions);
+            message.add(1);
         }
         try {
             SimpleClient.getClient().sendToServer(message);
@@ -267,6 +289,7 @@ public class ExamEditController {
         message.add("#GetSubject");
         message.add(subject.getId());
         message.add(teacher);
+        message.add(courseTeacher);
             try {
                 SimpleClient.getClient().sendToServer(message);
             } catch (IOException e) {

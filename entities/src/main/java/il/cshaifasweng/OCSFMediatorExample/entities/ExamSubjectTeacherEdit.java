@@ -6,14 +6,17 @@ public class ExamSubjectTeacherEdit implements Serializable {
     Teacher teacher;
     SubjectTeacher subjectTeacher;
     Exam exam;
+    CourseTeacher courseTeacher;
     int flag;
     boolean pressed=false;
+
 
     public ExamSubjectTeacherEdit(Teacher teacher, SubjectTeacher subjectTeacher, Exam exam) {
         this.teacher = teacher;
         this.subjectTeacher = subjectTeacher;
         this.exam = exam;
         this.flag=0;
+        this.courseTeacher=null;
     }
 
     public ExamSubjectTeacherEdit(Teacher teacher, SubjectTeacher subjectTeacher, Exam exam, int flag) {
@@ -21,6 +24,23 @@ public class ExamSubjectTeacherEdit implements Serializable {
         this.subjectTeacher = subjectTeacher;
         this.exam = exam;
         this.flag = flag;
+        this.courseTeacher=null;
+    }
+
+    public ExamSubjectTeacherEdit(Teacher teacher, SubjectTeacher subjectTeacher, Exam exam, int flag, CourseTeacher courseTeacher) {
+        this.teacher = teacher;
+        this.subjectTeacher = subjectTeacher;
+        this.exam = exam;
+        this.courseTeacher = courseTeacher;
+        this.flag = flag;
+    }
+
+    public CourseTeacher getCourseTeacher() {
+        return courseTeacher;
+    }
+
+    public void setCourseTeacher(CourseTeacher courseTeacher) {
+        this.courseTeacher = courseTeacher;
     }
 
     public boolean getPressed() {

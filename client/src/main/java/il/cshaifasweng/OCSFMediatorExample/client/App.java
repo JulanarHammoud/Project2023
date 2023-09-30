@@ -223,7 +223,7 @@ public class App extends Application {
     public void onGetSubjectEvent(GetSubjectEvent event) {
 
         Platform.runLater(() -> {
-                System.out.println("in app aa");
+                System.out.println("in app heading to all exams");
                 SimpleClient.getParams().add(event.getGetSubject());
             try {
                 setRoot("allExams");

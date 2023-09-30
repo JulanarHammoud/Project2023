@@ -8,14 +8,38 @@ public class SubjectAndId implements Serializable {
     int id;
     Teacher teacher;
     LinkedList<Question> questions;
-//    ExamSubjectTeacherEdit examSubjectTeacherEdit;
+    CourseTeacher courseTeacher;
 
     public SubjectAndId(SubjectTeacher subject, int id, Teacher teacher) {
         this.subject = subject;
         this.id = id;
         this.teacher = teacher;
         this.questions=null;
-//        this.examSubjectTeacherEdit=null;
+        this.courseTeacher=null;
+    }
+
+    public SubjectAndId(SubjectTeacher subject, int id, Teacher teacher, LinkedList<Question> questions, CourseTeacher courseTeacher) {
+        this.subject = subject;
+        this.id = id;
+        this.teacher = teacher;
+        this.questions = questions;
+        this.courseTeacher=null;
+    }
+
+    public SubjectAndId(SubjectTeacher subject, int id, Teacher teacher, CourseTeacher courseTeacher) {
+        this.subject = subject;
+        this.id = id;
+        this.teacher = teacher;
+        this.questions=null;
+        this.courseTeacher = courseTeacher;
+    }
+
+    public CourseTeacher getCourseTeacher() {
+        return courseTeacher;
+    }
+
+    public void setCourseTeacher(CourseTeacher courseTeacher) {
+        this.courseTeacher = courseTeacher;
     }
 
     public SubjectAndId(SubjectTeacher subject, int id, Teacher teacher, LinkedList<Question> questions) {

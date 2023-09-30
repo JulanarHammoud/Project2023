@@ -141,9 +141,13 @@ public class TeacherController {
         message.add("#GetSubject");
         message.add(subject.getId());
         message.add(teacher);
-      //  message.add(courses);
-       // message.add(subject);
-        SimpleClient.getClient().sendToServer(message);
+
+        for (CourseTeacher c : courses) {
+            if (c.getName().equals(selectedCour)) {
+                message.add(c);
+            }
+            SimpleClient.getClient().sendToServer(message);
+        }
     }
 
     @FXML
