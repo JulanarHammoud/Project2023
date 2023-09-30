@@ -1,10 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.Question;
-import il.cshaifasweng.OCSFMediatorExample.entities.SubjectAndId;
-import il.cshaifasweng.OCSFMediatorExample.entities.SubjectTeacher;
-import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -44,16 +41,6 @@ public class addQuestionController {
     int id = subid.getId();
     LinkedList<Question> questions = subid.getQuestions();
 
-    //Teacher teacher = (Teacher) SimpleClient.getParams().get(lastIndex0);
-    //int lastIndex= SimpleClient.getParams().size()-2;
-    //SubjectTeacher subjectTeacher = (SubjectTeacher) SimpleClient.getParams().get(lastIndex);
-    //int lastIndex2= SimpleClient.getParams().size()-3;
-   // TableView<Question> Table = (TableView<Question>) SimpleClient.getParams().get(lastIndex2);
-    //int lastIndex3= SimpleClient.getParams().size()-4;
-    //int id = (int) SimpleClient.getParams().get(lastIndex3);
-   // int lastIndex4= SimpleClient.getParams().size()-5;
-   // LinkedList<Question> questions = (LinkedList<Question>) SimpleClient.getParams().get(lastIndex2);
-
 
     @FXML
     void submitaction(ActionEvent event) {
@@ -84,16 +71,6 @@ public class addQuestionController {
             e.printStackTrace();
         }
     }
-
-    //@FXML
-    //void LogOutButton4(ActionEvent event) {
-    // try{
-    //      setRoot("primary");
-    //  }
-    // catch (IOException e) {
-    //    e.printStackTrace();
-    // }
-    //}
 
     @FXML
     void returnbutton4(ActionEvent event) {

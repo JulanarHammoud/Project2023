@@ -14,8 +14,10 @@ public class Question implements Serializable{
     private String ans3; //israa
     private String ans4; //israa
     private String the_right_ans; //israa
-    @Transient
+    //@Transient
     private Boolean exist = false;
+    private Boolean select_to_delete =false;
+    private Boolean select_to_add = false;
 
     public Question(String question, String ans1, String ans2, String ans3, String ans4, String the_right_ans) {
         //Id = id;
@@ -89,6 +91,22 @@ public class Question implements Serializable{
 
     public void setExist(Boolean exist) {
         this.exist = exist;
+    }
+
+    public Boolean getSelect_to_delete() {
+        return select_to_delete;
+    }
+
+    public void setSelect_to_delete(Boolean select_to_delete) {
+        this.select_to_delete = select_to_delete;
+    }
+
+    public Boolean getSelect_to_add() {
+        return select_to_add;
+    }
+
+    public void setSelect_to_add(Boolean select_to_add) {
+        this.select_to_add = select_to_add;
     }
 
     public Question(){}

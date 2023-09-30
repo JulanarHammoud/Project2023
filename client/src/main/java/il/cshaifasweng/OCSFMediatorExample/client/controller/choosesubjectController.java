@@ -22,9 +22,7 @@ public class choosesubjectController {
     List<SubjectTeacher> list =courseteacher.getSubjectTeacher();
     public void initialize()  {
         for(int i=0;i<list.size();i++){
-            //System.out.println(list.get(i));
             role.getItems().add(String.valueOf(list.get(i).getSb_name()));}
-        // String choose = role.getSelectionModel().getSelectedItem();
     }
 
 

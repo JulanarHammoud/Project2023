@@ -2,131 +2,293 @@ package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
-
 public class ExamEditController {
     int lastIndex = SimpleClient.getParams().size() - 1;
-    ExamSubjectTeacherEdit message = (ExamSubjectTeacherEdit) SimpleClient.getParams().get(lastIndex);
-    Exam exam = message.getExam();
+    ExamSubjectTeacherEdit examSubjectTeacherEdit = (ExamSubjectTeacherEdit) SimpleClient.getParams().get(lastIndex);
+    Exam exam = examSubjectTeacherEdit.getExam();
     List<Question> questions = exam.getQuestions();
-    Teacher teacher = message.getTeacher();
-    SubjectTeacher subject = message.getSubjectTeacher();
-    //List<Question> listquestions = subject.getQuestions();
-    ObservableList<Question> data = FXCollections.observableArrayList(questions);
+    Teacher teacher = examSubjectTeacherEdit.getTeacher();
+    SubjectTeacher subject = examSubjectTeacherEdit.getSubjectTeacher();
+    List<Question> listquestions = subject.getQuestions();
+    ObservableList<Question> data = FXCollections.observableArrayList(listquestions);
     SubjectAndId subId = new SubjectAndId(subject, exam.getId(), teacher);
+
     @FXML
     private Label ETime;
-
     @FXML
     private Label Studentnote;
-
     @FXML
     private Label Teachernote;
     @FXML
     private AnchorPane test;
     @FXML
-    void initialize() throws IOException {
+    private TextField Time;
+    @FXML
+    private TextField Tnote;
+    @FXML
+    private TextField Snote;
+    @FXML
+    private Accordion addquestion;
+    @FXML
+    private Accordion CopyAccordion;
+    private TitledPane Copy;
 
-        for(Question q :questions){
+    @FXML
+    void initialize() throws IOException {
+        for(Question q :listquestions){
             q.setExist(false);
+            q.setSelect_to_delete(false);
+            q.setSelect_to_add(false);
         }
         System.out.println("I reached Edit controller");
         ETime.setText("exam time is: " + exam.getTimerr());
-        Studentnote.setText("notes for students: " + exam.getStudentNotes());
         Teachernote.setText("notes for teachesrs: " + exam.getTeacherNotes());
-        double i = 100.0;
+        Studentnote.setText("notes for students: " + exam.getStudentNotes());
+
+        double i = 150.0;
         int j=0;
-        for (Question q : questions) {
+        for (Question q : questions) { // show the checkbox and the questions on the exam
             HBox hBox = new HBox(2);
-            CheckBox checkbox = new CheckBox();
+            CheckBox checkbox1 = new CheckBox();
             Text text = new Text(q.getQuestion());
-            hBox.getChildren().add(checkbox);
+            hBox.getChildren().add(checkbox1);
             hBox.getChildren().add(text);
-            AnchorPane.setLeftAnchor(text, 20.0);AnchorPane.setTopAnchor(hBox, i);
+            AnchorPane.setLeftAnchor(text, 20.0);
+            AnchorPane.setTopAnchor(hBox, i);
             AnchorPane.setLeftAnchor(text, 20.0);
             test.getChildren().add(hBox);
             i = i + 20;
             j++;
-            checkbox.setOnAction(e -> {
-                if(checkbox.isSelected()){
-                    q.setExist(true);
-                }
-            });
+            checkbox1.setOnAction(e -> { if(checkbox1.isSelected()) {q.setSelect_to_delete(true);} }); // see if the checkbox is checked
         }
 
+
+        //Accordion to hold the quesion table or to add new question to the questions
+        TitledPane questionpane = new TitledPane();
+        questionpane.setText("Question Table");
+        addquestion.getPanes().add(questionpane);
+
+//        TitledPane newquestionpane = new TitledPane(); // Accordion,newquestionpane
+//        newquestionpane.setText("Write New Question");
+//        addquestion.getPanes().add(newquestionpane);
+
+
+        //select=true to disable the checkbox for questions that we already have in the exam, so we will disable the checkbox
+        for(Question q :listquestions){
+            for (Question Q:questions){
+                if(q.getQuestion().equals(Q.getQuestion())){
+                    q.setExist(true);
+                }
+            }
+        }
+
+
+        // Question table to add new questions to the exam
+        TableView questiontable = new TableView();
+        TableColumn questionColumn = new TableColumn();
+        questiontable.setEditable(true);
+        questionColumn.setCellValueFactory(new PropertyValueFactory<Question, String>("question"));
+        questiontable.setItems(data);
+        TableColumn select = new TableColumn("Choose");
+        select.setMinWidth(80);
+        select.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Question, CheckBox>, ObservableValue<CheckBox>>() {
+            @Override
+            public ObservableValue<CheckBox> call(TableColumn.CellDataFeatures<Question, CheckBox> arg0) {
+                Question question = arg0.getValue();
+                CheckBox checkBox = new CheckBox();
+                checkBox.selectedProperty().setValue(question.getExist());
+                checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+                    public void changed(ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) {
+                        question.setSelect_to_add(new_val);
+                    }
+                });
+                if(question.getExist()){
+                    checkBox.setDisable(true);
+                }
+                return new SimpleObjectProperty<CheckBox>(checkBox);
+            }
+        });
+        questiontable.getColumns().addAll(questionColumn,select);
+        questionpane.setContent(questiontable);
+
+
+        // This Accordion to pick if to save the edited exam in a new copy or the same copy
+        TitledPane Copy = new TitledPane();
+        Copy.setText("Select Copy");
+        CopyAccordion.getPanes().add(Copy);
+        VBox SelectCopy = new VBox(2);
+        Button Old_copy = new Button("Old Copy");
+        Button New_Copy = new Button("New Copy");
+        SelectCopy.getChildren().add(Old_copy);
+        SelectCopy.getChildren().add(New_Copy);
+        Copy.setContent(SelectCopy);
+        Old_copy.setOnAction(this::Old_copy);
+        New_Copy.setOnAction(this::New_Copy);
+        if(examSubjectTeacherEdit.getFlag()==2){
+            examSubjectTeacherEdit.setFlag(2);
+            Copy.setDisable(true);
+            examSubjectTeacherEdit.setPressed(true);
+        }else{
+            if(examSubjectTeacherEdit.getFlag()==4){
+                examSubjectTeacherEdit.setPressed(true);
+            }
+        }
     }
+
+
+    @FXML
+    public void Old_copy (ActionEvent event){
+        examSubjectTeacherEdit.setFlag(0);
+        examSubjectTeacherEdit.setPressed(true);
+    }
+
+
+    @FXML
+    public void New_Copy (ActionEvent event){
+        examSubjectTeacherEdit.setFlag(1);
+        examSubjectTeacherEdit.setPressed(true);
+    }
+
 
     @FXML
     public void deletequestions (ActionEvent event) {
         System.out.println("client is deleting questions");
-        LinkedList<Question> selectedQuestions = new LinkedList<>() ;
+        LinkedList<Question> selectedQuestions = new LinkedList<Question>();
         LinkedList<Object> message = new LinkedList<Object>();
         message.add("#Edit_Q_Exam");
-        message.add(teacher);
-        message.add(subject);
-        message.add(subId.getId());
-        System.out.println("client is sendeing these questions to delete them from the exam");
 
         for(Question question :questions){
-            if (question.getExist()) {
-                System.out.println(question.getQuestion());
+            if (question.getSelect_to_delete()) {
+                System.out.println("deleting this quesion: " + question.getQuestion());
             }
-            else{
+            else{ // saving the questions that we don't want to delete to save them in the new copy
                 selectedQuestions.add(question);
             }
         }
-        System.out.println(selectedQuestions.isEmpty());
-        message.add(exam);
-        message.add(selectedQuestions);
-        System.out.println( "the list is null:" + selectedQuestions == null);
+
         if(selectedQuestions.isEmpty()){
-            message.clear();
+            System.out.println("ERROR: ExamEditController deleting all the questions");
+            message.add(null);
+            message.add(null);
+            message.add(examSubjectTeacherEdit);
+            message.add(null);
+        } else if(selectedQuestions.equals(questions)){
+            System.out.println("ERROR: ExamEditController not selecting anything to delete");
+            message.add(examSubjectTeacherEdit.getFlag());
+            message.add(null);
+            message.add(null);
+            message.add(examSubjectTeacherEdit);
+            message.add(1);
+
         }
-        else{
-            try {
-                SimpleClient.getClient().sendToServer(message);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        else{ //if the copy button have been pressed
+            if(!examSubjectTeacherEdit.getPressed()){
+                message.add(3);
+            } else{
+                message.add(examSubjectTeacherEdit.getFlag());
+            }// Deleting questions
+            message.add(teacher);
+            message.add(subject);
+            message.add(examSubjectTeacherEdit);
+            message.add(subId.getId());
+            message.add(exam);
+            message.add(selectedQuestions);
+        }
+        try {
+            SimpleClient.getClient().sendToServer(message);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
+
+
     @FXML
     public void addquestions (ActionEvent event) {
-        LinkedList<Question> selectedQuestions = new LinkedList<>(questions) ;
+        LinkedList<Question> selectedQuestions = new LinkedList<Question>(questions);
         System.out.println("client is adding questions");
-        SubjectAndId prepareToChoose = new SubjectAndId(subject, exam.getId(), teacher,selectedQuestions);
-        SimpleClient.getParams().add(prepareToChoose);
+        LinkedList<Object> message = new LinkedList<Object>();
+        message.add("#Edit_Q_Exam");
+        for (Question question : listquestions) {
+            if (question.getSelect_to_add()) {
+                System.out.println("Adding this queston: " + question.getQuestion());
+                selectedQuestions.add(question);
+            }
+        }
+
+        if (selectedQuestions.equals(questions)) {
+            System.out.println("ERROR: no selected questions to add, at ExamEditController");
+            message.add(null);
+            message.add(1);
+            message.add(examSubjectTeacherEdit);
+        } else {//if the copy button have been pressed
+            if(!examSubjectTeacherEdit.getPressed()){
+                message.add(3);
+            } else{
+                message.add(examSubjectTeacherEdit.getFlag());
+            }// Add questions
+            message.add(teacher);
+            message.add(subject);
+            message.add(examSubjectTeacherEdit);
+            message.add(subId.getId());
+            message.add(exam);
+            message.add(selectedQuestions);
+        }
         try {
-            setRoot("ChooseQes");
+            SimpleClient.getClient().sendToServer(message);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
     @FXML
     public void Finish (ActionEvent event) {
         LinkedList<Object> message = new LinkedList<Object>();
+        examSubjectTeacherEdit.setFlag(3);
         message.add("#GetSubject");
         message.add(subject.getId());
         message.add(teacher);
-        try {
-            SimpleClient.getClient().sendToServer(message);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+            try {
+                SimpleClient.getClient().sendToServer(message);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+    }
+
+    @FXML
+    public void EditTime (ActionEvent event) {
+        exam.setTimerr(Integer.valueOf(Time.getText()));
+        ETime.setText("exam time is: " + exam.getTimerr());
+    }
+
+    @FXML
+    public void EditTeacherNote (ActionEvent event) {
+        exam.setTeacherNotes(Tnote.getText());
+        Teachernote.setText("notes for students: " + exam.getTeacherNotes());
+    }
+
+    @FXML
+    public void EditStudentNote (ActionEvent event) {
+        exam.setStudentNotes(Snote.getText());
+        Studentnote.setText("notes for teachesrs: " + exam.getStudentNotes());
     }
 }

@@ -210,32 +210,22 @@ public class Data {
     }*/
 
     public static String updateExamId(String IdCourse , int currentid, String IdSubject){
-        System.out.println("I am updating"+IdCourse+"ll"+currentid+"kk"+IdSubject);
+        System.out.println("I am updating: "+IdCourse+" "+currentid+" "+IdSubject);
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
         Exam change =session.get(Exam.class,currentid);
-        //StudentWillMakeEx changee=session.get(StudentWillMakeEx.class,currentid);
-
         String s=IdCourse+IdSubject;
-        //String hh= Integer.toString(currentid);
         DecimalFormat formatter=new DecimalFormat("00");
         String aFormatted=formatter.format(currentid);
-        //System.out.println(aFormatted);
         s=s+aFormatted;
         System.out.println(""+s);
-        //int n= Integer.parseInt(s);
         change.setIdCode(s);
-        //  changee.setIdCodeForExam(Integer.parseInt(s));
-        //  if(Grade==1){
-        //  change.setGrade1(newGrade);}
-        //  else if(Grade==2)
-        //      change.setGrade2(newGrade);
         session.saveOrUpdate(change);
         session.flush();
         session.getTransaction().commit();
         session.close();
-        return s;////////////////////////////
+        return s;
 
     }
 
@@ -677,4 +667,6 @@ public class Data {
         session.close();
         return sub;
     }
+
+
 }

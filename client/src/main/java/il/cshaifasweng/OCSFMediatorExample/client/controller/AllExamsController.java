@@ -26,45 +26,25 @@ public class AllExamsController {
     List<Exam> exams = subject.getExams();
 
     @FXML
-
     private TableView<Exam> Etable;
-
     @FXML
-
     private TableColumn<Exam, String> IdCode;
-
     @FXML
-
     private TableColumn<Exam, String> subjectExam;
-
-
     @FXML
-
     private TableColumn<Exam, String> NumOfQuestions;
-
-
     @FXML
-
     private TableColumn<Exam, String> teacherExam;
-
-
     @FXML
-
     private TableColumn<Exam, String> timerr;
-   // @FXML
-   // private TableColumn<Exam, Boolean> choose;
     @FXML
-
     private AnchorPane pane;
-
     List<Exam> listexams = subject.getExams();
-
     ObservableList<Exam> data ;
 
 
 
     public void initialize()  {
-
         data= FXCollections.observableArrayList(exams);
         for(Exam e :listexams){
             e.setExist(false);
@@ -77,25 +57,6 @@ public class AllExamsController {
         teacherExam.setCellValueFactory(new PropertyValueFactory<Exam, String>("teacher"));
         timerr.setCellValueFactory(new PropertyValueFactory<Exam, String>("timerr"));
         Etable.setItems(data);
-
-       /*  TableColumn select = new TableColumn("Choose");
-        select.setMinWidth(110);
-        select.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Exam, CheckBox>, ObservableValue<CheckBox>>() {
-           /* @Override
-            public ObservableValue<CheckBox> call(TableColumn.CellDataFeatures<Exam, CheckBox> arg0) {
-                Exam exam = arg0.getValue();
-                CheckBox checkBox = new CheckBox();
-                checkBox.selectedProperty().setValue(exam.getExist());
-                checkBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
-                    public void changed(ObservableValue<? extends Boolean> ov, Boolean old_val, Boolean new_val) {
-                        exam.setExist(new_val);
-                    }
-                });
-                return new SimpleObjectProperty<CheckBox>(checkBox);
-            }
-
-        });
-        Etable.getColumns().addAll(select);*/
     }
 
     @FXML
@@ -103,15 +64,10 @@ public class AllExamsController {
         try{
             Exam exam = Etable.getSelectionModel().getSelectedItem();
             ExamSubjectTeacher EST=new ExamSubjectTeacher(teacher,subject,exam);
-
-            //SimpleClient.getParams().add(EST);
-            //setRoot("ShowExam");
-
             LinkedList<Object> message = new LinkedList<Object>();
             message.add("#ShowExamm");
             message.add(EST);
             SimpleClient.getClient().sendToServer(message);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -121,7 +77,7 @@ public class AllExamsController {
     public void edit (ActionEvent event) throws IOException {
         try{
             Exam exam = Etable.getSelectionModel().getSelectedItem();
-            ExamSubjectTeacherEdit ESTE=new ExamSubjectTeacherEdit(teacher,subject,exam);
+            ExamSubjectTeacherEdit ESTE = new ExamSubjectTeacherEdit(teacher,subject,exam);
             LinkedList<Object> message = new LinkedList<Object>();
             message.add("#EditExam");
             message.add(ESTE);
@@ -147,25 +103,10 @@ public class AllExamsController {
 //        }
     }
 
-    /*
-       @FXML
-    public void edit (ActionEvent event) throws IOException {
-        try{
-            Exam exam = Etable.getSelectionModel().getSelectedItem();
-            ExamSubjectTeacher EST=new ExamSubjectTeacher(teacher,subject,exam,1);
+    @FXML
+    void deleteExam(ActionEvent event){
 
-            //SimpleClient.getParams().add(EST);
-            //setRoot("ShowExam");
-
-            LinkedList<Object> message = new LinkedList<Object>();
-            message.add("#ShowExamm");
-            message.add(EST);
-            SimpleClient.getClient().sendToServer(message);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
-     */
 
     @FXML
     public void back (ActionEvent event) throws IOException {
@@ -177,11 +118,12 @@ public class AllExamsController {
             e.printStackTrace();
         }
     }
+
     @FXML
     public void LogOut (ActionEvent event) throws IOException {
         LinkedList<Object> message = new LinkedList<Object>();
         message.add("#LogOut");
-//message.add(teacher.getId());
+        //message.add(teacher.getId());
         SimpleClient.getClient().sendToServer(message);
     }
 }

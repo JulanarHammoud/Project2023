@@ -48,8 +48,6 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
-    
-    
 
     @Override
 	public void stop() throws Exception {
@@ -61,13 +59,6 @@ public class App extends Application {
     @Subscribe
     public void onWarningEvent(WarningEvent event) {
     	Platform.runLater(() -> {
-//    		Alert alert = new Alert(AlertType.WARNING,
-//        			String.format("Message: %s\nTimestamp: %s\n",
-//        					event.getWarning().getMessage(),
-//        					event.getWarning().getTime().toString())
-//        	);
-          //  alert.setTitle(event.getWarning().getMessage());
-        	//alert.show();
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("WARNING");
             alert.setHeaderText(null);
@@ -85,7 +76,6 @@ public class App extends Application {
 
                 System.out.println("im in stdlEvent");
                 SimpleClient.getParams().add(event.getStudent());
-               // System.out.println(event.getStudent().getStudents().get(0).getSt_name());
                 setRoot("secondary");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -102,7 +92,6 @@ public class App extends Application {
 
                 System.out.println("im in Question");
                 SimpleClient.getParams().add(event.getQuestion());
-                // System.out.println(event.getStudent().getStudents().get(0).getSt_name());
                 setRoot("ChooseQes");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -119,7 +108,6 @@ public class App extends Application {
             try {
                 System.out.println("im in StudentEvent");
                 SimpleClient.getParams().add(event.getStudent());
-               // System.out.println(event.getStudent().getStudent().getSt_name());
                 setRoot("Grades");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -131,9 +119,8 @@ public class App extends Application {
     public void onTeacherEvent(TeacherLogEvent event) {
         Platform.runLater(() -> {
             try {
-                System.out.println("im in teacherlog event");
+                System.out.println("im in teacher log event");
                 SimpleClient.getParams().add(event.getTeacher());
-               // System.out.println(event.getStudent().getStudent().getSt_name());
                 setRoot("teacherpage");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -146,14 +133,12 @@ public class App extends Application {
     public void onStudentLogEvent(StudentLogEvent event) {
         Platform.runLater(() -> {
             try {
-                System.out.println("im in teacherlog event");
+                System.out.println("im in student log event");
                 SimpleClient.getParams().add(event.getStudent());
-                // System.out.println(event.getStudent().getStudent().getSt_name());
                 setRoot("PrimaryStudent");
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         });}
 
 
@@ -169,7 +154,6 @@ public class App extends Application {
     }
     @Subscribe
     public void onExamCourseEvent(ExamCourseEvent event) {
-
         Platform.runLater(() -> {
             try {
                 System.out.println("in handle");
@@ -183,7 +167,6 @@ public class App extends Application {
 
     @Subscribe
     public void onExamEvent(ExamEvent event) {
-
         Platform.runLater(() -> {
             try {
                 System.out.println("in handle onExamEvent");
@@ -194,9 +177,9 @@ public class App extends Application {
             }
         });
     }
+
     @Subscribe
     public void onStudentWillDoExEvent(StudentWillDoExEvent event) {
-
         Platform.runLater(() -> {
             try {
                 System.out.println("in handle StudentDOOOOMakeEx");
@@ -211,7 +194,6 @@ public class App extends Application {
     }
     @Subscribe
     public void onStudentWillMakeExEvent( StudentWillMakeExEvent event) {
-
         Platform.runLater(() -> {
             try {
                 System.out.println("in handle StudentWillMakeEx");
@@ -257,7 +239,6 @@ public class App extends Application {
             try {
                 System.out.println("saving SubId");
                 SimpleClient.getParams().add(event.getSubId());
-                System.out.println(event.getSubId().getQuestions().getFirst().getQuestion());
                 setRoot("ChooseQes");
             } catch (IOException e) {
                 e.printStackTrace();

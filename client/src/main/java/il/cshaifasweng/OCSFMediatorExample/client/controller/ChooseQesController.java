@@ -68,25 +68,6 @@ public class ChooseQesController {
     ObservableList<Question> data = FXCollections.observableArrayList(listquestions);
 
     public void initialize()  {
-        LinkedList<Question> existQ= new LinkedList<>();
-        System.out.println(";;;;;;;;;;;;;;;;;;;;;");
-        //System.out.println("listquestions: " + listquestions.get(1).getQuestion());
-        if(subId.getQuestions()!=null){
-           // existQ=subId.getQuestions();
-            System.out.println(subId.getQuestions().getFirst().getExist());
-            //System.out.println(subId.getQuestions().getFirst().getQuestion()+" "+subId.getQuestions().getFirst().getAns1()+" "+subId.getQuestions().getFirst().getAns2()+" "+subId.getQuestions().getFirst().getAns3()+" "+subId.getQuestions().getFirst().getAns4()+" "+subId.getQuestions().getFirst().getId()+" "+subId.getQuestions().getFirst().getExist());
-        }
-       // System.out.println(listquestions.get(0).getQuestion()+" "+listquestions.get(0).getAns1()+" "+listquestions.get(0).getAns2()+" "+listquestions.get(0).getAns3()+" "+listquestions.get(0).getAns4()+" "+listquestions.get(0).getId()+" "+listquestions.get(0).getExist());
-        for(Question q :listquestions){
-           // System.out.println( q.getQuestion() + " is exist : " +existQ.contains(q));
-            if(existQ.contains(q)){
-                System.out.println(q.getQuestion());
-                q.setExist(true);
-            }
-            else{
-                q.setExist(false);
-            }
-        }
         Qtable.setEditable(true);
         question.setCellValueFactory(new PropertyValueFactory<Question, String>("question"));
         ans1.setCellValueFactory(new PropertyValueFactory<Question, String>("ans1"));
@@ -96,6 +77,10 @@ public class ChooseQesController {
         the_right_ans.setCellValueFactory(new PropertyValueFactory<Question, String>("the_right_ans"));
 
         Qtable.setItems(data);
+
+        for(Question q:listquestions){
+            q.setExist(false);
+        }
 
         if (subId.getId()!=-1){
             TableColumn select = new TableColumn("Choose");
@@ -112,13 +97,8 @@ public class ChooseQesController {
                             question.setExist(new_val);
                         }
                     });
-                    if(question.getExist()){
-                        checkBox.setDisable(true);
-                    }
                     return new SimpleObjectProperty<CheckBox>(checkBox);
-
                 }
-
             });
             Qtable.getColumns().addAll( select);
         }
@@ -135,28 +115,12 @@ public class ChooseQesController {
             message.add(subId.getId());
             System.out.println("client is sendeing these questions");
 
-
             for(Question selectedQ :listquestions){
                 if(selectedQ.getExist()==true){
                     selectedQuestions.add(selectedQ);
                     System.out.println(selectedQ.getQuestion());
                 }
             }
-            if(subId.getQuestions()!=null){
-                LinkedList<Object> message1 = new LinkedList<Object>();
-                message1.add("#Edit_Q_Exam");
-                message1.add(teacher);
-                message1.add(subjectteacher);
-                message1.add(subId.getId());
-                message1.add("");
-                message1.add(selectedQuestions);
-                try {
-                    SimpleClient.getClient().sendToServer(message1);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            else{
                 System.out.println(selectedQuestions.isEmpty());
                 message.add(selectedQuestions);
                 System.out.println( "the list is null:" + selectedQuestions == null);
@@ -169,7 +133,6 @@ public class ChooseQesController {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
         }
         else{ //we are in question page
             SimpleClient.getParams().add(teacher);
@@ -184,22 +147,15 @@ public class ChooseQesController {
     @FXML
     void addQuestion(ActionEvent event) {
         try{
-           // SimpleClient.getParams().add(subId.getId());
-           // SimpleClient.getParams().add(Qtable);
-            //SimpleClient.getParams().add(subjectteacher);
-            //SimpleClient.getParams().add(teacher);
-            //SimpleClient.getParams().add(subId.getQuestions());
-            //System.out.println(subId.getQuestions().get(0).getQuestion());
             SimpleClient.getParams().add(subId);
             setRoot("addQuestion");}
         catch (IOException e) {
             e.printStackTrace();
         }
-
     }
+
     @FXML
     void editQuestion(ActionEvent event) {
-
         Qtable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         Qtable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
@@ -220,12 +176,10 @@ public class ChooseQesController {
 
     @FXML
     public void LogOut(ActionEvent event) throws IOException {
-
         LinkedList<Object> message = new LinkedList<Object>();
         message.add("#LogOut");
         //message.add(teacher.getId());
         SimpleClient.getClient().sendToServer(message);
-
     }
 
 }

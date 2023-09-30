@@ -21,26 +21,23 @@ public class SimpleClient extends AbstractClient {
 
 	@Override
 	protected void handleMessageFromServer(Object msg) {
-		System.out.println("fatttt1");
 		System.out.println("Received message class: " + msg.getClass().getName());
 		System.out.println(msg.getClass());
 		if (msg.getClass().equals(Warning.class)) {
 			EventBus.getDefault().post(new WarningEvent((Warning) msg));
 			System.out.println("im in the warning");
 		}
-
 		else if(msg.getClass().equals(StudentWillDoEx.class)){
-			System.out.println("fatttt2");
 			EventBus.getDefault().post(new StudentWillDoExEvent((StudentWillDoEx) msg));
 		}
-
 		else if(msg.getClass().equals(stlist.class)){
-			EventBus.getDefault().post(new stdlEvent((stlist) msg));}
+			EventBus.getDefault().post(new stdlEvent((stlist) msg));
+		}
 		else if(msg.getClass().equals(StudentInfo.class)){
-			EventBus.getDefault().post(new StudentEvent((StudentInfo) msg));}
+			EventBus.getDefault().post(new StudentEvent((StudentInfo) msg));
+		}
 		else if(msg.getClass().equals(Teacher.class)){
 			EventBus.getDefault().post(new TeacherLogEvent((Teacher) msg));
-			System.out.println("im in logIn teacher");
 		}
 		else if(msg.getClass().equals(Student.class)){
 			EventBus.getDefault().post(new StudentLogEvent((Student) msg));
@@ -63,17 +60,14 @@ public class SimpleClient extends AbstractClient {
 		}
 		else if(msg.getClass().equals(GetSubject.class)){
 			System.out.println("GetSubject Client");
-			//EventBus.getDefault().post(new SubjectTeacherEvent((SubjectTeacher) msg));
 			EventBus.getDefault().post(new GetSubjectEvent((GetSubject) msg));
 		}
 		else if(msg.getClass().equals(SubjectTeacher.class)){
 			System.out.println("SubjectTeacher Client");
-			//EventBus.getDefault().post(new SubjectTeacherEvent((SubjectTeacher) msg));
 			EventBus.getDefault().post(new SubjectTeacherEvent((SubjectTeacher) msg));
 		}
 		else if(msg.getClass().equals(SubjectAndId.class)){
 			System.out.println("SubjectAndId Client");
-			//EventBus.getDefault().post(new SubjectTeacherEvent((SubjectTeacher) msg));
 			EventBus.getDefault().post(new SubIdEvent((SubjectAndId) msg));
 		}
 		else if(msg.getClass().equals(Question.class)){
@@ -91,7 +85,6 @@ public class SimpleClient extends AbstractClient {
 		else if (msg.getClass().equals(StudentWillMakeEx.class)) {
 			EventBus.getDefault().post(new StudentWillMakeExEvent((StudentWillMakeEx) msg));
 		}
-
 	}
 
 	public static SimpleClient getClient() {
