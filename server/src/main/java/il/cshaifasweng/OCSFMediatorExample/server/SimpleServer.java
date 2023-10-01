@@ -583,65 +583,94 @@ public class SimpleServer extends AbstractServer {
 			else if (message.get(0).equals("#Edit_Q_Exam")) {
 				try {
 					System.out.println("I'm in server Edit_Q_Exam");
-					int flag = (Integer) message.get(1);
-					Exam exFromClient = (Exam) message.get(2);
+					int exsept=0;
+					int flag = (Integer) message.get(2);
+					Exam exFromClient = (Exam) message.get(3);
 					CourseTeacher course = Data.findcourse(exFromClient.getCourse());
-					Teacher teacher = (Teacher) message.get(4);
-					SubjectTeacher subject = (SubjectTeacher) message.get(5);
-					int id = (Integer) message.get(6);
-					if(flag==1) { //save the exam copy
-						flag = 2;
-					}
-					else{
-						flag = 4;
-					}
-					ExamSubjectTeacherEdit examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject, exFromClient,flag,course);
+					Teacher teacher = (Teacher) message.get(5);
+					SubjectTeacher subject = (SubjectTeacher) message.get(6);
+					int id = (Integer) message.get(7);
+					ExamSubjectTeacherEdit examSubjectTeacherEdit;
+
 					if(flag==3){
 						System.out.println("Not selecting any the exam copy");
 						Warning warning = new Warning("please select the exam copy!!");
+						examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject, exFromClient,3,course);
 						client.sendToClient(warning);
 						client.sendToClient(examSubjectTeacherEdit);
 					}
-					else if((Integer)message.get(8)==0){
-						int wrong =(Integer) message.get(9);
-						if(wrong==1){
-							System.out.println("deleting all questions from exam");
-							Warning warning = new Warning("you can't delete all the questions from the exam!!" + "\n" +
-									"you can try these solutions:" + "\n" +
-									"1. keep at least one question in the exam" + "\n" +
-									"2. delete the exam" + "\n" +
-									"3. make a new exam");
-							client.sendToClient(warning);
-							client.sendToClient(examSubjectTeacherEdit);
+
+					if((Integer)message.get(1)==0){ // Add questions Button or delete questions Button errors
+						if((Integer)message.get(9)==0){
+							exsept=1;
+							if (flag == 1 || flag == 2) { //save the exam copy
+								flag = 2;
+							} else{
+								flag = 4;
+							}
+							int wrong =(Integer) message.get(10);
+							if(wrong==1){
+								System.out.println("deleting all questions from exam");
+								Warning warning = new Warning("you can't delete all the questions from the exam!!" + "\n" +
+										"you can try these solutions:" + "\n" +
+										"1. keep at least one question in the exam" + "\n" +
+										"2. delete the exam" + "\n" +
+										"3. make a new exam");
+								examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject, exFromClient,flag,course);
+								client.sendToClient(warning);
+								client.sendToClient(examSubjectTeacherEdit);
+							}
+							else if(wrong==2){
+								System.out.println("Not selecting any question to delete");
+								Warning warning = new Warning("you didn't select any question to delete");
+								examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject, exFromClient,flag,course);
+								client.sendToClient(warning);
+								client.sendToClient(examSubjectTeacherEdit);
+							}
+							else if(wrong==3){
+								System.out.println("Not selecting any question to add");
+								Warning warning = new Warning("you didn't select any question to add");
+								examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject, exFromClient,flag,course);
+								client.sendToClient(warning);
+								client.sendToClient(examSubjectTeacherEdit);
+							}
 						}
-						else if(wrong==2){
-							System.out.println("Not selecting any question to delete");
-							Warning warning = new Warning("you didn't select any question to delete");
-							client.sendToClient(warning);
-							client.sendToClient(examSubjectTeacherEdit);
+					}
+					else{ //we are in saveall button error
+						if (flag == 1 || flag == 2) { //save the exam copy
+							flag = 2;
+						} else {
+							flag = 4;
 						}
-						else if(wrong==3){
-							System.out.println("Not selecting any question to add");
-							Warning warning = new Warning("you didn't select any question to add");
+						if((Integer)message.get(13)==0){
+							exsept = 1;
+							System.out.println("there is no changes");
+							Warning warning = new Warning("you didn't change anything");
+							examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject, exFromClient,flag,course);
 							client.sendToClient(warning);
 							client.sendToClient(examSubjectTeacherEdit);
 						}
 					}
-					else {//No problems
+					if(exsept != 1) { // No problems
 						Exam exam;
-						if(flag==2) { //New Exam Copy
-							id = Data.MakeExam(exFromClient.getNumOfQuestions(), exFromClient.getTeacherNotes(),
-									Integer.toString(exFromClient.getTimerr()), exFromClient.getStudentNotes(), exFromClient.getCourse(),
+						if (flag == 1 || flag == 2) { //save the exam copy
+							flag = 2;
+						} else {
+							flag = 4;
+						}
+						String TeacherNote = (String) message.get(10);
+						String StudentNote = (String) message.get(11);
+						int Time = (Integer) message.get(12);
+						if(flag == 1) { //New Exam Copy
+							id = Data.MakeExam(exFromClient.getNumOfQuestions(), TeacherNote,
+									String.valueOf(Time), StudentNote, exFromClient.getCourse(),
 									subject, exFromClient.getTeacher());
-//							CourseTeacher course = Data.findcourse(exFromClient.getCourse());
+							exam = Data.setQuestions(id, (LinkedList<Question>) message.get(8));
 						}
-						else{
-							String TeacherNote = (String) message.get(9);
-							String StudentNote = (String) message.get(10);
-							int Time = (Integer) message.get(11);
-							exam=Data.updateExam(id,TeacherNote,StudentNote,Time);
+						else{ // same exam
+							Data.updateExam(id,TeacherNote,StudentNote,Time);
+							exam = Data.setQuestions(id, (LinkedList<Question>) message.get(8));
 						}
-						exam = Data.setQuestions(id, (LinkedList<Question>) message.get(7));
 						DecimalFormat formatter = new DecimalFormat("00");
 						String cor_id = formatter.format(course.getId());//course
 						String sub_id = formatter.format(subject.getId());
@@ -654,6 +683,47 @@ public class SimpleServer extends AbstractServer {
 				}
 			}
 
+			else if (message.get(0).equals("SaveEditExam")){
+				try {
+					System.out.println("I'm in simpleserver Save Edits Exam");
+					int flag = (Integer) message.get(1);
+					Exam ex = (Exam) message.get(2);
+					CourseTeacher course = Data.findcourse(ex.getCourse());
+					Teacher teacher = (Teacher) message.get(4);
+					SubjectTeacher subject = (SubjectTeacher) message.get(5);
+					int id = (Integer) message.get(6);
+					ExamSubjectTeacherEdit examSubjectTeacherEdit;
+					if (flag == 3) {
+						System.out.println("Not selecting any the exam copy");
+						Warning warning = new Warning("please select the exam copy!!");
+						examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject, ex, 3, course);
+						client.sendToClient(warning);
+						client.sendToClient(examSubjectTeacherEdit);
+					}
+					else if((Integer)message.get(10)==0){
+						System.out.println("Not editing anything");
+						Warning warning = new Warning("you didn't edit any of the time or notes!");
+						examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject, ex, flag, course);
+						client.sendToClient(warning);
+						client.sendToClient(examSubjectTeacherEdit);
+					} else {
+						if (flag == 1 || flag == 2) { //save the exam copy
+							flag = 2;
+						} else {
+							flag = 4;
+						}
+						String TeacherNote = (String) message.get(7);
+						String StudentNote = (String) message.get(8);
+						int Time = (Integer) message.get(9);
+						Data.updateExam(ex.getId(),TeacherNote,StudentNote,Time);
+						course = Data.findcourse(ex.getCourse());
+						examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject, ex, flag, course);
+						client.sendToClient(examSubjectTeacherEdit);
+					}
+				} catch(Exception e){
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 }

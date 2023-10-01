@@ -14,7 +14,7 @@ public class Question implements Serializable{
     private String ans3; //israa
     private String ans4; //israa
     private String the_right_ans; //israa
-    //@Transient
+    @Transient
     private Boolean exist = false;
     private Boolean select_to_delete =false;
     private Boolean select_to_add = false;

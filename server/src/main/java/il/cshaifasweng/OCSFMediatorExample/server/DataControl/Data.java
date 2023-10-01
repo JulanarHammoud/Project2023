@@ -522,7 +522,7 @@ public class Data {
         return result;
     }
 
-    public static Exam updateExam(int examId, String TeacherNote , String StudentNote, int ExamTime){
+    public static void  updateExam(int examId, String TeacherNote , String StudentNote, int ExamTime){
         System.out.println("I am updating: " + TeacherNote + " " + StudentNote + " "+ExamTime);
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
@@ -535,7 +535,7 @@ public class Data {
         session.flush();
         session.getTransaction().commit();
         session.close();
-        return exam;
+       // return exam; Exam
     }
 
 

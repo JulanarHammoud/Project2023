@@ -56,6 +56,9 @@ public class ExamEditController {
 
     @FXML
     void initialize() throws IOException {
+        Teachernote.setText("notes for teacher: " + exam.getTeacherNotes());
+        Studentnote.setText("notes for student: " + exam.getStudentNotes());
+        ETime.setText("exam time is: " + exam.getTimerr());
         for(Question q :listquestions){
             q.setExist(false);
             q.setSelect_to_delete(false);
@@ -66,7 +69,7 @@ public class ExamEditController {
         Teachernote.setText("notes for teachesrs: " + exam.getTeacherNotes());
         Studentnote.setText("notes for students: " + exam.getStudentNotes());
 
-        double i = 150.0;
+        double i = 100.0;
         int j=0;
         for (Question q : questions) { // show the checkbox and the questions on the exam
             HBox hBox = new HBox(2);
@@ -74,9 +77,9 @@ public class ExamEditController {
             Text text = new Text(q.getQuestion());
             hBox.getChildren().add(checkbox1);
             hBox.getChildren().add(text);
-            AnchorPane.setLeftAnchor(text, 20.0);
-            AnchorPane.setTopAnchor(hBox, i);
-            AnchorPane.setLeftAnchor(text, 20.0);
+            test.setLeftAnchor(text, 20.0);
+            test.setTopAnchor(hBox, i);
+            test.setLeftAnchor(text, 20.0);
             test.getChildren().add(hBox);
             i = i + 20;
             j++;
@@ -89,9 +92,9 @@ public class ExamEditController {
         questionpane.setText("Question Table");
         addquestion.getPanes().add(questionpane);
 
-//        TitledPane newquestionpane = new TitledPane(); // Accordion,newquestionpane
-//        newquestionpane.setText("Write New Question");
-//        addquestion.getPanes().add(newquestionpane);
+        TitledPane newquestionpane = new TitledPane(); // Accordion,newquestionpane
+        newquestionpane.setText("Write New Question");
+        addquestion.getPanes().add(newquestionpane);
 
 
         //select=true to disable the checkbox for questions that we already have in the exam, so we will disable the checkbox
@@ -111,7 +114,7 @@ public class ExamEditController {
         questionColumn.setCellValueFactory(new PropertyValueFactory<Question, String>("question"));
         questiontable.setItems(data);
         TableColumn select = new TableColumn("Choose");
-        select.setMinWidth(80);
+        select.setMinWidth(20);
         select.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Question, CheckBox>, ObservableValue<CheckBox>>() {
             @Override
             public ObservableValue<CheckBox> call(TableColumn.CellDataFeatures<Question, CheckBox> arg0) {
@@ -129,7 +132,7 @@ public class ExamEditController {
                 return new SimpleObjectProperty<CheckBox>(checkBox);
             }
         });
-        questiontable.getColumns().addAll(questionColumn,select);
+        questiontable.getColumns().addAll(select, questionColumn);
         questionpane.setContent(questiontable);
 
 
@@ -193,6 +196,7 @@ public class ExamEditController {
 
         if(selectedQuestions.isEmpty()){
             System.out.println("ERROR: ExamEditController deleting all the questions");
+            message.add(0);
             message.add(examSubjectTeacherEdit.getFlag());
             message.add(exam);
             message.add(courseTeacher);
@@ -204,6 +208,7 @@ public class ExamEditController {
             message.add(1);
         } else if(selectedQuestions.equals(questions)){
             System.out.println("ERROR: ExamEditController not selecting anything to delete");
+            message.add(0);
             message.add(examSubjectTeacherEdit.getFlag());
             message.add(exam);
             message.add(courseTeacher);
@@ -215,6 +220,7 @@ public class ExamEditController {
             message.add(2);
         }
         else{ //if the copy button have been pressed
+            message.add(0);
             if(!examSubjectTeacherEdit.getPressed()){
                 message.add(3);
             } else{
@@ -255,6 +261,7 @@ public class ExamEditController {
 
         if (selectedQuestions.equals(questions)) {
             System.out.println("ERROR: no selected questions to add, at ExamEditController");
+            message.add(0);
             message.add(examSubjectTeacherEdit.getFlag());
             message.add(exam);
             message.add(courseTeacher);
@@ -265,6 +272,7 @@ public class ExamEditController {
             message.add(0);
             message.add(3);
         } else {//if the copy button have been pressed
+            message.add(0);
             if(!examSubjectTeacherEdit.getPressed()){
                 message.add(3);
             } else{
@@ -289,7 +297,7 @@ public class ExamEditController {
     }
 
     @FXML
-    public void Finish (ActionEvent event) {
+    public void Back (ActionEvent event) {
         LinkedList<Object> message = new LinkedList<Object>();
         examSubjectTeacherEdit.setFlag(3);
         message.add("#GetSubject");
@@ -304,20 +312,128 @@ public class ExamEditController {
     }
 
     @FXML
-    public void EditTime (ActionEvent event) {
-        exam.setTimerr(Integer.valueOf(Time.getText()));
-        ETime.setText("exam time is: " + exam.getTimerr());
+    public void SaveAll(ActionEvent event){
+        LinkedList<Question> selectedQuestions = new LinkedList<Question>();
+        System.out.println("client is saving all the changes");
+        int change=0;
+        int time = Integer.valueOf(exam.getTimerr());
+        String TN = exam.getTeacherNotes();
+        String SN = exam.getStudentNotes();
+        if(!(Tnote.getText().equals(""))){
+            TN = Tnote.getText();
+            change=1;
+        }
+        if(!(Snote.getText().equals(""))){
+            SN = Snote.getText();
+            change=1;
+        }
+        if(!(Time.getText().equals(""))){
+            time = Integer.parseInt(Time.getText());
+            change=1;
+        }
+        LinkedList<Object> message = new LinkedList<Object>();
+        message.add("#Edit_Q_Exam");
+        for(Question question :questions){
+            System.out.println(question.getQuestion() + "to delete?" +question.getSelect_to_delete());
+            if (question.getSelect_to_delete()) {
+                System.out.println(question.getQuestion() + "to delete?" +question.getSelect_to_delete());
+                System.out.println("deleting this quesion: " + question.getQuestion());
+                change = 1;
+            }
+            else{ // saving the questions that we don't want to delete to save them in the new copy
+                selectedQuestions.add(question);
+            }
+        }
+
+        for (Question question : listquestions) {
+            if (question.getSelect_to_add()) {
+                System.out.println("Adding this queston: " + question.getQuestion());
+                selectedQuestions.add(question);
+                change = 1;
+            }
+        }
+        message.add(1); //we are in saveall button
+        if(!examSubjectTeacherEdit.getPressed()){
+            examSubjectTeacherEdit.setFlag(3);
+//            message.add(3);
+        }
+//        else{
+            message.add(examSubjectTeacherEdit.getFlag());
+//        }
+        message.add(exam);
+        message.add(courseTeacher);
+        message.add(teacher);
+        message.add(subject);
+        message.add(subId.getId());
+        message.add(selectedQuestions);
+        message.add(1);
+        message.add(TN);
+        message.add(SN);
+        message.add(time);
+        message.add(change);
+        try {
+            SimpleClient.getClient().sendToServer(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    @FXML
-    public void EditTeacherNote (ActionEvent event) {
-        exam.setTeacherNotes(Tnote.getText());
-        Teachernote.setText("notes for students: " + exam.getTeacherNotes());
-    }
+//    @FXML
+//    public void EditTime (ActionEvent event) {
+//        exam.setTimerr(Integer.valueOf(Time.getText()));
+//        ETime.setText("exam time is: " + exam.getTimerr());
+//    }
+//
+//    @FXML
+//    public void EditTeacherNote (ActionEvent event) {
+//        exam.setTeacherNotes(Tnote.getText());
+//        Teachernote.setText("notes for students: " + exam.getTeacherNotes());
+//    }
+//
+//    @FXML
+//    public void EditStudentNote (ActionEvent event) {
+//        exam.setStudentNotes(Snote.getText());
+//        Studentnote.setText("notes for teachesrs: " + exam.getStudentNotes());
+//    }
 
     @FXML
-    public void EditStudentNote (ActionEvent event) {
-        exam.setStudentNotes(Snote.getText());
-        Studentnote.setText("notes for teachesrs: " + exam.getStudentNotes());
+    public void SaveEdits (ActionEvent event){
+        int count=0;
+        int time = Integer.valueOf(exam.getTimerr());
+        String TN = exam.getTeacherNotes();
+        String SN = exam.getStudentNotes();
+        if(!(Tnote.getText().equals(""))){
+            TN = Tnote.getText();
+            count++;
+        }
+        if(!(Snote.getText().equals(""))){
+            SN = Snote.getText();
+            count++;
+        }
+        if(!(Time.getText().equals(""))){
+            time = Integer.parseInt(Time.getText());
+            count++;
+        }
+        LinkedList<Object> message = new LinkedList<Object>();
+        message.add("SaveEditExam");
+        if(!examSubjectTeacherEdit.getPressed()){
+            message.add(3);
+        } else{
+            message.add(examSubjectTeacherEdit.getFlag());
+        }// Add questions
+        message.add(exam);
+        message.add(exam.getCourse());
+        message.add(teacher);
+        message.add(subject);
+        message.add(subId.getId());
+        message.add(TN);
+        message.add(SN);
+        message.add(time);
+        message.add(count);
+        try {
+            SimpleClient.getClient().sendToServer(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -15,7 +15,7 @@ public class ExamSubjectTeacherEdit implements Serializable {
         this.teacher = teacher;
         this.subjectTeacher = subjectTeacher;
         this.exam = exam;
-        this.flag=0;
+        this.flag=3;
         this.courseTeacher=null;
     }
 
