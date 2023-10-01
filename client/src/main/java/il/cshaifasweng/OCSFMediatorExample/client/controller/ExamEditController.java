@@ -153,11 +153,12 @@ public class ExamEditController {
             Copy.setDisable(true);
             examSubjectTeacherEdit.setPressed(true);
             ExamCopy.setText("New Copy");
-        }else{
-            if(examSubjectTeacherEdit.getFlag()==4){
+        }else if(examSubjectTeacherEdit.getFlag()==4){
                 examSubjectTeacherEdit.setPressed(true);
                 ExamCopy.setText("Same Copy");
-            }
+        }else if(examSubjectTeacherEdit.getFlag()==3){
+        examSubjectTeacherEdit.setPressed(true);
+        ExamCopy.setText("Select Copy");
         }
     }
 
@@ -399,6 +400,7 @@ public class ExamEditController {
     @FXML
     public void SaveEdits (ActionEvent event){
         int count=0;
+        LinkedList<Question> Examquesions = new LinkedList<Question>(questions);
         int time = Integer.valueOf(exam.getTimerr());
         String TN = exam.getTeacherNotes();
         String SN = exam.getStudentNotes();
@@ -430,6 +432,7 @@ public class ExamEditController {
         message.add(SN);
         message.add(time);
         message.add(count);
+        message.add(Examquesions);
         try {
             SimpleClient.getClient().sendToServer(message);
         } catch (IOException e) {

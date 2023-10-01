@@ -583,7 +583,6 @@ public class SimpleServer extends AbstractServer {
 			else if (message.get(0).equals("#Edit_Q_Exam")) {
 				try {
 					System.out.println("I'm in server Edit_Q_Exam");
-					int exsept=0;
 					int flag = (Integer) message.get(2);
 					Exam exFromClient = (Exam) message.get(3);
 					CourseTeacher course = Data.findcourse(exFromClient.getCourse());
@@ -591,18 +590,19 @@ public class SimpleServer extends AbstractServer {
 					SubjectTeacher subject = (SubjectTeacher) message.get(6);
 					int id = (Integer) message.get(7);
 					ExamSubjectTeacherEdit examSubjectTeacherEdit;
+					int good=1;
 
 					if(flag==3){
 						System.out.println("Not selecting any the exam copy");
 						Warning warning = new Warning("please select the exam copy!!");
-						examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject, exFromClient,3,course);
+						examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject, exFromClient,flag,course);
 						client.sendToClient(warning);
 						client.sendToClient(examSubjectTeacherEdit);
+						good=0;
 					}
-
-					if((Integer)message.get(1)==0){ // Add questions Button or delete questions Button errors
+					else if((Integer)message.get(1)==0){ // Add questions Button or delete questions Button errors
+						good=0;
 						if((Integer)message.get(9)==0){
-							exsept=1;
 							if (flag == 1 || flag == 2) { //save the exam copy
 								flag = 2;
 							} else{
@@ -636,14 +636,14 @@ public class SimpleServer extends AbstractServer {
 							}
 						}
 					}
-					else{ //we are in saveall button error
+					else if((Integer)message.get(1)==0){ //we are in saveall button error
 						if (flag == 1 || flag == 2) { //save the exam copy
 							flag = 2;
 						} else {
 							flag = 4;
 						}
 						if((Integer)message.get(13)==0){
-							exsept = 1;
+							good=0;
 							System.out.println("there is no changes");
 							Warning warning = new Warning("you didn't change anything");
 							examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject, exFromClient,flag,course);
@@ -651,7 +651,7 @@ public class SimpleServer extends AbstractServer {
 							client.sendToClient(examSubjectTeacherEdit);
 						}
 					}
-					if(exsept != 1) { // No problems
+					if(good==1){ // No problems
 						Exam exam;
 						if (flag == 1 || flag == 2) { //save the exam copy
 							flag = 2;
@@ -716,6 +716,7 @@ public class SimpleServer extends AbstractServer {
 						String StudentNote = (String) message.get(8);
 						int Time = (Integer) message.get(9);
 						Data.updateExam(ex.getId(),TeacherNote,StudentNote,Time);
+						ex = Data.setQuestions(id, (LinkedList<Question>) message.get(11));
 						course = Data.findcourse(ex.getCourse());
 						examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject, ex, flag, course);
 						client.sendToClient(examSubjectTeacherEdit);
