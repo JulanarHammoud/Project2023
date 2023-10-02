@@ -43,7 +43,7 @@ public class ExamEditController {
     @FXML
     private AnchorPane test;
     @FXML
-    private TextField Timer;
+    private TextField Time;
     @FXML
     private TextField Tnote;
     @FXML
@@ -242,10 +242,10 @@ public class ExamEditController {
             examSubjectTeacherEdit.setFlag(2);
             Copy.setDisable(true);
             examSubjectTeacherEdit.setPressed(true);
-            ExamCopy.setText("New Copy");
+            ExamCopy.setText("Same New Copy");
         }else if(examSubjectTeacherEdit.getFlag()==4){
                 examSubjectTeacherEdit.setPressed(true);
-                ExamCopy.setText("Same Copy");
+                ExamCopy.setText("Same Old Copy");
         }else if(examSubjectTeacherEdit.getFlag()==3){
         examSubjectTeacherEdit.setPressed(true);
         ExamCopy.setText("Select Copy");
@@ -424,7 +424,7 @@ public class ExamEditController {
         LinkedList<Question> selectedQuestions = new LinkedList<Question>();
         System.out.println("client is saving all the changes");
         int change=0;
-        int timer = Integer.valueOf(exam.getTimerr());
+        int time = Integer.valueOf(exam.getTimerr());
         String TN = exam.getTeacherNotes();
         String SN = exam.getStudentNotes();
         if(!(Tnote.getText().equals(""))){
@@ -435,8 +435,8 @@ public class ExamEditController {
             SN = Snote.getText();
             change=1;
         }
-        if(!(Timer.getText().equals(""))){
-            timer = Integer.parseInt(Timer.getText());
+        if(!(Time.getText().equals(""))){
+            time = Integer.parseInt(Time.getText());
             change=1;
         }
 
@@ -478,7 +478,7 @@ public class ExamEditController {
         message.add(1);
         message.add(TN);
         message.add(SN);
-        message.add(timer);
+        message.add(time);
         message.add(change);
         try {
             SimpleClient.getClient().sendToServer(message);
@@ -491,7 +491,7 @@ public class ExamEditController {
     public void SaveEdits (ActionEvent event){
         int count=0;
         LinkedList<Question> Examquesions = new LinkedList<Question>(questions);
-        int timer = Integer.valueOf(exam.getTimerr());
+        int time = Integer.valueOf(exam.getTimerr());
         String TN = exam.getTeacherNotes();
         String SN = exam.getStudentNotes();
         if(!(Tnote.getText().equals(""))){
@@ -502,8 +502,8 @@ public class ExamEditController {
             SN = Snote.getText();
             count++;
         }
-        if(!(Timer.getText().equals(""))){
-            timer = Integer.parseInt(Timer.getText());
+        if(!(Time.getText().equals(""))){
+            time = Integer.parseInt(Time.getText());
             count++;
         }
         LinkedList<Object> message = new LinkedList<Object>();
@@ -520,7 +520,7 @@ public class ExamEditController {
         message.add(subId.getId());
         message.add(TN);
         message.add(SN);
-        message.add(timer);
+        message.add(time);
         message.add(count);
         message.add(Examquesions);
         try {
