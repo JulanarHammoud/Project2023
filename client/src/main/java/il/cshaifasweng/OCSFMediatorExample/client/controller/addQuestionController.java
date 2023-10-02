@@ -55,7 +55,6 @@ public class addQuestionController {
             String right = correct.getText();
             message.add("MakenewQuestion");
             message.add(subjectTeacher);
-            //message.add(Table);
             message.add(question);
             message.add(answer1);
             message.add(answer2);
@@ -65,6 +64,7 @@ public class addQuestionController {
             message.add(id);
             message.add(teacher);
             message.add(questions);
+            message.add(0);
             SimpleClient.getClient().sendToServer(message);
         }
         catch (IOException e) {

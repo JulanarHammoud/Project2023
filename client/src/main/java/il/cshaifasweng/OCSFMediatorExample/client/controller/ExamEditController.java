@@ -32,6 +32,7 @@ public class ExamEditController {
     ObservableList<Question> data = FXCollections.observableArrayList(listquestions);
     SubjectAndId subId = new SubjectAndId(subject, exam.getId(), teacher);
     CourseTeacher courseTeacher=subId.getCourseTeacher();
+    LinkedList<Question> QUEStions = subId.getQuestions();
 
     @FXML
     private Label ETime;
@@ -42,7 +43,7 @@ public class ExamEditController {
     @FXML
     private AnchorPane test;
     @FXML
-    private TextField Time;
+    private TextField Timer;
     @FXML
     private TextField Tnote;
     @FXML
@@ -54,20 +55,31 @@ public class ExamEditController {
     @FXML
     private Label ExamCopy;
 
+    public String Qst;
+
+    public String Answ1;
+
+    public String Answ2;
+
+    public String Answ3;
+
+    public String Answ4;
+
+    public String Correct;
+    public int q, a1, a2, a3, a4, c;
+
     @FXML
     void initialize() throws IOException {
-        Teachernote.setText("notes for teacher: " + exam.getTeacherNotes());
-        Studentnote.setText("notes for student: " + exam.getStudentNotes());
-        ETime.setText("exam time is: " + exam.getTimerr());
         for(Question q :listquestions){
             q.setExist(false);
             q.setSelect_to_delete(false);
             q.setSelect_to_add(false);
         }
         System.out.println("I reached Edit controller");
-        ETime.setText("exam time is: " + exam.getTimerr());
+        ETime.setText("exam timer is: " + exam.getTimerr());
         Teachernote.setText("notes for teachesrs: " + exam.getTeacherNotes());
         Studentnote.setText("notes for students: " + exam.getStudentNotes());
+        q=0; a1=0; a2=0; a3=0; a4=0; c=0;
 
         double i = 100.0;
         int j=0;
@@ -107,7 +119,7 @@ public class ExamEditController {
         }
 
 
-        // Question table to add new questions to the exam
+        // Question table to add questions to the exam
         TableView questiontable = new TableView();
         TableColumn questionColumn = new TableColumn();
         questiontable.setEditable(true);
@@ -135,6 +147,84 @@ public class ExamEditController {
         questiontable.getColumns().addAll(select, questionColumn);
         questionpane.setContent(questiontable);
 
+        //Add New Question in the newquestionpane
+        VBox AddQuestionVBox = new VBox(10); //here we will put add new question fields
+        Label Q = new Label();
+        Label C = new Label();
+        Label A = new Label();
+        Q.setText("question: ");
+        C.setText("Correct answer: ");
+        A.setText("Possible answes:");
+        TextField theQ =new TextField();
+        TextField answ1 =new TextField();
+        TextField answ2 =new TextField();
+        TextField answ3 =new TextField();
+        TextField answ4 =new TextField();
+        TextField correct =new TextField();
+
+        //Listeners to the TextFields to get there values
+        theQ.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,String Qsst) {
+                System.out.println("Text changed from: " + oldValue + " to: " + Qsst);
+                Qst=Qsst; q=1;
+            }
+        });
+        answ1.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String Answw1) {
+                System.out.println("Text changed from: " + oldValue + " to: " + Answw1);
+                Answ1=Answw1; a1=1;
+            }
+        });
+        answ2.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String Answw2) {
+                System.out.println("Text changed from: " + oldValue + " to: " + Answw2);
+                Answ2=Answw2; a2=1;
+            }
+        });
+        answ3.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String Answw3) {
+                System.out.println("Text changed from: " + oldValue + " to: " + Answw3);
+                Answ3=Answw3; a3=1;
+            }
+        });
+        answ4.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String Answw4) {
+                System.out.println("Text changed from: " + oldValue + " to: " + Answw4);
+                Answ4=Answw4; a4=1;
+            }
+        });
+        correct.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String Corrrect) {
+                System.out.println("Text changed from: " + oldValue + " to: " + Corrrect);
+                Correct=Corrrect; c=1;
+            }
+        });
+
+        HBox addQuestinHbox = new HBox(2);//this will help to order the VBox
+        addQuestinHbox.getChildren().add(Q);
+        addQuestinHbox.getChildren().add(theQ);
+        HBox addcorrectanswerHBox=new HBox(2);
+        addcorrectanswerHBox.getChildren().add(C);
+        addcorrectanswerHBox.getChildren().add(correct);
+        Button add = new Button("Add");
+
+        AddQuestionVBox.getChildren().add(addQuestinHbox);//adding question textfield with the label Add questions
+        AddQuestionVBox.getChildren().add(A);
+        AddQuestionVBox.getChildren().add(answ1);
+        AddQuestionVBox.getChildren().add(answ2);
+        AddQuestionVBox.getChildren().add(answ3);
+        AddQuestionVBox.getChildren().add(answ4);
+        AddQuestionVBox.getChildren().add(addcorrectanswerHBox);
+        AddQuestionVBox.getChildren().add(add);
+
+        newquestionpane.setContent(AddQuestionVBox);
+        add.setOnAction(this::add);
 
         // This Accordion to pick if to save the edited exam in a new copy or the same copy
         TitledPane Copy = new TitledPane();
@@ -164,12 +254,47 @@ public class ExamEditController {
 
 
     @FXML
+    public void add(ActionEvent event){
+        LinkedList<Object> message = new LinkedList<Object>();
+        //if the labels haven't been pressed
+        if(q==0){Qst="";}
+        if(a1==0){Answ1="";}
+        if(a2==0){Answ2="";}
+        if(a3==0){Answ3="";}
+        if(a4==0){Answ4="";}
+        if(c==0){Correct="";}
+
+        System.out.println(Qst);
+        System.out.println(c);
+        System.out.println(Correct);
+        message.add("MakenewQuestion");
+        message.add(subId.getSubject());
+        message.add(Qst);
+        message.add(Answ1);
+        message.add(Answ2);
+        message.add(Answ3);
+        message.add(Answ4);
+        message.add(Correct);
+        message.add(subId.getId());
+        message.add(teacher);
+        message.add(QUEStions);
+        message.add(1);
+        message.add(exam);
+        message.add(examSubjectTeacherEdit.getFlag());
+        message.add(examSubjectTeacherEdit);
+        try {
+            SimpleClient.getClient().sendToServer(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     public void Old_copy (ActionEvent event){
         examSubjectTeacherEdit.setFlag(0);
         examSubjectTeacherEdit.setPressed(true);
         ExamCopy.setText("Same Copy");
     }
-
 
     @FXML
     public void New_Copy (ActionEvent event){
@@ -177,7 +302,6 @@ public class ExamEditController {
         examSubjectTeacherEdit.setPressed(true);
         ExamCopy.setText("New Copy");
     }
-
 
     @FXML
     public void deletequestions (ActionEvent event) {
@@ -245,8 +369,6 @@ public class ExamEditController {
         }
     }
 
-
-
     @FXML
     public void addquestions (ActionEvent event) {
         LinkedList<Question> selectedQuestions = new LinkedList<Question>(questions);
@@ -298,26 +420,11 @@ public class ExamEditController {
     }
 
     @FXML
-    public void Back (ActionEvent event) {
-        LinkedList<Object> message = new LinkedList<Object>();
-        examSubjectTeacherEdit.setFlag(3);
-        message.add("#GetSubject");
-        message.add(subject.getId());
-        message.add(teacher);
-        message.add(courseTeacher);
-            try {
-                SimpleClient.getClient().sendToServer(message);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-    }
-
-    @FXML
     public void SaveAll(ActionEvent event){
         LinkedList<Question> selectedQuestions = new LinkedList<Question>();
         System.out.println("client is saving all the changes");
         int change=0;
-        int time = Integer.valueOf(exam.getTimerr());
+        int timer = Integer.valueOf(exam.getTimerr());
         String TN = exam.getTeacherNotes();
         String SN = exam.getStudentNotes();
         if(!(Tnote.getText().equals(""))){
@@ -328,10 +435,11 @@ public class ExamEditController {
             SN = Snote.getText();
             change=1;
         }
-        if(!(Time.getText().equals(""))){
-            time = Integer.parseInt(Time.getText());
+        if(!(Timer.getText().equals(""))){
+            timer = Integer.parseInt(Timer.getText());
             change=1;
         }
+
         LinkedList<Object> message = new LinkedList<Object>();
         message.add("#Edit_Q_Exam");
         for(Question question :questions){
@@ -370,7 +478,7 @@ public class ExamEditController {
         message.add(1);
         message.add(TN);
         message.add(SN);
-        message.add(time);
+        message.add(timer);
         message.add(change);
         try {
             SimpleClient.getClient().sendToServer(message);
@@ -379,29 +487,11 @@ public class ExamEditController {
         }
     }
 
-//    @FXML
-//    public void EditTime (ActionEvent event) {
-//        exam.setTimerr(Integer.valueOf(Time.getText()));
-//        ETime.setText("exam time is: " + exam.getTimerr());
-//    }
-//
-//    @FXML
-//    public void EditTeacherNote (ActionEvent event) {
-//        exam.setTeacherNotes(Tnote.getText());
-//        Teachernote.setText("notes for students: " + exam.getTeacherNotes());
-//    }
-//
-//    @FXML
-//    public void EditStudentNote (ActionEvent event) {
-//        exam.setStudentNotes(Snote.getText());
-//        Studentnote.setText("notes for teachesrs: " + exam.getStudentNotes());
-//    }
-
     @FXML
     public void SaveEdits (ActionEvent event){
         int count=0;
         LinkedList<Question> Examquesions = new LinkedList<Question>(questions);
-        int time = Integer.valueOf(exam.getTimerr());
+        int timer = Integer.valueOf(exam.getTimerr());
         String TN = exam.getTeacherNotes();
         String SN = exam.getStudentNotes();
         if(!(Tnote.getText().equals(""))){
@@ -412,8 +502,8 @@ public class ExamEditController {
             SN = Snote.getText();
             count++;
         }
-        if(!(Time.getText().equals(""))){
-            time = Integer.parseInt(Time.getText());
+        if(!(Timer.getText().equals(""))){
+            timer = Integer.parseInt(Timer.getText());
             count++;
         }
         LinkedList<Object> message = new LinkedList<Object>();
@@ -430,13 +520,27 @@ public class ExamEditController {
         message.add(subId.getId());
         message.add(TN);
         message.add(SN);
-        message.add(time);
+        message.add(timer);
         message.add(count);
         message.add(Examquesions);
         try {
             SimpleClient.getClient().sendToServer(message);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    @FXML
+    public void Back (ActionEvent event) {
+        LinkedList<Object> message = new LinkedList<Object>();
+        examSubjectTeacherEdit.setFlag(3);
+        message.add("#GetSubject");
+        message.add(subject.getId());
+        message.add(teacher);
+        message.add(courseTeacher);
+        try {
+            SimpleClient.getClient().sendToServer(message);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
