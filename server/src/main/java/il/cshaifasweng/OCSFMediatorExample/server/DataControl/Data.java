@@ -206,6 +206,36 @@ public class Data {
         return s;
 
     }
+    public static void updateQuestion(int IdQuestion , String q,String ans1 ,String ans2,String ans3 ,String ans4 ,String right ){
+       System.out.println("I am updating: " + IdQuestion + " " + q + " "+ans1);
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        Question question =session.get(Question.class,IdQuestion);
+        question.setQuestion(q);
+        question.setAns1(ans1);
+        question.setAns2(ans2);
+        question.setAns3(ans3);
+        question.setAns4(ans4);
+        question.setThe_right_ans(right);
+        session.saveOrUpdate(question);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
+        System.out.println(question.getQuestion());
+        // return exam; Exam
+    }
+    public static int returnid(String question) throws Exception {
+        List<Question> all=getAllQuestions();
+        System.out.println(all);
+        for (Question q1 : all) {
+            if (q1.getQuestion().equals(question)) {
+                return q1.getId();
+            }
+        }
+        return -1;
+    }
+
     public static Teacher TeacherLog(String username, String password) throws Exception {
                  List<Teacher> teachers = getAllTeachers();
                  System.out.println(teachers);
@@ -449,6 +479,18 @@ public class Data {
         CriteriaQuery<CourseTeacher> query = builder.createQuery(CourseTeacher.class);
         query.from(CourseTeacher.class);
         List<CourseTeacher> result = session.createQuery(query).getResultList();
+        session.close();
+        System.out.println(result.size());
+        return result;
+    }
+    public static List<Question> getAllQuestions() throws Exception {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Question> query = builder.createQuery(Question.class);
+        query.from(Question.class);
+        List<Question> result = session.createQuery(query).getResultList();
         session.close();
         System.out.println(result.size());
         return result;

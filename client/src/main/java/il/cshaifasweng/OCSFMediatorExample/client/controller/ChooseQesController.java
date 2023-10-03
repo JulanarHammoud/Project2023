@@ -155,8 +155,7 @@ public class ChooseQesController {
 
     @FXML
     void editQuestion(ActionEvent event) {
-        Qtable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        Qtable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        Question newSelection = Qtable.getSelectionModel().getSelectedItem();
             if (newSelection != null) {
                 System.out.println(newSelection);
                 LinkedList<Object> message = new LinkedList<Object>();
@@ -165,13 +164,13 @@ public class ChooseQesController {
                 message.add(subId.getId());
                 message.add(subjectteacher);
                 message.add(teacher);
+                    SimpleClient.getParams().add(message);
                 try {
-                    SimpleClient.getClient().sendToServer(message);
+                    setRoot("editquestion");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
-        });
+           }
     }
 
     @FXML

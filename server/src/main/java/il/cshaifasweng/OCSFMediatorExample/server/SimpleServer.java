@@ -362,20 +362,25 @@ public class SimpleServer extends AbstractServer {
 			}
 			else if (message.get(0).equals("editquestion")) {
 				try {
+					Question question = (Question) message.get(1);
+					Question oldquestion = (Question) message.get(5);
 					System.out.println("in edit question ");
-					String ques1 = (String) message.get(2);
-					String ans1 = (String) message.get(3);
-					String ans2 = (String) message.get(4);
-					String ans3 = (String) message.get(5);
-					String ans4 = (String) message.get(6);
-					String right = (String) message.get(7);
-					int id = (int)  message.get(8);
-					Teacher t=(Teacher)  message.get(9);
-					SubjectTeacher subjectTeacher = (SubjectTeacher) message.get(1);
-					SubjectTeacher subjectTeacher1 = Data.MakeQuestion(ques1, ans1, ans2, ans3, ans4, right ,subjectTeacher);
-					SubjectAndId subid =new SubjectAndId(subjectTeacher1,id,t);
-					Warning warning = new Warning("The Question added Successfully!!");
-
+					System.out.println(question.getQuestion());
+					String ques1 = question.getQuestion();
+					String ans1 = question.getAns1();
+					String ans2 = question.getAns2();
+					String ans3 = question.getAns3();
+					String ans4 = question.getAns4();
+					String right = question.getThe_right_ans();
+					int id = Data.returnid(oldquestion.getQuestion());
+					System.out.println("before data function");
+					Data.updateQuestion(id,ques1,ans1,ans2,ans3,ans4,right);
+					System.out.println("after data function");
+					Warning warning = new Warning("The Question updated Successfully!!");
+					SubjectTeacher subject=(SubjectTeacher) message.get(3);
+					SubjectTeacher newsubject = Data.GetSubjectById(subject.getId());
+					Teacher teacher =(Teacher) message.get(4);
+					SubjectAndId subid=new SubjectAndId(newsubject ,-1,teacher);
 					client.sendToClient(warning);
 					client.sendToClient(subid);
 				} catch (IOException e) {

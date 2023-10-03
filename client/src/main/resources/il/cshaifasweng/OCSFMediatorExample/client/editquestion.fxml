@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="418.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.editQueController">
+<AnchorPane prefHeight="418.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.editQueController">
    <children>
       <ImageView fitHeight="419.0" fitWidth="579.0" layoutX="-2.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -35,7 +40,7 @@
          </textFill>
       </Label>
       <TextField fx:id="text" layoutX="180.0" layoutY="62.0" prefHeight="25.0" prefWidth="205.0" />
-      <Button layoutX="237.0" layoutY="305.0" mnemonicParsing="false" text="Submit" textFill="#a19c22">
+      <Button fx:id="sumbit1" layoutX="237.0" layoutY="305.0" mnemonicParsing="false" onAction="#submitaction" text="Submit" textFill="#a19c22">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font></Button>
@@ -60,9 +65,9 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Label layoutX="79.0" layoutY="239.0" text="answer 5:">
+      <Label layoutX="29.0" layoutY="238.0" prefHeight="30.0" prefWidth="180.0" text="The Right Answer:">
          <font>
-            <Font name="System Bold" size="20.0" />
+            <Font name="System Bold" size="16.0" />
          </font>
          <textFill>
             <LinearGradient endX="0.19905213270142186" endY="1.0">
@@ -144,12 +149,12 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <TextField fx:id="text1" layoutX="180.0" layoutY="136.0" prefHeight="25.0" prefWidth="205.0" />
-      <TextField fx:id="text2" layoutX="180.0" layoutY="172.0" prefHeight="25.0" prefWidth="205.0" />
-      <TextField fx:id="text3" layoutX="180.0" layoutY="206.0" prefHeight="25.0" prefWidth="205.0" />
-      <TextField fx:id="text4" layoutX="180.0" layoutY="241.0" prefHeight="25.0" prefWidth="205.0" />
-      <TextField fx:id="text5" layoutX="180.0" layoutY="99.0" prefHeight="25.0" prefWidth="205.0" />
-      <Button layoutX="98.0" layoutY="14.0" mnemonicParsing="false" text="Back" textFill="#a19c22">
+      <TextField fx:id="text2" layoutX="180.0" layoutY="136.0" prefHeight="25.0" prefWidth="205.0" />
+      <TextField fx:id="text3" layoutX="180.0" layoutY="172.0" prefHeight="25.0" prefWidth="205.0" />
+      <TextField fx:id="text4" layoutX="180.0" layoutY="206.0" prefHeight="25.0" prefWidth="205.0" />
+      <TextField fx:id="text5" layoutX="180.0" layoutY="241.0" prefHeight="25.0" prefWidth="205.0" />
+      <TextField fx:id="text1" layoutX="180.0" layoutY="99.0" prefHeight="25.0" prefWidth="205.0" />
+      <Button fx:id="back" layoutX="98.0" layoutY="14.0" mnemonicParsing="false" onAction="#bacaction" text="Back" textFill="#a19c22">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
