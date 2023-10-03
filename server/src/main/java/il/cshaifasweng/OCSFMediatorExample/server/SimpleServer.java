@@ -233,8 +233,6 @@ public class SimpleServer extends AbstractServer {
 						} else {
 							int num_q = Integer.valueOf(num);
 							int id = Data.MakeExam(num_q, t_N, timm, S_N, course.getName(), sub, teacherr);
-							System.out.println("after data find");
-							System.out.println(course.getName());
 							DecimalFormat formatter = new DecimalFormat("00");
 							String cor_id = formatter.format(course.getId());
 							String sub_id = formatter.format(sub.getId());
@@ -259,23 +257,6 @@ public class SimpleServer extends AbstractServer {
 					StudentWillDoEx studentWillDo =new StudentWillDoEx(studentFull);
 					System.out.println(""+studentWillDo.getStudent().getCourses().size()+";;");
 
-//					int idd = Data.MakeExam(12,"","130","","English","mona","esra","02.10.2023","manual");
-//					String i=updateExamId("01",idd,"04");
-//					Exam n=Data.BringExamBasedOnCode(idd);
-//					System.out.println("ll1"+n.getType());
-//					ExamStudent mm=new ExamStudent();
-//					mm.setDate("02.10.2023");
-//					mm.setNumOfQuestions(12);
-//					mm.setTeacherNotes("");
-//					mm.setTimerr(130);
-//					mm.setStudentNotes("");
-//					mm.setSubject("English");
-//					mm.setTeacher("mona");
-//					mm.setType("manual");
-//					mm.setCodeGivenByTeacher("esra");
-//					studentWillDo.getStudent().getStudentExams().add(mm);
-//					System.out.println("ll2"+mm.getTeacher()+mm.getDate());
-
 					client.sendToClient(studentWillDo);
 				}catch (Exception e) {
 					e.printStackTrace();
@@ -291,23 +272,6 @@ public class SimpleServer extends AbstractServer {
 					StEx.setSs(studentFull);
 					List<ExamStudent> t=studentFull.getStudentExams();
 
-//					int idd = Data.MakeExam(12,"","130","","English","mona","esra","02.10.2023","manual");
-//					String d=updateExamId("01",idd,"04");
-//					Exam n=Data.BringExamBasedOnCode(idd);
-//					System.out.println("ll1"+n.getType());
-//					ExamStudent mm=new ExamStudent();
-//					mm.setDate("02.10.2023");
-//					mm.setNumOfQuestions(12);
-//					mm.setTeacherNotes("");
-//					mm.setTimerr(130);
-//					mm.setStudentNotes("");
-//					mm.setSubject("English");
-//					mm.setTeacher("mona");
-//					mm.setType("manual");
-//					mm.setCodeGivenByTeacher("esra");
-//					t.add(mm);
-//					System.out.println("ll2"+mm.getCodeGivenByTeacher()+t.size());
-//////////
 					ExamStudent x=new ExamStudent();
 					System.out.println("1");
 					int i=0;
@@ -326,7 +290,6 @@ public class SimpleServer extends AbstractServer {
 							i++;
 						}
 					}
-					//System.out.println(""+i+t.size()+x.getQuestions().size());
 					StEx.setEx(x);
 					client.sendToClient(StEx);
 				} catch (Exception e) {
@@ -370,28 +333,6 @@ public class SimpleServer extends AbstractServer {
 					String st= (String) message.get(1);
 					Student studentFul=Data.getStudent(Integer.parseInt(st));
 					GradeSt h=new GradeSt(studentFul);
-
-					/////////////
-//					int idd = Data.MakeExam(12,"","130","","English","mona","esra","02.10.2023","manual");
-//					String d=updateExamId("01",idd,"04");
-//					Exam n=Data.BringExamBasedOnCode(idd);
-//					System.out.println("ll1"+n.getType());
-//					ExamStudent mm=new ExamStudent();
-//					mm.setDate("01.10.2023");
-//					mm.setNumOfQuestions(12);
-//					mm.setTeacherNotes("");
-//					mm.setTimerr(130);
-//					mm.setStudentNotes("");
-//					mm.setSubject("English");
-//					mm.setTeacher("mona");
-//					mm.setType("manual");
-//					mm.setCodeGivenByTeacher("esra");
-//					h.getSs().getStudentExams().add(mm);
-//					System.out.println("ll2"+mm.getCodeGivenByTeacher()+h.getSs().getStudentExams().size());
-//					h.getSs().getStudentExams().get(0).setGrade(20);
-//					System.out.println("'''"+h.getSs().getStudentExams().get(0).getGrade());
-					////////////
-
 					client.sendToClient(h);
 
 				} catch (IOException e) {
@@ -401,21 +342,6 @@ public class SimpleServer extends AbstractServer {
 				}
 			}
 
-//			else if (message.get(0).equals("#SubjectTeacher")) {
-//				try {
-//					System.out.println("I'm in server subjectteacher");
-//					String choose= (String) message.get(1);
-//					System.out.println(choose);
-//					SubjectTeacher subject =Data.findsubject(choose);
-//					System.out.println("after data find");
-//					System.out.println(subject.getSb_name());
-//					SubjectAndId subId= new SubjectAndId(subject,-1,);
-//					client.sendToClient(subId);
-//
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-//			}
 			else if (message.get(0).equals("#CoursetTeacher")) {
 				try {
 					System.out.println("I'm in server courseteacher");
@@ -459,7 +385,6 @@ public class SimpleServer extends AbstractServer {
 				}
 			}
 			else if (message.get(0).equals("MakenewQuestion")) {
-			} else if (message.get(0).equals("MakenewQuestion")) {
 				try {
 					System.out.println("in make question ");
 					String ques1 = (String) message.get(2);
@@ -471,7 +396,6 @@ public class SimpleServer extends AbstractServer {
 					int id = (int) message.get(8);
 					Teacher teacher = (Teacher) message.get(9);
 					int x=0;
-
 					if (ques1.isEmpty()) {
 						if (ans1.isEmpty() || ans2.isEmpty() || ans3.isEmpty() || ans4.isEmpty()) {
 							System.out.println("there is no question or 4 possible answers yet");
@@ -505,15 +429,11 @@ public class SimpleServer extends AbstractServer {
 					} else { //the input is good
 						SubjectTeacher subjectTeacher = (SubjectTeacher) message.get(1);
 						SubjectTeacher subjectTeacher1 = Data.MakeQuestion(ques1, ans1, ans2, ans3, ans4, right, subjectTeacher);
-						System.out.println("After question make data");
 						LinkedList<Question> questions = (LinkedList<Question>) message.get(10);
-						System.out.println("After question make data2");
 						SubjectAndId subid;
 						if (questions == null) {
-							System.out.println("After question make data3");
 							subid = new SubjectAndId(subjectTeacher1, id, teacher);
 						} else {
-							System.out.println("After question make data4");
 							subid = new SubjectAndId(subjectTeacher1, id, teacher, questions);
 							subid.setQuestions(questions);
 						}
@@ -658,14 +578,14 @@ public class SimpleServer extends AbstractServer {
 								client.sendToClient(warning);
 							}
 						}
-					} else if((Integer)message.get(1)==0){ //we are in saveall button error
+					} else if((Integer)message.get(1)==1){ //we are in saveall button error
 						good=1;
-						if (flag == 1 || flag == 2) { //save the exam copy
-							flag = 2;
-						} else {
-							flag = 4;
-						}
 						if((Integer)message.get(13)==0){
+							if (flag == 1 || flag == 2) { //save the exam copy
+								flag = 2;
+							} else {
+								flag = 4;
+							}
 							good=0;
 							System.out.println("there is no changes");
 							Warning warning = new Warning("you didn't change anything");
@@ -674,11 +594,6 @@ public class SimpleServer extends AbstractServer {
 					}
 					if(good==1){ // No problems
 						Exam exam;
-						if (flag == 1 || flag == 2) { //save the exam copy
-							flag = 2;
-						} else {
-							flag = 4;
-						}
 						String TeacherNote = (String) message.get(10);
 						String StudentNote = (String) message.get(11);
 						String Time = (String) message.get(12);
@@ -688,7 +603,7 @@ public class SimpleServer extends AbstractServer {
 							Warning warning = new Warning("please fill a legal time!!");
 							client.sendToClient(warning);
 						} else{
-							if(flag == 1 || flag == 2) { //New Exam Copy
+							if(flag == 1) { //New Exam Copy
 								id = Data.MakeExam(exFromClient.getNumOfQuestions(), TeacherNote,
 										Time, StudentNote, exFromClient.getCourse(),
 										subject, exFromClient.getTeacher());
@@ -701,6 +616,11 @@ public class SimpleServer extends AbstractServer {
 							} else{ // same exam
 								Data.updateExam(id,TeacherNote,StudentNote,Integer.valueOf(Time));
 								exam = Data.setQuestions(id, (LinkedList<Question>) message.get(8));
+							}
+							if (flag == 1 || flag == 2) { //save the exam copy
+								flag = 2;
+							} else {
+								flag = 4;
 							}
 							examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject, exam,flag,course);
 							client.sendToClient(examSubjectTeacherEdit);
@@ -727,12 +647,7 @@ public class SimpleServer extends AbstractServer {
 						System.out.println("Not editing anything");
 						Warning warning = new Warning("you didn't edit any of the time or notes!");
 						client.sendToClient(warning);
-					} else {
-						if (flag == 1 || flag == 2) { //save the exam copy
-							flag = 2;
-						} else {
-							flag = 4;
-						}
+					} else { // no problems
 						String TeacherNote = (String) message.get(7);
 						String StudentNote = (String) message.get(8);
 						String Time = (String) message.get(9);
@@ -742,12 +657,11 @@ public class SimpleServer extends AbstractServer {
 							Warning warning = new Warning("please fill a legal time!!");
 							client.sendToClient(warning);
 						} else{
-							if(flag == 1 || flag == 2) { //New Exam Copy
+							if(flag == 1) { //New Exam Copy
 								id = Data.MakeExam(ex.getNumOfQuestions(), TeacherNote,
 										Time, StudentNote, ex.getCourse(),
 										subject, ex.getTeacher());
 								ex = Data.setQuestions(id, (LinkedList<Question>) message.get(11));
-
 								DecimalFormat formatter = new DecimalFormat("00");
 								String cor_id = formatter.format(course.getId());//course
 								String sub_id = formatter.format(subject.getId());
@@ -758,6 +672,11 @@ public class SimpleServer extends AbstractServer {
 							}
 							SubjectTeacher subject1 = Data.GetSubjectById(subject.getId());
 							course = Data.findcourse(ex.getCourse());
+							if (flag == 1 || flag == 2) { //save the exam copy
+								flag = 2;
+							} else {
+								flag = 4;
+							}
 							examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject1, ex, flag, course);
 							client.sendToClient(examSubjectTeacherEdit);
 						}

@@ -268,8 +268,6 @@ public class ExamEditController {
         message.add(1);
         message.add(exam);
         message.add(examSubjectTeacherEdit.getFlag());
-        message.add(examSubjectTeacherEdit);
-        message.add(listquestions);
         try {
             SimpleClient.getClient().sendToServer(message);
         } catch (IOException e) {
@@ -332,10 +330,9 @@ public class ExamEditController {
         else{ //if the copy button have been pressed
             message.add(0);
             if(!examSubjectTeacherEdit.getPressed()){
-                message.add(3);
-            } else{
-                message.add(examSubjectTeacherEdit.getFlag());
-            }// Deleting questions
+                examSubjectTeacherEdit.setFlag(3);
+            }
+            message.add(examSubjectTeacherEdit.getFlag());
             message.add(exam);
             message.add(courseTeacher);
             message.add(teacher);
@@ -381,10 +378,9 @@ public class ExamEditController {
         } else {//if the copy button have been pressed
             message.add(0);
             if(!examSubjectTeacherEdit.getPressed()){
-                message.add(3);
-            } else{
-                message.add(examSubjectTeacherEdit.getFlag());
-            }// Add questions
+                examSubjectTeacherEdit.setFlag(3);
+            }
+            message.add(examSubjectTeacherEdit.getFlag());
             message.add(exam);
             message.add(courseTeacher);
             message.add(teacher);
@@ -405,6 +401,25 @@ public class ExamEditController {
     @FXML
     public void SaveEdits (ActionEvent event){
         int count=0;
+        LinkedList<Question> selectedQuestions = new LinkedList<Question>();
+        for(Question question :questions){
+            System.out.println(question.getQuestion() + "to delete?" +question.getSelect_to_delete());
+            if (question.getSelect_to_delete()) {
+                System.out.println(question.getQuestion() + "to delete?" +question.getSelect_to_delete());
+                System.out.println("deleting this quesion: " + question.getQuestion());
+            }
+            else{ // saving the questions that we don't want to delete to save them in the new copy
+                selectedQuestions.add(question);
+            }
+        }
+
+        for (Question question : listquestions) {
+            if (question.getSelect_to_add()) {
+                System.out.println("Adding this queston: " + question.getQuestion());
+                selectedQuestions.add(question);
+            }
+        }
+
         String time = String.valueOf(exam.getTimerr());
         String TN = exam.getTeacherNotes();
         String SN = exam.getStudentNotes();
@@ -423,10 +438,9 @@ public class ExamEditController {
         LinkedList<Object> message = new LinkedList<Object>();
         message.add("SaveEditExam");
         if(!examSubjectTeacherEdit.getPressed()){
-            message.add(3);
-        } else{
-            message.add(examSubjectTeacherEdit.getFlag());
-        }// Add questions
+            examSubjectTeacherEdit.setFlag(3);
+        }
+        message.add(examSubjectTeacherEdit.getFlag());
         message.add(exam);
         message.add(exam.getCourse());
         message.add(teacher);
@@ -436,7 +450,7 @@ public class ExamEditController {
         message.add(SN);
         message.add(time);
         message.add(count);
-        message.add(listquestions);
+        message.add(selectedQuestions);
         try {
             SimpleClient.getClient().sendToServer(message);
         } catch (IOException e) {
@@ -488,11 +502,8 @@ public class ExamEditController {
         message.add(1); //we are in saveall button
         if(!examSubjectTeacherEdit.getPressed()){
             examSubjectTeacherEdit.setFlag(3);
-//            message.add(3);
         }
-//        else{
-            message.add(examSubjectTeacherEdit.getFlag());
-//        }
+        message.add(examSubjectTeacherEdit.getFlag());
         message.add(exam);
         message.add(courseTeacher);
         message.add(teacher);
