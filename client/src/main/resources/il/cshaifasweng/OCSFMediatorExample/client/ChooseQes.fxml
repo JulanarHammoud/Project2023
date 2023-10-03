@@ -6,11 +6,11 @@
 
 <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="488.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.ChooseQesController">
     <children>
-        <Button fx:id="next" layoutX="601.0" layoutY="448.0" mnemonicParsing="false" onAction="#nextaction" text="Finish" textFill="#a19c22">
+        <Button fx:id="next" layoutX="67.0" layoutY="2.0" mnemonicParsing="false" onAction="#nextaction" text="Finish" textFill="#a19c22">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-        <TableView fx:id="Qtable" layoutX="167.0" layoutY="98.0" prefHeight="441.0" prefWidth="677.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <TableView fx:id="Qtable" layoutX="167.0" layoutY="33.0" prefHeight="408.0" prefWidth="677.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
             <columns>
                 <TableColumn fx:id="question" prefWidth="90.0" text="The Q" />
                 <TableColumn fx:id="ans1" prefWidth="90.0" text="ans 1" />
@@ -28,7 +28,7 @@
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-      <Button layoutX="533.0" layoutY="448.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#a19a23">
+      <Button layoutX="4.0" layoutY="2.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#a19a23">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>

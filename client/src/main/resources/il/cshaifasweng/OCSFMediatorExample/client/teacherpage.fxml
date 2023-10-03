@@ -37,7 +37,7 @@
       </Label>
       <Accordion fx:id="container" layoutX="50.0" layoutY="123.0" prefHeight="173.0" prefWidth="213.0">
       </Accordion>
-      <Button layoutX="519.0" layoutY="14.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="26.0" prefWidth="63.0" text="LogOut" textFill="#a19c22">
+      <Button layoutX="-3.0" layoutY="1.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="26.0" prefWidth="63.0" text="LogOut" textFill="#a19c22">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>

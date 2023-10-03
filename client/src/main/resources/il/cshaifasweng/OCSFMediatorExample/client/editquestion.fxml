@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="418.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.editQueController">
+<AnchorPane prefHeight="418.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.editQueController">
    <children>
       <ImageView fitHeight="419.0" fitWidth="579.0" layoutX="-2.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -154,11 +149,11 @@
       <TextField fx:id="text4" layoutX="180.0" layoutY="206.0" prefHeight="25.0" prefWidth="205.0" />
       <TextField fx:id="text5" layoutX="180.0" layoutY="241.0" prefHeight="25.0" prefWidth="205.0" />
       <TextField fx:id="text1" layoutX="180.0" layoutY="99.0" prefHeight="25.0" prefWidth="205.0" />
-      <Button fx:id="back" layoutX="98.0" layoutY="14.0" mnemonicParsing="false" onAction="#bacaction" text="Back" textFill="#a19c22">
+      <Button fx:id="back" layoutX="65.0" layoutY="2.0" mnemonicParsing="false" onAction="#bacaction" text="Back" textFill="#a19c22">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-      <Button layoutX="33.0" layoutY="14.0" mnemonicParsing="false" text="LogOut" textFill="#a19c22">
+      <Button layoutX="1.0" layoutY="2.0" mnemonicParsing="false" text="LogOut" textFill="#a19c22">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>

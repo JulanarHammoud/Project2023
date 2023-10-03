@@ -204,7 +204,6 @@ public class Data {
         session.getTransaction().commit();
         session.close();
         return s;
-
     }
     public static void updateQuestion(int IdQuestion , String q,String ans1 ,String ans2,String ans3 ,String ans4 ,String right ){
        System.out.println("I am updating: " + IdQuestion + " " + q + " "+ans1);
@@ -501,7 +500,6 @@ public class Data {
         //System.out.println(teachers);
 
         for (CourseTeacher coursee : CourseTeacher) {
-            // System.out.println(coursee.getName());
             System.out.println(name.equals(coursee.getName()));
             if (name.equals(coursee.getName())) {
                 return coursee;
@@ -637,7 +635,6 @@ public class Data {
         session.close();
         return sub;
     }
-
     public static  void deleteExamSub(int id, SubjectTeacher sub){
         try{
             SessionFactory sessionFactory = getSessionFactory();

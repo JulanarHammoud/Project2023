@@ -39,7 +39,6 @@ public class SimpleServer extends AbstractServer {
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
 		String msgString = msg.toString();
-
 		System.out.println("Message = " + msgString + ", reached server");
 		System.out.println(msgString.startsWith("#warningNoQes"));
 		if (msgString.startsWith("#warning")) {
@@ -79,7 +78,6 @@ public class SimpleServer extends AbstractServer {
 		} else {
 			LinkedList<Object> message = (LinkedList<Object>) (msg);
 			System.out.println(message.get(0));
-
 			if (message.get(0).equals("#ClickGrades")) {
 				try {
 					System.out.println("whyyyyyyyyyyyyyy");
@@ -92,8 +90,8 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			} else if (message.get(0).equals("#UpdateGrade")) {
-
+			}
+			else if (message.get(0).equals("#UpdateGrade")) {
 			} else if (message.get(0).equals("#Login")) {
 				System.out.println("im in login ");
 				try {
@@ -169,7 +167,8 @@ public class SimpleServer extends AbstractServer {
 					e.printStackTrace();
 				}
 
-			} else if (message.get(0).equals("#LogOut")) {
+			}
+			else if (message.get(0).equals("#LogOut")) {
 				System.out.println("are you in the log out?");
 				LogOut logOut = new LogOut("success");
 				try {
@@ -187,7 +186,8 @@ public class SimpleServer extends AbstractServer {
 					e.printStackTrace();
 				}
 
-			} else if (message.get(0).equals("#MakeExam")) {
+			}
+			else if (message.get(0).equals("#MakeExam")) {
 				try {
 					System.out.println("in make exam ");
 					String num = (String) message.get(1);
@@ -296,27 +296,6 @@ public class SimpleServer extends AbstractServer {
 					e.printStackTrace();
 				}
 			}
-			/*else if (message.get(0).equals("#SubjectTeacher")) {
-				try {
-					System.out.println("I'm in server subjectteacher");
-					String choose = (String) message.get(1);
-					System.out.println(choose);
-					CourseTeacher course = Data.FindCourse(choose);
-					System.out.println("after data find");
-					System.out.println(course.getName());            //ex. english esraa
-					DecimalFormat formatter = new DecimalFormat("00");
-					String aFormatted = formatter.format(course.getId());
-					System.out.println(aFormatted);
-					course.setId_String(aFormatted);
-					//System.out.println(message.getClass());
-					client.sendToClient(course);
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-			} else if (message.get(0).equals("#CoursetTeacher")) {
-			} */
 			else if (message.get(0).equals("#GoToExStudentAnswers")) {
 				try {
 					System.out.println("I'm in server ");
@@ -341,7 +320,6 @@ public class SimpleServer extends AbstractServer {
 					throw new RuntimeException(e);
 				}
 			}
-
 			else if (message.get(0).equals("#CoursetTeacher")) {
 				try {
 					System.out.println("I'm in server courseteacher");
@@ -462,7 +440,8 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					throw new RuntimeException(e);
 				}
-			} else if (message.get(0).equals("#GetSubject")) {
+			}
+			else if (message.get(0).equals("#GetSubject")) {
 				int sub_id = (int) message.get(1);
 				Teacher teacher = (Teacher) message.get(2);
 				CourseTeacher courseTeacher = (CourseTeacher) message.get(3);
@@ -473,7 +452,8 @@ public class SimpleServer extends AbstractServer {
 				} catch (IOException e) {
 					throw new RuntimeException(e);
 				}
-			} else if (message.get(0).equals("#BuildExam")) {
+			}
+			else if (message.get(0).equals("#BuildExam")) {
 				try {
 					System.out.println("I'm in server BuildExam");
 					Teacher teacher = (Teacher) message.get(1);
@@ -491,7 +471,8 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			} else if (message.get(0).equals("#ShowExamm")) {
+			}
+			else if (message.get(0).equals("#ShowExamm")) {
 				try {
 					if(message.get(1)==null){
 						System.out.println("Not selecting any the exam");
@@ -504,10 +485,11 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			} else if(message.get(0).equals("DeleteExam")){
+			}
+			else if(message.get(0).equals("DeleteExam")){
 				try {
 					if(message.get(1)==null){
-						System.out.println("Not selecting any the exam");
+						System.out.println("Not selecting any exam");
 						Warning warning = new Warning("please select a exam!!");
 						client.sendToClient(warning);
 					} else{
@@ -515,7 +497,6 @@ public class SimpleServer extends AbstractServer {
 						Teacher teacher = (Teacher) message.get(2);
 						CourseTeacher courseTeacher = (CourseTeacher) message.get(3);
 						int id=(Integer) message.get(4);
-						System.out.println(id);
 						Data.deleteExamSub(id, subjectTeacher);
 						Data.deleteExam(id);
 						SubjectTeacher updatedSub = Data.GetSubjectById(subjectTeacher.getId());
@@ -525,7 +506,8 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			} else if (message.get(0).equals("#EditExam")) {
+			}
+			else if (message.get(0).equals("#EditExam")) {
 				try {
 					if(message.get(1)==null){
 						System.out.println("Not selecting any the exam");
@@ -539,7 +521,8 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			} else if (message.get(0).equals("#Edit_Q_Exam")) {
+			}
+			else if (message.get(0).equals("#Edit_Q_Exam")) {
 				try {
 					System.out.println("I'm in server Edit_Q_Exam");
 					int flag = (Integer) message.get(2);

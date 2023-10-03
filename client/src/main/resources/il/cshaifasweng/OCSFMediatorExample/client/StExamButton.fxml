@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.StExamButtonController">
    <children>
-      <Text fill="#1850bf" layoutX="27.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exams" wrappingWidth="108.13671875">
+      <Text fill="#1850bf" layoutX="21.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exams" wrappingWidth="108.13671875">
          <font>
             <Font name="Arial Bold" size="20.0" />
          </font>
@@ -31,11 +31,11 @@
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-      <Button layoutX="474.0" layoutY="8.0" mnemonicParsing="false" onAction="#back" text="Back" textFill="#a19c22">
+      <Button layoutX="63.0" layoutY="2.0" mnemonicParsing="false" onAction="#back" text="Back" textFill="#a19c22">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-      <Button layoutX="534.0" layoutY="8.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#a19c22">
+      <Button layoutY="2.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#a19c22">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
