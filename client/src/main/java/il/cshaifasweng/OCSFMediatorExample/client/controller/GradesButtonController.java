@@ -1,20 +1,20 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.*;
+import il.cshaifasweng.OCSFMediatorExample.entities.ExamStudent;
+import il.cshaifasweng.OCSFMediatorExample.entities.GradeSt;
+import il.cshaifasweng.OCSFMediatorExample.entities.Student;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
 public class GradesButtonController {
 
@@ -134,6 +134,7 @@ public class GradesButtonController {
     ExamStudent FirstHebrow=null;
     ExamStudent SecondHebrow=null;
     ExamStudent FinalHebrow=null;
+    Student student = StEx.getSs();
     public void initialize(){
 //        ExamStudent mm=new ExamStudent();
 //					mm.setDate("03.10.2023");
@@ -673,6 +674,24 @@ public class GradesButtonController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    void back(ActionEvent event) {
+        try{
+            SimpleClient.getParams().add(student);
+            setRoot("PrimaryStudent");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    public void LogOut(ActionEvent event) throws IOException {
+        LinkedList<Object> message = new LinkedList<Object>();
+        message.add("#LogOut");
+        message.add(student.getId());
+        SimpleClient.getClient().sendToServer(message);
     }
 
 }

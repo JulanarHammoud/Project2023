@@ -1,7 +1,10 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.*;
+import il.cshaifasweng.OCSFMediatorExample.entities.CourseStudent;
+import il.cshaifasweng.OCSFMediatorExample.entities.ExamStudent;
+import il.cshaifasweng.OCSFMediatorExample.entities.Student;
+import il.cshaifasweng.OCSFMediatorExample.entities.StudentWillDoEx;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,9 +15,10 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
 public class StExamButtonController implements Serializable {
 
@@ -60,6 +64,7 @@ public class StExamButtonController implements Serializable {
     LocalDate currentDate = LocalDate.now();
     String formattedDate="";
     LocalDate formattedLocalDate;
+    Student student = StEx.getStudent();
     @FXML
     private TextField code1;
 
@@ -208,5 +213,24 @@ public class StExamButtonController implements Serializable {
           //  message.add(StEx);
         SimpleClient.getClient().sendToServer(message);}
         }
+    @FXML
+    void back (ActionEvent event) {
+        try{
+            SimpleClient.getParams().add(student);
+            setRoot("PrimaryStudent");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void LogOut(ActionEvent event) throws IOException {
+        LinkedList<Object> message = new LinkedList<Object>();
+        message.add("#LogOut");
+        message.add(student.getId());
+        SimpleClient.getClient().sendToServer(message);
+    }
+
 
 }

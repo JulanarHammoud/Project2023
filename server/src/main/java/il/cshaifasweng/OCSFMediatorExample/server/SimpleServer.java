@@ -567,7 +567,9 @@ public class SimpleServer extends AbstractServer {
 										"1. keep at least one question in the exam" + "\n" +
 										"2. delete the exam" + "\n" +
 										"3. make a new exam");
+								examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject, exFromClient,flag,course);
 								client.sendToClient(warning);
+								client.sendToClient(examSubjectTeacherEdit);
 							} else if(wrong==2){
 								System.out.println("Not selecting any question to delete");
 								Warning warning = new Warning("you didn't select any question to delete");
@@ -604,7 +606,9 @@ public class SimpleServer extends AbstractServer {
 									"1. keep at least one question in the exam" + "\n" +
 									"2. delete the exam" + "\n" +
 									"3. make a new exam");
+							examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject, exFromClient,flag,course);
 							client.sendToClient(warning);
+							client.sendToClient(examSubjectTeacherEdit);
 						}
 					}
 					if(good==1){ // No problems

@@ -3,7 +3,7 @@ package il.cshaifasweng.OCSFMediatorExample.entities;
 import java.io.Serializable;
 
 public class StudentWillDoEx implements Serializable {
-    private Student student;
+    Student student;
 //    private Exam ExamWillBeDone;
     public Student getStudent() {
         return student;

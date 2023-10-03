@@ -104,12 +104,9 @@ public class ExamController {
 
     @FXML
     public void LogOut(ActionEvent event) throws IOException {
-
         LinkedList<Object> message = new LinkedList<Object>();
         message.add("#LogOut");
-        //message.add(teacher.getId());
         SimpleClient.getClient().sendToServer(message);
-
     }
 
 
