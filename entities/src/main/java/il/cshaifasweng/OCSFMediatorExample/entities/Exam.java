@@ -83,7 +83,7 @@ public class Exam implements Serializable {
         return timerr;
     }
 
-    public void setTimerr(int timerr) {
+    public void setTimerr(Integer timerr) {
         this.timerr = timerr;
     }
 

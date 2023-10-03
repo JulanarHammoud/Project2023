@@ -21,11 +21,11 @@ import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 public class AllExamsController {
 
     int lastIndex = SimpleClient.getParams().size() - 1;
-    GetSubject message = (GetSubject) SimpleClient.getParams().get(lastIndex);
-    Teacher teacher =  message.getTeacher();
-    SubjectTeacher subject =  message.getSubjectTeacher();
+    GetSubject getSubject = (GetSubject) SimpleClient.getParams().get(lastIndex);
+    Teacher teacher =  getSubject.getTeacher();
+    SubjectTeacher subject =  getSubject.getSubjectTeacher();
     List<Exam> exams = subject.getExams();
-    CourseTeacher courseteacher = message.getCourseTeacher();
+    CourseTeacher courseteacher = getSubject.getCourseTeacher();
 
     @FXML
     private TableView<Exam> Etable;
@@ -45,7 +45,6 @@ public class AllExamsController {
     ObservableList<Exam> data ;
 
 
-
     public void initialize()  {
         data= FXCollections.observableArrayList(exams);
         for(Exam e :listexams){
@@ -53,7 +52,6 @@ public class AllExamsController {
         }
         Etable.setEditable(true);
         IdCode.setCellValueFactory(new PropertyValueFactory<Exam, String>("IdCode"));
-        //course.setCellValueFactory(new PropertyValueFactory<Question, String>("ans1"));
         subjectExam.setCellValueFactory(new PropertyValueFactory<Exam, String>("subject"));
         NumOfQuestions.setCellValueFactory(new PropertyValueFactory<Exam, String>("NumOfQuestions"));
         teacherExam.setCellValueFactory(new PropertyValueFactory<Exam, String>("teacher"));
@@ -65,10 +63,15 @@ public class AllExamsController {
     public void show (ActionEvent event) throws IOException {
         try{
             Exam exam = Etable.getSelectionModel().getSelectedItem();
-            ExamSubjectTeacher EST=new ExamSubjectTeacher(teacher,subject,exam);
             LinkedList<Object> message = new LinkedList<Object>();
             message.add("#ShowExamm");
-            message.add(EST);
+            if(exam==null){
+                message.add(null);
+            }
+            else{
+                ExamSubjectTeacher EST=new ExamSubjectTeacher(teacher,subject,exam);
+                message.add(EST);
+            }
             SimpleClient.getClient().sendToServer(message);
         } catch (IOException e) {
             e.printStackTrace();
@@ -79,10 +82,15 @@ public class AllExamsController {
     public void edit (ActionEvent event) throws IOException {
         try{
             Exam exam = Etable.getSelectionModel().getSelectedItem();
-            ExamSubjectTeacherEdit ESTE = new ExamSubjectTeacherEdit(teacher,subject,exam);
             LinkedList<Object> message = new LinkedList<Object>();
             message.add("#EditExam");
-            message.add(ESTE);
+            if(exam==null){
+                message.add(null);
+            }
+            else{
+                ExamSubjectTeacherEdit ESTE = new ExamSubjectTeacherEdit(teacher,subject,exam);
+                message.add(ESTE);
+            }
             SimpleClient.getClient().sendToServer(message);
         } catch (IOException e) {
             e.printStackTrace();
@@ -105,7 +113,23 @@ public class AllExamsController {
 
     @FXML
     void deleteExam(ActionEvent event){
-
+        try{
+            Exam exam = Etable.getSelectionModel().getSelectedItem();
+            LinkedList<Object> message = new LinkedList<Object>();
+            message.add("DeleteExam");
+            if(exam==null){
+                message.add(null);
+            }
+            else{
+                message.add(subject);
+                message.add(teacher);
+                message.add(courseteacher);
+                message.add(exam.getId());
+            }
+            SimpleClient.getClient().sendToServer(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
