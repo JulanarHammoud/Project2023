@@ -1,11 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.Exam;
-import il.cshaifasweng.OCSFMediatorExample.entities.Question;
 import il.cshaifasweng.OCSFMediatorExample.entities.StudentWillMakeEx;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -13,21 +9,24 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.util.Duration;
-import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.apache.poi.xwpf.usermodel.XWPFRun;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import il.cshaifasweng.OCSFMediatorExample.entities.Exam;
+import il.cshaifasweng.OCSFMediatorExample.entities.Question;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.LinkedList;
+import java.util.List;
+
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
 
 public class ManualExStController {
 
@@ -50,7 +49,9 @@ public class ManualExStController {
     int hoursParams = 0;
     int lastIndex = SimpleClient.getParams().size() - 1;
     StudentWillMakeEx ExSt = (StudentWillMakeEx) SimpleClient.getParams().get(lastIndex);
+    List<Question> WordQ=ExSt.getEx().getQuestions();
     int timeInMinutes = ExSt.getEx().getTimerr();
+    //int timeInMinutes=130;
     boolean shouldStopSec = false;
     private SimpleIntegerProperty hours;
     private SimpleIntegerProperty minutes;
@@ -155,10 +156,13 @@ public class ManualExStController {
     }
 
     public void createWord() {
-        ex.setCode("test1");
-        Question q = new Question("q", "a", "b", "c", "d", "a");
-        LinkedList<Question> questionList = new LinkedList<>();
-        questionList.add(q);
+//        Question Q1=new Question("what is computer Q2","food","drink","game","none","none");
+//        WordQ.add(Q1);
+
+        ex.setCode("test");
+        //Question q = new Question("q", "a", "b", "c", "d", "a");
+        //LinkedList<Question> questionList = new LinkedList<>();
+        //questionList.add(q);
         XWPFDocument document = new XWPFDocument();
 
         // Create a FileChooser dialog
@@ -185,7 +189,7 @@ public class ManualExStController {
                 titleRun.setFontSize(24);
 
                 int questionNumber = 1;
-                for (Question question : questionList) {
+                for (Question question : WordQ) {
                     XWPFParagraph questionParagraph = document.createParagraph();
                     questionParagraph.setAlignment(ParagraphAlignment.LEFT);
                     XWPFRun questionRun = questionParagraph.createRun();

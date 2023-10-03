@@ -1,10 +1,9 @@
 
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
-import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.CourseStudent;
-import il.cshaifasweng.OCSFMediatorExample.entities.Student;
-import javafx.event.ActionEvent;
+import il.cshaifasweng.OCSFMediatorExample.entities.SubjectStudent;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
@@ -30,18 +29,6 @@ public class StudentController {
     private Label StName;
 
     @FXML
-    private Accordion accordian;
-
-    @FXML
-    private ComboBox<String> combo;
-
-    @FXML
-    private Button examButton;
-
-    @FXML
-    private TextField examCode;
-
-    @FXML
     private Button exams;
 
     @FXML
@@ -49,7 +36,6 @@ public class StudentController {
 
     @FXML
     private Button logout;
-
 
     @FXML
     void initialize() {
@@ -107,8 +93,21 @@ public class StudentController {
         }
     }
 
+    @FXML
+    void gradesAct(ActionEvent event) {
+        try {
+            LinkedList<Object> message = new LinkedList<Object>();
+            message.add("#GradesStudent");
+            message.add(String.valueOf(student.getId()));
+            System.out.println("" + student.getFirstName() + list.size());
+            SimpleClient.getClient().sendToServer(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
+
 
 
 

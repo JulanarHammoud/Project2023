@@ -5,6 +5,8 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -26,10 +28,11 @@ public class Exam implements Serializable {
     private String CodeGivenByTeacher;
     @Transient
     private Boolean exist = false;
+
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "Questions_Exam",joinColumns = @JoinColumn(name = "Exam_ID" ),inverseJoinColumns = {@JoinColumn(name = "Question_id")})
-    private List<Question> Questions ;
+    private List<Question> Questions=new ArrayList<>() ;
 
     public Exam(int numOfQuestions, String teacherNotes,String timerr, String studentNotes,String course, String subject, String teacher) {
         this.timerr = Integer.parseInt(timerr);

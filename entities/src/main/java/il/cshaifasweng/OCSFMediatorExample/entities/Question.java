@@ -14,6 +14,7 @@ public class Question implements Serializable{
     private String ans3; //israa
     private String ans4; //israa
     private String the_right_ans; //israa
+    private String the_student_ans;
     @Transient
     private Boolean exist = false;
     @Transient
@@ -109,6 +110,14 @@ public class Question implements Serializable{
 
     public void setSelect_to_add(Boolean select_to_add) {
         this.select_to_add = select_to_add;
+    }
+
+    public String getThe_student_ans() {
+        return the_student_ans;
+    }
+
+    public void setThe_student_ans(String the_student_ans) {
+        this.the_student_ans = the_student_ans;
     }
 
     public Question(){}

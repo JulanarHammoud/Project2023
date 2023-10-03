@@ -164,6 +164,7 @@ public class ChooseQesController {
                 message.add(newSelection);
                 message.add(subId.getId());
                 message.add(subjectteacher);
+                message.add(teacher);
                 try {
                     SimpleClient.getClient().sendToServer(message);
                 } catch (IOException e) {

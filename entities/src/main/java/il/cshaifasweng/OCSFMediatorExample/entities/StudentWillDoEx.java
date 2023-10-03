@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class StudentWillDoEx implements Serializable {
     private Student student;
-    private Exam ExamWillBeDone;
+//    private Exam ExamWillBeDone;
     public Student getStudent() {
         return student;
     }
@@ -13,16 +13,16 @@ public class StudentWillDoEx implements Serializable {
         this.student = student;
     }
 
-    public Exam getExamWillBeDone() {
-        return ExamWillBeDone;
-    }
+//    public Exam getExamWillBeDone() {
+//        return ExamWillBeDone;
+//    }
+//
+//    public void setExamWillBeDone(Exam examWillBeDone) {
+//        ExamWillBeDone = examWillBeDone;
+//    }
 
-    public void setExamWillBeDone(Exam examWillBeDone) {
-        ExamWillBeDone = examWillBeDone;
-    }
-
-    public StudentWillDoEx(Student student, Exam examWillBeDone) {
+    public StudentWillDoEx(Student student) {
         this.student = student;
-        ExamWillBeDone = examWillBeDone;
+//        ExamWillBeDone = examWillBeDone;
     }
 }

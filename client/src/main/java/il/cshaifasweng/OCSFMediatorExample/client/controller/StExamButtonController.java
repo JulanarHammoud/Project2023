@@ -56,8 +56,7 @@ public class StExamButtonController implements Serializable {
     StudentWillDoEx StEx = (StudentWillDoEx) SimpleClient.getParams().get(lastIndex);
     List<CourseStudent> list =StEx.getStudent().getCourses();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-//   List<Exam> st=StEx.getTheLastStJoined().getStudentExams();
-    List<Exam> st=new ArrayList<>();
+    List<ExamStudent> st=StEx.getStudent().getStudentExams();
     LocalDate currentDate = LocalDate.now();
     String formattedDate="";
     LocalDate formattedLocalDate;
@@ -74,31 +73,23 @@ public class StExamButtonController implements Serializable {
     private TextField code4;
     @FXML
     private Button next;
-    private String codee;
+    private String codee="";
 
     @FXML
     void initialize() {
-        //System.out.println(""+StEx.getTheLastStJoined().getStudentExams().size());
-        st.add(StEx.getExamWillBeDone());
-       // System.out.println(""+"size"+st.size()+st.get(0).getSubject()+st.get(0).getDate());
-//        try {
-//            // Parse the date string into a LocalDate object
-//            LocalDate date = LocalDate.parse(datee, formatter);
-//
-//            // You now have a LocalDate object representing the date
-//            System.out.println("Parsed date: " + date);
-//
-//            // You can also format it back to a string if needed
-//            formattedDate = date.format(formatter);
-//            System.out.println("Formatted date: " + formattedDate);
-//            formattedLocalDate = LocalDate.parse(formattedDate, formatter);
-//            System.out.println("I"+formattedLocalDate);
-//            System.out.println("I"+currentDate);
-//
-//        } catch (java.time.format.DateTimeParseException e) {
-//            System.err.println("Error parsing date: " + e.getMessage());
-//        }
-
+//                    ExamStudent mm=new ExamStudent();
+//					mm.setDate("03.10.2023");
+//					mm.setNumOfQuestions(12);
+//					mm.setTeacherNotes("");
+//					mm.setTimerr(130);
+//					mm.setStudentNotes("");
+//					mm.setSubject("English");
+//					mm.setTeacher("mona");
+//					mm.setCodeGivenByTeacher("esra");
+//        Question Q1=new Question("what is computer Q2","food","drink","game","none","none");
+//        mm.getQuestions().add(Q1);
+//					st.add(mm);
+//                    System.out.println(";;"+st.size()+"ll"+st.get(0).getDate());
         LogIn2.setDisable(true);
         logIn1.setDisable(true);
         LogIn3.setDisable(true);
@@ -112,33 +103,34 @@ public class StExamButtonController implements Serializable {
         int s=st.size();
         while (j<s)
         {
-//            if((Sub1.getText().equals(st.get(j).getSubject()))&&((Sub1.getText().equals(list.get(j).getName()))))
-//            {
-//                date1.setText(st.get(j).getDate());
-//            }
-//            if((sub2.getText().equals(st.get(j).getSubject()))&&((sub2.getText().equals(list.get(j).getName()))))
-//            {
-//                date2.setText(st.get(j).getDate());
-//            }
-//            if((sub3.getText().equals(st.get(j).getSubject()))&&((sub3.getText().equals(list.get(j).getName()))))
-//            {
-//                date3.setText(st.get(j).getDate());
-//            }
-//            if((sub4.getText().equals(st.get(j).getSubject()))&&((sub4.getText().equals(list.get(j).getName()))))
-//            {
-//                date4.setText(st.get(j).getDate());
-//            } // ----------------> Yaman And Lana turned it off
+            if((Sub1.getText().equals(st.get(j).getSubject()))&&((Sub1.getText().equals(list.get(j).getName()))))
+            {
+                date1.setText(st.get(j).getDate());
+            }
+            if((sub2.getText().equals(st.get(j).getSubject()))&&((sub2.getText().equals(list.get(j).getName()))))
+            {
+                date2.setText(st.get(j).getDate());
+            }
+            if((sub3.getText().equals(st.get(j).getSubject()))&&((sub3.getText().equals(list.get(j).getName()))))
+            {
+                date3.setText(st.get(j).getDate());
+            }
+            if((sub4.getText().equals(st.get(j).getSubject()))&&((sub4.getText().equals(list.get(j).getName()))))
+            {
+                date4.setText(st.get(j).getDate());
+            }
             j++;
         }
 
         int i=0;
             while((i<list.size())&&(i<st.size()))
             {
-               // String datee=st.get(i).getDate();
-                //LocalDate date = LocalDate.parse(datee, formatter);
-               // formattedDate = date.format(formatter);
+                String datee=st.get(i).getDate();
+                LocalDate date = LocalDate.parse(datee, formatter);
+                formattedDate = date.format(formatter);
                 formattedLocalDate = LocalDate.parse(formattedDate, formatter);
-
+                System.out.println(""+formattedLocalDate);//
+                System.out.println(""+currentDate);//
                 if((Sub1.getText().equals(list.get(i).getName()))&&(currentDate.isEqual(formattedLocalDate)))
                 {
                     logIn1.setDisable(false);
@@ -180,33 +172,41 @@ public class StExamButtonController implements Serializable {
     }
     @FXML
     void code1Act(ActionEvent event) {
-    codee=code1.getText();
     }
 
     @FXML
     void code2Act(ActionEvent event) {
-        codee=code2.getText();
     }
 
     @FXML
     void code3Act(ActionEvent event) {
-        codee=code3.getText();
+
     }
 
     @FXML
     void code4Act(ActionEvent event) {
-        codee=code4.getText();
+
     }
     @FXML
     void nextAct(ActionEvent event) throws IOException {
-        LinkedList<Object> message = new LinkedList<Object>();
+        if (!code1.getText().equals(""))
+        {codee=code1.getText();
+        System.out.println(""+code1.getText()+"ll"+codee);}
+        if (!code3.getText().equals(""))
+        {codee=code3.getText();}
+        if (!code2.getText().equals(""))
+        {codee=code2.getText();}
+        if (!code4.getText().equals(""))
+        {codee=code4.getText();}
+        if(codee!="")
+        {LinkedList<Object> message = new LinkedList<Object>();
+            System.out.println(""+StEx.getStudent().getStudentExams().size());
         message.add("#GoToExStudentBUTTON");
-//        if("manual".equals(StEx.getExamWillBeDone().getType())) {
-//            message.add(codee);
-//            message.add(StEx.getExamWillBeDone().getType());
-//            message.add(String.valueOf(StEx.getStudent().getId()));
-//            System.out.println("" + StEx.getExamWillBeDone().getTimerr()+StEx.getExamWillBeDone().getType());
-//            SimpleClient.getClient().sendToServer(message);
-//        }// -----------> Yaman And Lana turned it off
-    }
+        System.out.println("22"+codee);
+        message.add(codee);
+        message.add(String.valueOf(StEx.getStudent().getId()));
+          //  message.add(StEx);
+        SimpleClient.getClient().sendToServer(message);}
+        }
+
 }

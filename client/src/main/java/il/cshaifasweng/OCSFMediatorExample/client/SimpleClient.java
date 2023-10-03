@@ -42,6 +42,12 @@ public class SimpleClient extends AbstractClient {
 		else if(msg.getClass().equals(Student.class)){
 			EventBus.getDefault().post(new StudentLogEvent((Student) msg));
 		}
+		else if(msg.getClass().equals(ExamStudent.class)){
+			EventBus.getDefault().post(new ExamStudentEvent((ExamStudent) msg));
+		}
+		else if(msg.getClass().equals(GradeSt.class)){
+			EventBus.getDefault().post(new GradeStEvent((GradeSt) msg));
+		}
 		else if(msg.getClass().equals(LogOut.class)){
 			EventBus.getDefault().post(new LogOutEvent((LogOut) msg));
 		}

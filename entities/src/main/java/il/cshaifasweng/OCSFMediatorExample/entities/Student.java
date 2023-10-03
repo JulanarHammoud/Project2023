@@ -3,6 +3,7 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,7 +14,11 @@ public class Student extends Person{
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "Student_course",joinColumns = @JoinColumn(name = "Student_ID"),inverseJoinColumns = {@JoinColumn(name = "course_ID")})
     private List<CourseStudent> courses ;
-    private static List<Exam> StudentExams;
+
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinTable(name = "Student_exam",joinColumns = @JoinColumn(name = "Student_ID"),inverseJoinColumns = {@JoinColumn(name = "exam_ID")})
+    private static List<ExamStudent> StudentExams=new ArrayList<>();
 
     public Student(String firstName, String lastName, String userName, String passWord, List<CourseStudent> courses) {
         super(firstName, lastName, userName, passWord);
@@ -27,12 +32,15 @@ public class Student extends Person{
 
     }
 
-    public static List<Exam> getStudentExams() {
+    public void setCourses(List<CourseStudent> courses) {
+        this.courses = courses;
+    }
+
+    public static List<ExamStudent> getStudentExams() {
         return StudentExams;
     }
 
-    public static void setStudentExams(List<Exam> studentExams) {
+    public static void setStudentExams(List<ExamStudent> studentExams) {
         StudentExams = studentExams;
     }
-
 }

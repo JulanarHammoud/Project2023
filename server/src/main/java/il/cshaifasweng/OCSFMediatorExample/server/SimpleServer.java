@@ -7,8 +7,11 @@ import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import static il.cshaifasweng.OCSFMediatorExample.server.DataControl.Data.updateExamId;
 
 
 public class SimpleServer extends AbstractServer {
@@ -41,9 +44,7 @@ public class SimpleServer extends AbstractServer {
 		String msgString = msg.toString();
 
 		System.out.println("Message = " + msgString + ", reached server");
-
 		System.out.println(msgString.startsWith("#warningNoQes"));
-
 		if (msgString.startsWith("#warning")) {
 			Warning warning = new Warning("Warning from server!");
 			try {
@@ -262,9 +263,173 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					throw new RuntimeException(e);
 				}
+			}
+			else if (message.get(0).equals("#GoToExStudentA")) {			//israaa
+				try {
+
+					String stt= (String) message.get(1);
+					Student studentFull=Data.getStudent(Integer.parseInt(stt));
+					System.out.println("s"+studentFull.getFirstName());
+					System.out.println("jjjjjjjj");
+					StudentWillDoEx studentWillDo =new StudentWillDoEx(studentFull);
+					System.out.println(""+studentWillDo.getStudent().getCourses().size()+";;");
+
+//					int idd = Data.MakeExam(12,"","130","","English","mona","esra","02.10.2023","manual");
+//					String i=updateExamId("01",idd,"04");
+//					Exam n=Data.BringExamBasedOnCode(idd);
+//					System.out.println("ll1"+n.getType());
+//					ExamStudent mm=new ExamStudent();
+//					mm.setDate("02.10.2023");
+//					mm.setNumOfQuestions(12);
+//					mm.setTeacherNotes("");
+//					mm.setTimerr(130);
+//					mm.setStudentNotes("");
+//					mm.setSubject("English");
+//					mm.setTeacher("mona");
+//					mm.setType("manual");
+//					mm.setCodeGivenByTeacher("esra");
+//					studentWillDo.getStudent().getStudentExams().add(mm);
+//					System.out.println("ll2"+mm.getTeacher()+mm.getDate());
+
+					client.sendToClient(studentWillDo);
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
 
 			}
+			else if (message.get(0).equals("#GoToExStudentBUTTON")){
+				try {
+					String code= (String) message.get(1);
+					String stt= (String) message.get(2);
+					Student studentFull=Data.getStudent(Integer.parseInt(stt));
+					StudentWillMakeEx StEx=new StudentWillMakeEx();
+					StEx.setSs(studentFull);
+					List<ExamStudent> t=studentFull.getStudentExams();
 
+//					int idd = Data.MakeExam(12,"","130","","English","mona","esra","02.10.2023","manual");
+//					String d=updateExamId("01",idd,"04");
+//					Exam n=Data.BringExamBasedOnCode(idd);
+//					System.out.println("ll1"+n.getType());
+//					ExamStudent mm=new ExamStudent();
+//					mm.setDate("02.10.2023");
+//					mm.setNumOfQuestions(12);
+//					mm.setTeacherNotes("");
+//					mm.setTimerr(130);
+//					mm.setStudentNotes("");
+//					mm.setSubject("English");
+//					mm.setTeacher("mona");
+//					mm.setType("manual");
+//					mm.setCodeGivenByTeacher("esra");
+//					t.add(mm);
+//					System.out.println("ll2"+mm.getCodeGivenByTeacher()+t.size());
+//////////
+					ExamStudent x=new ExamStudent();
+					System.out.println("1");
+					int i=0;
+					while(i<t.size()){
+						System.out.println("2"+i+t.size());
+						x=t.get(i);
+						System.out.println("3"+x.getCodeGivenByTeacher()+"3"+code);
+						if(code.equals(x.getCodeGivenByTeacher()))
+						{
+							System.out.println("4");
+							i=t.size();
+							System.out.println("5"+i+t.size());
+						}
+						else{
+							System.out.println("6");
+							i++;
+						}
+					}
+					//System.out.println(""+i+t.size()+x.getQuestions().size());
+					StEx.setEx(x);
+					client.sendToClient(StEx);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			/*else if (message.get(0).equals("#SubjectTeacher")) {
+				try {
+					System.out.println("I'm in server subjectteacher");
+					String choose = (String) message.get(1);
+					System.out.println(choose);
+					CourseTeacher course = Data.FindCourse(choose);
+					System.out.println("after data find");
+					System.out.println(course.getName());            //ex. english esraa
+					DecimalFormat formatter = new DecimalFormat("00");
+					String aFormatted = formatter.format(course.getId());
+					System.out.println(aFormatted);
+					course.setId_String(aFormatted);
+					//System.out.println(message.getClass());
+					client.sendToClient(course);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			} */
+			else if (message.get(0).equals("#GoToExStudentAnswers")) {
+				try {
+					System.out.println("I'm in server ");
+					ExamStudent ex= (ExamStudent) message.get(1);
+					System.out.println("I'm in server "+ex.getGrade()+ex.getQuestions().get(0).getThe_student_ans());
+					client.sendToClient(ex);
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			else if (message.get(0).equals("#GradesStudent")) {
+				try {
+					String st= (String) message.get(1);
+					Student studentFul=Data.getStudent(Integer.parseInt(st));
+					GradeSt h=new GradeSt(studentFul);
+
+					/////////////
+//					int idd = Data.MakeExam(12,"","130","","English","mona","esra","02.10.2023","manual");
+//					String d=updateExamId("01",idd,"04");
+//					Exam n=Data.BringExamBasedOnCode(idd);
+//					System.out.println("ll1"+n.getType());
+//					ExamStudent mm=new ExamStudent();
+//					mm.setDate("01.10.2023");
+//					mm.setNumOfQuestions(12);
+//					mm.setTeacherNotes("");
+//					mm.setTimerr(130);
+//					mm.setStudentNotes("");
+//					mm.setSubject("English");
+//					mm.setTeacher("mona");
+//					mm.setType("manual");
+//					mm.setCodeGivenByTeacher("esra");
+//					h.getSs().getStudentExams().add(mm);
+//					System.out.println("ll2"+mm.getCodeGivenByTeacher()+h.getSs().getStudentExams().size());
+//					h.getSs().getStudentExams().get(0).setGrade(20);
+//					System.out.println("'''"+h.getSs().getStudentExams().get(0).getGrade());
+					////////////
+
+					client.sendToClient(h);
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}
+
+//			else if (message.get(0).equals("#SubjectTeacher")) {
+//				try {
+//					System.out.println("I'm in server subjectteacher");
+//					String choose= (String) message.get(1);
+//					System.out.println(choose);
+//					SubjectTeacher subject =Data.findsubject(choose);
+//					System.out.println("after data find");
+//					System.out.println(subject.getSb_name());
+//					SubjectAndId subId= new SubjectAndId(subject,-1,);
+//					client.sendToClient(subId);
+//
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
 			else if (message.get(0).equals("#CoursetTeacher")) {
 				try {
 					System.out.println("I'm in server courseteacher");
@@ -283,7 +448,30 @@ public class SimpleServer extends AbstractServer {
 					e.printStackTrace();
 				}
 			}
+			else if (message.get(0).equals("editquestion")) {
+				try {
+					System.out.println("in edit question ");
+					String ques1 = (String) message.get(2);
+					String ans1 = (String) message.get(3);
+					String ans2 = (String) message.get(4);
+					String ans3 = (String) message.get(5);
+					String ans4 = (String) message.get(6);
+					String right = (String) message.get(7);
+					int id = (int)  message.get(8);
+					Teacher t=(Teacher)  message.get(9);
+					SubjectTeacher subjectTeacher = (SubjectTeacher) message.get(1);
+					SubjectTeacher subjectTeacher1 = Data.MakeQuestion(ques1, ans1, ans2, ans3, ans4, right ,subjectTeacher);
+					SubjectAndId subid =new SubjectAndId(subjectTeacher1,id,t);
+					Warning warning = new Warning("The Question added Successfully!!");
 
+					client.sendToClient(warning);
+					client.sendToClient(subid);
+				} catch (IOException e) {
+
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}
 			else if (message.get(0).equals("MakenewQuestion")) {
 				try {
 					System.out.println("in make question ");
@@ -360,6 +548,7 @@ public class SimpleServer extends AbstractServer {
 						}
 					}
 				} catch (IOException e) {
+
 				} catch (Exception e) {
 					throw new RuntimeException(e);
 				}

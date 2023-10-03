@@ -1,14 +1,23 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.client.EventBus.*;
+import il.cshaifasweng.OCSFMediatorExample.client.controller.ChooseQesController;
+import il.cshaifasweng.OCSFMediatorExample.entities.StudentWillMakeEx;
+import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -48,6 +57,8 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
+    
+    
 
     @Override
 	public void stop() throws Exception {
@@ -76,6 +87,7 @@ public class App extends Application {
 
                 System.out.println("im in stdlEvent");
                 SimpleClient.getParams().add(event.getStudent());
+               // System.out.println(event.getStudent().getStudents().get(0).getSt_name());
                 setRoot("secondary");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -92,6 +104,7 @@ public class App extends Application {
 
                 System.out.println("im in Question");
                 SimpleClient.getParams().add(event.getQuestion());
+                // System.out.println(event.getStudent().getStudents().get(0).getSt_name());
                 setRoot("ChooseQes");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -108,6 +121,7 @@ public class App extends Application {
             try {
                 System.out.println("im in StudentEvent");
                 SimpleClient.getParams().add(event.getStudent());
+               // System.out.println(event.getStudent().getStudent().getSt_name());
                 setRoot("Grades");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -121,6 +135,7 @@ public class App extends Application {
             try {
                 System.out.println("im in teacher log event");
                 SimpleClient.getParams().add(event.getTeacher());
+               // System.out.println(event.getStudent().getStudent().getSt_name());
                 setRoot("teacherpage");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -135,10 +150,12 @@ public class App extends Application {
             try {
                 System.out.println("im in student log event");
                 SimpleClient.getParams().add(event.getStudent());
+                // System.out.println(event.getStudent().getStudent().getSt_name());
                 setRoot("PrimaryStudent");
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
         });}
 
 
@@ -154,6 +171,7 @@ public class App extends Application {
     }
     @Subscribe
     public void onExamCourseEvent(ExamCourseEvent event) {
+
         Platform.runLater(() -> {
             try {
                 System.out.println("in handle");
@@ -167,6 +185,7 @@ public class App extends Application {
 
     @Subscribe
     public void onExamEvent(ExamEvent event) {
+
         Platform.runLater(() -> {
             try {
                 System.out.println("in handle onExamEvent");
@@ -177,15 +196,15 @@ public class App extends Application {
             }
         });
     }
-
     @Subscribe
     public void onStudentWillDoExEvent(StudentWillDoExEvent event) {
+
         Platform.runLater(() -> {
             try {
                 System.out.println("in handle StudentDOOOOMakeEx");
                 SimpleClient.getParams().add(event.getSs());
                 System.out.println("");
-              //  System.out.println("after"+event.getSs().getExamWillBeDone().getType()+event.getSs().getStudent().getFirstName());
+                System.out.println("after"+event.getSs().getStudent().getCourses().size()+event.getSs().getStudent().getFirstName());
                 setRoot("StExamButton");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -193,7 +212,39 @@ public class App extends Application {
         });
     }
     @Subscribe
+    public void onGradeStEvent(GradeStEvent event) {
+
+        Platform.runLater(() -> {
+            try {
+                System.out.println("in handle StudentDOOOOMakeEx");
+                SimpleClient.getParams().add(event.getDd());
+                System.out.println("");
+                System.out.println("after"+event.getDd().getSs().getFirstName());
+                setRoot("GradesButton");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    @Subscribe
+    public void onExamStudentEvent(ExamStudentEvent event) {
+
+        Platform.runLater(() -> {
+            try {
+                System.out.println("in handle ExamStudent");
+                SimpleClient.getParams().add(event.getEx());
+                System.out.println("");
+                System.out.println("after"+event.getEx().getGrade());
+                setRoot("TestPaper");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    @Subscribe
     public void onStudentWillMakeExEvent( StudentWillMakeExEvent event) {
+
         Platform.runLater(() -> {
             try {
                 System.out.println("in handle StudentWillMakeEx");
