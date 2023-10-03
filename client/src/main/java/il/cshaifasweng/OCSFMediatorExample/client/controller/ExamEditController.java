@@ -499,22 +499,44 @@ public class ExamEditController {
                 change = 1;
             }
         }
-        message.add(1); //we are in saveall button
-        if(!examSubjectTeacherEdit.getPressed()){
-            examSubjectTeacherEdit.setFlag(3);
+        if(selectedQuestions.isEmpty()){ // deleting all questions without adding any question
+            message.add(1); //we are in saveall button
+            if(!examSubjectTeacherEdit.getPressed()){
+                examSubjectTeacherEdit.setFlag(3);
+            }
+            message.add(examSubjectTeacherEdit.getFlag());
+            message.add(exam);
+            message.add(courseTeacher);
+            message.add(teacher);
+            message.add(subject);
+            message.add(subId.getId());
+            message.add(selectedQuestions);
+            message.add(1);
+            message.add(TN);
+            message.add(SN);
+            message.add(time);
+            message.add(change);
+            message.add(0);
         }
-        message.add(examSubjectTeacherEdit.getFlag());
-        message.add(exam);
-        message.add(courseTeacher);
-        message.add(teacher);
-        message.add(subject);
-        message.add(subId.getId());
-        message.add(selectedQuestions);
-        message.add(1);
-        message.add(TN);
-        message.add(SN);
-        message.add(time);
-        message.add(change);
+        else{
+            message.add(1); //we are in saveall button
+            if(!examSubjectTeacherEdit.getPressed()){
+                examSubjectTeacherEdit.setFlag(3);
+            }
+            message.add(examSubjectTeacherEdit.getFlag());
+            message.add(exam);
+            message.add(courseTeacher);
+            message.add(teacher);
+            message.add(subject);
+            message.add(subId.getId());
+            message.add(selectedQuestions);
+            message.add(1);
+            message.add(TN);
+            message.add(SN);
+            message.add(time);
+            message.add(change);
+            message.add(1);
+        }
         try {
             SimpleClient.getClient().sendToServer(message);
         } catch (IOException e) {

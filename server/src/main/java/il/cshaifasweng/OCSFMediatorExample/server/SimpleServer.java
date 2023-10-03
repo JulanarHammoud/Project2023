@@ -580,7 +580,7 @@ public class SimpleServer extends AbstractServer {
 						}
 					} else if((Integer)message.get(1)==1){ //we are in saveall button error
 						good=1;
-						if((Integer)message.get(13)==0){
+						if((Integer)message.get(13)==0){ // no changes have been done
 							if (flag == 1 || flag == 2) { //save the exam copy
 								flag = 2;
 							} else {
@@ -589,6 +589,21 @@ public class SimpleServer extends AbstractServer {
 							good=0;
 							System.out.println("there is no changes");
 							Warning warning = new Warning("you didn't change anything");
+							client.sendToClient(warning);
+						}
+						else if((Integer)message.get(14)==0){ // deleting all questions without adding any
+							if (flag == 1 || flag == 2) { //save the exam copy
+								flag = 2;
+							} else {
+								flag = 4;
+							}
+							good=0;
+							System.out.println("deleting all questions from exam without adding any question");
+							Warning warning = new Warning("you can't delete all the questions from the exam!!" + "\n" +
+									"you can try these solutions:" + "\n" +
+									"1. keep at least one question in the exam" + "\n" +
+									"2. delete the exam" + "\n" +
+									"3. make a new exam");
 							client.sendToClient(warning);
 						}
 					}
