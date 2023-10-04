@@ -5,7 +5,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Maneger">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.Maneger">
    <children>
       <Button mnemonicParsing="false" text="LogOut">
          <font>
@@ -26,14 +26,14 @@
                   </Stop>
                   <Stop offset="1.0">
                      <color>
-                        <Color red="0.6140350699424744" green="0.6176169514656067" blue="0.8289473652839661" />
+                        <Color red="0.615686297416687" green="0.615686297416687" blue="0.8274509906768799" />
                      </color>
                   </Stop>
                </stops>
             </RadialGradient>
          </textFill>
       </Button>
-      <Button layoutX="41.0" layoutY="115.0" mnemonicParsing="false" text="Questions">
+      <Button layoutX="41.0" layoutY="115.0" mnemonicParsing="false" onAction="#Question" text="Questions">
          <font>
             <Font name="System Bold Italic" size="25.0" />
          </font>
@@ -54,7 +54,7 @@
             </RadialGradient>
          </textFill>
       </Button>
-      <Button layoutX="48.0" layoutY="200.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="150.0" text="Exams">
+      <Button layoutX="41.0" layoutY="200.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="150.0" text="Exams">
          <font>
             <Font name="System Bold Italic" size="25.0" />
          </font>
@@ -101,6 +101,6 @@
             </RadialGradient>
          </textFill>
       </Label>
-      <Accordion fx:id="Results" layoutX="48.0" layoutY="280.0" prefHeight="116.0" prefWidth="150.0" />
+      <Accordion fx:id="Results" layoutX="41.0" layoutY="284.0" prefHeight="116.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
