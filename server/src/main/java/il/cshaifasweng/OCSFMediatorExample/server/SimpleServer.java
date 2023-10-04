@@ -166,7 +166,6 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-
 			}
 			else if (message.get(0).equals("#LogOut")) {
 				System.out.println("are you in the log out?");
@@ -342,6 +341,7 @@ public class SimpleServer extends AbstractServer {
 				try {
 					Question question = (Question) message.get(1);
 					Question oldquestion = (Question) message.get(5);
+					int flag=(Integer) message.get(6);
 					System.out.println("in edit question ");
 					System.out.println(question.getQuestion());
 					String ques1 = question.getQuestion();
@@ -352,15 +352,52 @@ public class SimpleServer extends AbstractServer {
 					String right = question.getThe_right_ans();
 					int id = Data.returnid(oldquestion.getQuestion());
 					System.out.println("before data function");
-					Data.updateQuestion(id,ques1,ans1,ans2,ans3,ans4,right);
-					System.out.println("after data function");
-					Warning warning = new Warning("The Question updated Successfully!!");
-					SubjectTeacher subject=(SubjectTeacher) message.get(3);
-					SubjectTeacher newsubject = Data.GetSubjectById(subject.getId());
-					Teacher teacher =(Teacher) message.get(4);
-					SubjectAndId subid=new SubjectAndId(newsubject ,-1,teacher);
-					client.sendToClient(warning);
-					client.sendToClient(subid);
+					if (ques1.isEmpty()) {
+						if (ans1.isEmpty() || ans2.isEmpty() || ans3.isEmpty() || ans4.isEmpty()) {
+							System.out.println("there is no question or 4 possible answers yet");
+							Warning warning = new Warning("please write the question and 4 possible answers!!");
+							client.sendToClient(warning);
+						} else {
+							System.out.println("there is no question yet");
+							Warning warning = new Warning("please write the question!!");
+							client.sendToClient(warning);
+						}
+					} else if (ans1.isEmpty() || ans2.isEmpty() || ans3.isEmpty() || ans4.isEmpty()) {
+						System.out.println("there is no 4 possible answers yet");
+						Warning warning = new Warning("please write 4 possible answers!!");
+						client.sendToClient(warning);
+					} else if (right.isEmpty()) {
+						System.out.println("the right answer is not selected yet");
+						Warning warning = new Warning("please write the right answer!!");
+						client.sendToClient(warning);
+					} else if (ans1.equals(ans2) || ans1.equals(ans3) || ans1.equals(ans4) || ans2.equals(ans3) || ans2.equals(ans4) || ans3.equals(ans4)) {
+						System.out.println("there are duplicated answers");
+						Warning warning = new Warning("there are duplicated answers, please write 4 different answers!!");
+						client.sendToClient(warning);
+					} else if (!right.equals(ans1) && !right.equals(ans2) && !right.equals(ans3) && !right.equals(ans4)) {
+						System.out.println("the right answer is not from the 4 answers");
+						Warning warning = new Warning("please pick the right answer from the 4 possible answers!!");
+						client.sendToClient(warning);
+					} else if (ques1.equals(ans1) || ques1.equals(ans2) || ques1.equals(ans3) || ques1.equals(ans4)) {
+						System.out.println("the question is in the answers too");
+						Warning warning = new Warning("please don't write the question the same as the answer!!");
+						client.sendToClient(warning);
+					} else{
+						Data.updateQuestion(id,ques1,ans1,ans2,ans3,ans4,right);
+						System.out.println("after data function");
+						Warning warning = new Warning("The Question updated Successfully!!");
+						SubjectTeacher subject=(SubjectTeacher) message.get(3);
+						SubjectTeacher newsubject = Data.GetSubjectById(subject.getId());
+						SubjectAndId subid;
+						Teacher teacher =(Teacher) message.get(4);
+						if(flag==0){
+							subid=new SubjectAndId(newsubject ,-1,teacher);
+						} else{
+							subid=new SubjectAndId(newsubject ,id,teacher);
+						}
+						client.sendToClient(warning);
+						client.sendToClient(subid);
+					}
 				} catch (IOException e) {
 
 				} catch (Exception e) {
@@ -378,7 +415,7 @@ public class SimpleServer extends AbstractServer {
 					String right = (String) message.get(7);
 					int id = (int) message.get(8);
 					Teacher teacher = (Teacher) message.get(9);
-					int x=0;
+					//int x=0;
 					if (ques1.isEmpty()) {
 						if (ans1.isEmpty() || ans2.isEmpty() || ans3.isEmpty() || ans4.isEmpty()) {
 							System.out.println("there is no question or 4 possible answers yet");

@@ -1,15 +1,17 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.*;
+import il.cshaifasweng.OCSFMediatorExample.entities.Question;
+import il.cshaifasweng.OCSFMediatorExample.entities.SubjectAndId;
+import il.cshaifasweng.OCSFMediatorExample.entities.SubjectTeacher;
+import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-import java.awt.*;
-import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.util.LinkedList;
-import javafx.scene.control.Button;
 
 import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
@@ -68,6 +70,7 @@ public class editQueController {
         message.add(msg.get(3));
         message.add(msg.get(4));
         message.add(question);
+        message.add(msg.get(5));
         try {
             SimpleClient.getClient().sendToServer(message);
         } catch (IOException e) {

@@ -164,7 +164,13 @@ public class ChooseQesController {
                 message.add(subId.getId());
                 message.add(subjectteacher);
                 message.add(teacher);
-                    SimpleClient.getParams().add(message);
+                if(subId.getId()==-1){
+                    message.add(0);
+                }
+                else{
+                    message.add(1);
+                }
+                SimpleClient.getParams().add(message);
                 try {
                     setRoot("editquestion");
                 } catch (IOException e) {
