@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.Maneger">
+   <children>
+      <Button mnemonicParsing="false" text="LogOut">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.17127071823204432" centerY="0.9691943127962085" focusAngle="180.0" focusDistance="-1.0" radius="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.12085770070552826" green="0.4335770010948181" blue="0.8157894611358643" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.10996563573883161">
+                     <color>
+                        <Color red="0.10196078568696976" green="0.47843137383461" blue="0.6196078658103943" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.6140350699424744" green="0.6176169514656067" blue="0.8289473652839661" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+      </Button>
+      <Button layoutX="41.0" layoutY="115.0" mnemonicParsing="false" text="Questions">
+         <font>
+            <Font name="System Bold Italic" size="25.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.46685082872928174" centerY="0.533175355450237" focusDistance="0.09195402298850563" radius="0.7758620689655172">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.10196078568696976" green="0.47843137383461" blue="0.6196078658103943" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+      </Button>
+      <Button layoutX="48.0" layoutY="200.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="150.0" text="Exams">
+         <font>
+            <Font name="System Bold Italic" size="25.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.46685082872928174" centerY="0.533175355450237" focusDistance="0.09195402298850563" radius="0.7758620689655172">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.10196078568696976" green="0.47843137383461" blue="0.6196078658103943" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+      </Button>
+      <Label layoutX="22.0" layoutY="43.0" prefHeight="52.0" prefWidth="236.0" text="Manager">
+         <font>
+            <Font name="System Bold Italic" size="40.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="1.0" centerY="1.0" cycleMethod="REPEAT" focusAngle="-900.0" focusDistance="1.0" proportional="false" radius="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.6705882549285889" green="0.6666666865348816" blue="0.6078431606292725" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.10996563573883161">
+                     <color>
+                        <Color red="0.125490203499794" green="0.29411765933036804" blue="0.35686275362968445" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.125490203499794" green="0.29411765933036804" blue="0.35686275362968445" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+      </Label>
+      <Accordion fx:id="Results" layoutX="48.0" layoutY="280.0" prefHeight="116.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>

@@ -8,12 +8,12 @@
     <children>
         <TableView fx:id="Etable" layoutY="28.0" onSort="#edit" prefHeight="327.0" prefWidth="600.0">
             <columns>
-                <TableColumn fx:id="IdCode" prefWidth="81.0" text="exam Code" />
+                <TableColumn fx:id="IdCode" prefWidth="124.0" text="exam Code" />
                 <!--                <TableColumn fx:id="course" prefWidth="99.0" text="course" />-->
-                <TableColumn fx:id="subjectExam" prefWidth="107.0" text="subject" />
-                <TableColumn fx:id="teacherExam" prefWidth="120.0" text="teacher" />
-                <TableColumn fx:id="NumOfQuestions" prefWidth="107.0" text="num of questions" />
-                <TableColumn fx:id="timerr" prefWidth="78.0" text="timer" />
+                <TableColumn fx:id="subjectExam" prefWidth="120.0" text="subject" />
+                <TableColumn fx:id="teacherExam" prefWidth="134.0" text="teacher" />
+                <TableColumn fx:id="NumOfQuestions" prefWidth="132.0" text="num of questions" />
+                <TableColumn fx:id="timerr" prefWidth="89.0" text="timer" />
             </columns>
         </TableView>
         <Button layoutX="58.0" layoutY="2.0" mnemonicParsing="false" onAction="#back" text="Back" textFill="#a19c22">
@@ -28,22 +28,22 @@
             <font>
                 <Font name="System Bold Italic" size="12.0" />
             </font></Button>
-      <Button layoutX="102.0" layoutY="361.0" mnemonicParsing="false" onAction="#edit" text="Edit Exam" textFill="#a19c22">
+      <Button layoutX="145.0" layoutY="361.0" mnemonicParsing="false" onAction="#edit" text="Edit Exam" textFill="#a19c22">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="184.0" layoutY="361.0" mnemonicParsing="false" onAction="#makeExam" text="Make Exam" textFill="#a19c22">
+      <Button layoutX="260.0" layoutY="361.0" mnemonicParsing="false" onAction="#makeExam" text="Make Exam" textFill="#a19c22">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="273.0" layoutY="361.0" mnemonicParsing="false" onAction="#deleteExam" text="Delete Exam" textFill="#a19c22">
+      <Button layoutX="492.0" layoutY="361.0" mnemonicParsing="false" onAction="#deleteExam" text="Delete Exam" textFill="#a19c22">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="367.0" layoutY="361.0" mnemonicParsing="false" text="Publish Exam" textFill="#a19c22">
+      <Button layoutX="379.0" layoutY="361.0" mnemonicParsing="false" text="Publish Exam" textFill="#a19c22">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>

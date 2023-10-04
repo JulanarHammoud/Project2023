@@ -80,9 +80,13 @@ public class editQueController {
     @FXML
     void bacaction(ActionEvent event) {
         try {
-            LinkedList<Object> message = new LinkedList<Object>();
-            SubjectAndId sub = new SubjectAndId(subject, -1, teacher);
-            SimpleClient.getParams().add(sub);
+            SubjectAndId newsubid;
+            if((Integer) msg.get(5) == 0){
+                newsubid= new SubjectAndId(subject , -1, teacher);
+            } else {
+                newsubid= new SubjectAndId(subject , (Integer) msg.get(2) , teacher);
+            }
+            SimpleClient.getParams().add(newsubid);
             setRoot("ChooseQes");
         } catch (IOException e) {
             e.printStackTrace();

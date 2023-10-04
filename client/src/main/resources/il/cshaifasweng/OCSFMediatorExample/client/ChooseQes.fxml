@@ -13,24 +13,31 @@
         <TableView fx:id="Qtable" layoutX="167.0" layoutY="33.0" prefHeight="408.0" prefWidth="677.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="33.0">
             <columns>
                 <TableColumn fx:id="question" prefWidth="90.0" text="The Q" />
-                <TableColumn fx:id="ans1" prefWidth="90.0" text="ans 1" />
-                <TableColumn fx:id="ans2" prefWidth="90.0" text="ans2" />
-                <TableColumn fx:id="ans3" prefWidth="90.0" text="ans3" />
-                <TableColumn fx:id="ans4" prefWidth="90.0" text="ans4" />
-                <TableColumn fx:id="the_right_ans" prefWidth="90.0" text="The Right one " />
+                <TableColumn fx:id="ans1" prefWidth="124.0" text="ans 1" />
+                <TableColumn fx:id="ans2" prefWidth="102.0" text="ans2" />
+                <TableColumn fx:id="ans3" prefWidth="97.0" text="ans3" />
+                <TableColumn fx:id="ans4" prefWidth="120.0" text="ans4" />
+                <TableColumn fx:id="the_right_ans" prefWidth="143.0" text="The Right one " />
             </columns>
         </TableView>
-      <Button fx:id="add" layoutX="14.0" layoutY="448.0" mnemonicParsing="false" onAction="#addQuestion" text="Add Question" textFill="#a19c22">
-         <font>
-            <Font name="System Bold Italic" size="12.0" />
-         </font></Button>
-      <Button fx:id="edit" layoutX="127.0" layoutY="448.0" mnemonicParsing="false" onAction="#editQuestion" text="Edit Question" textFill="#a19c22">
-         <font>
-            <Font name="System Bold Italic" size="12.0" />
-         </font></Button>
       <Button layoutX="4.0" layoutY="2.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#a19a23">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
+      <Button layoutX="25.0" layoutY="449.0" mnemonicParsing="false" onAction="#addQuestion" prefHeight="25.0" prefWidth="110.0" text="Add Question" textFill="#a19823">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="162.0" layoutY="449.0" mnemonicParsing="false" onAction="#editQuestion" prefHeight="25.0" prefWidth="110.0" text="Edit Question" textFill="#a19a23">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="298.0" layoutY="449.0" mnemonicParsing="false" onAction="#ShowQuestion" prefHeight="25.0" prefWidth="110.0" text="Show Question" textFill="#a19a23">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>

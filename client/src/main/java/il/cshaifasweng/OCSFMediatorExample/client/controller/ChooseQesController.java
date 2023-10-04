@@ -56,7 +56,6 @@ public class ChooseQesController {
 
     @FXML
     private TableColumn<Question, Boolean> choose;
-
     int lastIndex= SimpleClient.getParams().size()-1;
     SubjectAndId subId = (SubjectAndId) SimpleClient.getParams().get(lastIndex);
     SubjectTeacher subjectteacher = subId.getSubject();
@@ -138,6 +137,43 @@ public class ChooseQesController {
             try {
                 setRoot("teacherpage");
             }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    void ShowQuestion(ActionEvent event){
+        LinkedList<Object> message = new LinkedList<Object>();
+        Question question1 = Qtable.getSelectionModel().getSelectedItem();
+        message.add("ShowQuestionn");
+        message.add(subId);
+        message.add(teacher);
+        message.add(subjectteacher);
+        if(question1 == null){
+            if(subId.getId()==-1){
+                message.add(0);
+            } else{
+                message.add(1);
+            }
+            try {
+                SimpleClient.getClient().sendToServer(message);
+            }
+            catch (IOException e){
+                e.printStackTrace();
+            }
+        } else{
+            message.add(question1);
+            if(subId.getId()==-1){
+                message.add(0);
+            } else{
+                message.add(1);
+            }
+            SimpleClient.getParams().add(message);
+            try{
+                setRoot("ShowQuestion");
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }
