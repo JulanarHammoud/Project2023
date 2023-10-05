@@ -96,7 +96,8 @@ public class addQuestionController {
 
         LinkedList<Object> message = new LinkedList<Object>();
         message.add("#LogOut");
-        //message.add(teacher.getId());
+        message.add(teacher.getId());
+        message.add("teacher");
         SimpleClient.getClient().sendToServer(message);
 
     }

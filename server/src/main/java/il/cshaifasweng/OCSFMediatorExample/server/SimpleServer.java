@@ -16,7 +16,25 @@ public class SimpleServer extends AbstractServer {
 	public SimpleServer(int port) {
 		super(port);
 		try {
-
+			//Data.LogOutSt(1);
+			List<Student> s=Data.getAllStudents();
+			int i=0;
+			int j=0;
+			while(i<s.size())
+			{
+				j=s.get(i).getId();
+				Data.LogOutSt(j);
+				i++;
+			}
+			List<Teacher> t=Data.getAllTeachers();
+			int i2=0;
+			int j2=0;
+			while(i2<t.size())
+			{
+				j2=t.get(i2).getId();
+				Data.LogOutTeacher(j2);
+				i2++;
+			}
 //			SubjectTeacher grammar=  Data.findsubject("Grammar");
 //			Data.MakeQuestion("aaa","bbb","ccc","ddd","ddd","ttt",grammar);
 			//Data.LogOutSt(1);
@@ -91,7 +109,9 @@ public class SimpleServer extends AbstractServer {
 				}
 			}
 			else if (message.get(0).equals("#UpdateGrade")) {
-			} else if (message.get(0).equals("#Login")) {
+			}
+			///////////////////////////////////////////////////////
+			else if (message.get(0).equals("#Login")) {
 				System.out.println("im in login ");
 				try {
 					if (message.get(1).equals("")) {
@@ -135,6 +155,7 @@ public class SimpleServer extends AbstractServer {
 							Warning warning = new Warning("you are already in");
 							client.sendToClient(warning);
 						} else {
+							Data.activateTeacher(teacherlog.getId());
 							client.sendToClient(teacherlog);
 						}
 					} else if (message.get(3).equals("Student")) {
@@ -147,12 +168,16 @@ public class SimpleServer extends AbstractServer {
 							Warning warning = new Warning("there is no student with this name, please try again!!");
 							client.sendToClient(warning);
 						}
-						if (studentlog.getFirstName().equals("wrongstudentpassword")) {
+						else if (studentlog.getFirstName().equals("wrongstudentpassword")) {
 							System.out.println("wrong password to this teacher's name ");
 							Warning warning = new Warning("wrong password, please try again!!");
 							client.sendToClient(warning);
-						} else {
+						}else if (studentlog.getActive() == true) {
+							Warning warning = new Warning("you are already in");
+							client.sendToClient(warning);
+						}else{
 							Data.activateSt(studentlog.getId());
+//							studentlog.setOnlinee(true);
 							client.sendToClient(studentlog);
 						}
 					}
@@ -161,13 +186,21 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
+			}///////////////////////////////////////////
+
 			else if (message.get(0).equals("#LogOut")) {
 				System.out.println("are you in the log out?");
 				LogOut logOut = new LogOut("success");
 				try {
 					System.out.println("the id of the user is: " + (int) message.get(1));
-					Data.LogOutSt((int) message.get(1));
+					String n=(String) message.get(2);
+					if("teacher".equals(n))
+					{
+						Data.LogOutTeacher((int) message.get(1));
+					}
+					else{
+						Data.LogOutSt((int) message.get(1));
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -179,7 +212,7 @@ public class SimpleServer extends AbstractServer {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			}
+			}//////////////////////////////////////////////////////////
 			else if (message.get(0).equals("ShowQuestionn")){
 				try {
 					int origin = (Integer) message.get(1);

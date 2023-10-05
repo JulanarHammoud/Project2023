@@ -161,6 +161,19 @@ public class Data {
         session.close();
 
     }
+    public static void LogOutTeacher(int id) throws Exception {
+        // Student student = getStudent(id);
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        Teacher change =session.get(Teacher.class,id);
+        change.setActive(false);
+        session.saveOrUpdate(change);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
+
+    }
     public static void BackSt(int id) throws Exception {
         // Student student = getStudent(id);
         SessionFactory sessionFactory = getSessionFactory();
@@ -180,6 +193,19 @@ public class Data {
         session = sessionFactory.openSession();
         session.beginTransaction();
         Student change =session.get(Student.class,id);
+        change.setActive(true);
+        session.saveOrUpdate(change);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
+
+    }
+    public static void activateTeacher(int id) throws Exception {
+        // Student student = getStudent(id);
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        Teacher change =session.get(Teacher.class,id);
         change.setActive(true);
         session.saveOrUpdate(change);
         session.flush();

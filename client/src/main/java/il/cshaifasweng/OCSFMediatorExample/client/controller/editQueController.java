@@ -92,4 +92,12 @@ public class editQueController {
             e.printStackTrace();
         }
     }
+    @FXML
+    void logOut(ActionEvent event) throws IOException {
+        LinkedList<Object> message = new LinkedList<Object>();
+        message.add("#LogOut");
+        message.add(teacher.getId());
+        message.add("teacher");
+        SimpleClient.getClient().sendToServer(message);
+    }
 }

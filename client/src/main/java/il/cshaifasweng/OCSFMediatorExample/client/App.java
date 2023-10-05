@@ -141,7 +141,7 @@ public class App extends Application {
             try {
                 System.out.println("im in student log event");
                 SimpleClient.getParams().add(event.getStudent());
-                // System.out.println(event.getStudent().getStudent().getSt_name());
+                 System.out.println(event.getStudent().getActive());
                 setRoot("PrimaryStudent");
             } catch (IOException e) {
                 e.printStackTrace();

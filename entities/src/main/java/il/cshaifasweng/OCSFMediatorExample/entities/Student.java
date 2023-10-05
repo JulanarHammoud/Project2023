@@ -19,6 +19,7 @@ public class Student extends Person{
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "Student_exam",joinColumns = @JoinColumn(name = "Student_ID"),inverseJoinColumns = {@JoinColumn(name = "exam_ID")})
     private static List<ExamStudent> StudentExams=new ArrayList<>();
+//    private boolean onlinee=false;
 
     public Student(String firstName, String lastName, String userName, String passWord, List<CourseStudent> courses) {
         super(firstName, lastName, userName, passWord);
@@ -43,4 +44,12 @@ public class Student extends Person{
     public static void setStudentExams(List<ExamStudent> studentExams) {
         StudentExams = studentExams;
     }
+
+//    public boolean isOnlinee() {
+//        return onlinee;
+//    }
+//
+//    public void setOnlinee(boolean onlinee) {
+//        this.onlinee = onlinee;
+//    }
 }

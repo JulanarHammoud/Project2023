@@ -106,6 +106,8 @@ public class ExamController {
     public void LogOut(ActionEvent event) throws IOException {
         LinkedList<Object> message = new LinkedList<Object>();
         message.add("#LogOut");
+        message.add(teacher.getId());
+        message.add("teacher");
         SimpleClient.getClient().sendToServer(message);
     }
 

@@ -95,6 +95,7 @@ public class StudentController {
         LinkedList<Object> message = new LinkedList<Object>();
         message.add("#LogOut");
         message.add(student.getId());
+        message.add("student");
         SimpleClient.getClient().sendToServer(message);
     }
 

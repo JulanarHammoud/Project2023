@@ -65,8 +65,16 @@ public class ShowQuestion {
 
     @FXML
     public void LogOut(ActionEvent event) throws IOException {
+
         LinkedList<Object> message = new LinkedList<Object>();
         message.add("#LogOut");
+        if(origin==0)
+        {
+            Teacher teacher = (Teacher) msg.get(3);
+            message.add(teacher.getId());
+            message.add("teacher");
+        }
         SimpleClient.getClient().sendToServer(message);
+
     }
 }
