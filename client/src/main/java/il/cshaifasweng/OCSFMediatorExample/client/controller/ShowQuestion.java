@@ -1,10 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.Question;
-import il.cshaifasweng.OCSFMediatorExample.entities.SubjectAndId;
-import il.cshaifasweng.OCSFMediatorExample.entities.SubjectTeacher;
-import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -29,11 +26,8 @@ public class ShowQuestion {
     Label right;
     int lastIndex= SimpleClient.getParams().size()-1;
     LinkedList<Object> msg = (LinkedList<Object>) SimpleClient.getParams().get(lastIndex);
-    SubjectAndId subid = (SubjectAndId) msg.get(1);
-    Teacher teacher = (Teacher) msg.get(2);
-    SubjectTeacher subjectTeacher = (SubjectTeacher) msg.get(3);
-    Question question = (Question) msg.get(4);
-    int flag = (Integer) msg.get(5);
+    int origin = (Integer) msg.get(1);
+    Question question = (Question) msg.get(5);
     public void initialize() {
         theQ.setText(question.getQuestion());
         answ1.setText("1. " + question.getAns1());
@@ -45,14 +39,25 @@ public class ShowQuestion {
     @FXML
     void Back(ActionEvent event) {
         try {
-            SubjectAndId newsubid;
-            if(flag == 0){
-                newsubid= new SubjectAndId(subjectTeacher , -1, teacher);
-            } else {
-                newsubid= new SubjectAndId(subjectTeacher , subid.getId() , teacher);
+            if(origin ==0){ // coming from teacher's question table
+                int flag = (Integer) msg.get(6);
+                SubjectAndId subid = (SubjectAndId) msg.get(2);
+                SubjectTeacher subjectTeacher = (SubjectTeacher) msg.get(4);;
+                Teacher teacher = (Teacher) msg.get(3);;
+                SubjectAndId newsubid;
+                if(flag == 0){
+                    newsubid= new SubjectAndId(subjectTeacher , -1, teacher);
+                } else {
+                    newsubid= new SubjectAndId(subjectTeacher , subid.getId() , teacher);
+                }
+                SimpleClient.getParams().add(newsubid);
+                setRoot("ChooseQes");
             }
-            SimpleClient.getParams().add(newsubid);
-            setRoot("ChooseQes");
+            else{ // coming from manager's question table
+                LinkedList<Object> msg1 = (LinkedList<Object>) msg.get(3);
+                SimpleClient.getParams().add(msg1);
+                setRoot("QuestionManager");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -60,11 +65,8 @@ public class ShowQuestion {
 
     @FXML
     public void LogOut(ActionEvent event) throws IOException {
-
         LinkedList<Object> message = new LinkedList<Object>();
         message.add("#LogOut");
-        //message.add(teacher.getId());
         SimpleClient.getClient().sendToServer(message);
-
     }
 }

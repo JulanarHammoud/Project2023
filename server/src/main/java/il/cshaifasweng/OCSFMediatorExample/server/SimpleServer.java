@@ -182,18 +182,14 @@ public class SimpleServer extends AbstractServer {
 			}
 			else if (message.get(0).equals("ShowQuestionn")){
 				try {
-					SubjectAndId subid = (SubjectAndId) message.get(1);
-					Teacher teacher = (Teacher) message.get(2);
-					SubjectTeacher subjectTeacher = (SubjectTeacher) message.get(3);
-					Warning warning = new Warning("you didn't choose any question!!");
-					SubjectAndId newsubid;
-					if ((Integer) message.get(4) == 0) {
-						newsubid = new SubjectAndId(subjectTeacher, -1, teacher);
-					} else {
-						newsubid = new SubjectAndId(subjectTeacher, subid.getId(), teacher);
+					int origin = (Integer) message.get(1);
+					if(origin == 0){
+						Warning warning = new Warning("you didn't choose any question!!");
+						client.sendToClient(warning);
+					} else{
+						Warning warning = new Warning("you didn't choose any question!!");
+						client.sendToClient(warning);
 					}
-					client.sendToClient(warning);
-					client.sendToClient(newsubid);
 				} catch (IOException e){
 					e.printStackTrace();
 				}

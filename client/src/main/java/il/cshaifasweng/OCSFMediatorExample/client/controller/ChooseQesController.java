@@ -147,6 +147,7 @@ public class ChooseQesController {
         LinkedList<Object> message = new LinkedList<Object>();
         Question question1 = Qtable.getSelectionModel().getSelectedItem();
         message.add("ShowQuestionn");
+        message.add(0); // comming from teacher question page
         message.add(subId);
         message.add(teacher);
         message.add(subjectteacher);

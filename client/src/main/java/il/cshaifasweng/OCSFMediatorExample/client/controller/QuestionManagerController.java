@@ -1,5 +1,4 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
-
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.CourseTeacher;
 import il.cshaifasweng.OCSFMediatorExample.entities.GetForManager;
@@ -65,6 +64,36 @@ public class QuestionManagerController {
         }
 
     }
+
+    @FXML
+    void show(ActionEvent event){
+        LinkedList<Object> message = new LinkedList<Object>();
+        Question question1 = Qtable.getSelectionModel().getSelectedItem();
+        message.add("ShowQuestionn");
+        message.add(1); //comming from manager question page
+        message.add(1);
+        message.add(msg);
+        message.add(1);
+        message.add(question1);
+        if(question1 == null){
+            try {
+                SimpleClient.getClient().sendToServer(message);
+            }
+            catch (IOException e){
+                e.printStackTrace();
+            }
+        } else{
+            message.add(question1);
+            SimpleClient.getParams().add(message);
+            try{
+                setRoot("ShowQuestion");
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @FXML
     public void back (ActionEvent event) throws IOException {
         SimpleClient.getParams().add(getForManager);
