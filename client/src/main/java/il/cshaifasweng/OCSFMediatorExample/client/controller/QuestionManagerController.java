@@ -47,7 +47,6 @@ public class QuestionManagerController {
 
     @FXML
     void initialize() throws IOException {
-//        List<SubjectTeacher> subjects = course.getSubjectTeacher();
         LinkedList<Question> q = new LinkedList<>();
         for (SubjectTeacher subjectTeacher : course.getSubjectTeacher()) {
             for (Question Q:subjectTeacher.getQuestions()){

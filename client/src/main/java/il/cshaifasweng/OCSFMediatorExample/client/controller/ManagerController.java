@@ -81,11 +81,15 @@ int lastIndex = SimpleClient.getParams().size() - 1;
     }
     @FXML
     void y(ActionEvent event) throws IOException {
-//        LinkedList<Object> message = new LinkedList<Object>();
-//        message.add(pickedcourse1);
-//        message.add(getForManager);
-//        SimpleClient.getParams().add(message);
-//        setRoot("Exam Manager");
+        try {
+            LinkedList<Object> message = new LinkedList<Object>();
+            message.add(pickedcourse1);
+            message.add(getForManager);
+            SimpleClient.getParams().add(message);
+            setRoot("ExamManager");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 @FXML

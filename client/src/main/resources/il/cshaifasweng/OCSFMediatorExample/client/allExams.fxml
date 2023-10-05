@@ -8,7 +8,7 @@
     <children>
         <TableView fx:id="Etable" layoutY="28.0" onSort="#edit" prefHeight="327.0" prefWidth="600.0">
             <columns>
-                <TableColumn fx:id="IdCode" prefWidth="124.0" text="exam Code" />
+                <TableColumn fx:id="IdCode" prefWidth="124.0" text="Exam Code" />
                 <!--                <TableColumn fx:id="course" prefWidth="99.0" text="course" />-->
                 <TableColumn fx:id="subjectExam" prefWidth="120.0" text="subject" />
                 <TableColumn fx:id="teacherExam" prefWidth="134.0" text="teacher" />

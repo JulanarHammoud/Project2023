@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.ocsf.ExamManagerController">
+   <children>
+      <Button mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#1a7a9e">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font></Button>
+      <Button layoutX="64.0" mnemonicParsing="false" onAction="#back" text="Back" textFill="#1a7a9e">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="548.0" mnemonicParsing="false" text="Show" textFill="#1a7a9e">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Button>
+      <TableView fx:id="Etable" layoutY="25.0" prefHeight="371.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="IdCode" prefWidth="109.0" text="Exam Code" />
+          <TableColumn fx:id="subjectExam" prefWidth="109.0" text="subject" />
+            <TableColumn fx:id="teacherExam" prefWidth="130.0" text="teacher" />
+            <TableColumn fx:id="NumOfQuestions" minWidth="0.0" prefWidth="133.0" text="num of questions" />
+            <TableColumn fx:id="timerr" prefWidth="118.0" text="timer" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

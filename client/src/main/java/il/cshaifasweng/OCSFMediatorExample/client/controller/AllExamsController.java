@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -39,8 +38,6 @@ public class AllExamsController {
     private TableColumn<Exam, String> teacherExam;
     @FXML
     private TableColumn<Exam, String> timerr;
-    @FXML
-    private AnchorPane pane;
     List<Exam> listexams = subject.getExams();
     ObservableList<Exam> data ;
 
