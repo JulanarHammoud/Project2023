@@ -5,9 +5,9 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.Maneger">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.ManagerController">
    <children>
-      <Button mnemonicParsing="false" text="LogOut">
+      <Button mnemonicParsing="false" onAction="#LogOut" text="LogOut">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
@@ -33,49 +33,7 @@
             </RadialGradient>
          </textFill>
       </Button>
-      <Button layoutX="41.0" layoutY="115.0" mnemonicParsing="false" onAction="#Question" text="Questions">
-         <font>
-            <Font name="System Bold Italic" size="25.0" />
-         </font>
-         <textFill>
-            <RadialGradient centerX="0.46685082872928174" centerY="0.533175355450237" focusDistance="0.09195402298850563" radius="0.7758620689655172">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.10196078568696976" green="0.47843137383461" blue="0.6196078658103943" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="1.0" green="1.0" blue="1.0" />
-                     </color>
-                  </Stop>
-               </stops>
-            </RadialGradient>
-         </textFill>
-      </Button>
-      <Button layoutX="41.0" layoutY="200.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="150.0" text="Exams">
-         <font>
-            <Font name="System Bold Italic" size="25.0" />
-         </font>
-         <textFill>
-            <RadialGradient centerX="0.46685082872928174" centerY="0.533175355450237" focusDistance="0.09195402298850563" radius="0.7758620689655172">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.10196078568696976" green="0.47843137383461" blue="0.6196078658103943" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="1.0" green="1.0" blue="1.0" />
-                     </color>
-                  </Stop>
-               </stops>
-            </RadialGradient>
-         </textFill>
-      </Button>
-      <Label layoutX="22.0" layoutY="43.0" prefHeight="52.0" prefWidth="236.0" text="Manager">
+      <Label fx:id="name" layoutX="22.0" layoutY="43.0" prefHeight="52.0" prefWidth="236.0" text="Manager">
          <font>
             <Font name="System Bold Italic" size="40.0" />
          </font>
@@ -101,6 +59,33 @@
             </RadialGradient>
          </textFill>
       </Label>
-      <Accordion fx:id="Results" layoutX="41.0" layoutY="284.0" prefHeight="116.0" prefWidth="150.0" />
+      <Accordion layoutX="14.0" layoutY="115.0">
+        <panes>
+          <TitledPane fx:id="QuestionsPane" animated="false" text="Questions">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+          </TitledPane>
+          <TitledPane fx:id="ExamsPane" animated="false" text="Exams">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+          </TitledPane>
+          <TitledPane fx:id="ResultPane" animated="false" text="Results">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+          </TitledPane>
+        </panes>
+      </Accordion>
    </children>
 </AnchorPane>

@@ -739,6 +739,17 @@ public class SimpleServer extends AbstractServer {
 						e.printStackTrace();
 					}
 				}
+			else if (message.get(0).equals("#GetAllSubjectsSimpleServer")){
+				try {
+					List<Teacher> teachers = (List<Teacher>) Data.getAllTeachers();
+					List<Student>students = Data.getAllStudents();
+					List<CourseTeacher> courses = Data.getAllCourses();
+					GetForManager getForManager = new GetForManager(teachers, students, courses);
+					client.sendToClient(getForManager);
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+			}
 			}
 		}
 }

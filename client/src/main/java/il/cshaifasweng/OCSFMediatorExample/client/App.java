@@ -1,23 +1,14 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.client.EventBus.*;
-import il.cshaifasweng.OCSFMediatorExample.client.controller.ChooseQesController;
-import il.cshaifasweng.OCSFMediatorExample.entities.StudentWillMakeEx;
-import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -334,6 +325,18 @@ public class App extends Application {
             SimpleClient.getParams().add(event.getExamSubjectTeacherEdit());
             try {
                 setRoot("ExamEdit");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });}
+
+    @Subscribe
+    public void onGetForManagerEvent(GetForManagerEvent event) {
+        Platform.runLater(() -> {
+            System.out.println("GetForManager App-client");
+            SimpleClient.getParams().add(event.getGetForManager());
+            try {
+                setRoot("Manager");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

@@ -91,6 +91,9 @@ public class SimpleClient extends AbstractClient {
 		else if (msg.getClass().equals(StudentWillMakeEx.class)) {
 			EventBus.getDefault().post(new StudentWillMakeExEvent((StudentWillMakeEx) msg));
 		}
+		else if (msg.getClass().equals(GetForManager.class)) {
+			EventBus.getDefault().post(new GetForManagerEvent((GetForManager) msg));
+		}
 	}
 
 	public static SimpleClient getClient() {
