@@ -61,7 +61,7 @@ public class AllExamsController {
         try{
             Exam exam = Etable.getSelectionModel().getSelectedItem();
             LinkedList<Object> message = new LinkedList<Object>();
-            message.add("#ShowExamm");
+            message.add("#ShowExam");
             if(exam==null){
                 message.add(null);
             }

@@ -746,6 +746,15 @@ public class SimpleServer extends AbstractServer {
 					throw new RuntimeException(e);
 				}
 			}
+			else if (message.get(0).equals("#ShowExamManager")) {
+				try {
+					System.out.println("Not selecting any the exam");
+					Warning warning = new Warning("please select a exam!!");
+					client.sendToClient(warning);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 			}
 		}
 }

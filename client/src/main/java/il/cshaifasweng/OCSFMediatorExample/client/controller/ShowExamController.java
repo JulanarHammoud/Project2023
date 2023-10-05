@@ -44,9 +44,6 @@ public class ShowExamController {
 
     @FXML
     private Label sub;
-
-   // @FXML
-   // private AnchorPane mainAnchor;
     @FXML
     private List<CheckBox> selectedCheckboxes = new ArrayList<>();
 

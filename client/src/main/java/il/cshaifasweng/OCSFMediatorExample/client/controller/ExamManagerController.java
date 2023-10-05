@@ -1,4 +1,4 @@
-package il.cshaifasweng.OCSFMediatorExample.client.ocsf;
+package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
@@ -53,6 +53,26 @@ public class ExamManagerController{
         }
     }
     @FXML
+    public void show (ActionEvent event) throws IOException {
+        try{
+            Exam exam = Etable.getSelectionModel().getSelectedItem();
+            LinkedList<Object> message = new LinkedList<Object>();
+            if(exam==null){
+                message.add("#ShowExamManager");
+                SimpleClient.getClient().sendToServer(message);
+            }
+            else{
+                message.add(course);
+                message.add(getForManager);
+                message.add(exam);
+                SimpleClient.getParams().add(message);
+                setRoot("ShowExamManager");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
     public void back (ActionEvent event) throws IOException {
         SimpleClient.getParams().add(getForManager);
         try {
@@ -61,7 +81,6 @@ public class ExamManagerController{
             e.printStackTrace();
         }
     }
-
     @FXML
     public void LogOut (ActionEvent event) throws IOException {
         LinkedList<Object> message = new LinkedList<Object>();
