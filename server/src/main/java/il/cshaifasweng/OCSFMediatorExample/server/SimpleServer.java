@@ -799,13 +799,13 @@ public class SimpleServer extends AbstractServer {
 					MailManagerEntity mailManagerEntity = (MailManagerEntity) message.get(2);
 					int id = Message.getId();
 					int AdditionalTime = (Integer) message.get(3);
-					int examteacheid = (Integer) message.get(4);
+					int examteacherid = (Integer) message.get(4);
 					Data.DeleteMessage(id);
 					if(AdditionalTime!=0){
-						Exam exam = Data.findExam(id);
-						int newTime=exam.getTimerr()+AdditionalTime;
-						ExamTeacher examTeacher = Data.getDataById(ExamTeacher.class,examteacheid);
-						String Time = String.valueOf(newTime);
+						ExamTeacher examTeacher = Data.getDataById(ExamTeacher.class,examteacherid);
+						//Exam exam = examTeacher.getExam();
+						//int newTime=exam.getTimerr()+AdditionalTime;
+						//String Time = String.valueOf(newTime);
 						//examTeacher.setTime(Time);
 					}
 					GetForManager getForManager = mailManagerEntity.getGFM();

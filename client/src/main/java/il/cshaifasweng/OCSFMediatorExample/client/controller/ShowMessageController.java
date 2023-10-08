@@ -34,6 +34,7 @@ public class ShowMessageController {
         message.add(Message);
         message.add(MME);
         message.add(0);
+        message.add(Message.getExamTeacherid());
         try {
             SimpleClient.getClient().sendToServer(message);
         } catch (IOException e) {
@@ -48,6 +49,7 @@ public class ShowMessageController {
         message.add(MME);
         message.add(Message.getTime());
         message.add(Message.getExamTeacherid());
+
         try {
             SimpleClient.getClient().sendToServer(message);
         } catch (IOException e) {
