@@ -69,7 +69,8 @@ public class ExamEditController {
     public String Answ4;
 
     public String Correct;
-    public int q, a1, a2, a3, a4, c;
+    public String notesquestion;
+    public int q, a1, a2, a3, a4, c, n;
 
     @FXML
     void initialize() throws IOException {
@@ -153,15 +154,18 @@ public class ExamEditController {
         Label Q = new Label();
         Label C = new Label();
         Label A = new Label();
+        Label N = new Label();
         Q.setText("question: ");
         C.setText("Correct answer: ");
-        A.setText("Possible answes:");
+        A.setText("Possible answers:");
+        N.setText("note:");
         TextField theQ =new TextField();
         TextField answ1 =new TextField();
         TextField answ2 =new TextField();
         TextField answ3 =new TextField();
         TextField answ4 =new TextField();
         TextField correct =new TextField();
+        TextField notes = new TextField();
 
         //Listeners to the TextFields to get there values
         theQ.textProperty().addListener(new ChangeListener<String>() {
@@ -200,15 +204,25 @@ public class ExamEditController {
                 Correct=Corrrect; c=1;
             }
         });
+        notes.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String Notes) {
+                notesquestion=Notes; n=1;
+            }
+        });
 
         HBox addQuestinHbox = new HBox(2);//this will help to order the VBox
         addQuestinHbox.getChildren().add(Q);
         addQuestinHbox.getChildren().add(theQ);
-        HBox addcorrectanswerHBox=new HBox(2);
+        HBox addcorrectanswerHBox = new HBox(2);
         addcorrectanswerHBox.getChildren().add(C);
         addcorrectanswerHBox.getChildren().add(correct);
+        HBox addnotesHbx = new HBox(2);
+        addnotesHbx.getChildren().add(N);
+        addnotesHbx.getChildren().add(notes);
         Button add = new Button("Add");
         AddQuestionVBox.getChildren().add(addQuestinHbox);//adding question textfield with the label Add questions
+        AddQuestionVBox.getChildren().add(addnotesHbx);
         AddQuestionVBox.getChildren().add(A);
         AddQuestionVBox.getChildren().add(answ1);
         AddQuestionVBox.getChildren().add(answ2);
@@ -254,6 +268,7 @@ public class ExamEditController {
         if(a3==0){Answ3="";}
         if(a4==0){Answ4="";}
         if(c==0){Correct="";}
+        if (n==0){notesquestion="";}
 
         message.add("MakenewQuestion");
         message.add(subId.getSubject());
@@ -263,6 +278,7 @@ public class ExamEditController {
         message.add(Answ3);
         message.add(Answ4);
         message.add(Correct);
+        message.add(notesquestion);
         message.add(subId.getId());
         message.add(teacher);
         message.add(QUEStions);

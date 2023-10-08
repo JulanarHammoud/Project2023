@@ -56,14 +56,16 @@ public class ShowExamManagerController {
         double i = 150.0; // this index to set the position of the question on the screen
         LinkedList<String> answers = new LinkedList<>();
         for (Question q : questions) {
-            VBox vbox = new VBox(5); // we put every question in vbox
+            VBox vbox = new VBox(6); // we put every question in vbox
             ToggleGroup TG = new ToggleGroup();
             answers.add(q.getAns1());
             answers.add(q.getAns2());
             answers.add(q.getAns3());
             answers.add(q.getAns4());
             Text text = new Text(q.getQuestion());
+            Text note = new Text(q.getNote());
             vbox.getChildren().add(text);
+            vbox.getChildren().add(note);
             Collections.shuffle(answers);
             for (String ans : answers) {
                 RadioButton btn = new RadioButton(ans);

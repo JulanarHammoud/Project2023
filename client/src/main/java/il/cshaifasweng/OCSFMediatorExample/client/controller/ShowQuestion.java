@@ -24,12 +24,15 @@ public class ShowQuestion {
     Label answ4;
     @FXML
     Label right;
+    @FXML
+    Label note;
     int lastIndex= SimpleClient.getParams().size()-1;
     LinkedList<Object> msg = (LinkedList<Object>) SimpleClient.getParams().get(lastIndex);
     int origin = (Integer) msg.get(1);
     Question question = (Question) msg.get(5);
     public void initialize() {
         theQ.setText(question.getQuestion());
+        note.setText("note: " + question.getNote() + "!");
         answ1.setText("1. " + question.getAns1());
         answ2.setText("2. " + question.getAns2());
         answ3.setText("3. " + question.getAns3());

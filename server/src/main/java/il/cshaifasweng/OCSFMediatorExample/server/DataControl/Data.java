@@ -247,7 +247,7 @@ public class Data {
         return s;
     }
 
-    public static void updateQuestion(int IdQuestion, String q, String ans1, String ans2, String ans3, String ans4, String right) {
+    public static void updateQuestion(int IdQuestion, String q, String ans1, String ans2, String ans3, String ans4, String note,String right) {
         System.out.println("I am updating: " + IdQuestion + " " + q + " " + ans1);
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
@@ -258,6 +258,7 @@ public class Data {
         question.setAns2(ans2);
         question.setAns3(ans3);
         question.setAns4(ans4);
+        question.setNote(note);
         question.setThe_right_ans(right);
         session.saveOrUpdate(question);
         session.flush();
@@ -328,16 +329,16 @@ public class Data {
     }
 
     public static void generateSubject() throws Exception {
-        Question Num1 = new Question("I'm very happy _____ in India. I really miss being there.", "to live", "to have lived", "to be lived", "to be living", "to live");
-        Question Num2 = new Question("They didn't reach an agreement ______ their differences.", "on account of", "due", "because", "owing", "owing");
-        Question Num3 = new Question("I wish I _____ those words. But now it's too late.", " not having said", " have never said", "never said", "had never said", "have never said");
-        Question Num4 = new Question("Each term in the sequence below is five times the previous term. What is the eighth term in the sequence? 4, 20, 100, 500,....", "500 * 8", " 4 * 5^7", " 4 * 5^8", "4^8", "4 * 5^7");
-        Question Num5 = new Question("The inequality –4(x – 1) ≤ 2(x + 1) is equivalent to", " x => -1/3", " x=> 1/3", "x <= 1/3", "x <= -1/3", "x=> 1/3");
-        Question Num6 = new Question(" For what values of x is the expression : 3x2 – 3x – 18 equal to 0?", "  x = 3, x = –6", " . x = –3, x = 2", " x = 3, x = –2", " x = -3, x = –6", " x = 3, x = –2");
-        Question Num7 = new Question("A circle has an area of 64π ft.2. What is the circumference of the circle?", "  8π ft", "  32π ft", " 18π ft", " 16π ft", " 8π ft");
-        Question Num8 = new Question("A circle has an area of 64π ft.2. What is the circumference of the circle?", "  8π ft", "  32π ft", " 18π ft", " 16π ft", " 8π ft");
-        Question Num9 = new Question("Which of the following statements is true?", " All squares are rectangles and rhombuses.", " All rectangles are rhombuses, but not allrhombuses are rectangles", " All rhombuses are parallelograms and all parallelograms are rhombuses.", " All rhombuses are squares, but not all squaresare rhombuses.", " All rhombuses are squares, but not all squares are rhombuses.");
-        Question Num10 = new Question("When winding an old clock, it is important not to overwind it. ", "clocks have changed over the years. ", "old-fashioned clocks become fragile with age. ", ". old-fashioned clocks were operated by an internal spring. ", " time flies when you’re having fun ", "old-fashioned clocks were operated by an internal spring.");
+        Question Num1 = new Question("I'm very happy _____ in India. I really miss being there.", "to live", "to have lived", "to be lived", "to be living","" ,"to live");
+        Question Num2 = new Question("They didn't reach an agreement ______ their differences.", "on account of", "due", "because", "owing","bay extra attention" ,"owing");
+        Question Num3 = new Question("I wish I _____ those words. But now it's too late.", " not having said", " have never said", "never said", "had never said","good luck" ,"have never said");
+        Question Num4 = new Question("Each term in the sequence below is five times the previous term. What is the eighth term in the sequence? 4, 20, 100, 500,....", "500 * 8", " 4 * 5^7", " 4 * 5^8", "4^8", "mentioned in lecture 10","4 * 5^7");
+        Question Num5 = new Question("The inequality –4(x – 1) ≤ 2(x + 1) is equivalent to", " x => -1/3", " x=> 1/3", "x <= 1/3", "x <= -1/3","" ,"x=> 1/3");
+        Question Num6 = new Question(" For what values of x is the expression : 3x2 – 3x – 18 equal to 0?", "  x = 3, x = –6", " . x = –3, x = 2", " x = 3, x = –2", " x = -3, x = –6", ""," x = 3, x = –2");
+        Question Num7 = new Question("A circle has an area of 64π ft.2. What is the circumference of the circle?", "  8π ft", "  32π ft", " 18π ft", " 16π ft","Good Luck" ," 8π ft");
+        Question Num8 = new Question("A circle has an area of 64π ft.2. What is the circumference of the circle?", "  8π ft", "  32π ft", " 18π ft", " 16π ft","" ," 8π ft");
+        Question Num9 = new Question("Which of the following statements is true?", " All squares are rectangles and rhombuses.", " All rectangles are rhombuses, but not allrhombuses are rectangles", " All rhombuses are parallelograms and all parallelograms are rhombuses.", " All rhombuses are squares, but not all squaresare rhombuses.",""," All rhombuses are squares, but not all squares are rhombuses.");
+        Question Num10 = new Question("When winding an old clock, it is important not to overwind it. ", "clocks have changed over the years. ", "old-fashioned clocks become fragile with age. ", ". old-fashioned clocks were operated by an internal spring. ", " time flies when you’re having fun ", "","old-fashioned clocks were operated by an internal spring.");
         LinkedList<Question> questions1 = new LinkedList<>();
         LinkedList<Question> questions2 = new LinkedList<>();
         LinkedList<Question> questions3 = new LinkedList<>();
@@ -416,8 +417,8 @@ public class Data {
 
     public static void MakeQes(int id, String question, String ans1, String ans2, String ans3, String ans4, String the_right_ans) {
         System.out.println("in make Data33 ");
-        Question q1 = new Question("israa *** crying?", "is", "are", "an", "none of the answers", "is");
-        Question q2 = new Question("reem *** happy?", "is", "are", "an", "none of the answers", "is");
+        Question q1 = new Question("israa *** crying?", "is", "are", "an", "none of the answers", "","is");
+        Question q2 = new Question("reem *** happy?", "is", "are", "an", "none of the answers", "Focus","is");
 
         try {
             System.out.println("in make Data3 ");
@@ -481,10 +482,10 @@ public class Data {
         return 0;
     }
 
-    public static SubjectTeacher MakeQuestion(String Q, String an1, String an2, String an3, String an4, String right, SubjectTeacher sub) {
+    public static SubjectTeacher MakeQuestion(String Q, String an1, String an2, String an3, String an4, String right, String note, SubjectTeacher sub) {
         System.out.println("in make Question ");
         // Exam ex=new Exam(0,NumQ,chose,"T",TNotes,SNotes,cc);
-        Question newquestion = new Question(Q, an1, an2, an3, an4, right);
+        Question newquestion = new Question(Q, an1, an2, an3, an4, note,right);
         try {
             System.out.println("in make Question2 ");
             SessionFactory sessionFactory = getSessionFactory();

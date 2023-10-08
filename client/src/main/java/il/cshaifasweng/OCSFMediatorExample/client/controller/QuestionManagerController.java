@@ -43,6 +43,8 @@ public class QuestionManagerController {
 
     @FXML
     TableColumn<Question, String> question;
+    @FXML
+    TableColumn<Question, String> note;
 
     @FXML
     void initialize() throws IOException {
@@ -61,6 +63,7 @@ public class QuestionManagerController {
             answ3.setCellValueFactory(new PropertyValueFactory<Question, String>("ans3"));
             answ4.setCellValueFactory(new PropertyValueFactory<Question, String>("ans4"));
             right.setCellValueFactory(new PropertyValueFactory<Question, String>("the_right_ans"));
+            note.setCellValueFactory(new PropertyValueFactory<Question, String>("note"));
         }
 
     }

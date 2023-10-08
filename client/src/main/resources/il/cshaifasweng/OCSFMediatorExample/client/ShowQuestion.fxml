@@ -14,7 +14,7 @@
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-      <Label fx:id="theQ" layoutX="42.0" layoutY="55.0" prefHeight="41.0" prefWidth="507.0" text="Question">
+      <Label fx:id="theQ" layoutX="42.0" layoutY="49.0" prefHeight="41.0" prefWidth="507.0" text="Question">
          <font>
             <Font name="System Bold" size="20.0" />
          </font></Label>
@@ -34,9 +34,14 @@
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Label fx:id="right" layoutX="43.0" layoutY="347.0" prefHeight="41.0" prefWidth="507.0" text="Right" textFill="#1e9a15">
+      <Label fx:id="right" layoutX="42.0" layoutY="339.0" prefHeight="41.0" prefWidth="507.0" text="Right" textFill="#1e9a15">
          <font>
             <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="note" layoutX="42.0" layoutY="81.0" prefHeight="41.0" prefWidth="507.0" text="Note">
+         <font>
+            <Font size="20.0" />
          </font>
       </Label>
    </children>

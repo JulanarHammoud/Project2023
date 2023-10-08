@@ -28,6 +28,8 @@ public class addQuestionController {
 
     @FXML
     private TextField correct;
+    @FXML
+    private TextField notes;
 
     @FXML
     private Button submit;
@@ -53,6 +55,7 @@ public class addQuestionController {
             String answer3 = answ3.getText();
             String answer4 = answ4.getText();
             String right = correct.getText();
+            String note = notes.getText();
             message.add("MakenewQuestion");
             message.add(subjectTeacher);
             message.add(question);
@@ -61,6 +64,7 @@ public class addQuestionController {
             message.add(answer3);
             message.add(answer4);
             message.add(right);
+            message.add(note);
             message.add(id);
             message.add(teacher);
             message.add(questions);

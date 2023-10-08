@@ -352,6 +352,7 @@ public class SimpleServer extends AbstractServer {
 					String ans3 = question.getAns3();
 					String ans4 = question.getAns4();
 					String right = question.getThe_right_ans();
+					String note = question.getNote();
 					int id = Data.returnid(oldquestion.getQuestion());
 					System.out.println("before data function");
 					if (ques1.isEmpty()) {
@@ -385,7 +386,7 @@ public class SimpleServer extends AbstractServer {
 						Warning warning = new Warning("please don't write the question the same as the answer!!");
 						client.sendToClient(warning);
 					} else{
-						Data.updateQuestion(id,ques1,ans1,ans2,ans3,ans4,right);
+						Data.updateQuestion(id,ques1,ans1,ans2,ans3,ans4,note,right);
 						System.out.println("after data function");
 						Warning warning = new Warning("The Question updated Successfully!!");
 						SubjectTeacher subject=(SubjectTeacher) message.get(3);
@@ -414,8 +415,9 @@ public class SimpleServer extends AbstractServer {
 					String ans3 = (String) message.get(5);
 					String ans4 = (String) message.get(6);
 					String right = (String) message.get(7);
-					int id = (int) message.get(8);
-					Teacher teacher = (Teacher) message.get(9);
+					String note = (String) message.get(8);
+					int id = (int) message.get(9);
+					Teacher teacher = (Teacher) message.get(10);
 					//int x=0;
 					if (ques1.isEmpty()) {
 						if (ans1.isEmpty() || ans2.isEmpty() || ans3.isEmpty() || ans4.isEmpty()) {
@@ -449,8 +451,8 @@ public class SimpleServer extends AbstractServer {
 						client.sendToClient(warning);
 					} else { //the input is good
 						SubjectTeacher subjectTeacher = (SubjectTeacher) message.get(1);
-						SubjectTeacher subjectTeacher1 = Data.MakeQuestion(ques1, ans1, ans2, ans3, ans4, right, subjectTeacher);
-						LinkedList<Question> questions = (LinkedList<Question>) message.get(10);
+						SubjectTeacher subjectTeacher1 = Data.MakeQuestion(ques1, ans1, ans2, ans3, ans4, right,note ,subjectTeacher);
+						LinkedList<Question> questions = (LinkedList<Question>) message.get(11);
 						SubjectAndId subid;
 						if (questions == null) {
 							subid = new SubjectAndId(subjectTeacher1, id, teacher);
@@ -459,8 +461,8 @@ public class SimpleServer extends AbstractServer {
 							subid.setQuestions(questions);
 						}
 						Warning warning = new Warning("The Question added Successfully!!");
-						if((Integer) message.get(11)==1){ //we are in edit exam page
-							int flag = (Integer) message.get(13);
+						if((Integer) message.get(12)==1){ //we are in edit exam page
+							int flag = (Integer) message.get(14);
 							subid.setQuestions(questions);
 							id=subid.getId();
 							Exam exam = Data.findExam(id);
@@ -508,7 +510,7 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			} else if (message.get(0).equals("#ShowExamm")) {
+			} else if (message.get(0).equals("#ShowExam")) {
 				try {
 					if(message.get(1)==null){
 						System.out.println("Not selecting any the exam");

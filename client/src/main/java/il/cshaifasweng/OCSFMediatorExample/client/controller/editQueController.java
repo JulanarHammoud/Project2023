@@ -38,6 +38,8 @@ public class editQueController {
     @FXML
     private TextField text5;
     @FXML
+    private TextField note;
+    @FXML
     private Button back;
     int lastIndex= SimpleClient.getParams().size()-1;
     LinkedList<Object> msg = (LinkedList<Object>) SimpleClient.getParams().get(lastIndex);
@@ -51,6 +53,7 @@ public class editQueController {
         text3.setText(question.getAns3());
         text4.setText(question.getAns4());
         text5.setText(question.getThe_right_ans());
+        note.setText(question.getNote());
     }
 
     @FXML
@@ -62,6 +65,7 @@ public class editQueController {
         updatequeston.setAns3(text3.getText());
         updatequeston.setAns4(text4.getText());
         updatequeston.setThe_right_ans(text5.getText());
+        updatequeston.setNote(note.getText());
         System.out.println(updatequeston.getQuestion());
         LinkedList<Object> message = new LinkedList<Object>();
         message.add("editquestion");
@@ -78,7 +82,7 @@ public class editQueController {
         }
     }
     @FXML
-    void bacaction(ActionEvent event) {
+    void backaction(ActionEvent event) {
         try {
             SubjectAndId newsubid;
             if((Integer) msg.get(5) == 0){

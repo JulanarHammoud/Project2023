@@ -7,7 +7,29 @@
 
 <AnchorPane id="student.jpg" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.addQuestionController">
    <children>
-      <Text layoutX="51.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Question:">
+      <Text layoutX="44.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Question:">
+         <font>
+            <Font name="Bodoni MT Bold" size="20.0" />
+         </font>
+         <fill>
+            <LinearGradient endX="0.976303317535545" endY="1.0" startX="0.5876777251184834" startY="0.5687203791469194">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.6313725709915161" green="0.6117647290229797" blue="0.13333334028720856" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.5789473652839661" green="0.530701756477356" blue="0.530701756477356" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Text>
+      <TextField fx:id="theQ" layoutX="225.0" layoutY="44.0" />
+      <Text layoutX="51.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Answer 1:">
          <font>
             <Font name="Bodoni MT Bold" size="20.0" />
          </font>
@@ -28,92 +50,7 @@
             </LinearGradient>
          </fill>
       </Text>
-      <TextField fx:id="theQ" layoutX="226.0" layoutY="59.0" />
-      <Text layoutX="51.0" layoutY="117.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Answer 1:">
-         <font>
-            <Font name="Bodoni MT" size="20.0" />
-         </font>
-         <fill>
-            <LinearGradient endX="0.976303317535545" endY="1.0" startX="0.5876777251184834" startY="0.5687203791469194">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.6313725709915161" green="0.6117647290229797" blue="0.13333334028720856" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="1.0" green="1.0" blue="1.0" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Text>
-      <Text layoutX="51.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The Right Ans:">
-         <font>
-            <Font name="Bodoni MT" size="20.0" />
-         </font>
-         <fill>
-            <LinearGradient endX="0.976303317535545" endY="1.0" startX="0.5876777251184834" startY="0.5687203791469194">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.6313725709915161" green="0.6117647290229797" blue="0.13333334028720856" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="1.0" green="1.0" blue="1.0" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Text>
-      <Text layoutX="51.0" layoutY="232.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Answer 4:">
-         <font>
-            <Font name="Bodoni MT" size="20.0" />
-         </font>
-         <fill>
-            <LinearGradient endX="0.976303317535545" endY="1.0" startX="0.5876777251184834" startY="0.5687203791469194">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.6313725709915161" green="0.6117647290229797" blue="0.13333334028720856" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="1.0" green="1.0" blue="1.0" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Text>
-      <Text layoutX="51.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Answer 3:">
-         <font>
-            <Font name="Bodoni MT" size="20.0" />
-         </font>
-         <fill>
-            <LinearGradient endX="0.976303317535545" endY="1.0" startX="0.5876777251184834" startY="0.5687203791469194">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.6313725709915161" green="0.6117647290229797" blue="0.13333334028720856" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="1.0" green="1.0" blue="1.0" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </fill>
-      </Text>
-      <Text layoutX="51.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Answer 2:">
+      <Text layoutX="50.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The Right Ans:">
          <font>
             <Font name="Bodoni MT Bold" size="20.0" />
          </font>
@@ -134,22 +71,107 @@
             </LinearGradient>
          </fill>
       </Text>
-      <TextField fx:id="answ1" layoutX="225.0" layoutY="97.0" />
-      <TextField fx:id="answ2" layoutX="226.0" layoutY="137.0" />
-      <TextField fx:id="answ3" layoutX="226.0" layoutY="174.0" />
-      <TextField fx:id="answ4" layoutX="226.0" layoutY="212.0" />
-      <TextField fx:id="correct" layoutX="225.0" layoutY="254.0" />
+      <Text layoutX="51.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Answer 4:">
+         <font>
+            <Font name="Bodoni MT Bold" size="20.0" />
+         </font>
+         <fill>
+            <LinearGradient endX="0.976303317535545" endY="1.0" startX="0.5876777251184834" startY="0.5687203791469194">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.6313725709915161" green="0.6117647290229797" blue="0.13333334028720856" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Text>
+      <Text layoutX="51.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Answer 3:">
+         <font>
+            <Font name="Bodoni MT Bold" size="20.0" />
+         </font>
+         <fill>
+            <LinearGradient endX="0.976303317535545" endY="1.0" startX="0.5876777251184834" startY="0.5687203791469194">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.6313725709915161" green="0.6117647290229797" blue="0.13333334028720856" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Text>
+      <Text layoutX="51.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Answer 2:">
+         <font>
+            <Font name="Bodoni MT Bold" size="20.0" />
+         </font>
+         <fill>
+            <LinearGradient endX="0.976303317535545" endY="1.0" startX="0.5876777251184834" startY="0.5687203791469194">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.6313725709915161" green="0.6117647290229797" blue="0.13333334028720856" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Text>
+      <TextField fx:id="answ1" layoutX="226.0" layoutY="126.0" />
+      <TextField fx:id="answ2" layoutX="226.0" layoutY="163.0" />
+      <TextField fx:id="answ3" layoutX="226.0" layoutY="200.0" />
+      <TextField fx:id="answ4" layoutX="225.0" layoutY="236.0" />
+      <TextField fx:id="correct" layoutX="226.0" layoutY="267.0" />
       <Button fx:id="submit" contentDisplay="CENTER" layoutX="430.0" layoutY="305.0" mnemonicParsing="false" onAction="#submitaction" text="Submit" textFill="#a19c22">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-      <Button layoutX="7.0" layoutY="8.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#a19c22">
+      <Button layoutY="2.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#9e1917">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-      <Button layoutX="65.0" layoutY="8.0" mnemonicParsing="false" onAction="#returnbutton4" text="Return" textFill="#a19c22">
+      <Button layoutX="65.0" layoutY="2.0" mnemonicParsing="false" onAction="#returnbutton4" text="Return" textFill="#2f8617">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
+      <Label layoutX="51.0" layoutY="84.0" prefHeight="30.0" prefWidth="82.0" text="Notes">
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0" startX="0.5402843601895735" startY="0.6682464454976302">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.6313725709915161" green="0.6117647290229797" blue="0.13333334028720856" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="notes" layoutX="225.0" layoutY="86.0" />
    </children>
 </AnchorPane>

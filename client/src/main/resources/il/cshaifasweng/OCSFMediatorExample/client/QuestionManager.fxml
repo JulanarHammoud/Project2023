@@ -6,14 +6,15 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.QuestionManagerController">
    <children>
-      <TableView fx:id="Qtable" layoutY="26.0" prefHeight="374.0" prefWidth="602.0">
+      <TableView fx:id="Qtable" layoutX="-8.0" layoutY="25.0" prefHeight="374.0" prefWidth="610.0">
         <columns>
-          <TableColumn fx:id="question" prefWidth="131.0" text="Questions" />
-          <TableColumn fx:id="answ1" prefWidth="99.0" text="Answer 1" />
-            <TableColumn fx:id="answ2" prefWidth="99.0" text="Answer 2" />
-            <TableColumn fx:id="answ3" prefWidth="99.0" text="Answer 3" />
-            <TableColumn fx:id="answ4" prefWidth="99.0" text="Answer 4" />
-            <TableColumn fx:id="right" prefWidth="74.0" text="Right" />
+          <TableColumn fx:id="question" prefWidth="148.0" text="Questions" />
+          <TableColumn fx:id="answ1" prefWidth="82.0" text="Answer 1" />
+            <TableColumn fx:id="answ2" prefWidth="92.0" text="Answer 2" />
+            <TableColumn fx:id="answ3" prefWidth="81.0" text="Answer 3" />
+            <TableColumn fx:id="answ4" prefWidth="72.0" text="Answer 4" />
+            <TableColumn fx:id="right" prefWidth="64.0" text="Right" />
+            <TableColumn fx:id="note" prefWidth="70.0" text="Note" />
         </columns>
       </TableView>
       <Button mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#1a7a9e">

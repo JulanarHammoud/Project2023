@@ -49,6 +49,8 @@ public class ChooseQesController {
     @FXML
     private TableColumn<Question, String> question;
     @FXML
+    private TableColumn<Question, String> note;
+    @FXML
     private Button next;
 
     @FXML
@@ -72,6 +74,7 @@ public class ChooseQesController {
         ans2.setCellValueFactory(new PropertyValueFactory<Question, String>("ans2"));
         ans3.setCellValueFactory(new PropertyValueFactory<Question, String>("ans3"));
         ans4.setCellValueFactory(new PropertyValueFactory<Question, String>("ans4"));
+        note.setCellValueFactory(new PropertyValueFactory<Question, String>("note"));
         the_right_ans.setCellValueFactory(new PropertyValueFactory<Question, String>("the_right_ans"));
 
         Qtable.setItems(data);

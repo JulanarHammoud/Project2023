@@ -13,6 +13,7 @@ public class Question implements Serializable{
     private String ans2; //israa
     private String ans3; //israa
     private String ans4; //israa
+    private String note;
     private String the_right_ans; //israa
     private String the_student_ans;
     @Transient
@@ -22,14 +23,22 @@ public class Question implements Serializable{
     @Transient
     private Boolean select_to_add = false;
 
-    public Question(String question, String ans1, String ans2, String ans3, String ans4, String the_right_ans) {
-        //Id = id;
+    public Question(String question, String ans1, String ans2, String ans3, String ans4, String note,String the_right_ans) {
         this.question = question;
         this.ans1 = ans1;
         this.ans2 = ans2;
         this.ans3 = ans3;
         this.ans4 = ans4;
+        this.note = note;
         this.the_right_ans = the_right_ans;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public int getId() {
