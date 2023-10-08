@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -35,6 +36,8 @@ public class ExamManagerController{
     @FXML
     private TableColumn<Exam, String> timerr;
     @FXML
+    private Label Course;
+    @FXML
     void initialize() throws IOException {
         LinkedList<Exam> e = new LinkedList<>();
         for (SubjectTeacher subjectTeacher : course.getSubjectTeacher()) {
@@ -42,6 +45,7 @@ public class ExamManagerController{
             for (Exam E:listexams){
                 e.add(E);
             }
+            Course.setText(course.getName());
             data = FXCollections.observableArrayList(e);
             Etable.setItems(data);
             Etable.setEditable(true);

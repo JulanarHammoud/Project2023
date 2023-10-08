@@ -20,7 +20,7 @@
          </font>
       </Text>
       <ComboBox fx:id="role" layoutX="215.0" layoutY="246.0" prefWidth="150.0" promptText="choose your role" />
-      <Button fx:id="returnbutton" layoutY="2.0" mnemonicParsing="false" onAction="#returnbutton1" text="Back" textFill="#a19c22">
+      <Button fx:id="returnbutton" layoutY="2.0" mnemonicParsing="false" onAction="#returnbutton1" text="Back" textFill="#1b7912">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Button>
@@ -44,7 +44,7 @@
                </stops>
             </LinearGradient>
          </textFill></Label>
-      <Button alignment="CENTER" cache="true" contentDisplay="CENTER" layoutX="251.0" layoutY="294.0" mnemonicParsing="false" onAction="#SelectRole" prefHeight="44.0" prefWidth="80.0" scaleX="1.8" text="Log in" textAlignment="CENTER" textFill="#a19c22">
+      <Button alignment="CENTER" cache="true" contentDisplay="CENTER" layoutX="251.0" layoutY="294.0" mnemonicParsing="false" onAction="#SelectRole" prefHeight="44.0" prefWidth="80.0" scaleX="1.8" text="Log in" textAlignment="CENTER" textFill="#2378a1">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>

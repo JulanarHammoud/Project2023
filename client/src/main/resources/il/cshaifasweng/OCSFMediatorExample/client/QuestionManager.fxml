@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.QuestionManagerController">
@@ -17,12 +18,12 @@
             <TableColumn fx:id="note" prefWidth="70.0" text="Note" />
         </columns>
       </TableView>
-      <Button mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#1a7a9e">
+      <Button mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#9c281a">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="64.0" mnemonicParsing="false" onAction="#back" text="Back" textFill="#1a7a9e">
+      <Button layoutX="64.0" mnemonicParsing="false" onAction="#back" text="Back" textFill="#095e0b">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
@@ -32,5 +33,26 @@
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
+      <Label fx:id="Course" layoutX="269.0" layoutY="-1.0" text="course">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.10196078568696976" green="0.47843137383461" blue="0.6196078658103943" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
    </children>
 </AnchorPane>

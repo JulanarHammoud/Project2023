@@ -149,11 +149,11 @@
       <TextField fx:id="text4" layoutX="180.0" layoutY="206.0" prefHeight="25.0" prefWidth="205.0" />
       <TextField fx:id="text5" layoutX="180.0" layoutY="241.0" prefHeight="25.0" prefWidth="205.0" />
       <TextField fx:id="text1" layoutX="180.0" layoutY="99.0" prefHeight="25.0" prefWidth="205.0" />
-      <Button layoutX="65.0" layoutY="2.0" mnemonicParsing="false" onAction="#backaction" text="Back" textFill="#a19c22">
+      <Button layoutX="65.0" layoutY="2.0" mnemonicParsing="false" onAction="#backaction" text="Back" textFill="#18802e">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-      <Button layoutX="1.0" layoutY="2.0" mnemonicParsing="false" onAction="#logOut" text="LogOut" textFill="#a19c22">
+      <Button layoutX="1.0" layoutY="2.0" mnemonicParsing="false" onAction="#logOut" text="LogOut" textFill="#a13e23">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>

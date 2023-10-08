@@ -15,7 +15,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Label fx:id="teachername" layoutX="117.0" layoutY="14.0" prefHeight="39.0" prefWidth="76.0" text="Id">
+      <Label fx:id="teachername" layoutX="83.0" layoutY="14.0" prefHeight="39.0" prefWidth="167.0" text="teacher">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -30,7 +30,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="14.0" prefHeight="39.0" prefWidth="103.0" text="Teacher's ID:  ">
+      <Label layoutX="14.0" layoutY="14.0" prefHeight="39.0" prefWidth="103.0" text="Teacher:  ">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -44,5 +44,15 @@
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
+      <Label layoutX="14.0" layoutY="65.0" prefHeight="28.0" prefWidth="103.0" text="Exam:  ">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="exam" layoutX="83.0" layoutY="65.0" prefHeight="28.0" prefWidth="167.0" text="exam">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

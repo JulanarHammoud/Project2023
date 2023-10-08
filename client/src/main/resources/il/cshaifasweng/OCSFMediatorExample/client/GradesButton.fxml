@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.GradesButtonController">
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.GradesButtonController">
    <children>
 <!--      <Text fill="#00d71d" layoutX="30.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Grades" wrappingWidth="150.13671875">-->
 <!--         <font>-->
@@ -92,12 +90,12 @@
 <!--            <Text fx:id="HebrowFinalGrade" layoutX="115.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="55.0" />-->
 <!--         </children>-->
 <!--      </Pane>-->
-      <Button layoutX="2.0" layoutY="4.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#a19c22">
+      <Button layoutX="2.0" layoutY="4.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#a13423">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="62.0" layoutY="4.0" mnemonicParsing="false" onAction="#back" text="Back" textFill="#a19c22">
+      <Button layoutX="62.0" layoutY="4.0" mnemonicParsing="false" onAction="#back" text="Back" textFill="#217915">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>

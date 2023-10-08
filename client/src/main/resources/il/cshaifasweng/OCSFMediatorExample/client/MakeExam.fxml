@@ -63,11 +63,11 @@
             </LinearGradient>
          </fill>
       </Text>
-      <Button layoutY="2.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#a19c22">
+      <Button layoutY="2.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#8f2815">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-      <Button layoutX="65.0" layoutY="2.0" mnemonicParsing="false" onAction="#returnbutton" prefHeight="24.0" prefWidth="66.0" text="Back" textFill="#a19c22">
+      <Button layoutX="65.0" layoutY="2.0" mnemonicParsing="false" onAction="#returnbutton" prefHeight="24.0" prefWidth="66.0" text="Back" textFill="#219721">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>

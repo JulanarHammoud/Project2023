@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
 <VBox alignment="CENTER" prefHeight="434.0" prefWidth="535.0" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.PrimaryController">
@@ -15,20 +16,86 @@
                   <Image url="@school%20image.jpg" />
                </image>
             </ImageView>
-            <Label prefHeight="37.0" prefWidth="539.0" text="Welocme to Our High School Of Dreamers " textFill="#a19c22">
+            <Label prefHeight="37.0" prefWidth="539.0" text="Welocme to Our High School Of Dreamers ">
                <font>
                   <Font name="System Bold Italic" size="27.0" />
                </font>
                <StackPane.margin>
                   <Insets top="-80.0" />
                </StackPane.margin>
+               <textFill>
+                  <LinearGradient cycleMethod="REFLECT" endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color red="0.4273500144481659" green="0.4129999876022339" blue="0.699999988079071" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.007662835249042145">
+                           <color>
+                              <Color red="0.16994395852088928" green="0.1532651036977768" blue="0.4868420958518982" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.10601572066200576">
+                           <color>
+                              <Color red="0.7147466540336609" green="0.6958000063896179" blue="0.9800000190734863" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.18465852984160838">
+                           <color>
+                              <Color red="0.23927874863147736" green="0.22417153418064117" blue="0.5263158082962036" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.27969348659003807">
+                           <color>
+                              <Color red="0.7176470756530762" green="0.6980392336845398" blue="0.9882352948188782" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.37804637200300173">
+                           <color>
+                              <Color red="0.1807565838098526" green="0.16118420660495758" blue="0.5526315569877625" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.479401192874353">
+                           <color>
+                              <Color red="0.7176470756530762" green="0.6980392336845398" blue="0.9882352948188782" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.5733301734012719">
+                           <color>
+                              <Color red="0.15076754987239838" green="0.13377192616462708" blue="0.4736842215061188" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.685823754789272">
+                           <color>
+                              <Color red="0.7176470756530762" green="0.6980392336845398" blue="0.9882352948188782" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.7903780068728521">
+                           <color>
+                              <Color red="0.11306042969226837" green="0.09892787784337997" blue="0.3815789520740509" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.8986056799778798">
+                           <color>
+                              <Color red="0.7137255072593689" green="0.6941176652908325" blue="0.9803921580314636" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="0.08001340180635452" green="0.058601364493370056" blue="0.4868420958518982" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </textFill>
             </Label>
-            <Button fx:id="start_button" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#start" text="Click Here To Start" textOverrun="WORD_ELLIPSIS">
+            <Button fx:id="start_button" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#start" text="Click Here To Start" textFill="#545194" textOverrun="WORD_ELLIPSIS">
                <StackPane.margin>
                   <Insets top="25.0" />
                </StackPane.margin>
                <font>
-                  <Font name="Arial Narrow Italic" size="14.0" />
+                  <Font name="Arial Narrow Bold" size="20.0" />
                </font>
             </Button>
          </children>

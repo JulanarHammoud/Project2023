@@ -23,10 +23,13 @@ public class ShowMessageController {
     @FXML
     Label msgcontent;
     @FXML
+    Label exam;
+    @FXML
     void initialize() throws IOException {
         teachername.setText(String.valueOf(Message.getTID()));
         time.setText(String.valueOf(Message.getTime()));
         msgcontent.setText(Message.getMessage());
+        exam.setText(String.valueOf(Message.getExamTeacherid()));
     }
     public void Decline(javafx.event.ActionEvent event) {
         LinkedList<Object> message = new LinkedList<>();
