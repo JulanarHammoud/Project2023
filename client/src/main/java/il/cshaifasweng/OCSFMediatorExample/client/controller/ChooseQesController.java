@@ -26,12 +26,6 @@ public class ChooseQesController {
     private TableView<Question> Qtable;
 
     @FXML
-    private Button add;
-
-    @FXML
-    private Button edit;
-
-    @FXML
     private TableColumn<Question, String> the_right_ans;
 
     @FXML
@@ -170,12 +164,12 @@ public class ChooseQesController {
             catch (IOException e){
                 e.printStackTrace();
             }
-        } else{
+        } else{ // we selected a question
             message.add(question1);
             if(subId.getId()==-1){
-                message.add(0);
+                message.add(0); // coming from question table
             } else{
-                message.add(1);
+                message.add(1); // coming from make exam
             }
             SimpleClient.getParams().add(message);
             try{

@@ -49,11 +49,9 @@ public class ShowQuestion {
                 Teacher teacher = (Teacher) msg.get(3);;
                 SubjectAndId newsubid;
                 if(flag == 0){
-                    newsubid= new SubjectAndId(subjectTeacher , -1, teacher);
-                } else {
-                    newsubid= new SubjectAndId(subjectTeacher , subid.getId() , teacher);
+                    subid= new SubjectAndId(subjectTeacher , -1, teacher);
                 }
-                SimpleClient.getParams().add(newsubid);
+                SimpleClient.getParams().add(subid);
                 setRoot("ChooseQes");
             }
             else{ // coming from manager's question table

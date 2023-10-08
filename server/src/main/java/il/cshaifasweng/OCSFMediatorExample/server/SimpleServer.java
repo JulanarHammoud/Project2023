@@ -396,7 +396,7 @@ public class SimpleServer extends AbstractServer {
 						if(flag==0){
 							subid=new SubjectAndId(newsubject ,-1,teacher);
 						} else{
-							subid=new SubjectAndId(newsubject ,id,teacher);
+							subid=new SubjectAndId(newsubject ,(Integer) message.get(2),teacher);
 						}
 						client.sendToClient(warning);
 						client.sendToClient(subid);
@@ -454,9 +454,9 @@ public class SimpleServer extends AbstractServer {
 						SubjectTeacher subjectTeacher1 = Data.MakeQuestion(ques1, ans1, ans2, ans3, ans4, right,note ,subjectTeacher);
 						LinkedList<Question> questions = (LinkedList<Question>) message.get(11);
 						SubjectAndId subid;
-						if (questions == null) {
+						if (questions == null) { // make new question coming from question table
 							subid = new SubjectAndId(subjectTeacher1, id, teacher);
-						} else {
+						} else { // make new question coming from make exam
 							subid = new SubjectAndId(subjectTeacher1, id, teacher, questions);
 							subid.setQuestions(questions);
 						}
