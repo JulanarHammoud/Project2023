@@ -92,6 +92,20 @@ int lastIndex = SimpleClient.getParams().size() - 1;
         }
     }
 
+    @FXML
+    void Mail(ActionEvent event) throws IOException{
+        try {
+            LinkedList<Object> message = new LinkedList<>();
+            message.add("MaillManager");
+            message.add(getForManager);
+            message.add(false);
+            SimpleClient.getClient().sendToServer(message);
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
 @FXML
 public void LogOut(ActionEvent event) throws IOException {
     LinkedList<Object> message = new LinkedList<Object>();

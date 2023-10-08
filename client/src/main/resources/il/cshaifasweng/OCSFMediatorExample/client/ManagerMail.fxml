@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.ManagerMailController">
+   <children>
+      <TableView fx:id="Mtable" layoutX="-3.0" layoutY="45.0" prefHeight="355.0" prefWidth="607.0">
+        <columns>
+          <TableColumn fx:id="id" prefWidth="69.0" text="ID" />
+            <TableColumn fx:id="time" minWidth="0.0" prefWidth="65.0" text="Time" />
+          <TableColumn fx:id="teachermessage" minWidth="0.0" prefWidth="472.0" text="Message" />
+        </columns>
+      </TableView>
+      <Button layoutX="62.0" layoutY="2.0" mnemonicParsing="false" onAction="#back" text="Back" textFill="#197917">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font></Button>
+      <Button layoutY="2.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#a13333">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font></Button>
+      <Button layoutX="544.0" layoutY="3.0" mnemonicParsing="false" onAction="#open" text="Open" textFill="#051894">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font></Button>
+      <Button layoutX="473.0" layoutY="3.0" mnemonicParsing="false" onAction="#Refresh" text="Refresh" textFill="#051894">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font></Button>
+      <Label layoutX="266.0" layoutY="2.0" text="Mail">
+         <font>
+            <Font name="System Bold Italic" size="35.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.10588235408067703" green="0.3529411852359772" blue="0.6196078658103943" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.23964134771102422">
+                     <color>
+                        <Color red="0.10588235408067703" green="0.3529411852359772" blue="0.6196078658103943" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.4171505312635779">
+                     <color>
+                        <Color red="0.6431372761726379" green="0.10588235408067703" blue="0.10588235408067703" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.5613224315677213">
+                     <color>
+                        <Color red="0.729411780834198" green="0.5098039507865906" blue="0.06666667014360428" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.6907216494845361">
+                     <color>
+                        <Color red="0.7411764860153198" green="0.7882353067398071" blue="0.07450980693101883" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.8325236007425837">
+                     <color>
+                        <Color red="0.09803921729326248" green="0.5137255191802979" blue="0.09019608050584793" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.09803921729326248" green="0.5137255191802979" blue="0.09019608050584793" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
+   </children>
+</AnchorPane>

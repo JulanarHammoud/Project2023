@@ -7,33 +7,12 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.ManagerController">
    <children>
-      <Button mnemonicParsing="false" onAction="#LogOut" text="LogOut">
+      <Button mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#a13333">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
-         <textFill>
-            <RadialGradient centerX="0.17127071823204432" centerY="0.9691943127962085" focusAngle="180.0" focusDistance="-1.0" radius="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.12085770070552826" green="0.4335770010948181" blue="0.8157894611358643" />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.10996563573883161">
-                     <color>
-                        <Color red="0.10196078568696976" green="0.47843137383461" blue="0.6196078658103943" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.615686297416687" green="0.615686297416687" blue="0.8274509906768799" />
-                     </color>
-                  </Stop>
-               </stops>
-            </RadialGradient>
-         </textFill>
       </Button>
-      <Label fx:id="name" layoutX="22.0" layoutY="43.0" prefHeight="52.0" prefWidth="236.0" text="Manager">
+      <Label fx:id="name" layoutX="22.0" layoutY="43.0" prefHeight="58.0" prefWidth="536.0" text="Manager Malki Grossman">
          <font>
             <Font name="System Bold Italic" size="40.0" />
          </font>
@@ -59,7 +38,7 @@
             </RadialGradient>
          </textFill>
       </Label>
-      <Accordion layoutX="14.0" layoutY="115.0">
+      <Accordion layoutX="22.0" layoutY="136.0">
         <panes>
           <TitledPane fx:id="QuestionsPane" animated="false" text="Questions">
             <content>
@@ -87,5 +66,50 @@
           </TitledPane>
         </panes>
       </Accordion>
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="414.0" layoutY="136.0" mnemonicParsing="false" onAction="#Mail" prefHeight="25.0" prefWidth="144.0" text="Mail">
+         <font>
+            <Font name="System Bold Italic" size="25.0" />
+         </font>
+         <textFill>
+            <LinearGradient cycleMethod="REFLECT" endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.10588235408067703" green="0.3529411852359772" blue="0.6196078658103943" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.2337164750957854">
+                     <color>
+                        <Color red="0.10588235408067703" green="0.3529411852359772" blue="0.6196078658103943" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.3984674329501916">
+                     <color>
+                        <Color red="0.6431372761726379" green="0.10588235408067703" blue="0.10588235408067703" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.533357032823793">
+                     <color>
+                        <Color red="0.729411780834198" green="0.5098039507865906" blue="0.06666667014360428" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.6757119721925976">
+                     <color>
+                        <Color red="0.7411764860153198" green="0.7882353067398071" blue="0.07450980693101883" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.8084291187739455">
+                     <color>
+                        <Color red="0.09803921729326248" green="0.5137255191802979" blue="0.09019608050584793" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.09803921729326248" green="0.5137255191802979" blue="0.09019608050584793" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill></Button>
    </children>
 </AnchorPane>

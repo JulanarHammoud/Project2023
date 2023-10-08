@@ -1,6 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.client.EventBus.*;
+import il.cshaifasweng.OCSFMediatorExample.entities.MailManagerEntity;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -337,6 +338,17 @@ public class App extends Application {
             SimpleClient.getParams().add(event.getGetForManager());
             try {
                 setRoot("Manager");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });}
+    @Subscribe
+    public void onMailManagerEvent(MailManagerEvent event) {
+        Platform.runLater(() -> {
+            System.out.println("MailManagerEvent App-client");
+            SimpleClient.getParams().add(event.getMM());
+            try {
+                setRoot("ManagerMail");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

@@ -94,6 +94,9 @@ public class SimpleClient extends AbstractClient {
 		else if (msg.getClass().equals(GetForManager.class)) {
 			EventBus.getDefault().post(new GetForManagerEvent((GetForManager) msg));
 		}
+		else if (msg.getClass().equals(MailManagerEntity.class)) {
+			EventBus.getDefault().post(new MailManagerEvent((MailManagerEntity) msg));
+		}
 	}
 
 	public static SimpleClient getClient() {

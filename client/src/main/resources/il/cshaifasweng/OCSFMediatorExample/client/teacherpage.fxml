@@ -14,7 +14,7 @@
             <Image url="@student.jpg" />
          </image>
       </ImageView>
-      <Label fx:id="tName" layoutX="50.0" layoutY="14.0" text="Teacher:">
+      <Label fx:id="tName" layoutX="50.0" layoutY="49.0" prefHeight="58.0" prefWidth="447.0" text="Teacher:">
          <font>
             <Font name="System Bold" size="40.0" />
          </font>
@@ -35,7 +35,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Accordion fx:id="container" layoutX="50.0" layoutY="123.0" prefHeight="173.0" prefWidth="213.0">
+      <Accordion fx:id="container" layoutX="50.0" layoutY="135.0" prefHeight="173.0" prefWidth="213.0">
       </Accordion>
       <Button layoutX="-3.0" layoutY="1.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="26.0" prefWidth="63.0" text="LogOut" textFill="#a19c22">
          <font>
@@ -44,5 +44,6 @@
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor></Button>
+      <Button layoutX="519.0" layoutY="15.0" mnemonicParsing="false" onAction="#messagetomanager" text="Button" />
    </children>
 </AnchorPane>

@@ -160,4 +160,19 @@ public class TeacherController {
         SimpleClient.getClient().sendToServer(message);
 
     }
+
+
+    @FXML
+    void messagetomanager(ActionEvent event) throws IOException{
+        try {
+            LinkedList<Object> message = new LinkedList<>();
+            message.add("SendMassage");
+            message.add(teacher);
+            message.add(1); // this should be ExamTeacher id
+            SimpleClient.getClient().sendToServer(message);
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 }
