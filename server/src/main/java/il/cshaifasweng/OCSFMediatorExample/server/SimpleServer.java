@@ -223,49 +223,25 @@ public class SimpleServer extends AbstractServer {
 			} else if (message.get(0).equals("#MakeExam")) {
 				try {
 					System.out.println("in make exam ");
-					String num = (String) message.get(1);
-					String t_N = (String) message.get(2);
-					String timm = (String) message.get(3);
-					String S_N = (String) message.get(4);
-					//System.out.println(S_N);
-					CourseTeacher course = (CourseTeacher) message.get(5);
-					SubjectTeacher sub = (SubjectTeacher) message.get(6);
-					String teacherr = (String) message.get(7);
-					Teacher teacher = (Teacher) message.get(8);
-
+					String t_N = (String) message.get(1);
+					String timm = (String) message.get(2);
+					String S_N = (String) message.get(3);
+					CourseTeacher course = (CourseTeacher) message.get(4);
+					SubjectTeacher sub = (SubjectTeacher) message.get(5);
+					String teacherr = (String) message.get(6);
+					Teacher teacher = (Teacher) message.get(7);
 					if (timm.isEmpty()) {
-						if (num.isEmpty()) {
-							System.out.println("there is no time or number of questions filled yet");
-							Warning warning = new Warning("please fill the informations!!");
-							client.sendToClient(warning);
-						} else {
-							System.out.println("the user did not fill the time");
-							Warning warning = new Warning("please fill the time!!");
-							client.sendToClient(warning);
-						}
-					} else if (num.isEmpty()) {
-						System.out.println("the user did not fill the number of questions");
-						Warning warning = new Warning("please fill the number of questions!!");
+						System.out.println("the user did not fill the time");
+						Warning warning = new Warning("please fill the time!!");
 						client.sendToClient(warning);
 					} else {
 						boolean result1 = timm.matches("[0-9]+");
-						boolean result2 = num.matches("[0-9]+");
-						if (result1 == false && result2 == false) {
-							System.out.println("ellegal time and number of questions");
-							Warning warning = new Warning("please fill a legal time and a legal number of questions!!");
-							client.sendToClient(warning);
-						} else if (result1 == false) {
+						if (result1 == false) {
 							System.out.println("ellegal time");
 							Warning warning = new Warning("please fill a legal time!!");
 							client.sendToClient(warning);
-
-						} else if (result2 == false) {
-							System.out.println("ellegal num of questions");
-							Warning warning = new Warning("please fill a legal number of questions!!");
-							client.sendToClient(warning);
-						} else {
-							int num_q = Integer.valueOf(num);
-							int id = Data.MakeExam(num_q, t_N, timm, S_N, course.getName(), sub, teacherr);
+						}  else {
+							int id = Data.MakeExam(0, t_N, timm, S_N, course.getName(), sub, teacherr);
 							DecimalFormat formatter = new DecimalFormat("00");
 							String cor_id = formatter.format(course.getId());
 							String sub_id = formatter.format(sub.getId());
@@ -519,11 +495,12 @@ public class SimpleServer extends AbstractServer {
 					Teacher teacher = (Teacher) message.get(1);
 					SubjectTeacher subject = (SubjectTeacher) message.get(2);
 					CourseTeacher courseTeacher=(CourseTeacher) message.get(4);
-					Exam exam = Data.setQuestions((int) message.get(3), (LinkedList<Question>) message.get(5));
+					int questionNumber = (Integer) message.get(5);
+					Exam exam = Data.setQuestions((int) message.get(3), (LinkedList<Question>) message.get(6));
 					for (Question question : exam.getQuestions()) {
-						//System.out.println(" im in the loop");
 						System.out.println(question.getQuestion());
 					}
+					Data.setNumberOfQuestions(questionNumber,exam.getId());
 					ExamSubjectTeacher examsubjectteacher = new ExamSubjectTeacher(teacher, subject, exam,courseTeacher);
 					System.out.println("we made the class:");
 					System.out.println(examsubjectteacher.getExam().getSubject());
@@ -676,6 +653,7 @@ public class SimpleServer extends AbstractServer {
 								String sub_id = formatter.format(subject.getId());
 								Data.updateExamId(cor_id, id, sub_id);
 							} else{ // same exam
+								Data.setNumberOfQuestions(exFromClient.getNumOfQuestions(),id);
 								Data.updateExam(id,TeacherNote,StudentNote,Integer.valueOf(Time));
 								exam = Data.setQuestions(id, (LinkedList<Question>) message.get(8));
 							}

@@ -41,7 +41,6 @@ public class ShowMessageController {
             e.printStackTrace();
         }
     }
-
     public void Accept(ActionEvent event) {
         LinkedList<Object> message = new LinkedList<>();
         message.add("AnswerMessage");
@@ -49,7 +48,6 @@ public class ShowMessageController {
         message.add(MME);
         message.add(Message.getTime());
         message.add(Message.getExamTeacherid());
-
         try {
             SimpleClient.getClient().sendToServer(message);
         } catch (IOException e) {

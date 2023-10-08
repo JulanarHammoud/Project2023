@@ -589,25 +589,16 @@ public class Data {
         session.flush();
         session.getTransaction().commit();
         session.close();
-        // return exam; Exam
     }
 
     public static List<CourseTeacher> getAllCoutsrss() {
-        System.out.println("line 1");
         SessionFactory sessionFactory = getSessionFactory();
-        System.out.println("line 2");
         session = sessionFactory.openSession();
-        System.out.println("line 3");
         session.beginTransaction();
-        System.out.println("line 4");
         CriteriaBuilder builder = session.getCriteriaBuilder();
-        System.out.println("line 5");
         CriteriaQuery<CourseTeacher> query = builder.createQuery(CourseTeacher.class);
-        System.out.println("line 6");
         query.from(CourseTeacher.class);
-        System.out.println("line 7");
         List<CourseTeacher> result = session.createQuery(query).getResultList();
-        System.out.println("line 8");
         session.close();
         System.out.println(result.size());
         return result;
@@ -633,8 +624,6 @@ public class Data {
         System.out.println("I'm in findsubject method");
         System.out.println(choose);
         List<SubjectTeacher> list = Data.getAllSubjects();
-        // System.out.println(list.get(1).getName());
-        // System.out.println(list.get(0).getName());
         for (SubjectTeacher subjectTeacher : list) {
             if (subjectTeacher.getSb_name().equals(choose)) {
                 System.out.println(subjectTeacher.getSb_name());
@@ -679,10 +668,6 @@ public class Data {
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
-//        LinkedList<Question> setQ = new LinkedList<>();
-//        for(Question set : questions){
-//            setQ.add(session.get(Question.class,set.getId()));
-//        }
         SubjectTeacher sub = session.get(SubjectTeacher.class, id);
 
         session.flush();
@@ -802,5 +787,16 @@ public class Data {
         session.close();
         System.out.println(result.size());
         return result;
+    }
+    public static void setNumberOfQuestions(int numberofquestions ,int examId) {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        Exam exam = session.get(Exam.class, examId);
+        exam.setNumOfQuestions(numberofquestions);
+        session.saveOrUpdate(exam);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
     }
 }

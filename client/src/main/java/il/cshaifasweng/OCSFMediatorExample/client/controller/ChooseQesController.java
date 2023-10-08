@@ -63,6 +63,7 @@ public class ChooseQesController {
     List<Question> listquestions = subjectteacher.getQuestions();
     ObservableList<Question> data = FXCollections.observableArrayList(listquestions);
     CourseTeacher courseTeacher=subId.getCourseTeacher();
+    int NumberofQusetions;
 
     public void initialize()  {
         Qtable.setEditable(true);
@@ -112,14 +113,17 @@ public class ChooseQesController {
             message.add(subId.getId());
             System.out.println("client is sendeing these questions");
 
+            NumberofQusetions = 0;
             for(Question selectedQ :listquestions){
                 if(selectedQ.getExist()==true){
                     selectedQuestions.add(selectedQ);
                     System.out.println(selectedQ.getQuestion());
+                    NumberofQusetions++;
                 }
             }
             System.out.println(selectedQuestions.isEmpty());
             message.add(courseTeacher);
+            message.add(NumberofQusetions);
             message.add(selectedQuestions);
             System.out.println( "the list is null:" + selectedQuestions == null);
             if(selectedQuestions.isEmpty()){

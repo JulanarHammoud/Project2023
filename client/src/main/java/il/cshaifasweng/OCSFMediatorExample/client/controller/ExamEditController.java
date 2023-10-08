@@ -33,6 +33,7 @@ public class ExamEditController {
     SubjectAndId subId = new SubjectAndId(subject, exam.getId(), teacher);
     CourseTeacher courseTeacher=subId.getCourseTeacher();
     LinkedList<Question> QUEStions = subId.getQuestions();
+    int numofquestions;
 
     @FXML
     private Label ETime;
@@ -302,6 +303,12 @@ public class ExamEditController {
             }
         }
 
+        numofquestions=0;
+        for(Question question:selectedQuestions){
+            numofquestions++;
+        }
+        exam.setNumOfQuestions(numofquestions);
+
         if(selectedQuestions.isEmpty()){
             System.out.println("ERROR: ExamEditController deleting all the questions");
             message.add(0);
@@ -362,6 +369,11 @@ public class ExamEditController {
                 selectedQuestions.add(question);
             }
         }
+        numofquestions=0;
+        for(Question question:selectedQuestions){
+            numofquestions++;
+        }
+        exam.setNumOfQuestions(numofquestions);
 
         if (selectedQuestions.equals(questions)) {
             System.out.println("ERROR: no selected questions to add, at ExamEditController");
@@ -419,6 +431,11 @@ public class ExamEditController {
                 selectedQuestions.add(question);
             }
         }
+        numofquestions=0;
+        for(Question question:selectedQuestions){
+            numofquestions++;
+        }
+        exam.setNumOfQuestions(numofquestions);
 
         String time = String.valueOf(exam.getTimerr());
         String TN = exam.getTeacherNotes();
@@ -499,6 +516,11 @@ public class ExamEditController {
                 change = 1;
             }
         }
+        numofquestions=0;
+        for(Question question:selectedQuestions){
+            numofquestions++;
+        }
+        exam.setNumOfQuestions(numofquestions);
         if(selectedQuestions.isEmpty()){ // deleting all questions without adding any question
             message.add(1); //we are in saveall button
             if(!examSubjectTeacherEdit.getPressed()){
