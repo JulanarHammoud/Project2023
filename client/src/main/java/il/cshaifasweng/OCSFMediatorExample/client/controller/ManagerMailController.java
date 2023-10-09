@@ -51,19 +51,6 @@ public class ManagerMailController {
         teachermessage.setCellValueFactory(new PropertyValueFactory<ManagerMessage, String>("message"));
         time.setCellValueFactory(new PropertyValueFactory<ManagerMessage, Integer>("time"));
     }
-
-    @FXML
-    public void Refresh(ActionEvent event) throws IOException{
-        LinkedList<Object> message = new LinkedList<>();
-        message.add("MaillManager");
-        message.add(GFM);
-        try {
-            SimpleClient.getClient().sendToServer(message);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     @FXML
     public void open(ActionEvent event) throws IOException{
         ManagerMessage m = Mtable.getSelectionModel().getSelectedItem();
@@ -76,6 +63,10 @@ public class ManagerMailController {
             message.add(m);
             message.add(MME);
             try {
+                LinkedList<Object> message1 = new LinkedList<>();
+                message1.add("ExitMessages");
+                message1.add(0);
+                SimpleClient.getClient().sendToServer(message1);
                 SimpleClient.getParams().add(message);
                 setRoot("ShowMessage");
             } catch (Exception e){
@@ -83,11 +74,14 @@ public class ManagerMailController {
             }
         }
     }
-
     @FXML
     public void back (ActionEvent event) throws IOException {
         SimpleClient.getParams().add(GFM);
         try {
+            LinkedList<Object> message = new LinkedList<>();
+            message.add("ExitMessages");
+            message.add(0);
+            SimpleClient.getClient().sendToServer(message);
             setRoot("Manager");
         }catch (IOException e){
             e.printStackTrace();

@@ -14,6 +14,7 @@ import java.util.List;
 public class SimpleServer extends AbstractServer {
 	ConnectionToClient mngr = null;
 
+
 	public SimpleServer(int port) {
 		super(port);
 		try {
@@ -193,6 +194,7 @@ public class SimpleServer extends AbstractServer {
 				System.out.println("are you in the log out?");
 				LogOut logOut = new LogOut("success");
 				try {
+					mngr.setInfo("Maill",0);//we are not in the mail manager
 					System.out.println("the id of the user is: " + (int) message.get(1));
 					String n = (String) message.get(2);
 					if ("teacher".equals(n)) {
@@ -735,6 +737,7 @@ public class SimpleServer extends AbstractServer {
 			} else if (message.get(0).equals("#GetAllSubjectsSimpleServer")) {
 				try {
 					mngr = client;
+					mngr.setInfo("Maill",0);//we are not in the mail manager
 					List<Teacher> teachers = (List<Teacher>) Data.getAllTeachers();
 					List<Student> students = Data.getAllStudents();
 					List<CourseTeacher> courses = Data.getAllCourses();
@@ -745,6 +748,7 @@ public class SimpleServer extends AbstractServer {
 				}
 			} else if (message.get(0).equals("#ShowExamManager")) {
 				try {
+					mngr.setInfo("Maill",0);//we are not in the mail manager
 					System.out.println("Not selecting any the exam");
 					Warning warning = new Warning("please select a exam!!");
 					client.sendToClient(warning);
@@ -754,12 +758,20 @@ public class SimpleServer extends AbstractServer {
 			} else if (message.get(0).equals("SendMassage")) {
 				Teacher t = (Teacher) message.get(1);
 				int examteacherid = (Integer) message.get(2);
-				Data.GenerateMessage(10, "Delete Me", t.getId(), examteacherid);
+				Data.GenerateMessage(10, "I am a message", t.getId(), examteacherid);
 				Warning warning = new Warning("Message Added Successfully");
 				try {
 					if (mngr != null) {
-						Warning warningforManager = new Warning("You have a new message");
-						mngr.sendToClient(warningforManager);
+						if(mngr.getInfo("Maill").toString().equals("1")) // if the manager is in the maill page, refresh it
+						{
+							List<Teacher> teachers = (List<Teacher>) Data.getAllTeachers();
+							List<Student> students = Data.getAllStudents();
+							List<CourseTeacher> courses = Data.getAllCourses();
+							GetForManager getForManager = new GetForManager(teachers, students, courses);
+							List<ManagerMessage> M = Data.getAllMessages();
+							MailManagerEntity mailManagerEntity = new MailManagerEntity(M, getForManager);
+							mngr.sendToClient(mailManagerEntity);
+						}
 						client.sendToClient(warning);
 					} else {
 						Warning warning1 = new Warning("The message have been sent, but the manager is not available");
@@ -772,6 +784,7 @@ public class SimpleServer extends AbstractServer {
 				}
 			} else if (message.get(0).equals("MaillManager")) {
 				try {
+					mngr.setInfo("Maill",1);
 					GetForManager getForManager = (GetForManager) message.get(1);
 					List<ManagerMessage> M = Data.getAllMessages();
 					MailManagerEntity mailManagerEntity = new MailManagerEntity(M, getForManager);
@@ -779,8 +792,10 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					throw new RuntimeException(e);
 				}
-			} else if (message.get(0).equals("AnswerMessage")) {
+			}
+			else if (message.get(0).equals("AnswerMessage")) {
 				try {
+					mngr.setInfo("Maill",1);
 					ManagerMessage Message = (ManagerMessage) message.get(1);
 					MailManagerEntity mailManagerEntity = (MailManagerEntity) message.get(2);
 					int id = Message.getId();
@@ -802,13 +817,15 @@ public class SimpleServer extends AbstractServer {
 					throw new RuntimeException(e);
 				}
 			} else if (message.get(0).equals("noselection")) {
+				mngr.setInfo("Maill",0);//we are not in the mail manager
 				Warning warning = new Warning("You didn't select anything!!");
 				try {
 					client.sendToClient(warning);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			} else if (message.get(0).equals("ManagerLogin")) {
+			}
+			else if (message.get(0).equals("ManagerLogin")) {
 				String user = (String) message.get(1);
 				String pass = (String) message.get(2);
 				if (user.equals("")) {
@@ -842,6 +859,9 @@ public class SimpleServer extends AbstractServer {
 						throw new RuntimeException(e);
 					}
 				}
+			}
+			else if (message.get(0).equals("ExitMessages")){
+				mngr.setInfo("Maill",0);//we are not in the mail manager
 			}
 		}
 	}
