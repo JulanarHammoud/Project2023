@@ -453,6 +453,7 @@ public class Data {
     public static int MakeExam(int NumQ, String TNotes, String timm, String SNotes, String course, SubjectTeacher sub, String teacher) {
         Exam ex = new Exam(NumQ, TNotes, timm, SNotes, course, sub.getSb_name(), teacher);
         try {
+            System.out.println("generating an exam");
             SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
             session.beginTransaction();

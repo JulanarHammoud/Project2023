@@ -29,14 +29,8 @@ public class LoginController {
     void SelectRole(ActionEvent event) throws IOException {
         String choose = role.getSelectionModel().getSelectedItem();
         LinkedList<Object> message = new LinkedList<Object>();
-        if(choose.equals("manager")){
-            if(password.getText().equals("123")&& username.getText().equals("miral")){
-                message.add("#GetAllSubjectsSimpleServer");
-                SimpleClient.getClient().sendToServer(message);
-            }
-        } else{
+        if(choose==null || !choose.equals("manager")){
             System.out.println("hi");
-
             message.add("#Login");
             message.add(username.getText());
             message.add(password.getText());
@@ -45,6 +39,17 @@ public class LoginController {
             System.out.println("Selected item: " + choose);
             message.add(choose);
             SimpleClient.getClient().sendToServer(message);
+        }
+        else if(choose.equals("manager")){
+            if(password.getText().equals("123")&& username.getText().equals("malki")){
+                message.add("#GetAllSubjectsSimpleServer");
+                SimpleClient.getClient().sendToServer(message);
+            } else {
+                message.add("ManagerLogin");
+                message.add(username.getText());
+                message.add(password.getText());
+                SimpleClient.getClient().sendToServer(message);
+            }
         }
     }
 

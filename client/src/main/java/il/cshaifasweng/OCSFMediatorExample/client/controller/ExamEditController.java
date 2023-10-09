@@ -31,7 +31,7 @@ public class ExamEditController {
     List<Question> listquestions = subject.getQuestions();
     ObservableList<Question> data = FXCollections.observableArrayList(listquestions);
     SubjectAndId subId = new SubjectAndId(subject, exam.getId(), teacher);
-    CourseTeacher courseTeacher=subId.getCourseTeacher();
+    CourseTeacher courseTeacher=examSubjectTeacherEdit.getCourseTeacher();
     LinkedList<Question> QUEStions = subId.getQuestions();
     int numofquestions;
 

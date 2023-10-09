@@ -66,7 +66,7 @@ public class AllExamsController {
                 message.add(null);
             }
             else{
-                ExamSubjectTeacher EST=new ExamSubjectTeacher(teacher,subject,exam);
+                ExamSubjectTeacher EST=new ExamSubjectTeacher(teacher,subject,exam,courseteacher);
                 message.add(EST);
             }
             SimpleClient.getClient().sendToServer(message);
@@ -85,7 +85,7 @@ public class AllExamsController {
                 message.add(null);
             }
             else{
-                ExamSubjectTeacherEdit ESTE = new ExamSubjectTeacherEdit(teacher,subject,exam);
+                ExamSubjectTeacherEdit ESTE = new ExamSubjectTeacherEdit(teacher,subject,exam,3,courseteacher);
                 message.add(ESTE);
             }
             SimpleClient.getClient().sendToServer(message);
