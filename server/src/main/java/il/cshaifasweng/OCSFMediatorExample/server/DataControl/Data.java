@@ -573,21 +573,13 @@ public class Data {
     }
 
     public static List<SubjectTeacher> getAllSubjects() {
-        System.out.println("line 1");
         SessionFactory sessionFactory = getSessionFactory();
-        System.out.println("line 2");
         session = sessionFactory.openSession();
-        System.out.println("line 3");
         session.beginTransaction();
-        System.out.println("line 4");
         CriteriaBuilder builder = session.getCriteriaBuilder();
-        System.out.println("line 5");
         CriteriaQuery<SubjectTeacher> query = builder.createQuery(SubjectTeacher.class);
-        System.out.println("line 6");
         query.from(SubjectTeacher.class);
-        System.out.println("line 7");
         List<SubjectTeacher> result = session.createQuery(query).getResultList();
-        System.out.println("line 8");
         session.close();
         System.out.println(result.size());
         return result;

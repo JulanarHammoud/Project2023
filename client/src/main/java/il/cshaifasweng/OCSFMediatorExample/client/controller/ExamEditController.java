@@ -100,10 +100,18 @@ public class ExamEditController {
             test.getChildren().add(hBox);
             i = i + 20;
             j++;
-            checkbox1.setOnAction(e -> { if(checkbox1.isSelected()) {q.setSelect_to_delete(true);} }); // see if the checkbox is checked
+            checkbox1.setOnAction(e -> { if(checkbox1.isSelected()) {q.setSelect_to_delete(true);}else{q.setSelect_to_delete(false); } }); // see if the checkbox is checked
         }
 
-        //Accordion to hold the quesion table or to add new question to the questions
+
+
+
+
+
+
+
+
+        //Accordion to hold the question table or to add new question to the questions
         TitledPane questionpane = new TitledPane();
         questionpane.setText("Question Table");
         addquestion.getPanes().add(questionpane);
@@ -245,9 +253,14 @@ public class ExamEditController {
         Copy.setContent(SelectCopy);
         Old_copy.setOnAction(this::Old_copy);
         New_Copy.setOnAction(this::New_Copy);
-        if(examSubjectTeacherEdit.getFlag()==2){
+        if(examSubjectTeacherEdit.getFlag()==10){
+            Copy.setDisable(true);
+            examSubjectTeacherEdit.setFlag(1);
+            examSubjectTeacherEdit.setPressed(true);
+            ExamCopy.setText("New Copy");
+        }
+        else if(examSubjectTeacherEdit.getFlag()==2){
             examSubjectTeacherEdit.setFlag(2);
-            //Copy.setDisable(true);
             examSubjectTeacherEdit.setPressed(true);
             ExamCopy.setText("Same New Copy");
         }else if(examSubjectTeacherEdit.getFlag()==4){

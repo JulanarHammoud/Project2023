@@ -582,6 +582,12 @@ public class SimpleServer extends AbstractServer {
 						client.sendToClient(warning);
 					} else {
 						ExamSubjectTeacherEdit examSubjectTeacherEdit = (ExamSubjectTeacherEdit) message.get(1);
+						String name=examSubjectTeacherEdit.getTeacher().getFirstName() + " " +examSubjectTeacherEdit.getTeacher().getLastName();
+						System.out.println(name);
+						System.out.println(examSubjectTeacherEdit.getExam().getTeacher());
+						if(!examSubjectTeacherEdit.getExam().getTeacher().equals(name)){
+							examSubjectTeacherEdit.setFlag(10);
+						}
 						System.out.println("Im in EditExam in simpleserver");
 						client.sendToClient(examSubjectTeacherEdit);
 					}
@@ -659,9 +665,7 @@ public class SimpleServer extends AbstractServer {
 									"1. keep at least one question in the exam" + "\n" +
 									"2. delete the exam" + "\n" +
 									"3. make a new exam");
-							examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject, exFromClient, flag, course);
 							client.sendToClient(warning);
-							client.sendToClient(examSubjectTeacherEdit);
 						}
 					}
 					if (good == 1) { // No problems
@@ -676,9 +680,10 @@ public class SimpleServer extends AbstractServer {
 							client.sendToClient(warning);
 						} else {
 							if (flag == 1) { //New Exam Copy
+								String name = teacher.getFirstName() + " " + teacher.getLastName();
 								id = Data.MakeExam(exFromClient.getNumOfQuestions(), TeacherNote,
 										Time, StudentNote, exFromClient.getCourse(),
-										subject, exFromClient.getTeacher());
+										subject, name);
 								exam = Data.setQuestions(id, (LinkedList<Question>) message.get(8));
 
 								DecimalFormat formatter = new DecimalFormat("00");

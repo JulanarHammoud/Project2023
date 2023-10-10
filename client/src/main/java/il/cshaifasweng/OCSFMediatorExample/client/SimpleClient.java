@@ -108,5 +108,4 @@ public class SimpleClient extends AbstractClient {
 	public static List<Object> getParams() {
 		return params;
 	}
-
 }
