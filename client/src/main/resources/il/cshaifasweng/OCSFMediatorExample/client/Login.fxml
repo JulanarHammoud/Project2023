@@ -5,7 +5,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="601.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.LoginController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="434.0" prefWidth="535.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.LoginController">
    <children>
       <Text layoutX="113.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="username" wrappingWidth="113.60000000000014">
          <font>

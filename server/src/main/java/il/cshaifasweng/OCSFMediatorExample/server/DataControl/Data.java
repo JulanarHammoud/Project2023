@@ -10,6 +10,7 @@ import org.hibernate.service.ServiceRegistry;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -175,7 +176,8 @@ public class Data {
 
     }
 
-    public static void LogOutSt(int id) throws Exception {
+    public static void LogOutSt(int id) throws Exception{
+        try{
         // Student student = getStudent(id);
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
@@ -185,11 +187,14 @@ public class Data {
         session.saveOrUpdate(change);
         session.flush();
         session.getTransaction().commit();
-        session.close();
-
+        session.close();}
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void LogOutTeacher(int id) throws Exception {
+        try{
         // Student student = getStudent(id);
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
@@ -200,7 +205,10 @@ public class Data {
         session.flush();
         session.getTransaction().commit();
         session.close();
-
+        System.out.println(change.getActive()+"change active status");}
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void BackSt(int id) throws Exception {

@@ -28,81 +28,100 @@ public class SimpleClient extends AbstractClient {
 			System.out.println("im in the warning");
 		}
 		else if(msg.getClass().equals(StudentWillDoEx.class)){
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			EventBus.getDefault().post(new StudentWillDoExEvent((StudentWillDoEx) msg));
 		}
 		else if(msg.getClass().equals(stlist.class)){
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			EventBus.getDefault().post(new stdlEvent((stlist) msg));
 		}
 		else if(msg.getClass().equals(StudentInfo.class)){
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			EventBus.getDefault().post(new StudentEvent((StudentInfo) msg));
 		}
 		else if(msg.getClass().equals(Teacher.class)){
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			EventBus.getDefault().post(new TeacherLogEvent((Teacher) msg));
 		}
 		else if(msg.getClass().equals(Student.class)){
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			EventBus.getDefault().post(new StudentLogEvent((Student) msg));
 		}
 		else if(msg.getClass().equals(ExamStudent.class)){
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			EventBus.getDefault().post(new ExamStudentEvent((ExamStudent) msg));
 		}
 		else if(msg.getClass().equals(GradeSt.class)){
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			EventBus.getDefault().post(new GradeStEvent((GradeSt) msg));
 		}
 		else if(msg.getClass().equals(LogOut.class)){
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			EventBus.getDefault().post(new LogOutEvent((LogOut) msg));
 		}
 		else if(msg.getClass().equals(CourseTeacher.class)){
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			System.out.println("else if");
 			EventBus.getDefault().post(new CourseTeacherEvent((CourseTeacher) msg));
 		}
 
 		else if(msg.getClass().equals(ExamCourse.class)){
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			System.out.println("else if");
 			EventBus.getDefault().post(new ExamCourseEvent((ExamCourse) msg));
 		}
 		else if (msg.getClass().equals(SubWITHid.class)) {
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			System.out.println("else if");
 			EventBus.getDefault().post(new SubWITHidEvent((SubWITHid) msg));
 		}
 		else if(msg.getClass().equals(GetSubject.class)){
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			System.out.println("GetSubject Client");
 			EventBus.getDefault().post(new GetSubjectEvent((GetSubject) msg));
 		}
 		else if(msg.getClass().equals(SubjectTeacher.class)){
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			System.out.println("SubjectTeacher Client");
 			EventBus.getDefault().post(new SubjectTeacherEvent((SubjectTeacher) msg));
 		}
 		else if(msg.getClass().equals(SubjectAndId.class)){
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			System.out.println("SubjectAndId Client");
 			EventBus.getDefault().post(new SubIdEvent((SubjectAndId) msg));
 		}
 		else if(msg.getClass().equals(Question.class)){
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			EventBus.getDefault().post(new QuestionEvent((Question) msg));
 		}
 		else if(msg.getClass().equals(ExamSubjectTeacher.class)){
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			System.out.println("Exam Subject teacher client");
 			EventBus.getDefault().post(new ExamShowEvent((ExamSubjectTeacher) msg));
 
 		}
 		else if(msg.getClass().equals(ExamSubjectTeacherEdit.class)){
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			System.out.println("Exam Subject teacher edit simpleclient");
 			EventBus.getDefault().post(new EditExamEvent((ExamSubjectTeacherEdit) msg));
 		}
 		else if (msg.getClass().equals(StudentWillMakeEx.class)) {
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			EventBus.getDefault().post(new StudentWillMakeExEvent((StudentWillMakeEx) msg));
 		}
 		else if (msg.getClass().equals(GetForManager.class)) {
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			EventBus.getDefault().post(new GetForManagerEvent((GetForManager) msg));
 		}
 		else if (msg.getClass().equals(MailManagerEntity.class)) {
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			EventBus.getDefault().post(new MailManagerEvent((MailManagerEntity) msg));
 		}
 	}
 
 	public static SimpleClient getClient() {
 		if (client == null) {
-			client = new SimpleClient("localhost", 3000);
-		}
+			client = new SimpleClient("localhost", 3000);}
 		return client;
 	}
 	public static List<Object> getParams() {

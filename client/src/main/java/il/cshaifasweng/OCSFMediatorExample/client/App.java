@@ -80,6 +80,7 @@ public class App extends Application {
                 System.out.println("im in stdlEvent");
                 SimpleClient.getParams().add(event.getStudent());
                // System.out.println(event.getStudent().getStudents().get(0).getSt_name());
+                System.out.println("Move to secondary page");
                 setRoot("secondary");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -97,6 +98,7 @@ public class App extends Application {
                 System.out.println("im in Question");
                 SimpleClient.getParams().add(event.getQuestion());
                 // System.out.println(event.getStudent().getStudents().get(0).getSt_name());
+                System.out.println("Move to ChooseQes page");
                 setRoot("ChooseQes");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -114,6 +116,7 @@ public class App extends Application {
                 System.out.println("im in StudentEvent");
                 SimpleClient.getParams().add(event.getStudent());
                // System.out.println(event.getStudent().getStudent().getSt_name());
+                System.out.println("Move to Grades page");
                 setRoot("Grades");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -128,6 +131,7 @@ public class App extends Application {
                 System.out.println("im in teacher log event");
                 SimpleClient.getParams().add(event.getTeacher());
                // System.out.println(event.getStudent().getStudent().getSt_name());
+                System.out.println("Move to teacher page");
                 setRoot("teacherpage");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -143,6 +147,7 @@ public class App extends Application {
                 System.out.println("im in student log event");
                 SimpleClient.getParams().add(event.getStudent());
                  System.out.println(event.getStudent().getActive());
+                System.out.println("Move to PrimaryStudent page");
                 setRoot("PrimaryStudent");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -155,6 +160,7 @@ public class App extends Application {
     public void onLogOutEvent(LogOutEvent event) throws IOException {
         Platform.runLater(() -> {
             try {
+                System.out.println("Move to primary page");
                 setRoot("primary");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -168,6 +174,7 @@ public class App extends Application {
             try {
                 System.out.println("in handle");
                 SimpleClient.getParams().add(event.getExx());
+                System.out.println("Move to subject page");
                 setRoot("subject");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -182,6 +189,7 @@ public class App extends Application {
             try {
                 System.out.println("in handle onExamEvent");
                 SimpleClient.getParams().add(event.getExx());
+                System.out.println("Move to exam page");
                 setRoot("TheExPage");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -193,10 +201,11 @@ public class App extends Application {
 
         Platform.runLater(() -> {
             try {
-                System.out.println("in handle StudentDOOOOMakeEx");
+                System.out.println("in handle StudentDOMakeEx");
                 SimpleClient.getParams().add(event.getSs());
                 System.out.println("");
                 System.out.println("after"+event.getSs().getStudent().getCourses().size()+event.getSs().getStudent().getFirstName());
+                System.out.println("Move to exam button page");
                 setRoot("StExamButton");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -208,10 +217,11 @@ public class App extends Application {
 
         Platform.runLater(() -> {
             try {
-                System.out.println("in handle StudentDOOOOMakeEx");
+                System.out.println("in handle StudentDMakeEx");
                 SimpleClient.getParams().add(event.getDd());
                 System.out.println("");
                 System.out.println("after"+event.getDd().getSs().getFirstName());
+                System.out.println("Move to gradesbutton page");
                 setRoot("GradesButton");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -243,6 +253,7 @@ public class App extends Application {
                 SimpleClient.getParams().add(event.getStEx());
                 System.out.println("");
                 System.out.println("after");
+                System.out.println("Move to Manual exam student page");
                 setRoot("ManualExSt");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -256,6 +267,7 @@ public class App extends Application {
             try {
                 System.out.println("in app aa");
                 SimpleClient.getParams().add(event.getSubjectTeacher());
+                System.out.println("Move to choose question page");
                 setRoot("ChooseQes");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -269,6 +281,7 @@ public class App extends Application {
                 System.out.println("in app heading to all exams");
                 SimpleClient.getParams().add(event.getGetSubject());
             try {
+                System.out.println("Move to all exams page");
                 setRoot("allExams");
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -282,6 +295,7 @@ public class App extends Application {
             try {
                 System.out.println("saving SubId");
                 SimpleClient.getParams().add(event.getSubId());
+                System.out.println("Move to choose question page");
                 setRoot("ChooseQes");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -295,6 +309,7 @@ public class App extends Application {
                     //System.out.println("im in teacherlog event");
                     SimpleClient.getParams().add(event.getCt());
                     // System.out.println(event.getStudent().getStudent().getSt_name());
+                    System.out.println("Move to choose subject page");
                     setRoot("choose_subject");
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -311,6 +326,7 @@ public class App extends Application {
                 System.out.println("Exam Show App-client");
                 SimpleClient.getParams().add(event.getExamSubjectTeacher());
                 // System.out.println(event.getStudent().getStudent().getSt_name());
+                System.out.println("Move to show exam page");
                 setRoot("ShowExam");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -325,6 +341,7 @@ public class App extends Application {
             System.out.println("ExamEdit App-client");
             SimpleClient.getParams().add(event.getExamSubjectTeacherEdit());
             try {
+                System.out.println("Move to exam edit page");
                 setRoot("ExamEdit");
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -337,6 +354,8 @@ public class App extends Application {
             System.out.println("GetForManager App-client");
             SimpleClient.getParams().add(event.getGetForManager());
             try {
+                System.out.println("Move to manager page");
+
                 setRoot("Manager");
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -348,6 +367,7 @@ public class App extends Application {
             System.out.println("MailManagerEvent App-client");
             SimpleClient.getParams().add(event.getMM());
             try {
+                System.out.println("Move to manager mail page");
                 setRoot("ManagerMail");
             } catch (IOException e) {
                 throw new RuntimeException(e);

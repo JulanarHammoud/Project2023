@@ -70,8 +70,9 @@ public class ChooseQesController {
         ans4.setCellValueFactory(new PropertyValueFactory<Question, String>("ans4"));
         note.setCellValueFactory(new PropertyValueFactory<Question, String>("note"));
         the_right_ans.setCellValueFactory(new PropertyValueFactory<Question, String>("the_right_ans"));
-
+        //Qtable.setMinSize(1000,1000);
         Qtable.setItems(data);
+
 
         for(Question q:listquestions){
             q.setExist(false);
@@ -95,6 +96,47 @@ public class ChooseQesController {
                     return new SimpleObjectProperty<CheckBox>(checkBox);
                 }
             });
+            question.setCellFactory(tc -> {
+                TableCell<Question, String> cell = new TableCell<Question, String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (item == null || empty) {
+                            setText(null);
+                            setGraphic(null);
+                        } else {
+                            Label label = new Label(item);
+                            label.setWrapText(true); // Enable text wrapping
+                            setGraphic(label);
+                        }
+                    }
+                };
+
+                return cell;
+            });
+
+            // Create cell factory for tooltips
+            ans1.setCellFactory(tc -> {
+                TableCell<Question, String> cell = new TableCell<Question, String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (item == null || empty) {
+                            setText(null);
+                            setTooltip(null);
+                        } else {
+                            setText(item);
+                            Tooltip tooltip = new Tooltip(item);
+                            setTooltip(tooltip);
+                        }
+                    }
+                };
+
+                return cell;
+            });
+
             Qtable.getColumns().addAll( select);
         }
     }
