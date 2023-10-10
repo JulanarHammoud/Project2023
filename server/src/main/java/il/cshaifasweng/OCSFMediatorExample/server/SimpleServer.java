@@ -213,6 +213,7 @@ public class SimpleServer extends AbstractServer {
 					} else {
 						Data.LogOutSt((int) message.get(1));
 					}
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
