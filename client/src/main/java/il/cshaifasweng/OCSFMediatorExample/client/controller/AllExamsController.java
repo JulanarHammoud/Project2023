@@ -148,6 +148,18 @@ public class AllExamsController {
         message.add("teacher");
         SimpleClient.getClient().sendToServer(message);
     }
+
+    @FXML
+    void publishExam(ActionEvent event) {
+        try {
+            Exam exam = Etable.getSelectionModel().getSelectedItem();
+            ExamSubjectTeacher pubExam = new ExamSubjectTeacher(teacher,subject,exam,courseteacher,true);
+            SimpleClient.getParams().add(pubExam);
+            setRoot("ShowExam");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 

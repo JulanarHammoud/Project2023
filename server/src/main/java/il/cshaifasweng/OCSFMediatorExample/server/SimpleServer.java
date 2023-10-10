@@ -6,7 +6,9 @@ import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -52,12 +54,16 @@ public class SimpleServer extends AbstractServer {
 			e.printStackTrace();
 		}
 
+		System.out.println("Server Is Ready...");
+
 	}
+
+
+
+
 
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
-
-
 		String msgString = msg.toString();
 		System.out.println("Message = " + msgString + ", reached server");
 		System.out.println(msgString.startsWith("#warningNoQes"));
@@ -69,7 +75,8 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		} else if (msgString.equals("[#warningNoQes]")) {
+		}
+		else if (msgString.equals("[#warningNoQes]")) {
 			Warning warning = new Warning("please choose a question !!");
 			System.out.println("im in the if");
 			try {
@@ -78,7 +85,8 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		} else if (msgString.startsWith("#ListStudents")) {
+		}
+		else if (msgString.startsWith("#ListStudents")) {
 			try {
 				System.out.print("im in");
 				System.out.flush();
@@ -94,7 +102,8 @@ public class SimpleServer extends AbstractServer {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else {
+		}
+		else {
 			LinkedList<Object> message = (LinkedList<Object>) (msg);
 			System.out.println(message.get(0));
 			if (message.get(0).equals("#ClickGrades")) {
@@ -109,7 +118,8 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			} else if (message.get(0).equals("#UpdateGrade")) {
+			}
+			else if (message.get(0).equals("#UpdateGrade")) {
 			}
 			///////////////////////////////////////////////////////
 			else if (message.get(0).equals("#Login")) {
@@ -190,7 +200,9 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			} else if (message.get(0).equals("#LogOut")) {
+			}///////////////////////////////////////////
+
+			else if (message.get(0).equals("#LogOut")) {
 				System.out.println("are you in the log out?");
 				LogOut logOut = new LogOut("success");
 				try {
@@ -266,71 +278,76 @@ public class SimpleServer extends AbstractServer {
 			} else if (message.get(0).equals("#GoToExStudentA")) {            //israaa
 				try {
 
-					String stt = (String) message.get(1);
-					Student studentFull = Data.getStudent(Integer.parseInt(stt));
-					System.out.println("s" + studentFull.getFirstName());
-					System.out.println("jjjjjjjj");
-					StudentWillDoEx studentWillDo = new StudentWillDoEx(studentFull);
-					System.out.println("" + studentWillDo.getStudent().getCourses().size() + ";;");
+						Student std= (Student) message.get(1);
+						//Student studentFull=Data.getStudent(Integer.parseInt(stt));
+						Student student = Data.getDataById(Student.class , std.getId());
+						StudentWillDoEx studentWillDo =new StudentWillDoEx(student);
+						System.out.println(""+studentWillDo.getStudent().getCourses().size()+";;");
 
-					client.sendToClient(studentWillDo);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-			} else if (message.get(0).equals("#GoToExStudentBUTTON")) {
-				try {
-					String code = (String) message.get(1);
-					String stt = (String) message.get(2);
-					Student studentFull = Data.getStudent(Integer.parseInt(stt));
-					StudentWillMakeEx StEx = new StudentWillMakeEx();
-					StEx.setSs(studentFull);
-					List<ExamStudent> t = studentFull.getStudentExams();
-
-					ExamStudent x = new ExamStudent();
-					System.out.println("1");
-					int i = 0;
-					while (i < t.size()) {
-						System.out.println("2" + i + t.size());
-						x = t.get(i);
-						System.out.println("3" + x.getCodeGivenByTeacher() + "3" + code);
-						if (code.equals(x.getCodeGivenByTeacher())) {
-							System.out.println("4");
-							i = t.size();
-							System.out.println("5" + i + t.size());
-						} else {
-							System.out.println("6");
-							i++;
-						}
+						client.sendToClient(studentWillDo);
+					}catch (Exception e) {
+						e.printStackTrace();
 					}
-					StEx.setEx(x);
-					client.sendToClient(StEx);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			} else if (message.get(0).equals("#GoToExStudentAnswers")) {
-				try {
-					System.out.println("I'm in server ");
-					ExamStudent ex = (ExamStudent) message.get(1);
-					System.out.println("I'm in server " + ex.getGrade() + ex.getQuestions().get(0).getThe_student_ans());
-					client.sendToClient(ex);
 
-				} catch (IOException e) {
-					e.printStackTrace();
 				}
-			} else if (message.get(0).equals("#GradesStudent")) {
-				try {
-					String st = (String) message.get(1);
-					Student studentFul = Data.getStudent(Integer.parseInt(st));
-					GradeSt h = new GradeSt(studentFul);
-					client.sendToClient(h);
+			else if (message.get(0).equals("#GoToExStudentBUTTON")){
+					try {
+						String code= (String) message.get(1);
+						String stt= (String) message.get(2);
+						ExamStudent exam = (ExamStudent) message.get(3);
+						Student studentFull=Data.getStudent(Integer.parseInt(stt));
+						StudentWillMakeEx StEx=new StudentWillMakeEx();
+						StEx.setSs(studentFull);
+						StEx.setEx(exam);
+						//List<ExamStudent> t=studentFull.getStudentExams();
 
-				} catch (IOException e) {
-					e.printStackTrace();
-				} catch (Exception e) {
-					throw new RuntimeException(e);
+//						ExamStudent x=new ExamStudent();
+//						System.out.println("1");
+//						int i=0;
+//						while(i<t.size()){
+//							System.out.println("2"+i+t.size());
+//							x=t.get(i);
+//							System.out.println("3"+x.getCodeGivenByTeacher()+"3"+code);
+//							if(code.equals(x.getCodeGivenByTeacher())) {
+//								System.out.println("4");
+//								i=t.size();
+//								System.out.println("5"+i+t.size());
+//							} else{
+//								System.out.println("6");
+//								i++;
+//							}
+//						}
+//						StEx.setEx(x);
+						client.sendToClient(StEx);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
-			} else if (message.get(0).equals("#CoursetTeacher")) {
+			else if (message.get(0).equals("#GoToExStudentAnswers")) {
+					try {
+						System.out.println("I'm in server ");
+						ExamStudent ex= (ExamStudent) message.get(1);
+						//System.out.println("I'm in server "+ex.getGrade()+ex.getQuestions().get(0).getThe_student_ans());
+						client.sendToClient(ex);
+
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			else if (message.get(0).equals("#GradesStudent")) {
+					try {
+						String st= (String) message.get(1);
+						Student studentFul=Data.getStudent(Integer.parseInt(st));
+						GradeSt h=new GradeSt(studentFul);
+						client.sendToClient(h);
+
+					} catch (IOException e) {
+						e.printStackTrace();
+					} catch (Exception e) {
+						throw new RuntimeException(e);
+					}
+				}
+			 else if (message.get(0).equals("#CoursetTeacher")) {
 				try {
 					System.out.println("I'm in server courseteacher");
 					String choose = (String) message.get(2);
@@ -411,10 +428,11 @@ public class SimpleServer extends AbstractServer {
 					}
 				} catch (IOException e) {
 
-				} catch (Exception e) {
-					throw new RuntimeException(e);
+					} catch (Exception e) {
+						throw new RuntimeException(e);
+					}
 				}
-			} else if (message.get(0).equals("MakenewQuestion")) {
+			 else if (message.get(0).equals("MakenewQuestion")) {
 				try {
 					System.out.println("in make question ");
 					String ques1 = (String) message.get(2);
@@ -488,18 +506,20 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					throw new RuntimeException(e);
 				}
-			} else if (message.get(0).equals("#GetSubject")) {
-				int sub_id = (int) message.get(1);
-				Teacher teacher = (Teacher) message.get(2);
-				CourseTeacher courseTeacher = (CourseTeacher) message.get(3);
-				SubjectTeacher subjectTeacher = Data.GetSubjectById(sub_id);
-				GetSubject sub = new GetSubject(subjectTeacher, teacher, courseTeacher);
-				try {
-					client.sendToClient(sub);
-				} catch (IOException e) {
-					throw new RuntimeException(e);
+			}
+			else if (message.get(0).equals("#GetSubject")) {
+					int sub_id = (int) message.get(1);
+					Teacher teacher = (Teacher) message.get(2);
+					CourseTeacher courseTeacher = (CourseTeacher) message.get(3);
+					SubjectTeacher subjectTeacher = Data.GetSubjectById(sub_id);
+					GetSubject sub = new GetSubject(subjectTeacher, teacher,courseTeacher);
+					try {
+						client.sendToClient(sub);
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
 				}
-			} else if (message.get(0).equals("#BuildExam")) {
+			 else if (message.get(0).equals("#BuildExam")) {
 				try {
 					System.out.println("I'm in server BuildExam");
 					Teacher teacher = (Teacher) message.get(1);
@@ -518,20 +538,23 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			} else if (message.get(0).equals("#ShowExam")) {
-				try {
-					if (message.get(1) == null) {
-						System.out.println("Not selecting any the exam");
-						Warning warning = new Warning("please select a exam!!");
-						client.sendToClient(warning);
-					} else {
-						ExamSubjectTeacher examsubjectteacher = (ExamSubjectTeacher) message.get(1);
-						client.sendToClient(examsubjectteacher);
+			}
+			else if (message.get(0).equals("#ShowExam")) {
+					try {
+						if(message.get(1)==null){
+							System.out.println("Not selecting any the exam");
+							Warning warning = new Warning("please select a exam!!");
+							client.sendToClient(warning);
+						} else{
+							System.out.println("client ask to show exam");
+							ExamSubjectTeacher examsubjectteacher = (ExamSubjectTeacher) message.get(1);
+							client.sendToClient(examsubjectteacher);
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
 				}
-			} else if (message.get(0).equals("DeleteExam")) {
+			 else if (message.get(0).equals("DeleteExam")) {
 				try {
 					if (message.get(1) == null) {
 						System.out.println("Not selecting any exam");
@@ -863,6 +886,33 @@ public class SimpleServer extends AbstractServer {
 			else if (message.get(0).equals("ExitMessages")){
 				mngr.setInfo("Maill",0);//we are not in the mail manager
 			}
+			else if (message.get(0).equals("#PublishExam")){
+				ExamTeacher examTeacher = (ExamTeacher) message.get(1);
+				Teacher teacher = (Teacher) message.get(2);
+				ExamStudent examStudent = (ExamStudent) message.get(3);
+				try {
+					System.out.println(examStudent.getExam().getSubject());
+					Teacher teacher1 = Data.publishExam(examStudent.getExam().getSubject(),examStudent,examTeacher,teacher);
+					client.sendToClient(teacher1);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				///// l7d hon mn7ot el exam 3nd teacher and students
+			}
+			else if (message.get(0).equals("#StdFinishExam")){
+				System.out.println("StdFinishExam");
+				Student student = (Student) message.get(1);
+				ExamStudent exam = (ExamStudent) message.get(2);
+				Student std = Data.SubmitExam(student,exam);
+				try {
+					System.out.println("sending " + std.getFirstName() + "'s detailes to client");
+					client.sendToClient(std);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			}
+			}
 		}
-	}
 }

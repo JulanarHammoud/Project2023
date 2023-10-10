@@ -58,7 +58,7 @@ public class StudentController {
         try {
             LinkedList<Object> message = new LinkedList<Object>();
             message.add("#GoToExStudentA");
-            message.add(String.valueOf(student.getId()));
+            message.add(student);
 //        message.add(list);
             System.out.println("" + student.getFirstName() + list.size());
             SimpleClient.getClient().sendToServer(message);

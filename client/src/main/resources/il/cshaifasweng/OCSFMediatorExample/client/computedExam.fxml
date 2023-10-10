@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.ComputedExamController">
+    <children>
+        <AnchorPane fx:id="anchor" layoutX="2.0" layoutY="7.0" prefHeight="400.0" prefWidth="600.0">
+            <children>
+                <Label fx:id="examTime" layoutX="166.0" layoutY="22.0" prefHeight="25.0" prefWidth="110.0" />
+                <Label fx:id="noteStudent" layoutX="14.0" layoutY="91.0" prefHeight="25.0" prefWidth="334.0" />
+                <Label fx:id="sub" layoutX="14.0" layoutY="22.0" prefHeight="25.0" prefWidth="110.0" />
+                <Button fx:id="Finish" mnemonicParsing="false" onAction="#Finish" text="Finish" textFill="#a19c22">
+                    <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                    </font>
+                </Button>
+                <Text fill="#dd3c30" layoutX="406.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hour" textAlignment="CENTER" wrappingWidth="42.13671875" />
+                <Text fill="#dd3636" layoutX="458.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Minute" textAlignment="CENTER" wrappingWidth="49.60000000000002" />
+                <Text fill="#e14848" layoutX="510.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Second" textAlignment="CENTER" wrappingWidth="63.13671875" />
+                <Text fx:id="hourN" fill="#b50a0a" layoutX="406.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="hour" textAlignment="CENTER" wrappingWidth="42.13671875" />
+                <Text fx:id="minuteN" fill="#9e0913" layoutX="458.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="minute" textAlignment="CENTER" wrappingWidth="49.60000000000002" />
+                <Text fx:id="secondN" fill="#b90505" layoutX="510.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="second" textAlignment="CENTER" wrappingWidth="63.13671875" />
+
+            </children>
+        </AnchorPane>
+
+    </children>
+
+</AnchorPane>

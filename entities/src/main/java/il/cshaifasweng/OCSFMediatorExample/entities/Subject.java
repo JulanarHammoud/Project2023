@@ -12,7 +12,7 @@ public abstract class Subject implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
     private String Id_String;
-    private String sb_name;
+    private  String sb_name;
 
 
     public int getId() {
@@ -32,9 +32,6 @@ public abstract class Subject implements Serializable {
         return sb_name;
     }
 
-    public void setSb_name(String sb_name) {
-        this.sb_name = sb_name;
-    }
 
     public void setId(int id) {
         Id = id;

@@ -7,6 +7,7 @@ public class ExamSubjectTeacher implements Serializable {
     SubjectTeacher subjectTeacher;
     Exam exam;
     CourseTeacher courseTeacher;
+    boolean flag=false;
 
     public ExamSubjectTeacher(Teacher teacher, SubjectTeacher subjectTeacher, Exam exam) {
         this.teacher = teacher;
@@ -20,6 +21,22 @@ public class ExamSubjectTeacher implements Serializable {
         this.subjectTeacher = subjectTeacher;
         this.exam = exam;
         this.courseTeacher = courseTeacher;
+    }
+
+    public ExamSubjectTeacher(Teacher teacher, SubjectTeacher subjectTeacher, Exam exam, CourseTeacher courseTeacher , boolean flag) {
+        this.teacher = teacher;
+        this.subjectTeacher = subjectTeacher;
+        this.exam = exam;
+        this.courseTeacher = courseTeacher;
+        this.flag = flag;
+    }
+
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
     }
 
     public CourseTeacher getCourseTeacher() {

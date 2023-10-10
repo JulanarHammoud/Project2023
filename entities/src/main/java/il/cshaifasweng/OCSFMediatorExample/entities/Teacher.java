@@ -13,6 +13,11 @@ public class Teacher extends Person{
 
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinTable(name = "Teacher_published",joinColumns = @JoinColumn(name = "Teacher_ID"),inverseJoinColumns = {@JoinColumn(name = "exam_ID")})
+    private List<ExamTeacher> publishedExams ;
+
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "Teacher_Course",joinColumns = @JoinColumn(name = "Teacher_ID"),inverseJoinColumns = {@JoinColumn(name = "Course_ID")})
     private List<CourseTeacher> courses ;
 
@@ -25,5 +30,17 @@ public class Teacher extends Person{
         return courses;
     }
     public Teacher(){
+    }
+
+    public List<ExamTeacher> getPublishedExams() {
+        return publishedExams;
+    }
+
+    public void setPublishedExams(List<ExamTeacher> publishedExams) {
+        this.publishedExams = publishedExams;
+    }
+
+    public void setCourses(List<CourseTeacher> courses) {
+        this.courses = courses;
     }
 }

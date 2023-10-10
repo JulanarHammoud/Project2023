@@ -1,6 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
+import il.cshaifasweng.OCSFMediatorExample.entities.DetailedQuestion;
 import il.cshaifasweng.OCSFMediatorExample.entities.ExamStudent;
 import il.cshaifasweng.OCSFMediatorExample.entities.GradeSt;
 import il.cshaifasweng.OCSFMediatorExample.entities.Question;
@@ -24,7 +25,7 @@ import static il.cshaifasweng.OCSFMediatorExample.client.App.set;
 public class TestPaperController {
     int lastIndex= SimpleClient.getParams().size()-1;
     ExamStudent StEx = (ExamStudent) SimpleClient.getParams().get(lastIndex);
-    List<Question> questions =  StEx.getQuestions();
+    List<DetailedQuestion> questions =  StEx.getQuestions();
     RadioButton button1;
     JRadioButtonMenuItem item;
     AnchorPane test;
@@ -75,48 +76,48 @@ public class TestPaperController {
         newRoot.getChildren().addAll(text11, text22, text33);
         ////////////////////////////
 
-        for (Question q : questions) {
+        for (DetailedQuestion q : questions) {
             VBox vbox = new VBox(5); // we put every question in vbox
-            Text text = new Text(q.getQuestion());
+            Text text = new Text(q.getQuestion().getQuestion());
             vbox.getChildren().add(text);
 
             // Display the answers as Text
-            Text answer1 = new Text(q.getAns1());
-            Text answer2 = new Text(q.getAns2());
-            Text answer3 = new Text(q.getAns3());
-            Text answer4 = new Text(q.getAns4());
+            Text answer1 = new Text(q.getQuestion().getAns1());
+            Text answer2 = new Text(q.getQuestion().getAns2());
+            Text answer3 = new Text(q.getQuestion().getAns3());
+            Text answer4 = new Text(q.getQuestion().getAns4());
 
             // Set the selected answer
-            System.out.println(""+q.getThe_student_ans()+q.getThe_right_ans());
+            System.out.println(""+q.getStdAnswer()+q.getQuestion().getThe_right_ans());
                 answer1.setStyle("-fx-fill: black;"); // Set text color to black for the selected answer
-                if (q.getAns1().equals(q.getThe_right_ans())) {
+                if (q.getQuestion().getAns1().equals(q.getQuestion().getThe_right_ans())) {
                     answer1.setStyle("-fx-fill: green;");
                 }
-               else if ((q.getAns1().equals(q.getThe_student_ans()))) {
+               else if ((q.getQuestion().getAns1().equals(q.getStdAnswer()))) {
                     answer1.setStyle("-fx-fill: red;");
                 }
 
                 answer2.setStyle("-fx-fill: black;");
-                if (q.getAns2().equals(q.getThe_right_ans())) {
+                if (q.getQuestion().getAns2().equals(q.getQuestion().getThe_right_ans())) {
                     answer2.setStyle("-fx-fill: green;");
                 }
-                else if ((q.getAns2().equals(q.getThe_student_ans()))) {
+                else if ((q.getQuestion().getAns2().equals(q.getStdAnswer()))) {
                     answer2.setStyle("-fx-fill: red;");
                 }
 
                 answer3.setStyle("-fx-fill: black;");
-                if (q.getAns3().equals(q.getThe_right_ans())) {
+                if (q.getQuestion().getAns3().equals(q.getQuestion().getThe_right_ans())) {
                     answer3.setStyle("-fx-fill: green;");
                 }
-                else if ((q.getAns3().equals(q.getThe_student_ans()))) {
+                else if ((q.getQuestion().getAns3().equals(q.getStdAnswer()))) {
                     answer3.setStyle("-fx-fill: red;");
                 }
 
                 answer4.setStyle("-fx-fill: black;");
-                if (q.getAns4().equals(q.getThe_right_ans())) {
+                if (q.getQuestion().getAns4().equals(q.getQuestion().getThe_right_ans())) {
                     answer4.setStyle("-fx-fill: green;");
                 }
-                else if ((q.getAns4().equals(q.getThe_student_ans()))) {
+                else if ((q.getQuestion().getAns4().equals(q.getStdAnswer()))) {
                     answer4.setStyle("-fx-fill: red;");
                 }
 

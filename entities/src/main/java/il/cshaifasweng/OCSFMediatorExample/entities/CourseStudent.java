@@ -11,6 +11,9 @@ import java.util.List;
 @Entity
 @Table(name= "CourseStudent")
 public class CourseStudent extends Course {
+    @OneToOne
+    @JoinColumn(name = "last_exam_id")
+    ExamStudent lastExam;
 
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -27,6 +30,14 @@ public class CourseStudent extends Course {
     }
 
     public CourseStudent() {
+    }
+
+    public ExamStudent getLastExam() {
+        return lastExam;
+    }
+
+    public void setLastExam(ExamStudent lastExam) {
+        this.lastExam = lastExam;
     }
 }
 

@@ -11,6 +11,7 @@ import org.hibernate.service.ServiceRegistry;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,29 +31,30 @@ public class Data {
         configuration.addAnnotatedClass(CourseStudent.class);
         configuration.addAnnotatedClass(Exam.class);
         configuration.addAnnotatedClass(ManagerMessage.class);
+        configuration.addAnnotatedClass(ExamTeacher.class);
+        configuration.addAnnotatedClass(ExamStudent.class);
+        configuration.addAnnotatedClass(DetailedQuestion.class);
 
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties())
                 .build();
-        return configuration.buildSessionFactory(serviceRegistry);
-    }
-
+        return configuration.buildSessionFactory(serviceRegistry); }
     public static void generateStusent() throws Exception {
         SubjectStudent ST11 = new SubjectStudent("Grammar");
         SubjectStudent ST2 = new SubjectStudent("Geometry");
         SubjectStudent ST1 = new SubjectStudent("comprehension");
-        LinkedList<SubjectStudent> subjectst = new LinkedList<>();
+        LinkedList<SubjectStudent> subjectst=new LinkedList<>();
         subjectst.add(ST1);
         subjectst.add(ST11);
-        CourseStudent English = new CourseStudent("English", subjectst);
-        LinkedList<SubjectStudent> subjectst2 = new LinkedList<>();
+        CourseStudent English = new CourseStudent("English",subjectst);
+        LinkedList<SubjectStudent> subjectst2=new LinkedList<>();
         subjectst2.add(ST2);
-        CourseStudent Math = new CourseStudent("Math", subjectst2);
+        CourseStudent Math = new CourseStudent("Math",subjectst2);
         LinkedList<CourseStudent> course = new LinkedList<>();
         course.add(Math);
-        Student julanar = new Student("Julanar", "Hammoud", "jula123", "0101", course);
+        Student julanar = new Student("Julanar", "Hammoud","jula123","0101",course);
         course.add(English);
-        Student rozaleen = new Student("Rozaleen", "Hassanin", "roza99", "1999", course);
+        Student rozaleen = new Student("Rozaleen", "Hassanin", "roza99","1999",course);
 
         try {
             SessionFactory sessionFactory = getSessionFactory();
@@ -76,13 +78,29 @@ public class Data {
             System.err.println("An error occured, changes have been rolled back.");
             exception.printStackTrace();
         } finally {
-            if (session != null) {
+            if(session != null) {
                 session.close();
             }
         }
         return;
     }
 
+    public static CourseStudent getCourByName(String name){
+        System.out.println("server searching course by its name");
+        List<CourseStudent> list = null;
+        try {
+            list = getDataList(CourseStudent.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        for(CourseStudent cour :list){
+            if(cour.getName().equals(name)){
+                System.out.println(cour.getName());
+                return cour;
+            }
+        }
+        return null;
+    }
     public static List<Student> getAllStudents() throws Exception {
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
@@ -116,20 +134,19 @@ public class Data {
         System.out.println(result.size());
         return result;
     }
-
     public static Exam BringExamBasedOnCode(int Id) throws Exception {
-        System.out.println("in BringExamBasedOnCode " + Id);
+        System.out.println("in BringExamBasedOnCode "+Id);
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
         System.out.println("mmmmmmmmm");
-        Exam exam = session.get(Exam.class, Id); ////?????
+        Exam exam = session.get(Exam.class,Id); ////?????
         System.out.println("lllll");
         System.out.println("lklklklklkl");
         session.close();
         System.out.println("gggg");
         System.out.println(exam.getIdCode());
-        System.out.println(exam.getId() + "kl");
+        System.out.println(exam.getId()+"kl");
         //  System.out.println(student.getSt_name());
         return exam;
     }
@@ -139,7 +156,7 @@ public class Data {
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
-        Student student = session.get(Student.class, id);
+        Student student =session.get(Student.class,id);
         session.close();
         //  System.out.println(student.getSt_name());
         return student;
@@ -149,7 +166,7 @@ public class Data {
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
-        Student change = session.get(Student.class, id);
+        Student change =session.get(Student.class,id);
         //change.setActive(false);
         session.saveOrUpdate(change);
         session.flush();
@@ -163,7 +180,7 @@ public class Data {
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
-        Student change = session.get(Student.class, id);
+        Student change =session.get(Student.class,id);
         change.setActive(false);
         session.saveOrUpdate(change);
         session.flush();
@@ -177,7 +194,7 @@ public class Data {
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
-        Teacher change = session.get(Teacher.class, id);
+        Teacher change =session.get(Teacher.class,id);
         change.setActive(false);
         session.saveOrUpdate(change);
         session.flush();
@@ -191,7 +208,7 @@ public class Data {
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
-        Student change = session.get(Student.class, id);
+        Student change =session.get(Student.class,id);
         change.setActive(false);
         session.saveOrUpdate(change);
         session.flush();
@@ -205,7 +222,7 @@ public class Data {
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
-        Student change = session.get(Student.class, id);
+        Student change =session.get(Student.class,id);
         change.setActive(true);
         session.saveOrUpdate(change);
         session.flush();
@@ -219,7 +236,7 @@ public class Data {
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
-        Teacher change = session.get(Teacher.class, id);
+        Teacher change =session.get(Teacher.class,id);
         change.setActive(true);
         session.saveOrUpdate(change);
         session.flush();
@@ -227,18 +244,17 @@ public class Data {
         session.close();
 
     }
-
-    public static String updateExamId(String IdCourse, int currentid, String IdSubject) {
-        System.out.println("I am updating: " + IdCourse + " " + currentid + " " + IdSubject);
+    public static String updateExamId(String IdCourse , int currentid, String IdSubject){
+        System.out.println("I am updating: "+IdCourse+" "+currentid+" "+IdSubject);
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
-        Exam change = session.get(Exam.class, currentid);
-        String s = IdCourse + IdSubject;
-        DecimalFormat formatter = new DecimalFormat("00");
-        String aFormatted = formatter.format(currentid);
-        s = s + aFormatted;
-        System.out.println("" + s);
+        Exam change =session.get(Exam.class,currentid);
+        String s=IdCourse+IdSubject;
+        DecimalFormat formatter=new DecimalFormat("00");
+        String aFormatted=formatter.format(currentid);
+        s=s+aFormatted;
+        System.out.println(""+s);
         change.setIdCode(s);
         session.saveOrUpdate(change);
         session.flush();
@@ -246,9 +262,8 @@ public class Data {
         session.close();
         return s;
     }
-
-    public static void updateQuestion(int IdQuestion, String q, String ans1, String ans2, String ans3, String ans4, String note,String right) {
-        System.out.println("I am updating: " + IdQuestion + " " + q + " " + ans1);
+    public static void updateQuestion(int IdQuestion , String q,String ans1 ,String ans2,String ans3 ,String ans4, String note ,String right ){
+       System.out.println("I am updating: " + IdQuestion + " " + q + " "+ans1);
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
@@ -269,7 +284,7 @@ public class Data {
     }
 
     public static int returnid(String question) throws Exception {
-        List<Question> all = getAllQuestions();
+        List<Question> all=getAllQuestions();
         System.out.println(all);
         for (Question q1 : all) {
             if (q1.getQuestion().equals(question)) {
@@ -360,16 +375,16 @@ public class Data {
         LinkedList<SubjectTeacher> subject1 = new LinkedList<>();
         subject1.add(Grammar);
         subject1.add(comprehension);
-        CourseTeacher English = new CourseTeacher("English", subject1);
-        LinkedList<SubjectTeacher> subject2 = new LinkedList<>();
+        CourseTeacher English =new CourseTeacher("English",subject1);
+        LinkedList<SubjectTeacher> subject2=new LinkedList<>();
         subject2.add(algebra);
         subject2.add(Geometry);
-        CourseTeacher Math = new CourseTeacher("Math", subject2);
+        CourseTeacher Math =new CourseTeacher("Math",subject2);
         LinkedList<CourseTeacher> courses = new LinkedList<>();
         courses.add(English);
-        Teacher mona = new Teacher("Mona", "Amara", "mona123", "1234", courses);
+        Teacher mona = new Teacher("Mona","Amara","mona123","1234",courses);
         courses.add(Math);
-        Teacher noran = new Teacher("Noran", "morad", "noran123", "1235", courses);
+        Teacher noran = new Teacher("Noran","morad","noran123","1235",courses);
 
         try {
             SessionFactory sessionFactory = getSessionFactory();
@@ -408,7 +423,7 @@ public class Data {
             System.err.println("An error occured, changes have been rolled back.");
             exception.printStackTrace();
         } finally {
-            if (session != null) {
+            if(session != null) {
                 session.close();
             }
         }
@@ -444,7 +459,7 @@ public class Data {
             System.err.println("An error occured, changes have been rolled back.");
             exception.printStackTrace();
         } finally {
-            if (session != null) {
+            if(session != null) {
                 session.close();
             }
         }
@@ -461,12 +476,12 @@ public class Data {
 
             session.saveOrUpdate(ex);
             System.err.println("Generated ends ...");
-            SubjectTeacher change = session.get(SubjectTeacher.class, sub.getId());
+            SubjectTeacher change = session.get(SubjectTeacher.class,sub.getId());
             change.getExams().add(ex);
             session.saveOrUpdate(change);
             session.flush();
             session.getTransaction().commit(); // Save everything.
-            System.out.println("ex.id" + ex.getId());
+            System.out.println("ex.id"+ex.getId());
             return ex.getId();
 
         } catch (Exception exception) {
@@ -476,7 +491,7 @@ public class Data {
             System.err.println("An error occured, changes have been rolled back.");
             exception.printStackTrace();
         } finally {
-            if (session != null) {
+            if(session != null) {
                 session.close();
             }
         }
@@ -486,7 +501,7 @@ public class Data {
     public static SubjectTeacher MakeQuestion(String Q, String an1, String an2, String an3, String an4, String right, String note, SubjectTeacher sub) {
         System.out.println("in make Question ");
         // Exam ex=new Exam(0,NumQ,chose,"T",TNotes,SNotes,cc);
-        Question newquestion = new Question(Q, an1, an2, an3, an4, note,right);
+        Question newquestion =new Question(Q,an1,an2,an3,an4, note,right);
         try {
             System.out.println("in make Question2 ");
             SessionFactory sessionFactory = getSessionFactory();
@@ -496,7 +511,7 @@ public class Data {
 
             session.saveOrUpdate(newquestion);
             System.err.println("Generated ends ...");
-            SubjectTeacher change = session.get(SubjectTeacher.class, sub.getId());
+            SubjectTeacher change = session.get(SubjectTeacher.class,sub.getId());
             change.getQuestions().add(newquestion);
             session.saveOrUpdate(change);
             session.flush();
@@ -510,7 +525,7 @@ public class Data {
             System.err.println("An error occured, changes have been rolled back.");
             exception.printStackTrace();
         } finally {
-            if (session != null) {
+            if(session != null) {
                 session.close();
             }
         }
@@ -708,6 +723,180 @@ public class Data {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public static List<SubjectStudent> getAllSubjectStd() throws Exception {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<SubjectStudent> query = builder.createQuery(SubjectStudent.class);
+        query.from(SubjectStudent.class);
+        List<SubjectStudent> result = session.createQuery(query).getResultList();
+        session.close();
+        System.out.println(result.size());
+        return result;
+    }
+    public static int generateExamTeacher(ExamTeacher exam){
+        int id = -1;
+        try {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            System.err.println("Generated starts ...");
+            id = (int) session.save(exam);
+            System.err.println("Generated ends ...");
+            session.flush();
+            session.getTransaction().commit(); // Save everything.
+        } catch (Exception exception) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            exception.printStackTrace();
+        } finally {
+            if(session != null) {
+                session.close();
+            }
+        }
+        return id ;
+
+    }
+
+    public static int generateExamStudent(ExamStudent exam){
+        int id = -1;
+        try {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            System.err.println("Generated starts ...");
+            id = (int) session.save(exam);
+            System.err.println("Generated ends ...");
+            session.flush();
+            session.getTransaction().commit(); // Save everything.
+        } catch (Exception exception) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            exception.printStackTrace();
+        } finally {
+            if(session != null) {
+                session.close();
+            }
+        }
+        return id ;
+
+    }
+    public static SubjectStudent findSubjectStd (String choose)  {
+        System.out.println("I'm in findsubject method");
+        System.out.println(choose);
+        List<SubjectStudent> list = null;
+        try {
+            list = Data.getAllSubjectStd();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // System.out.println(list.get(1).getName());
+        // System.out.println(list.get(0).getName());
+        for(SubjectStudent subjectStudent :list){
+            if(subjectStudent.getSb_name().equals(choose)){
+                System.out.println(subjectStudent.getSb_name());
+                return subjectStudent;
+            }
+        }
+        return null;
+    }
+
+    public static <T> int generateData(T data){
+        int id = -1;
+        try {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            System.err.println("Generated starts ...");
+            id = (int) session.save(data);
+            System.err.println("Generated ends ...");
+            session.flush();
+            session.getTransaction().commit(); // Save everything.
+        } catch (Exception exception) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            exception.printStackTrace();
+        } finally {
+            if(session != null) {
+                session.close();
+            }
+        }
+        return id ;
+
+    }
+
+
+    public static Teacher publishExam(String subject,ExamStudent exam1,ExamTeacher exam2,Teacher teacher) throws Exception {
+        for(DetailedQuestion q : exam1.getQuestions()){
+            generateData(q);
+        }
+        int ExTId = generateExamTeacher(exam2);
+        int ExStdId =generateExamStudent(exam1);
+        SubjectStudent sub = findSubjectStd(subject);
+        CourseStudent cour = getCourByName(exam1.getExam().getCourse());
+
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        ExamTeacher exam =session.get(ExamTeacher.class,ExTId);
+        ExamStudent examStudent =session.get(ExamStudent.class,ExStdId);
+        Teacher changeTeacher = session.get(Teacher.class,teacher.getId());
+        SubjectStudent changeSub =session.get(SubjectStudent.class,sub.getId());
+        CourseStudent course = session.get(CourseStudent.class,cour.getId());
+        List<ExamStudent> examsSt = changeSub.getExams();
+        examStudent.setExamTId(ExTId);
+        session.saveOrUpdate(examStudent);
+        examsSt.add(examStudent);
+        changeSub.setExams(examsSt);
+        course.setLastExam(examStudent);
+        session.saveOrUpdate(changeSub); /// adding the exam to the sbjectStudent
+        session.saveOrUpdate(course);
+        List<ExamTeacher> exams = changeTeacher.getPublishedExams();
+        exams.add(exam);
+        changeTeacher.setPublishedExams(exams); /// adding the exam to the publisshed exams list for teacher
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
+        return changeTeacher;
+
+    }
+    public static Student SubmitExam(Student student,ExamStudent exam){
+        // we have to add the exam to the examTeacher
+        // and generate new exam for the student and adding it to the list
+      try{
+          System.out.println(student.getId() + " " + student.getFirstName());
+          int id =  generateData(exam);
+          SessionFactory sessionFactory = getSessionFactory();
+          session = sessionFactory.openSession();
+          session.beginTransaction();
+          ExamStudent change =session.get(ExamStudent.class,id);
+          Student updateStd = session.get(Student.class,student.getId());
+          ExamTeacher ex =session.get(ExamTeacher.class,exam.getExamTId());
+          if( updateStd.getStudentExams() == null){
+              List<ExamStudent> list = new ArrayList<>();
+              updateStd.setStudentExams(list);
+          }
+          updateStd.getStudentExams().add(change);
+          session.saveOrUpdate(updateStd);
+          ex.getExamsOfStudents().add(change);
+          session.saveOrUpdate(ex);
+          session.flush();
+          session.getTransaction().commit();
+          session.close();
+          return updateStd;
+      } catch (Exception e){
+          e.printStackTrace();
+      }
+      return null;
+
     }
 
     public static void GenerateMessage(int time, String m, int t,int e) {

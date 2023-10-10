@@ -49,7 +49,7 @@ public class ManualExStController {
     int hoursParams = 0;
     int lastIndex = SimpleClient.getParams().size() - 1;
     StudentWillMakeEx ExSt = (StudentWillMakeEx) SimpleClient.getParams().get(lastIndex);
-    List<Question> WordQ=ExSt.getEx().getQuestions();
+    List<Question> WordQ=ExSt.getEx().getExam().getQuestions();
     int timeInMinutes = ExSt.getEx().getTimerr();
     //int timeInMinutes=130;
     boolean shouldStopSec = false;

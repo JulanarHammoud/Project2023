@@ -2,9 +2,12 @@ package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -59,7 +62,8 @@ public class StExamButtonController implements Serializable {
     StudentWillDoEx StEx = (StudentWillDoEx) SimpleClient.getParams().get(lastIndex);
     List<CourseStudent> list =StEx.getStudent().getCourses();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-    List<ExamStudent> st=StEx.getStudent().getStudentExams();
+   // List<ExamStudent> st=StEx.getStudent().getStudentExams();
+    ExamStudent exam;
     LocalDate currentDate = LocalDate.now();
     String formattedDate="";
     LocalDate formattedLocalDate;
@@ -80,7 +84,8 @@ public class StExamButtonController implements Serializable {
     private String codee="";
     @FXML
     private AnchorPane anchor;
-    final TextField[] cod = {null};
+    //final TextField[] cod = {null};
+    double layoutYC = 73.0;
     @FXML
     void initialize() {
 //                  ExamStudent mm=new ExamStudent();
@@ -112,7 +117,7 @@ public class StExamButtonController implements Serializable {
         double layoutXB = 323.0;
         double layoutYB=73;
         double layoutXC = 444.0;
-        final double[] layoutYC = {73};
+
         for(CourseStudent cor : list){
             Text sub = new Text(cor.getName());
             sub.setLayoutX(layoutX);
@@ -121,144 +126,68 @@ public class StExamButtonController implements Serializable {
             layoutY = layoutY + 64;
 
             int j=0;
-            int s=st.size();
-            ExamStudent ex=null;
+           // int s=st.size();
+
             int Flag=1;
-            while ((j<s)&&(Flag==1)){
-                if(st.get(j).getSubject().equals(cor.getName()))
-                {
-                    Text datet = new Text(st.get(j).getDate());
-                    datet.setLayoutX(layoutXD);
-                    datet.setLayoutY(layoutYD);
-                    anchor.getChildren().add(datet);
-                    layoutYD = layoutYD + 63;
-                    Flag=0;
+//            while ((j<s)&&(Flag==1)){
+//                if(st.get(j).getSubject().equals(cor.getName()))
+//                {
+            ExamStudent ex=cor.getLastExam();
+            if(ex != null){
+                Text datet = new Text(ex.getDate());
+                datet.setLayoutX(layoutXD);
+                datet.setLayoutY(layoutYD);
+                anchor.getChildren().add(datet);
+                layoutYD = layoutYD + 63;
+                Flag = 0;
 
-                    String datee=st.get(j).getDate();
-                    LocalDate date = LocalDate.parse(datee, formatter);
-                    formattedDate = date.format(formatter);
-                    formattedLocalDate = LocalDate.parse(formattedDate, formatter);
-                    if(currentDate.isEqual(formattedLocalDate))
-                    {
-                        Button bb=new Button("Log In");
-                        bb.setLayoutX(layoutXB);
-                        bb.setLayoutY(layoutYB);
+                String datee = ex.getDate();
+                LocalDate date = LocalDate.parse(datee, formatter);
+                formattedDate = date.format(formatter);
+                formattedLocalDate = LocalDate.parse(formattedDate, formatter);
+                if (currentDate.isEqual(formattedLocalDate)) {
+                    Button bb = new Button("Log In");
+                    bb.setLayoutX(layoutXB);
+                    bb.setLayoutY(layoutYB);
 //                        anchor.getChildren().add(bb);
-                        layoutYB = layoutYB + 63;
+                    layoutYB = layoutYB + 63;
 
-                        bb.setOnAction(new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent event) {
-                                cod[0] =new TextField("");
-                                cod[0].setLayoutX(layoutXC);
-                                cod[0].setLayoutY(layoutYC[0]);
-                                anchor.getChildren().add(cod[0]);
-                                layoutYC[0] = layoutYC[0] + 62;
-
-                                System.out.println(""+codee);
-                            }
-                        });
+                    bb.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            exam =ex;
+                            TextField code = new TextField("");
+                            code.setLayoutX(layoutXC);
+                            code.setLayoutY(bb.getLayoutY());
+                            code.textProperty().addListener(new ChangeListener<String>() {
+                                @Override
+                                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                                    codee = newValue;
+                                }
+                            });
+                            anchor.getChildren().add(code);
+                            layoutYC = layoutYC + 62;
+                            System.out.println("" + codee);
+                        }
+                    });
 //                        TextField cod=new TextField("Enter The Code");
 //                        cod.setLayoutX(layoutXC);
 //                        cod.setLayoutY(layoutYC);
-                        anchor.getChildren().add(bb);
-                      //  layoutYC = layoutYC + 62;
-                    }
-                }
-                else{
-                    j++;
+                    anchor.getChildren().add(bb);
+                    //  layoutYC = layoutYC + 62;
                 }
             }
+//                }
+//                else{
+//                    j++;
+//                }
+//            }
 
         }
-//        int j=0;
-//        int s=st.size();
-//        while (j<s)
-//        {
-//            if((Sub1.getText().equals(st.get(j).getSubject()))&&((Sub1.getText().equals(list.get(j).getName()))))
-//            {
-//                date1.setText(st.get(j).getDate());
-//            }
-//            if((sub2.getText().equals(st.get(j).getSubject()))&&((sub2.getText().equals(list.get(j).getName()))))
-//            {
-//                date2.setText(st.get(j).getDate());
-//            }
-//            if((sub3.getText().equals(st.get(j).getSubject()))&&((sub3.getText().equals(list.get(j).getName()))))
-//            {
-//                date3.setText(st.get(j).getDate());
-//            }
-//            if((sub4.getText().equals(st.get(j).getSubject()))&&((sub4.getText().equals(list.get(j).getName()))))
-//            {
-//                date4.setText(st.get(j).getDate());
-//            }
-//            j++;
-//        }
 
-//        int i=0;
-//            while((i<list.size())&&(i<st.size()))
-//            {
-//                String datee=st.get(i).getDate();
-//                LocalDate date = LocalDate.parse(datee, formatter);
-//                formattedDate = date.format(formatter);
-//                formattedLocalDate = LocalDate.parse(formattedDate, formatter);
-//                System.out.println(""+formattedLocalDate);//
-//                System.out.println(""+currentDate);//
-//                if((Sub1.getText().equals(list.get(i).getName()))&&(currentDate.isEqual(formattedLocalDate)))
-//                {
-//                    logIn1.setDisable(false);
-//                }
-//                if((sub2.getText().equals(list.get(i).getName()))&&(currentDate.isEqual(formattedLocalDate)))
-//                {
-//                    LogIn2.setDisable(false);
-//                }
-//                if(sub3.getText().equals(list.get(i).getName())&&(currentDate.isEqual(formattedLocalDate)))
-//                {
-//                    LogIn3.setDisable(false);
-//                }
-//                if(sub4.getText().equals(list.get(i).getName())&&(currentDate.isEqual(formattedLocalDate)))
-//                {
-//                    LogIn4.setDisable(false);
-//                }
-//               i++;
-//      }
     }
 
-//    @FXML
-//    void LogIn2Act(ActionEvent event) {
-//        code2.setDisable(false);
-//    }
-//
-//    @FXML
-//    void logIn1Act(ActionEvent event) {
-//        code1.setDisable(false);
-//    }
-//
-//    @FXML
-//    void LogIn3Act(ActionEvent event) {
-//        code3.setDisable(false);
-//    }
-//
-//    @FXML
-//    void LogIn4Act(ActionEvent event) {
-//        code4.setDisable(false);
-//    }
-//    @FXML
-//    void code1Act(ActionEvent event) {
-//    }
-//
-//    @FXML
-//    void code2Act(ActionEvent event) {
-//    }
-//
-//    @FXML
-//    void code3Act(ActionEvent event) {
-//
-//    }
-//
-//    @FXML
-//    void code4Act(ActionEvent event) {
-//
-//    }
+
     @FXML
     void nextAct(ActionEvent event) throws IOException {
 //        if (!code1.getText().equals(""))
@@ -270,16 +199,38 @@ public class StExamButtonController implements Serializable {
 //        {codee=code2.getText();}
 //        if (!code4.getText().equals(""))
 //        {codee=code4.getText();}
-        codee= cod[0].getText();
-        if(codee!="")
-        {LinkedList<Object> message = new LinkedList<Object>();
-            System.out.println(""+StEx.getStudent().getStudentExams().size());
-        message.add("#GoToExStudentBUTTON");
-        System.out.println("22"+codee);
-        message.add(codee);
-        message.add(String.valueOf(StEx.getStudent().getId()));
-          //  message.add(StEx);
-        SimpleClient.getClient().sendToServer(message);}
+        LinkedList<Object> message = new LinkedList<Object>();
+        System.out.println("exam code is: " + exam.getCode());
+        System.out.println("the student wrote: " + codee);
+        if(!codee.equals(exam.getCode())){ // the student wrote wrong code
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("WARNING");
+            alert.setHeaderText(null);
+            alert.setContentText("Wrong Code!!, please try again.");
+            alert.showAndWait();
+        }
+        else {
+            if ((exam.isComputed())) {
+                /// computed exam
+                //message.add("#StartComputedExam");
+                StartCompExam startExam = new StartCompExam(exam,student);
+                SimpleClient.getParams().add(startExam);
+                setRoot("computedExam");
+
+
+            } else { /// manual exam
+                if (codee != "") {
+                    // System.out.println(""+StEx.getStudent().getStudentExams().size());
+                    message.add("#GoToExStudentBUTTON");
+                    System.out.println("22" + codee);
+                    message.add(codee);
+                    message.add(String.valueOf(student.getId()));
+                    message.add(exam);
+                    SimpleClient.getClient().sendToServer(message);
+                }
+
+            }
+        }
         }
     @FXML
     void back (ActionEvent event) {

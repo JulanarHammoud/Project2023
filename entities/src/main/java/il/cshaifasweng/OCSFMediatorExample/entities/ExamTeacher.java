@@ -12,22 +12,38 @@ import java.util.List;
 
 @Entity
 @Table(name= "ExamTeacher")
-public class ExamTeacher extends Exam implements Serializable {
+public class ExamTeacher implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int Id;
     String Date;
+    String Time;
+    String Code;
     boolean computed;
+    @OneToOne
+    @JoinColumn(name = "exam_id")
+    Exam exam;
+
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "Exams_of_students",joinColumns = @JoinColumn(name = "teacher_id" ),inverseJoinColumns = {@JoinColumn(name = "ExamStd_id")})
+    protected List<ExamStudent> ExamsOfStudents;
 
-    protected LinkedList<ExamStudent> ExamsOfStudents;
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinTable(name = "examTQuestion",joinColumns = @JoinColumn(name = "teacher_id" ),inverseJoinColumns = {@JoinColumn(name = "DetailedQes_id")})
+    protected List<DetailedQuestion> questions;
 
-    @Override
-    public int getId() {
-        return Id;
+    public ExamTeacher() {
+    }
+
+    public ExamTeacher(Exam exam, String Date, String Time, boolean isComputed, String Code){
+        this.exam = exam;
+        this.Date = Date;
+        this.Time = Time;
+        this.computed = isComputed;
+        this.Code = Code;
     }
 
     public void setId(int id) {
@@ -51,10 +67,42 @@ public class ExamTeacher extends Exam implements Serializable {
     }
 
     public LinkedList<ExamStudent> getExamsOfStudents() {
-        return ExamsOfStudents;
+        return new LinkedList<>(ExamsOfStudents);
     }
 
     public void setExamsOfStudents(LinkedList<ExamStudent> examsOfStudents) {
         ExamsOfStudents = examsOfStudents;
+    }
+
+    public String getTime() {
+        return Time;
+    }
+
+    public void setTime(String time) {
+        Time = time;
+    }
+
+    public String getCode() {
+        return Code;
+    }
+
+    public void setCode(String code) {
+        Code = code;
+    }
+
+    public Exam getExam() {
+        return exam;
+    }
+
+    public void setExam(Exam exam) {
+        this.exam = exam;
+    }
+
+    public List<DetailedQuestion> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<DetailedQuestion> questions) {
+        this.questions = questions;
     }
 }
