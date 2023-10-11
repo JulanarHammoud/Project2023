@@ -991,6 +991,15 @@ public class SimpleServer extends AbstractServer {
 				}
 
 			}
+			else if(message.get(0).equals("#ApprovingGrade")){
+				ExamStudent exam = (ExamStudent) message.get(1);
+				boolean approved = (boolean) message.get(2);
+				String grade = (String) message.get(3);
+				System.out.println(approved);
+				System.out.println(grade);
+				
+
+			}
 		}
 
 	}

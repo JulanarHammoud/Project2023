@@ -43,6 +43,7 @@ public class Data {
     public static void generateStusent() throws Exception {
         SubjectStudent ST11 = new SubjectStudent("Grammar");
         SubjectStudent ST2 = new SubjectStudent("Geometry");
+        SubjectStudent ST3 = new SubjectStudent("Algebra");
         SubjectStudent ST1 = new SubjectStudent("comprehension");
         LinkedList<SubjectStudent> subjectst=new LinkedList<>();
         subjectst.add(ST1);
@@ -50,6 +51,7 @@ public class Data {
         CourseStudent English = new CourseStudent("English",subjectst);
         LinkedList<SubjectStudent> subjectst2=new LinkedList<>();
         subjectst2.add(ST2);
+        subjectst2.add(ST3);
         CourseStudent Math = new CourseStudent("Math",subjectst2);
         LinkedList<CourseStudent> course = new LinkedList<>();
         course.add(Math);
@@ -352,6 +354,24 @@ public class Data {
     }
 
     public static void generateSubject() throws Exception {
+        SubjectStudent ST11 = new SubjectStudent("Grammar");
+        SubjectStudent ST2 = new SubjectStudent("Geometry");
+        SubjectStudent ST3 = new SubjectStudent("Algebra");
+        SubjectStudent ST1 = new SubjectStudent("comprehension");
+        LinkedList<SubjectStudent> subjectst=new LinkedList<>();
+        subjectst.add(ST1);
+        subjectst.add(ST11);
+        CourseStudent Eng = new CourseStudent("English",subjectst);
+        LinkedList<SubjectStudent> subjectst2=new LinkedList<>();
+        subjectst2.add(ST2);
+        subjectst2.add(ST3);
+        CourseStudent Mat = new CourseStudent("Math",subjectst2);
+        LinkedList<CourseStudent> course = new LinkedList<>();
+        course.add(Mat);
+        Student julanar = new Student("Julanar", "Hammoud","jula123","0101",course);
+        course.add(Eng);
+        Student rozaleen = new Student("Rozaleen", "Hassanin", "roza99","1999",course);
+
         Question Num1 = new Question("I'm very happy _____ in India. I really miss being there.", "to live", "to have lived", "to be lived", "to be living","" ,"to live");
         Question Num2 = new Question("They didn't reach an agreement ______ their differences.", "on account of", "due", "because", "owing","bay extra attention" ,"owing");
         Question Num3 = new Question("I wish I _____ those words. But now it's too late.", " not having said", " have never said", "never said", "had never said","good luck" ,"have never said");
@@ -400,6 +420,14 @@ public class Data {
             session.beginTransaction();
             System.err.println("Generated starts ...");
 
+            session.saveOrUpdate(ST1);
+            session.saveOrUpdate(ST11);
+            session.saveOrUpdate(ST2);
+            session.saveOrUpdate(ST3);
+            session.saveOrUpdate(Eng);
+            session.saveOrUpdate(Mat);
+            session.saveOrUpdate(julanar);
+            session.saveOrUpdate(rozaleen);
             session.saveOrUpdate(Num1);
             session.saveOrUpdate(Num2);
             session.saveOrUpdate(Num3);
@@ -874,6 +902,13 @@ public class Data {
       try{
           System.out.println(student.getId() + " " + student.getFirstName());
           ExamStudent e = new ExamStudent(exam.getTime(),exam.getDate(), exam.isComputed(),exam.getExam(),exam.getCode());
+          e.setQuestions(exam.getQuestions());
+          e.setExecuted(exam.isExecuted());
+          e.setComputed(exam.isComputed());
+          for(DetailedQuestion q : e.getQuestions()){
+              DetailedQuestion question = new DetailedQuestion(q.getPoints(), q.getQuestion());
+              generateData(question);
+          }
           int id =  generateData(e);
           SessionFactory sessionFactory = getSessionFactory();
           session = sessionFactory.openSession();

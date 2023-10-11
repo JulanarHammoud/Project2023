@@ -10,7 +10,11 @@
                 <TableColumn fx:id="name" prefWidth="124.0" text="Students" />
             </columns>
         </TableView>
-      <AnchorPane fx:id="pane" layoutX="155.0" layoutY="52.0" prefHeight="324.0" prefWidth="431.0" />
+      <ScrollPane layoutX="155.0" layoutY="52.0" prefHeight="324.0" prefWidth="431.0">
+         <content>
+            <AnchorPane fx:id="pane" prefHeight="324.0" prefWidth="431.0" />
+         </content></ScrollPane>
+      <Button layoutX="570.0" layoutY="15.0" mnemonicParsing="false" onAction="#approve" text="Approve" />
 
     </children>
 

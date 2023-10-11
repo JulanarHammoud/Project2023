@@ -21,11 +21,12 @@ public class ExamStudent  implements Serializable {
     boolean executed;
     boolean onTime;
     String stdName;
+    boolean approve;
 
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
-    @JoinTable(name = "examSQuestion",joinColumns = @JoinColumn(name = "teacher_id" ),inverseJoinColumns = {@JoinColumn(name = "DetailedQes_id")})
-    protected List<DetailedQuestion> questions;
+    @JoinTable(name = "examSQuestion",joinColumns = @JoinColumn(name = "exStd_id" ),inverseJoinColumns = {@JoinColumn(name = "DetailedQes_id")})
+    private List<DetailedQuestion> questions;
 
     @OneToOne
     @JoinColumn(name = "exam_std_id")
@@ -163,5 +164,13 @@ public class ExamStudent  implements Serializable {
 
     public void setStdName(String stdName) {
         this.stdName = stdName;
+    }
+
+    public boolean isApprove() {
+        return approve;
+    }
+
+    public void setApprove(boolean approve) {
+        this.approve = approve;
     }
 }
