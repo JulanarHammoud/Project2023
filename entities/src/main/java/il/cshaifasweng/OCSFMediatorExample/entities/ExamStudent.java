@@ -173,4 +173,11 @@ public class ExamStudent  implements Serializable {
     public void setApprove(boolean approve) {
         this.approve = approve;
     }
+    public String getCourse() {
+        return exam.getCourse();
+    }
+
+    public void setCourse(String course) {
+        exam.setCourse(course);
+    }
 }

@@ -43,11 +43,18 @@ public class GradesController {
         try{
 
             int newGrade=Integer.valueOf(Grade1.getText());
+
+            System.out.println("11"+newGrade);
+
             Grademsg.add("#UpdateGrade");
             Grademsg.add(student.getStudent().getId());
+
+            System.out.println("11"+student.getStudent().getId());
+
             Grademsg.add(newGrade);
             Grademsg.add(1);
-            SimpleClient.getClient().sendToServer(Grademsg);}
+            SimpleClient.getClient().sendToServer(Grademsg);
+        }
         catch (IOException e) {
             e.printStackTrace();
         }

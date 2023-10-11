@@ -18,13 +18,14 @@ import javafx.util.Pair;
 import javax.swing.text.TabableView;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
 import static il.cshaifasweng.OCSFMediatorExample.client.App.set;
 
-public class StudentsExamsController {
+public class StudentsExamsController implements Serializable {
 
     int lastIndex = SimpleClient.getParams().size() - 1;
     StudentsExams fromServer = (StudentsExams) SimpleClient.getParams().get(lastIndex);
@@ -40,6 +41,8 @@ public class StudentsExamsController {
     private TableColumn<ExamStudent, String> name;
     @FXML
     AnchorPane pane;
+    @FXML
+    Button approve;
 
 
     public void initialize() {
@@ -50,6 +53,12 @@ public class StudentsExamsController {
         table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
            try{
                if (newSelection != null) {
+//                   if(newSelection.isApprove()){
+//                       approve.setDisable(true);
+//                   }
+//                   else {
+//                       approve.setDisable(false);
+//                   }
                    System.out.println("Selected Name: " + newSelection.getStdName());
                    ExamStudent StEx = newSelection;
                    selectedExam =newSelection;
@@ -162,9 +171,6 @@ public class StudentsExamsController {
 
         });
         table.setItems(data);
-
-
-
     }
 
 
@@ -200,6 +206,7 @@ public class StudentsExamsController {
             if (buttonType == ButtonType.APPLY) {
                 String approval = change.getSelectionModel().getSelectedItem();
                 String grade = numericField.getText();
+//                String grade="40";
                 String reasonText = reason.getText();
                 // Handle the APPLY action here, e.g., send data to the server, update the grade, etc.
                 System.out.println("User chose: " + approval);
@@ -217,9 +224,23 @@ public class StudentsExamsController {
             LinkedList<Object> message = new LinkedList<>();
             boolean approved = (approval == "yes") ? true:false;
             message.add("#ApprovingGrade");
-            message.add(selectedExam);
+
+
+            int i=studentsExams.indexOf(selectedExam);
+           String student=studentsExams.get(i).getStdName();
+            System.out.println(";;;;;"+i+studentsExams.get(i).getCode());
+
+            selectedExam.setGrade(Integer.parseInt(grade));
+            selectedExam.setApprove(approved);
+            System.out.println("pp"+studentsExams.get(i).getGrade()+studentsExams.get(i).isApprove());
+            exam.setExamsOfStudents(studentsExams);
+            message.add(exam);
+            System.out.println("pp"+exam.getExamsOfStudents().get(0).getGrade()+student);
+            message.add(teacher);
+            message.add(student);
             message.add(approved);
             message.add(grade);
+            message.add(selectedExam);
             try {
                 SimpleClient.getClient().sendToServer(message);
             } catch (IOException e) {

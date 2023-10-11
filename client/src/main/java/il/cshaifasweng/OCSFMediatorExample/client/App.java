@@ -376,7 +376,7 @@ public class App extends Application {
         });}
 
     @Subscribe
-    public void onStudentExamsEvent(StudentsExamsEvent event) {
+    public void onStudentsExamsEvent(StudentsExamsEvent event) {
         Platform.runLater(() -> {
             System.out.println("StudentExamsEvent App-client");
             SimpleClient.getParams().add(event.getStudentsExams());

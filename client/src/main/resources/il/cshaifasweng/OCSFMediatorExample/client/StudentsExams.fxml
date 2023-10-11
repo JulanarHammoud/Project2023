@@ -14,7 +14,7 @@
          <content>
             <AnchorPane fx:id="pane" prefHeight="324.0" prefWidth="431.0" />
          </content></ScrollPane>
-      <Button layoutX="570.0" layoutY="15.0" mnemonicParsing="false" onAction="#approve" text="Approve" />
+      <Button fx:id="approve" layoutX="570.0" layoutY="15.0" mnemonicParsing="false" onAction="#approve" text="Approve" />
 
     </children>
 

@@ -1032,4 +1032,18 @@ public class Data {
         session.getTransaction().commit();
         session.close();
     }
+
+    public static void updateGrade(int grade,boolean approve , int id){
+        System.out.println("I am updating: "+grade+" "+approve+" "+id);
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        ExamStudent change =session.get(ExamStudent.class,id);
+        change.setApprove(approve);
+        change.setGrade(grade);
+        session.saveOrUpdate(change);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
+    }
 }

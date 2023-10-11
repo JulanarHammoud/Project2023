@@ -120,6 +120,7 @@ public class SimpleClient extends AbstractClient {
 		else if (msg.getClass().equals(StudentsExams.class)) {
 			EventBus.getDefault().post(new StudentsExamsEvent((StudentsExams) msg));
 		}
+
 	}
 
 	public static SimpleClient getClient() {

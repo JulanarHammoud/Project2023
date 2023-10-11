@@ -722,7 +722,82 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			} else if (message.get(0).equals("SaveEditExam")) {
+			}	else if(message.get(0).equals("#ApprovingGrade")){
+				ExamTeacher exam = (ExamTeacher) message.get(1);
+				Teacher t=(Teacher) message.get(2);
+				String s=(String) message.get(3);
+				boolean approved = (boolean) message.get(4);
+				String grade = (String) message.get(5);
+				ExamStudent examm = (ExamStudent) message.get(6);
+				int idd=exam.getId();
+				//if(!approved)
+				//{
+					Data.updateGrade(Integer.parseInt(grade),approved,examm.getId());
+				//}
+				ExamTeacher ex=Data.getDataById(ExamTeacher.class,idd);
+//				exam.setGrade(Integer.parseInt(grade));
+//				exam.setApprove(approved);
+
+//				StudentsExams ee=new StudentsExams();
+
+				List<Student> st=null;
+				try{
+				 st=Data.getAllStudents();}
+				catch(IOException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+				int i=0;
+				int f=1;
+				while((i<st.size())&&(f==1))
+				{
+					String hh=st.get(i).getFirstName();
+					hh=hh+" "+st.get(i).getLastName();
+					System.out.println("kl"+hh+"ll"+s);
+					if(hh.equals(s))
+					{
+						f=0;
+					}
+					else {
+						f=1;
+						i++;
+					}
+				}
+				System.out.println(exam.getSubject()+"RRR"+t.getFirstName()+exam.getCode()+exam.getExamsOfStudents().get(0).getGrade());
+//				System.out.println(approved);
+//				System.out.println(grade);
+				Student studentt=st.get(i);
+List<ExamStudent> gg=studentt.getStudentExams();
+int l=0;
+int flagg=1;
+while((flagg==1)&&(l<gg.size()))
+{
+	if((exam.getCode()).equals(gg.get(l).getCode()))
+	{
+		flagg=0;
+		System.out.println("kkk"+exam.getCode());
+	}
+	else{
+		l++;
+	}
+}
+				gg.get(l).setGrade(Integer.parseInt(grade));
+				gg.get(l).setApprove(approved);
+				studentt.setStudentExams(gg);
+				System.out.println("pppppp"+i+studentt.getFirstName());
+				System.out.println(""+studentt.getStudentExams().get(0).getCode());
+				System.out.println(":"+studentt.getStudentExams().get(0).getGrade());
+
+				StudentsExams ee=new StudentsExams(t,ex);
+				try {
+					client.sendToClient(ee);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			}
+			else if (message.get(0).equals("SaveEditExam")) {
 				try {
 					System.out.println("I'm in simpleserver Save Edits Exam");
 					int flag = (Integer) message.get(1);
@@ -991,15 +1066,7 @@ public class SimpleServer extends AbstractServer {
 				}
 
 			}
-			else if(message.get(0).equals("#ApprovingGrade")){
-				ExamStudent exam = (ExamStudent) message.get(1);
-				boolean approved = (boolean) message.get(2);
-				String grade = (String) message.get(3);
-				System.out.println(approved);
-				System.out.println(grade);
-				
 
-			}
 		}
 
 	}

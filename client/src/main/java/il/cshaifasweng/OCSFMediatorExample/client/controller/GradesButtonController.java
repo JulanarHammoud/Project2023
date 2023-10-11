@@ -131,6 +131,9 @@ public class GradesButtonController {
     @FXML
     private AnchorPane anchor;
     public void initialize(){
+//        System.out.println("llL"+StEx.getSs().getStudentExams().size());
+//        System.out.println(""+StEx.getSs().getStudentExams().get(0).getCode());
+//        System.out.println(""+StEx.getSs().getStudentExams().get(0).getGrade());
         //   ExamStudent mm=new ExamStudent();
 //					mm.setDate("03.10.2023");
 //					mm.setNumOfQuestions(12);
@@ -205,6 +208,7 @@ public class GradesButtonController {
 
         double layoutX = 30.0;
         double layoutY=111;
+       // if(StEx.getSs().getCourses()!=null){
         for(CourseStudent cor : StEx.getSs().getCourses()){
             String color=getRandomColor();
             Text sub = new Text(cor.getName());
@@ -358,6 +362,7 @@ public class GradesButtonController {
             anchor.getChildren().addAll(k,btn);
             layoutY = layoutY + 85;
         }
+       // }
     }
 
     private String getRandomColor() {
@@ -443,48 +448,57 @@ public class GradesButtonController {
         FinalGrade.setLayoutY(95);
 //        FinalGrade.setText("MathFinalGrade");
         List<ExamStudent> t=StEx.getSs().getStudentExams();
-        int i = 0;
+//        System.out.println("t.size="+t.size()+t.get(0).getSubject()+cor.getName());
+        int i = t.size()-1;
         int j = 0;
         int k1 = 0;
         int k2 = 0;
         int k3 = 0;
+//        int m=0;
         Firstt=null;
         Secondd=null;
         Finall=null;
-        while((i <t.size())&&((k1 ==0)||(k2 ==0)||(k3 ==0)))
-        {
-            if(cor.getName().equals(t.get(i).getSubject()))
-            {
-                if(j ==0)
-                {System.out.println("llllpp"+ i + j +t.size()+cor.getName()+t.get(i).getSubject());
-                    Firstt=t.get(i);
-                    j++;
-                    i++;
-                    k1 =1;
+        if(t !=null) {
+            while ((i >=0) && ((k1 == 0) || (k2 == 0) || (k3 == 0))) {
+//            m=0;
+                System.out.println("ok" + t.get(i).getCourse() + cor.getName());
+//            while(m<cor.getSubjectstudent().size())
+//            {
+
+                if ((t.get(i).getCourse()).equals(cor.getName())) {
+                    if (j == 0) {
+                        System.out.println("llllpp" + i + j + t.size() + cor.getName() + t.get(i).getSubject());
+                        Firstt = t.get(i);
+                        System.out.println("//m"+Firstt.getGrade()+Firstt.getCode());
+                        j++;
+                        i--;
+                        k1 = 1;
+                    } else if (j == 1) {
+                        System.out.println("llll1" + i + j + t.size());
+                        Secondd = t.get(i);
+                        j++;
+                        i--;
+                        k2 = 1;
+                    } else if (j == 2) {
+                        System.out.println("llll2" + i + j + t.size());
+                        Finall = t.get(i);
+                        j++;
+                        i--;
+                        k3 = 1;
+                    }
                 }
-                else if(j ==1)
-                {System.out.println("llll1"+ i + j +t.size());
-                    Secondd=t.get(i);
-                    j++;
-                    i++;
-                    k2 =1;
+//                m++;
+//            }
+                else {
+                    System.out.println("llll3" + i + j + t.size());
+                    i--;
                 }
-                else if(j ==2)
-                {System.out.println("llll2"+ i + j +t.size());
-                    Finall=t.get(i);
-                    j++;
-                    i++;
-                    k3 =1;
-                }
-            }
-            else{
-                System.out.println("llll3"+ i + j +t.size());
-                i++;
             }
         }
         if(Firstt!=null)
         {System.out.println("gggg");
             String s= String.valueOf(Firstt.getGrade());
+            System.out.println("llL"+Firstt.getGrade());
             //FirstGrade = (Text) k.getChildren().get(7); // Assuming it's the 8th child in the Pane's children list
             FirstGrade.setText(s);
             //Button first = (Button) k.getChildren().get(4);
@@ -508,6 +522,7 @@ public class GradesButtonController {
         if(Secondd!=null)
         {System.out.println("gggg2");
             String s= String.valueOf(Secondd.getGrade());
+            System.out.println("llL"+Secondd.getGrade());
            // Text secondGrade1 = (Text) k.getChildren().get(8); // Assuming it's the 8th child in the Pane's children list
             secondGrade1.setText(s);
            // Button paperSecond = (Button) k.getChildren().get(5);
@@ -531,6 +546,7 @@ public class GradesButtonController {
         if(Finall!=null)
         {System.out.println("gggg3");
             String s= String.valueOf(Finall.getGrade());
+            System.out.println("llL"+Finall.getGrade());
            // Text FinalGrade = (Text) k.getChildren().get(9); // Assuming it's the 8th child in the Pane's children list
             FinalGrade.setText(s);
            // Button paperFinal = (Button) k.getChildren().get(6);
