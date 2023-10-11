@@ -103,14 +103,6 @@ public class ExamEditController {
             checkbox1.setOnAction(e -> { if(checkbox1.isSelected()) {q.setSelect_to_delete(true);}else{q.setSelect_to_delete(false); } }); // see if the checkbox is checked
         }
 
-
-
-
-
-
-
-
-
         //Accordion to hold the question table or to add new question to the questions
         TitledPane questionpane = new TitledPane();
         questionpane.setText("Question Table");

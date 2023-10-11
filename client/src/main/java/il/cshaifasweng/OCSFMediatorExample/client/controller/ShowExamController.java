@@ -13,6 +13,8 @@ import javafx.scene.text.Text;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static il.cshaifasweng.OCSFMediatorExample.client.App.set;
@@ -54,12 +56,16 @@ public class ShowExamController {
     private String Code;
 
     private String Type;
+    int datecheck;
+    int CR,X,T;
 
     @FXML
     void initialize() throws IOException {
+        CR=0; Code=""; Time=""; Date=""; X=0;T=0;
         for(Question question : questions){
             DetailedQuestion q =new DetailedQuestion();
             q.setQuestion(question);
+            q.setPoints(0);
             detailedQuestions.add(q);
         }
         //test = new AnchorPane();
@@ -70,14 +76,15 @@ public class ShowExamController {
         if(message.isFlag()){
             Label date = new Label("Date");
             //<Label fx:id="examTime1" layoutX="20.0" layoutY="133.0" prefHeight="26.0" prefWidth="41.0" text="Date" />
-            date.setLayoutX(20.0);
+            date.setLayoutX(5.0);
             date.setLayoutY(133.0);
             date.setPrefHeight(26.0);
             date.setPrefWidth(41.0);
             testshow.getChildren().add(date);
 //<TextField fx:id="date" layoutX="52.0" layoutY="133.0" prefHeight="26.0" prefWidth="97.0" />
             TextField fillDate = new TextField();
-            fillDate.setLayoutX(52.0);
+            fillDate.setPromptText("dd.MM.yyyy");
+            fillDate.setLayoutX(35.0);
             fillDate.setLayoutY(133.0);
             fillDate.setPrefHeight(26.0);
             fillDate.setPrefWidth(97.0);
@@ -86,9 +93,11 @@ public class ShowExamController {
                 public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                     System.out.println("user changed the date to: " + newValue);
                     Date = newValue;
+                    X=1;
                 }
             });
-            testshow.getChildren().add(fillDate);
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            testshow.getChildren().addAll(fillDate);
             //<Label fx:id="examTime11" layoutX="166.0" layoutY="133.0" prefHeight="26.0" prefWidth="41.0" text="Time" />
             Label time = new Label("Time");
             time.setLayoutX(166.0);
@@ -107,6 +116,7 @@ public class ShowExamController {
                 public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                     System.out.println("user changed the time to: " + newValue);
                     Time = newValue;
+                    T=1;
                 }
             });
             testshow.getChildren().add(fillTime);
@@ -143,13 +153,11 @@ public class ShowExamController {
                 @Override
                 public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                     System.out.println("user changed the code to: " + newValue);
-                    Code = newValue;
+                        Code = newValue;
+                        CR=1;
                 }
             });
             testshow.getChildren().add(fillCode);
-
-
-
         }
         double i = 130.0; // this index to set the position of the question on the screen
         if(message.isFlag()){
@@ -170,16 +178,13 @@ public class ShowExamController {
                     for(DetailedQuestion qes : detailedQuestions){
                         if(qes.getQuestion().getId() == q.getId()){
                             qes.setPoints(newValue);
+
                         }
                     }
-
-
                 });
                 AnchorPane.setTopAnchor(numericSpinner,i);
                 AnchorPane.setRightAnchor(numericSpinner,20.0);
                 testshow.getChildren().add(numericSpinner);
-
-
             }
             ToggleGroup TG = new ToggleGroup();
             answers.add(q.getAns1());
@@ -211,21 +216,78 @@ public class ShowExamController {
     @FXML
     public void Finish (ActionEvent event) {
         LinkedList<Object> messageToServer = new LinkedList<Object>();
+         int x=0;
+         int t=1;
+         int good=1;
+         int c=1;
+         int ggg=1;
         if(message.isFlag()){
             // publishing new exam
-            messageToServer.add("#PublishExam");
             exam.setQuestions(questions);
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            try {
+                datecheck=1;
+                LocalDate date1 = LocalDate.parse(Date, dateFormatter);
+            } catch (Exception e) {
+                good=0;
+                datecheck=0;
+                System.out.println("Invalid date format. Please use dd.MM.yyyy.");
+            }
 
-            boolean isComputed = (Type.equals("computed")) ? true:false ;
-            ExamTeacher examTeacher = new ExamTeacher(exam,Date,Time,isComputed,Code);
-            //examTeacher.setQ
-            ExamStudent examStudent = new ExamStudent(Time,Date,isComputed,exam,Code);
-            examStudent.setQuestions(detailedQuestions);
-            System.out.println("th first q points is: " + examStudent.getQuestions().get(0).getPoints());
-            messageToServer.add(examTeacher);
-            messageToServer.add(teacher);
-            messageToServer.add(examStudent);
-
+            if(datecheck==1) { // if the format is good continue to check if the date is not in the past
+                LocalDate currentDate = LocalDate.now();
+                LocalDate dateToCheck = LocalDate.parse(Date, dateFormatter);
+                if(X==0){
+                    good = 0;
+                    x=0;
+                }
+                else if (dateToCheck.isBefore(currentDate)) {
+                    good = 0;
+                    x=0;
+                    System.out.println("The date is in the past.");
+                } else {
+                    x = 1;
+                }
+            }
+            if(Type==null){
+                good=0;
+                t=0;
+            }
+            System.out.println(Code.length());
+            if(CR==0){
+                c=0;
+                good=0;
+            } else  if(Code.length()!=4){
+                c=0;
+                good=0;
+            }
+            for(Question q:questions){
+                for(DetailedQuestion qes : detailedQuestions){
+                    if(qes.getPoints()==0){
+                        ggg=0;
+                        good=0;
+                    }
+                }
+            }
+            if(good==1){
+                messageToServer.add("#PublishExam");
+                boolean isComputed = (Type.equals("computed")) ? true:false ;
+                ExamTeacher examTeacher = new ExamTeacher(exam,Date,Time,isComputed,Code);
+                ExamStudent examStudent = new ExamStudent(Time,Date,isComputed,exam,Code);
+                examStudent.setQuestions(detailedQuestions);
+                System.out.println("th first q points is: " + examStudent.getQuestions().get(0).getPoints());
+                messageToServer.add(examTeacher);
+                messageToServer.add(teacher);
+                messageToServer.add(examStudent);
+            }
+            else{
+                messageToServer.add("dateexception");
+                messageToServer.add(datecheck);
+                messageToServer.add(x);
+                messageToServer.add(t);
+                messageToServer.add(c);
+                messageToServer.add(ggg);
+            }
         }
         else {
             messageToServer.add("#GetSubject");

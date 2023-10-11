@@ -8,6 +8,8 @@ import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -58,24 +60,24 @@ public class SimpleServer extends AbstractServer {
 
 	}
 
+
+
+
+
 	@Override
 	protected void handleMessageFromClient(Object msg, ConnectionToClient client) {
-
-
 		String msgString = msg.toString();
 		System.out.println("Message = " + msgString + ", reached server");
 		System.out.println(msgString.startsWith("#warningNoQes"));
 		if (msgString.startsWith("#warning")) {
 			Warning warning = new Warning("Warning from server!");
-			System.out.println("There is a warning");
 			try {
 				client.sendToClient(warning);
 				System.out.format("Sent warning to client %s\n", client.getInetAddress().getHostAddress());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
-		else if (msgString.equals("[#warningNoQes]")) {
+		} else if (msgString.equals("[#warningNoQes]")) {
 			Warning warning = new Warning("please choose a question !!");
 			System.out.println("No Question is choosed");
 			try {
@@ -84,8 +86,7 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
-		else if (msgString.startsWith("#ListStudents")) {
+		} else if (msgString.startsWith("#ListStudents")) {
 			try {
 				System.out.print("Sent list of all students to the client");
 				System.out.flush();
@@ -101,8 +102,7 @@ public class SimpleServer extends AbstractServer {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-		else {
+		} else {
 			LinkedList<Object> message = (LinkedList<Object>) (msg);
 			System.out.println(message.get(0));
 			if (message.get(0).equals("#ClickGrades")) {
@@ -117,8 +117,7 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-			else if (message.get(0).equals("#UpdateGrade")) {
+			} else if (message.get(0).equals("#UpdateGrade")) {
 			}
 			///////////////////////////////////////////////////////
 			else if (message.get(0).equals("#Login")) {
@@ -128,8 +127,7 @@ public class SimpleServer extends AbstractServer {
 						System.out.println("nothing is filled");
 						Warning warning = new Warning("please fill the informations!!");
 						client.sendToClient(warning);
-					}
-					else if (message.get(1).equals("")) {
+					} else if (message.get(1).equals("")) {
 						if (message.get(2).equals("")) {
 							System.out.println("there is no username or password ");
 							Warning warning = new Warning("please fill the username and password!!");
@@ -199,7 +197,8 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
+			}///////////////////////////////////////////
+
 			else if (message.get(0).equals("#LogOut")) {
 				System.out.println("are you in the log out?");
 				LogOut logOut = new LogOut("success");
@@ -554,23 +553,21 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-			else if (message.get(0).equals("#ShowExam")) {
-					try {
-						if(message.get(1)==null){
-							System.out.println("Not selecting any the exam");
-							Warning warning = new Warning("please select a exam!!");
-							client.sendToClient(warning);
-						} else{
-							System.out.println("client ask to show exam");
-							ExamSubjectTeacher examsubjectteacher = (ExamSubjectTeacher) message.get(1);
-							client.sendToClient(examsubjectteacher);
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
+			} else if (message.get(0).equals("#ShowExam")) {
+				try {
+					if(message.get(1)==null){
+						System.out.println("Not selecting any the exam");
+						Warning warning = new Warning("please select a exam!!");
+						client.sendToClient(warning);
+					} else{
+						System.out.println("client ask to show exam");
+						ExamSubjectTeacher examsubjectteacher = (ExamSubjectTeacher) message.get(1);
+						client.sendToClient(examsubjectteacher);
 					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-			 else if (message.get(0).equals("DeleteExam")) {
+			} else if (message.get(0).equals("DeleteExam")) {
 				try {
 					if (message.get(1) == null) {
 						System.out.println("Not selecting any exam");
@@ -926,19 +923,61 @@ public class SimpleServer extends AbstractServer {
 				///// l7d hon mn7ot el exam 3nd teacher and students
 			}
 			else if (message.get(0).equals("#StdFinishExam")){
-				System.out.println("StdFinishExam");
-				Student student = (Student) message.get(1);
-				ExamStudent exam = (ExamStudent) message.get(2);
-				Student std = Data.SubmitExam(student,exam);
-				try {
-					System.out.println("sending " + std.getFirstName() + "'s detailes to client");
-					client.sendToClient(std);
-				} catch (IOException e) {
-					e.printStackTrace();
+					System.out.println("StdFinishExam");
+					Student student = (Student) message.get(1);
+					ExamStudent exam = (ExamStudent) message.get(2);
+					Student std = Data.SubmitExam(student,exam);
+					try {
+						System.out.println("sending " + std.getFirstName() + "'s detailes to client");
+						client.sendToClient(std);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+			} else if(message.get(0).equals("dateexception")){
+				int x=(Integer)message.get(1);
+				int y=(Integer)message.get(2);
+				if((Integer)message.get(4)==0){
+					try {
+						Warning warning = new Warning("Please enter a code consisting of exactly 4 digits or characters!!");
+						client.sendToClient(warning);
+					} catch (Exception e) {
+						throw new RuntimeException(e);
+					}
 				}
-
-			}
-			else if(message.get(0).equals("#StudentsExams")){
+				if((Integer)message.get(3)==0){
+					try {
+						Warning warning = new Warning("please select the exam type!!");
+						client.sendToClient(warning);
+					} catch (Exception e) {
+						throw new RuntimeException(e);
+					}
+				}
+				if(x==0){
+					Warning warning = new Warning("wrong date formatte, please try again!!");
+					try {
+						client.sendToClient(warning);
+						//client.sendToClient(examSubjectTeacher);
+					} catch (Exception e) {
+						throw new RuntimeException(e);
+					}
+				} else if(y==0){
+					Warning warning1 = new Warning("the date is in the past, please try again!!");
+					try {
+						client.sendToClient(warning1);
+					//	client.sendToClient(examSubjectTeacher);
+					} catch (Exception e) {
+						throw new RuntimeException(e);
+					}
+				} else if((Integer) message.get(5)==0){
+					Warning warning1 = new Warning("please fill all the exam points");
+					try {
+						client.sendToClient(warning1);
+						//	client.sendToClient(examSubjectTeacher);
+					} catch (Exception e) {
+						throw new RuntimeException(e);
+					}
+				}
+			} else if(message.get(0).equals("#StudentsExams")){
 				// teacher wants to watch the students exam
 				int teacherId = (int) message.get(1);
 				ExamTeacher examTeacher = (ExamTeacher) message.get(2);
@@ -953,5 +992,6 @@ public class SimpleServer extends AbstractServer {
 
 			}
 		}
+
 	}
 }
