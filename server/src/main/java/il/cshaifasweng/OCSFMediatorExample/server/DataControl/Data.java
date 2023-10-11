@@ -813,7 +813,7 @@ public class Data {
             SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
             session.beginTransaction();
-            System.err.println("Generated starts ...");
+            System.err.println("Generating " + data.getClass().getName() + " starts ...");
             id = (int) session.save(data);
             System.err.println("Generated ends ...");
             session.flush();
@@ -873,11 +873,14 @@ public class Data {
         // and generate new exam for the student and adding it to the list
       try{
           System.out.println(student.getId() + " " + student.getFirstName());
-          int id =  generateData(exam);
+          ExamStudent e = new ExamStudent(exam.getTime(),exam.getDate(), exam.isComputed(),exam.getExam(),exam.getCode());
+          int id =  generateData(e);
           SessionFactory sessionFactory = getSessionFactory();
           session = sessionFactory.openSession();
           session.beginTransaction();
           ExamStudent change =session.get(ExamStudent.class,id);
+          change.setStdName(student.getFirstName() + " " + student.getLastName());
+          session.saveOrUpdate(change);
           Student updateStd = session.get(Student.class,student.getId());
           ExamTeacher ex =session.get(ExamTeacher.class,exam.getExamTId());
           if( updateStd.getStudentExams() == null){
@@ -886,6 +889,10 @@ public class Data {
           }
           updateStd.getStudentExams().add(change);
           session.saveOrUpdate(updateStd);
+          if( ex.getExamsOfStudents() == null){
+              List<ExamStudent> list = new ArrayList<>();
+              ex.setExamsOfStudents(list);
+          }
           ex.getExamsOfStudents().add(change);
           session.saveOrUpdate(ex);
           session.flush();

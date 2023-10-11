@@ -175,4 +175,11 @@ public class TeacherController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    void  publishedExams(ActionEvent event) throws IOException{
+        SimpleClient.getParams().add(teacher);
+        setRoot("PublishedExam");
+
+    }
 }

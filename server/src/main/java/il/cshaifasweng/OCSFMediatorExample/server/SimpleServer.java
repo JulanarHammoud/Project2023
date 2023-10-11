@@ -938,6 +938,20 @@ public class SimpleServer extends AbstractServer {
 				}
 
 			}
+			else if(message.get(0).equals("#StudentsExams")){
+				// teacher wants to watch the students exam
+				int teacherId = (int) message.get(1);
+				ExamTeacher examTeacher = (ExamTeacher) message.get(2);
+				Teacher teacher = Data.getDataById(Teacher.class,teacherId);
+				ExamTeacher exam = Data.getDataById(ExamTeacher.class, examTeacher.getId());
+				StudentsExams event = new StudentsExams(teacher,exam);
+				try {
+					client.sendToClient(event);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			}
 		}
 	}
 }

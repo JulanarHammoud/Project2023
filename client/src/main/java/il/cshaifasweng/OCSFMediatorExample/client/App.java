@@ -2,6 +2,7 @@ package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.client.EventBus.*;
 import il.cshaifasweng.OCSFMediatorExample.entities.MailManagerEntity;
+import il.cshaifasweng.OCSFMediatorExample.entities.StudentsExams;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -369,6 +370,18 @@ public class App extends Application {
             try {
                 System.out.println("Move to manager mail page");
                 setRoot("ManagerMail");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });}
+
+    @Subscribe
+    public void onStudentExamsEvent(StudentsExamsEvent event) {
+        Platform.runLater(() -> {
+            System.out.println("StudentExamsEvent App-client");
+            SimpleClient.getParams().add(event.getStudentsExams());
+            try {
+                setRoot("StudentsExams");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

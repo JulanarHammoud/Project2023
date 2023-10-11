@@ -28,14 +28,23 @@ public class ExamTeacher implements Serializable {
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "Exams_of_students",joinColumns = @JoinColumn(name = "teacher_id" ),inverseJoinColumns = {@JoinColumn(name = "ExamStd_id")})
-    protected List<ExamStudent> ExamsOfStudents;
+    private List<ExamStudent> ExamsOfStudents;
 
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "examTQuestion",joinColumns = @JoinColumn(name = "teacher_id" ),inverseJoinColumns = {@JoinColumn(name = "DetailedQes_id")})
-    protected List<DetailedQuestion> questions;
+    private List<DetailedQuestion> questions;
 
     public ExamTeacher() {
+    }
+
+    public String getSubject() {
+        return exam.getSubject();
+    }
+
+
+    public String getTeacher() {
+        return exam.getTeacher();
     }
 
     public ExamTeacher(Exam exam, String Date, String Time, boolean isComputed, String Code){
@@ -66,11 +75,11 @@ public class ExamTeacher implements Serializable {
         this.computed = computed;
     }
 
-    public LinkedList<ExamStudent> getExamsOfStudents() {
-        return new LinkedList<>(ExamsOfStudents);
+    public List<ExamStudent> getExamsOfStudents() {
+        return this.ExamsOfStudents;
     }
 
-    public void setExamsOfStudents(LinkedList<ExamStudent> examsOfStudents) {
+    public void setExamsOfStudents(List<ExamStudent> examsOfStudents) {
         ExamsOfStudents = examsOfStudents;
     }
 
@@ -104,5 +113,9 @@ public class ExamTeacher implements Serializable {
 
     public void setQuestions(List<DetailedQuestion> questions) {
         this.questions = questions;
+    }
+
+    public int getId() {
+        return Id;
     }
 }

@@ -20,6 +20,7 @@ public class ExamStudent  implements Serializable {
     int examTId;
     boolean executed;
     boolean onTime;
+    String stdName;
 
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -154,5 +155,13 @@ public class ExamStudent  implements Serializable {
 
     public void setOnTime(boolean onTime) {
         this.onTime = onTime;
+    }
+
+    public String getStdName() {
+        return stdName;
+    }
+
+    public void setStdName(String stdName) {
+        this.stdName = stdName;
     }
 }

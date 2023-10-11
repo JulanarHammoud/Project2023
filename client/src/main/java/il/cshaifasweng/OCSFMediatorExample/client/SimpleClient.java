@@ -117,6 +117,9 @@ public class SimpleClient extends AbstractClient {
 			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			EventBus.getDefault().post(new MailManagerEvent((MailManagerEntity) msg));
 		}
+		else if (msg.getClass().equals(StudentsExams.class)) {
+			EventBus.getDefault().post(new StudentsExamsEvent((StudentsExams) msg));
+		}
 	}
 
 	public static SimpleClient getClient() {

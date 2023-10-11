@@ -18,13 +18,12 @@ public class Student extends Person{
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "Student_exam",joinColumns = @JoinColumn(name = "Student_ID"),inverseJoinColumns = {@JoinColumn(name = "exam_ID")})
-    private static List<ExamStudent> StudentExams;
-//    private boolean onlinee=false;
+    private  List<ExamStudent> StudentExams;
 
     public Student(String firstName, String lastName, String userName, String passWord, List<CourseStudent> courses) {
         super(firstName, lastName, userName, passWord);
         this.courses = courses;
-        this.StudentExams = new ArrayList<>();
+       // this.StudentExams = new ArrayList<>();
     }
 
     public List<CourseStudent> getCourses() {
@@ -38,19 +37,13 @@ public class Student extends Person{
         this.courses = courses;
     }
 
-    public static List<ExamStudent> getStudentExams() {
+    public  List<ExamStudent> getStudentExams() {
         return StudentExams;
     }
 
-    public static void setStudentExams(List<ExamStudent> studentExams) {
+    public  void setStudentExams(List<ExamStudent> studentExams) {
         StudentExams = studentExams;
     }
 
-//    public boolean isOnlinee() {
-//        return onlinee;
-//    }
-//
-//    public void setOnlinee(boolean onlinee) {
-//        this.onlinee = onlinee;
-//    }
+
 }
