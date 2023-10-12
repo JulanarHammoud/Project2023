@@ -86,7 +86,17 @@ public class SimpleServer extends AbstractServer {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		} else if (msgString.startsWith("#ListStudents")) {
+		}
+		else if (msgString.equals("#WarningSubmit")) {
+			Warning warning = new Warning("Exam submit successfully");
+			try {
+				client.sendToClient(warning);
+				System.out.format("Sent warning to client %s\n", client.getInetAddress().getHostAddress());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		else if (msgString.startsWith("#ListStudents")) {
 			try {
 				System.out.print("Sent list of all students to the client");
 				System.out.flush();
@@ -328,9 +338,16 @@ public class SimpleServer extends AbstractServer {
 					try {
 						System.out.println("I'm in server ");
 						ExamStudent ex= (ExamStudent) message.get(1);
+						GradeSt grade =(GradeSt) message.get(2);
+						System.out.println(ex.getExam());
+						GradeandExam exgr =new GradeandExam(ex,grade);
+						System.out.println("checcccccck it");
+						System.out.println(exgr.getExam().getExam());
+						System.out.println(exgr.getGrade().getSs().getFirstName());
 						//System.out.println("I'm in server "+ex.getGrade()+ex.getQuestions().get(0).getThe_student_ans());
 						System.out.println("Sent exam's student to the client ");
-						client.sendToClient(ex);
+
+						client.sendToClient(exgr);
 
 					} catch (IOException e) {
 						e.printStackTrace();

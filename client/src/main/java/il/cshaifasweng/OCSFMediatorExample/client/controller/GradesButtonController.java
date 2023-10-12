@@ -512,6 +512,7 @@ public class GradesButtonController {
                         System.out.println(""+dd.getGrade());
                         message.add("#GoToExStudentAnswers");
                         message.add(dd);
+                        message.add(StEx);
                         SimpleClient.getClient().sendToServer(message);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -536,6 +537,7 @@ public class GradesButtonController {
                         System.out.println(""+dd2.getGrade());
                         message.add("#GoToExStudentAnswers");
                         message.add(dd2);
+                        message.add(StEx);
                         SimpleClient.getClient().sendToServer(message);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -560,6 +562,7 @@ public class GradesButtonController {
                         System.out.println(""+dd3.getGrade());
                         message.add("#GoToExStudentAnswers");
                         message.add(dd3);
+                        message.add(StEx);
                         SimpleClient.getClient().sendToServer(message);
                     } catch (IOException e) {
                         e.printStackTrace();

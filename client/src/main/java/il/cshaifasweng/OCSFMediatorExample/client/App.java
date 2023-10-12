@@ -244,6 +244,25 @@ public class App extends Application {
             }
         });
     }
+    @Subscribe
+    public void onExamGradeStudentEvent(GradeExamEvent event) {
+
+        Platform.runLater(() -> {
+            try {
+                System.out.println("in handle ExamStudent");
+                SimpleClient.getParams().add(event.getGradeexam().getExam());
+                SimpleClient.getParams().add(event.getGradeexam().getGrade());
+                System.out.println(event.getGradeexam().getExam());
+                System.out.println(event.getGradeexam().getGrade());
+                int lastIndex= SimpleClient.getParams().size()-1;
+                System.out.println(SimpleClient.getParams().get(lastIndex));
+                System.out.println("");
+                setRoot("TestPaper");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
     @Subscribe
     public void onStudentWillMakeExEvent( StudentWillMakeExEvent event) {

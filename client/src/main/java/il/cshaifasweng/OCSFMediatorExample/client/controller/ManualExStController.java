@@ -1,6 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
+import il.cshaifasweng.OCSFMediatorExample.entities.Student;
 import il.cshaifasweng.OCSFMediatorExample.entities.StudentWillMakeEx;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -27,6 +28,8 @@ import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
+
+import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
 public class ManualExStController {
 
@@ -62,12 +65,20 @@ public class ManualExStController {
     @FXML
     private Button finish;
     Exam ex = new Exam();
+    Student student = ExSt.getSs();
 
     @FXML
     void finishACt(ActionEvent event) {
         timelineSeconds.stop();
         timelineMinutes.stop();
         timelineHours.stop();
+        SimpleClient.getParams().add(student);
+        try {
+            setRoot("PrimaryStudent");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
     @FXML
     void downloadedAct(ActionEvent event) {
@@ -257,6 +268,12 @@ public class ManualExStController {
         } else {
             System.out.println("No Word document selected.");
         }
+        try {
+            SimpleClient.getClient().sendToServer("#WarningSubmit");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
 

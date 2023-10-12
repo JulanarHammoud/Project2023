@@ -1,11 +1,10 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.DetailedQuestion;
-import il.cshaifasweng.OCSFMediatorExample.entities.ExamStudent;
-import il.cshaifasweng.OCSFMediatorExample.entities.GradeSt;
-import il.cshaifasweng.OCSFMediatorExample.entities.Question;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ToggleGroup;
@@ -19,16 +18,22 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import javafx.event.ActionEvent;
+
 
 import static il.cshaifasweng.OCSFMediatorExample.client.App.set;
+import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
 public class TestPaperController {
     int lastIndex= SimpleClient.getParams().size()-1;
-    ExamStudent StEx = (ExamStudent) SimpleClient.getParams().get(lastIndex);
+    int lastIndex2= SimpleClient.getParams().size()-2;
+    ExamStudent StEx = (ExamStudent) SimpleClient.getParams().get(lastIndex2);
+    GradeSt grade=(GradeSt) SimpleClient.getParams().get(lastIndex);
     List<DetailedQuestion> questions =  StEx.getQuestions();
     RadioButton button1;
     JRadioButtonMenuItem item;
     AnchorPane test;
+
 
     @FXML
     private AnchorPane firstanchor;
@@ -42,7 +47,21 @@ public class TestPaperController {
 
         /////////////////////////////
          // Adjust the position for the first text
-
+        Button back=new Button("back");
+        back.setLayoutX(10);
+        back.setLayoutY(10);
+        back.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    SimpleClient.getParams().add(grade);
+                    setRoot("GradesButton");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        //back.setOnAction(this::backaction);
         // Create and configure the first text
         Text text11 = new Text("The Subject: "+StEx.getSubject());
         text11.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;");
@@ -73,7 +92,7 @@ public class TestPaperController {
         // Continue with the rest of your code to display questions and answers
 
         // Add the texts and other content to the newRoot
-        newRoot.getChildren().addAll(text11, text22, text33);
+        newRoot.getChildren().addAll(text11, text22, text33,back);
         ////////////////////////////
 
         for (DetailedQuestion q : questions) {
@@ -136,4 +155,6 @@ public class TestPaperController {
         set(scroll);
 
     }
+
+
 }

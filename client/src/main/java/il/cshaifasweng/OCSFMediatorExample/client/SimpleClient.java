@@ -47,6 +47,10 @@ public class SimpleClient extends AbstractClient {
 			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			EventBus.getDefault().post(new StudentLogEvent((Student) msg));
 		}
+		else if(msg.getClass().equals(GradeandExam.class)){
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
+			EventBus.getDefault().post(new GradeExamEvent((GradeandExam) msg));
+		}
 		else if(msg.getClass().equals(ExamStudent.class)){
 			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			EventBus.getDefault().post(new ExamStudentEvent((ExamStudent) msg));
