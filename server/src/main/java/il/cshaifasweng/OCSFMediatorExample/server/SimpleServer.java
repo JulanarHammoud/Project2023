@@ -166,6 +166,7 @@ public class SimpleServer extends AbstractServer {
 							Warning warning = new Warning("you are already in");
 							client.sendToClient(warning);
 						} else {
+							onlineTeachers.put(teacherlog.getId(),client);
 							Data.activateTeacher(teacherlog.getId());
 							client.sendToClient(teacherlog);
 						}
