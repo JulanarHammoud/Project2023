@@ -1051,4 +1051,29 @@ public class Data {
         session.getTransaction().commit();
         session.close();
     }
+    public static void updateExamstartandfinish(int finish,int start , int id){
+        System.out.println("I am updating: "+start+" "+finish+" "+id);
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        ExamTeacher change =session.get(ExamTeacher.class,id);
+        change.setFinish(finish);
+        change.setStart(start);
+        session.saveOrUpdate(change);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
+    }
+    public static void updateTime(String Time , int id){
+        System.out.println("I am updating: "+Time+" "+id);
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        ExamTeacher change =session.get(ExamTeacher.class,id);
+        change.setFinishTime(Time);
+        session.saveOrUpdate(change);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
+    }
 }

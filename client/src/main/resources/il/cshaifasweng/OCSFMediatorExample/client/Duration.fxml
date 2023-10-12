@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.DurationController">
+   <children>
+      <Button mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#b90707">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font></Button>
+      <Button layoutX="58.0" mnemonicParsing="false" onAction="#Back" text="Back" textFill="#068a20">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font></Button>
+      <Accordion fx:id="extratime" layoutX="15.0" layoutY="228.0" prefHeight="128.0" prefWidth="510.0" />
+      <Label layoutX="14.0" layoutY="138.0" prefHeight="36.0" prefWidth="308.0" text="The number of students who initiated the exam:" />
+      <Label fx:id="startstudent" layoutX="281.0" layoutY="138.0" prefHeight="36.0" prefWidth="102.0" text="Label">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="14.0" layoutY="181.0" prefHeight="36.0" prefWidth="277.0" text="The number of students who completed the exam:" />
+      <Label fx:id="completestudent" layoutX="300.0" layoutY="182.0" prefHeight="36.0" prefWidth="102.0" text="Label">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="15.0" layoutY="59.0" prefHeight="36.0" prefWidth="41.0" text="Date:" />
+      <Label fx:id="date" layoutX="58.0" layoutY="59.0" prefHeight="36.0" prefWidth="138.0" text="Label">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="14.0" layoutY="96.0" prefHeight="36.0" prefWidth="84.0" text="Starting time:" />
+      <Label fx:id="starttime" layoutX="99.0" layoutY="96.0" prefHeight="36.0" prefWidth="138.0" text="Label" textFill="#239a37">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="219.0" layoutY="96.0" prefHeight="36.0" prefWidth="154.0" text="Estimated completion time:" />
+      <Label fx:id="finish" layoutX="373.0" layoutY="96.0" prefHeight="36.0" prefWidth="154.0" text="Label" textFill="#9e0606">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="219.0" layoutY="65.0" prefHeight="25.0" prefWidth="102.0" text="Exam's type:" />
+      <Label fx:id="type" layoutX="296.0" layoutY="60.0" prefHeight="36.0" prefWidth="138.0" text="Label">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+   </children>
+</AnchorPane>

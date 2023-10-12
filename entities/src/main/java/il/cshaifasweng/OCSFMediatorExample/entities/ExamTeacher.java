@@ -19,8 +19,11 @@ public class ExamTeacher implements Serializable {
     protected int Id;
     String Date;
     String Time;
+    String finishTime;
     String Code;
     boolean computed;
+    int start;
+    int finish;
     @OneToOne
     @JoinColumn(name = "exam_id")
     Exam exam;
@@ -38,6 +41,22 @@ public class ExamTeacher implements Serializable {
     public ExamTeacher() {
     }
 
+    public int getStart() {
+        return start;
+    }
+
+    public void setStart(int start) {
+        this.start = start;
+    }
+
+    public int getFinish() {
+        return finish;
+    }
+
+    public void setFinish(int finish) {
+        this.finish = finish;
+    }
+
     public String getSubject() {
         return exam.getSubject();
     }
@@ -47,12 +66,15 @@ public class ExamTeacher implements Serializable {
         return exam.getTeacher();
     }
 
-    public ExamTeacher(Exam exam, String Date, String Time, boolean isComputed, String Code){
+    public ExamTeacher(Exam exam, String Date, String Time, boolean isComputed, String Code,int start,int finish,String finishTime){
         this.exam = exam;
         this.Date = Date;
         this.Time = Time;
         this.computed = isComputed;
         this.Code = Code;
+        this.start=start;
+        this.finish=finish;
+        this.finishTime=finishTime;
     }
 
     public void setId(int id) {
@@ -113,6 +135,14 @@ public class ExamTeacher implements Serializable {
 
     public void setQuestions(List<DetailedQuestion> questions) {
         this.questions = questions;
+    }
+
+    public String getFinishTime() {
+        return finishTime;
+    }
+
+    public void setFinishTime(String finishTime) {
+        this.finishTime = finishTime;
     }
 
     public int getId() {

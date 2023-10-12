@@ -149,19 +149,6 @@ public class TeacherController {
             SimpleClient.getClient().sendToServer(message);
         }
     }
-
-    @FXML
-    public void LogOut(ActionEvent event) throws IOException {
-
-        LinkedList<Object> message = new LinkedList<Object>();
-        message.add("#LogOut");
-        message.add(teacher.getId());
-        message.add("teacher");
-        SimpleClient.getClient().sendToServer(message);
-
-    }
-
-
     @FXML
     void messagetomanager(ActionEvent event) throws IOException{
         try {
@@ -180,6 +167,15 @@ public class TeacherController {
     void  publishedExams(ActionEvent event) throws IOException{
         SimpleClient.getParams().add(teacher);
         setRoot("PublishedExam");
+    }
+    @FXML
+    public void LogOut(ActionEvent event) throws IOException {
+
+        LinkedList<Object> message = new LinkedList<Object>();
+        message.add("#LogOut");
+        message.add(teacher.getId());
+        message.add("teacher");
+        SimpleClient.getClient().sendToServer(message);
 
     }
 }

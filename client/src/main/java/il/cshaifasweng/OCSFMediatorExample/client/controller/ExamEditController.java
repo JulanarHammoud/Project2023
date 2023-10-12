@@ -70,6 +70,7 @@ public class ExamEditController {
 
     public String Correct;
     public String notesquestion;
+
     public int q, a1, a2, a3, a4, c, n;
 
     @FXML

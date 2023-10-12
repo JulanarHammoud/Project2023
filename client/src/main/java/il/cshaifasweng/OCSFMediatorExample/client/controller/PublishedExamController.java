@@ -5,6 +5,7 @@ import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -13,6 +14,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+
+import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
 public class PublishedExamController {
     int lastIndex = SimpleClient.getParams().size() - 1;
@@ -63,8 +66,19 @@ public class PublishedExamController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
+    }
+    @FXML
+    void examDuration(ActionEvent event) throws IOException{
+        try{
+            LinkedList<Object> message = new LinkedList<>();
+            message.add(teacher);
+            ExamTeacher exam = Etable.getSelectionModel().getSelectedItem();
+            message.add(exam);
+            SimpleClient.getParams().add(message);
+            setRoot("Duration");
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }
 
