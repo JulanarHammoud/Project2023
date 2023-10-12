@@ -254,7 +254,7 @@ public class ConnectionToClient extends Thread
 
           if (!readyToStop && handleMessageFromClient(msg)) // Added in version 2.2
           {
-            server.receiveMessageFromClient(msg, this);
+            server. receiveMessageFromClient(msg, this);
           }
 
         } catch(ClassNotFoundException ex) { // when an unknown class is received

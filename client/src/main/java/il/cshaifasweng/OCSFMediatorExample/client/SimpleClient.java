@@ -14,6 +14,9 @@ public class SimpleClient extends AbstractClient {
 
 	private static SimpleClient client = null;
 	private  static List<Object> params=new LinkedList<>();
+	private  static List<ExamStudent> exams=new LinkedList<>();
+	private static String position;
+	private  static List<Object> mesFromClient=new LinkedList<>();
 
 	private SimpleClient(String host, int port) {
 		super(host, port);
@@ -124,6 +127,12 @@ public class SimpleClient extends AbstractClient {
 		else if (msg.getClass().equals(StudentsExams.class)) {
 			EventBus.getDefault().post(new StudentsExamsEvent((StudentsExams) msg));
 		}
+		else if (msg.getClass().equals(UpdatedExams.class)) {
+			EventBus.getDefault().post(new UpdatedExamsEvent((UpdatedExams) msg));
+		}
+		else if (msg.getClass().equals(ToDuration.class)) {
+			EventBus.getDefault().post(new ToDurationEvent((ToDuration) msg));
+		}
 
 	}
 
@@ -134,5 +143,25 @@ public class SimpleClient extends AbstractClient {
 	}
 	public static List<Object> getParams() {
 		return params;
+	}
+
+	public static List<ExamStudent> getExams() {
+		return exams;
+	}
+
+	public static void setExams(List<ExamStudent> exams) {
+		SimpleClient.exams = exams;
+	}
+
+	public static String getPosition() {
+		return position;
+	}
+
+	public static void setPosition(String position) {
+		SimpleClient.position = position;
+	}
+
+	public static List<Object> getMesFromClient() {
+		return mesFromClient;
 	}
 }

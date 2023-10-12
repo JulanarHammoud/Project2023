@@ -21,7 +21,8 @@ public class ExamStudent  implements Serializable {
     boolean executed;
     boolean onTime;
     String stdName;
-    boolean approve;
+    boolean approve = false;
+    int teacherPubId;
 
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -37,13 +38,14 @@ public class ExamStudent  implements Serializable {
     public ExamStudent() {
     }
 
-    public ExamStudent(String Time, String date, boolean computed, Exam exam, String Code) {
+    public ExamStudent(String Time, String date, boolean computed, Exam exam, String Code, int teacherPubId) {
         this.Time=Time;
         this.grade = grade;
         Date = date;
         this.computed = computed;
         this.exam = exam;
         this.code = Code;
+        this.teacherPubId = teacherPubId;
     }
 
     public String getStudentNotes(){
@@ -180,5 +182,13 @@ public class ExamStudent  implements Serializable {
 
     public void setCourse(String course) {
         exam.setCourse(course);
+    }
+
+    public int getTeacherPubId() {
+        return teacherPubId;
+    }
+
+    public void setTeacherPubId(int teacherPubId) {
+        this.teacherPubId = teacherPubId;
     }
 }

@@ -901,12 +901,13 @@ public class Data {
         // and generate new exam for the student and adding it to the list
       try{
           System.out.println(student.getId() + " " + student.getFirstName());
-          ExamStudent e = new ExamStudent(exam.getTime(),exam.getDate(), exam.isComputed(),exam.getExam(),exam.getCode());
+          ExamStudent e = new ExamStudent(exam.getTime(),exam.getDate(), exam.isComputed(),exam.getExam(),exam.getCode(),exam.getTeacherPubId());
          // e.setQuestions(exam.getQuestions());
           List<DetailedQuestion> ff=new ArrayList<>();
 
           e.setExecuted(exam.isExecuted());
-          e.setComputed(exam.isComputed());
+          e.setOnTime(exam.isOnTime());
+          e.setExamTId(exam.getExamTId());
           for(DetailedQuestion q : exam.getQuestions()){
               DetailedQuestion question = new DetailedQuestion(q.getPoints(), q.getQuestion());
              int Qid= generateData(question);

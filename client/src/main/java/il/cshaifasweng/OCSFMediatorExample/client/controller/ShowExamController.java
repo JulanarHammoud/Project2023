@@ -312,7 +312,7 @@ public class ShowExamController {
                 Duration timeToAdd = Duration.ofMinutes(exam.getTimerr());
                 LocalTime newTime = currentTime.plus(timeToAdd);
                 ExamTeacher examTeacher = new ExamTeacher(exam,Date,Time,isComputed,Code,0,0,newTime.toString());
-                ExamStudent examStudent = new ExamStudent(Time,Date,isComputed,exam,Code);
+                ExamStudent examStudent = new ExamStudent(Time,Date,isComputed,exam,Code,teacher.getId());
                 examStudent.setQuestions(detailedQuestions);
                 System.out.println("th first q points is: " + examStudent.getQuestions().get(0).getPoints());
                 messageToServer.add(examTeacher);

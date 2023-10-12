@@ -1,8 +1,10 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.client.EventBus.*;
+import il.cshaifasweng.OCSFMediatorExample.client.controller.StudentsExamsController;
 import il.cshaifasweng.OCSFMediatorExample.entities.MailManagerEntity;
 import il.cshaifasweng.OCSFMediatorExample.entities.StudentsExams;
+import il.cshaifasweng.OCSFMediatorExample.entities.UpdatedExams;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -404,6 +406,35 @@ public class App extends Application {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        });}
+    @Subscribe
+    public void onUpdatedExamsEvent(UpdatedExamsEvent event) {
+        Platform.runLater(() -> {
+            System.out.println("StudentExamsEvent App-client");
+            if(SimpleClient.getPosition().equals("StudentsExams")) {
+               // System.out.println(" the client updating the duration to: " + event.getToDuration().getExamTeacher().getStart());
+                SimpleClient.getMesFromClient().add(event.getExams());
+                try {
+                    setRoot("StudentsExams");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });}
+    @Subscribe
+    public void onToDurationEvent(ToDurationEvent event) {
+        Platform.runLater(() -> {
+            if(SimpleClient.getPosition().equals("Duration")){
+                System.out.println(" the client updating the duration to: " + event.getToDuration().getExamTeacher().getStart());
+                SimpleClient.getMesFromClient().add(event.getToDuration());
+                try {
+                    setRoot("Duration");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+
         });}
 
 

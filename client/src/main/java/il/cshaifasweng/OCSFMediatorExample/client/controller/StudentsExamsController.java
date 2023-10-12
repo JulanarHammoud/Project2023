@@ -2,6 +2,7 @@ package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +24,9 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import static il.cshaifasweng.OCSFMediatorExample.client.App.set;
 import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
@@ -50,8 +54,18 @@ public class StudentsExamsController implements Serializable {
     @FXML
     private Button logout1;
 
-
     public void initialize() {
+        SimpleClient.setPosition("StudentsExams");
+        int last = SimpleClient.getMesFromClient().size() - 1;
+        System.out.println(" the list size is: " + last) ;
+        if(last != -1)
+        {
+            System.out.println(SimpleClient.getMesFromClient().get(last).getClass());
+            if(SimpleClient.getMesFromClient().get(last).getClass().equals(UpdatedExams.class)) {
+               UpdatedExams stdsExams = (UpdatedExams) SimpleClient.getMesFromClient().get(last);
+                studentsExams = stdsExams.getExams();
+            }
+        }
         System.out.println("the students exam is null : " + studentsExams == null);
         data = FXCollections.observableArrayList(studentsExams);
         name.setCellValueFactory(dataValueFactory ->
@@ -263,6 +277,7 @@ public class StudentsExamsController implements Serializable {
     }
     @FXML
     void backaction(ActionEvent event) {
+        SimpleClient.setPosition("");
         SimpleClient.getParams().add(teacher);
         try {
             setRoot("PublishedExam");
@@ -272,10 +287,15 @@ public class StudentsExamsController implements Serializable {
     }
     @FXML
     void logoutactio(ActionEvent event) throws IOException {
+        SimpleClient.setPosition("");
         LinkedList<Object> message = new LinkedList<Object>();
         message.add("#LogOut");
         message.add(teacher.getId());
         message.add("teacher");
         SimpleClient.getClient().sendToServer(message);
     }
+
+
+
+
 }

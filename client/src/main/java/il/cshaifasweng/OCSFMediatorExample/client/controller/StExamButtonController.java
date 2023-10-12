@@ -236,7 +236,9 @@ public class StExamButtonController implements Serializable {
         else {
             if ((exam.isComputed())) {
                 /// computed exam
-                //message.add("#StartComputedExam");
+                message.add("#StartComputedExam");
+                message.add(exam);
+                SimpleClient.getClient().sendToServer(message);
                 StartCompExam startExam = new StartCompExam(exam,student);
                 SimpleClient.getParams().add(startExam);
                 setRoot("computedExam");

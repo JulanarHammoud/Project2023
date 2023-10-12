@@ -4,6 +4,7 @@ import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.ExamTeacher;
 import il.cshaifasweng.OCSFMediatorExample.entities.StudentsExams;
 import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
+import il.cshaifasweng.OCSFMediatorExample.entities.ToDuration;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -38,6 +39,17 @@ public class DurationController {
     int t,d;
     @FXML
     void initialize() throws IOException {
+        SimpleClient.setPosition("Duration");
+        int last = SimpleClient.getMesFromClient().size() - 1;
+        System.out.println(" the list size is: " + last) ;
+        if(last != -1)
+        {
+            if(SimpleClient.getMesFromClient().get(last).getClass().equals(ToDuration.class)) {
+                ToDuration toDuration = (ToDuration) SimpleClient.getMesFromClient().get(last);
+                teacher = toDuration.getTeacher();
+                examTeacher = toDuration.getExamTeacher();
+            }
+        }
         date.setText(examTeacher.getDate());
         if(examTeacher.isComputed()){
             type.setText("Computed Exam");
@@ -45,7 +57,7 @@ public class DurationController {
             type.setText("Manual Exam");
         }
         starttime.setText(examTeacher.getTime());
-        startstudent.setText(String.valueOf(examTeacher.getExamsOfStudents().size()));
+        startstudent.setText(String.valueOf(examTeacher.getStart()));
         completestudent.setText(String.valueOf(examTeacher.getFinish()));
         t=0; d=0;
         TitledPane timemessage = new TitledPane();
@@ -101,6 +113,7 @@ public class DurationController {
     @FXML
     public void Back (ActionEvent event) throws IOException {
         try{
+            SimpleClient.setPosition("");
             SimpleClient.getParams().add(teacher);
             setRoot("teacherpage");
         }
@@ -111,6 +124,7 @@ public class DurationController {
     @FXML
     public void LogOut (ActionEvent event) throws IOException {
         LinkedList<Object> message = new LinkedList<Object>();
+        SimpleClient.setPosition("");
         message.add("#LogOut");
         message.add(teacher.getId());
         message.add("teacher");
