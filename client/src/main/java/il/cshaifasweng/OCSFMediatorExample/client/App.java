@@ -401,6 +401,7 @@ public class App extends Application {
         Platform.runLater(() -> {
             System.out.println("StudentExamsEvent App-client");
             SimpleClient.getParams().add(event.getStudentsExams());
+            System.out.println(event.getStudentsExams().getExam().getExamsOfStudents().get(0).getQuestions().get(0).getStdAnswer());
             try {
                 setRoot("StudentsExams");
             } catch (IOException e) {

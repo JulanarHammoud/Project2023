@@ -374,7 +374,7 @@ public class Data {
 
         Question Num1 = new Question("I'm very happy _____ in India. I really miss being there.", "to live", "to have lived", "to be lived", "to be living","" ,"to live");
         Question Num2 = new Question("They didn't reach an agreement ______ their differences.", "on account of", "due", "because", "owing","bay extra attention" ,"owing");
-        Question Num3 = new Question("I wish I _____ those words. But now it's too late.", " not having said", " have never said", "never said", "had never said","good luck" ,"have never said");
+        Question Num3 = new Question("I wish I _____ those words. But now it's too late.", "not having said", "have never said", "never said", "had never said","good luck" ,"have never said");
         Question Num4 = new Question("Each term in the sequence below is five times the previous term. What is the eighth term in the sequence? 4, 20, 100, 500,....", "500 * 8", " 4 * 5^7", " 4 * 5^8", "4^8", "mentioned in lecture 10","4 * 5^7");
         Question Num5 = new Question("The inequality –4(x – 1) ≤ 2(x + 1) is equivalent to", " x => -1/3", " x=> 1/3", "x <= 1/3", "x <= -1/3","" ,"x=> 1/3");
         Question Num6 = new Question(" For what values of x is the expression : 3x2 – 3x – 18 equal to 0?", "  x = 3, x = –6", " . x = –3, x = 2", " x = 3, x = –2", " x = -3, x = –6", ""," x = 3, x = –2");
@@ -909,7 +909,7 @@ public class Data {
           e.setOnTime(exam.isOnTime());
           e.setExamTId(exam.getExamTId());
           for(DetailedQuestion q : exam.getQuestions()){
-              DetailedQuestion question = new DetailedQuestion(q.getPoints(), q.getQuestion());
+              DetailedQuestion question = new DetailedQuestion(q.getPoints(),q.getStdAnswer() ,q.getQuestion());
              int Qid= generateData(question);
               question=getDataById(DetailedQuestion.class,Qid);
               ff.add(question);

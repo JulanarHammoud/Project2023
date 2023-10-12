@@ -10,9 +10,9 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.StudentsExamsController">
     <children>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="600.0" fitWidth="700.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@student.jpg" />
+            <Image url="@dreamers.png" />
          </image>
       </ImageView>
         <TableView fx:id="table" layoutX="29.0" layoutY="51.0" prefHeight="324.0" prefWidth="107.0">

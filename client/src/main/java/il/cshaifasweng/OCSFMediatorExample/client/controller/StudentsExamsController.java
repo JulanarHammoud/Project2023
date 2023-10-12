@@ -83,6 +83,7 @@ public class StudentsExamsController implements Serializable {
                    ExamStudent StEx = newSelection;
                    selectedExam =newSelection;
                    List<DetailedQuestion> questions = StEx.getQuestions();
+                   System.out.println(questions.get(1).getQuestion());
                    double i = 100.0; // this index to set the position of the question on the screen
 
                    /////////////////////////////
@@ -136,6 +137,8 @@ public class StudentsExamsController implements Serializable {
                        javafx.scene.text.Text answer4 = new Text(q.getQuestion().getAns4());
 
                        // Set the selected answer
+                       System.out.println("checccccck");
+                       System.out.println(q.getStdAnswer());
                        System.out.println(""+q.getStdAnswer()+q.getQuestion().getThe_right_ans());
                        answer1.setStyle("-fx-fill: black;"); // Set text color to black for the selected answer
                        if (q.getQuestion().getAns1().equals(q.getQuestion().getThe_right_ans())) {

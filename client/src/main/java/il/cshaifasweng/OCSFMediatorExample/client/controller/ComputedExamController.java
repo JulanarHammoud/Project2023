@@ -229,6 +229,8 @@ public class ComputedExamController {
         exam.setGrade(grade);
         exam.setOnTime(true);
         exam.setQuestions(questions);
+        System.out.println("chhhecckkk33");
+        System.out.println(questions.get(1).getQuestion()+questions.get(1).getStdAnswer());
         System.out.println("student finished exam with graade: " + grade);
         message.add(std);
         message.add(exam);
