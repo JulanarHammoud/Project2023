@@ -274,12 +274,10 @@ public class ShowExamController {
             if(good==1){
                 messageToServer.add("#PublishExam");
                 boolean isComputed = (Type.equals("computed")) ? true:false ;
-                String finishtime;
                 LocalTime currentTime = LocalTime.parse(Time);
                 Duration timeToAdd = Duration.ofMinutes(exam.getTimerr());
                 LocalTime newTime = currentTime.plus(timeToAdd);
-                finishtime=newTime.toString();
-                ExamTeacher examTeacher = new ExamTeacher(exam,Date,Time,isComputed,Code,0,0,finishtime);
+                ExamTeacher examTeacher = new ExamTeacher(exam,Date,Time,isComputed,Code,0,0,newTime.toString());
                 ExamStudent examStudent = new ExamStudent(Time,Date,isComputed,exam,Code);
                 examStudent.setQuestions(detailedQuestions);
                 System.out.println("th first q points is: " + examStudent.getQuestions().get(0).getPoints());

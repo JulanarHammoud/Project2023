@@ -843,12 +843,12 @@ public class SimpleServer extends AbstractServer {
 					Data.DeleteMessage(id);
 					if (AdditionalTime != 0) {
 						ExamTeacher examTeacher = Data.getDataById(ExamTeacher.class, examteacherid);
-						LocalTime currentTime = LocalTime.parse(examTeacher.getTime());
+						LocalTime currentTime = LocalTime.parse(examTeacher.getFinishTime());
 						Duration timeToAdd = Duration.ofMinutes(AdditionalTime);
 						LocalTime newTime1 = currentTime.plus(timeToAdd);
-						String finishTime = String.valueOf(newTime1);
-						examTeacher.setTime(finishTime);
-						Data.updateTime(finishTime,examTeacher.getId());
+						//String finishTime = String.valueOf(newTime1);
+						examTeacher.setFinishTime(newTime1.toString());
+						Data.updateTime(newTime1.toString(),examTeacher.getId());
 					}
 					GetForManager getForManager = mailManagerEntity.getGFM();
 					List<ManagerMessage> newmanagerm = Data.getAllMessages();

@@ -52,10 +52,7 @@ public class DurationController {
         timemessage.setText("Request For Extra Time");
         extratime.getPanes().add(timemessage);
 
-        LocalTime currentTime = LocalTime.parse(examTeacher.getTime());
-        Duration timeToAdd = Duration.ofMinutes(examTeacher.getExam().getTimerr());
-        LocalTime newTime = currentTime.plus(timeToAdd);
-        finish.setText(newTime.toString());
+        finish.setText(examTeacher.getFinishTime());
 
         Label T = new Label();
         Label D = new Label();
