@@ -1077,4 +1077,16 @@ public class Data {
         session.getTransaction().commit();
         session.close();
     }
+    public static void updateExecuted(int id){
+//        System.out.println("I am updating: "+Time+" "+id);
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        ExamStudent change =session.get(ExamStudent.class,id);
+        change.setExecuted(true);
+        session.saveOrUpdate(change);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
+    }
 }

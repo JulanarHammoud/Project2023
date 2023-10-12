@@ -18,7 +18,6 @@ public class ExamStudent  implements Serializable {
     String Time;
     boolean computed;
     int examTId;
-    boolean executed;
     boolean onTime;
     String stdName;
     boolean approve = false;
@@ -33,6 +32,7 @@ public class ExamStudent  implements Serializable {
     @JoinColumn(name = "exam_std_id")
     Exam exam;
     String code;
+    boolean executed= false;
 
 
     public ExamStudent() {

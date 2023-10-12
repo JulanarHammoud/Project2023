@@ -44,7 +44,7 @@ public class SimpleServer extends AbstractServer {
 //			Data.MakeQuestion("aaa","bbb","ccc","ddd","ddd","ttt",grammar);
 			//Data.LogOutSt(1);
 			//Data.LogOutSt(4);
-			//Data.generateSubject();
+//			Data.generateSubject();
 			//Data.generateStusent();
 			//Data.generateEnglishQusetions();
 
@@ -1096,6 +1096,8 @@ public class SimpleServer extends AbstractServer {
 
 			else if (message.get(0).equals("#StartComputedExam")) {
 				ExamStudent exam =(ExamStudent) message.get(1);
+//				Data.updateExecuted(exam.getId());
+
 				int id = exam.getExamTId();
 				int tId = exam.getTeacherPubId();
 				ExamTeacher examTeacher = Data.getDataById(ExamTeacher.class, id);

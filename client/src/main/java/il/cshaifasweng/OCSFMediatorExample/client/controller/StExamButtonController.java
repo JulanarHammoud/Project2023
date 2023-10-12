@@ -123,92 +123,103 @@ public class StExamButtonController implements Serializable {
 
         double layoutXC = 444.0;
 
-        for(CourseStudent cor : list){
+        for(CourseStudent cor : list) {
             Text sub = new Text(cor.getName());
             sub.setLayoutX(layoutX);
             sub.setLayoutY(layoutY);
             anchor.getChildren().add(sub);
             layoutY = layoutY + 64;
 
-            int j=0;
-           // int s=st.size();
+            int j = 0;
+            // int s=st.size();
 
-            int Flag=1;
+            int Flag = 1;
 //            while ((j<s)&&(Flag==1)){
 //                if(st.get(j).getSubject().equals(cor.getName()))
 //                {
-            ExamStudent ex=cor.getLastExam();
-            if(ex != null) {
-                Text datet = new Text(ex.getDate());
-                datet.setLayoutX(layoutXD);
-                datet.setLayoutY(layoutYD);
-                anchor.getChildren().add(datet);
-                layoutYD = layoutYD + 63;
-                Flag = 0;
+            if (cor.getLastExam() != null) {
+                ExamStudent ex = cor.getLastExam();
 
-                String tim = ex.getTime();
+                int f = 0;
+                for (ExamStudent exx : StEx.getStudent().getStudentExams()) {
+                    if (exx.getExamTId() == ex.getExamTId()) {
+                        ex = exx;
+                        break;
+                    }
+                }
+
+                if (ex != null) {
+                    Text datet = new Text(ex.getDate());
+                    datet.setLayoutX(layoutXD);
+                    datet.setLayoutY(layoutYD);
+                    anchor.getChildren().add(datet);
+                    layoutYD = layoutYD + 63;
+                    Flag = 0;
+
+                    String tim = ex.getTime();
 //                String tim="02:15";
-                Text Timee = new Text(tim);
-                Timee.setLayoutX(layoutXT);
-                Timee.setLayoutY(layoutYT);
-                anchor.getChildren().add(Timee);
-                layoutYT = layoutYT + 63;
+                    Text Timee = new Text(tim);
+                    Timee.setLayoutX(layoutXT);
+                    Timee.setLayoutY(layoutYT);
+                    anchor.getChildren().add(Timee);
+                    layoutYT = layoutYT + 63;
 
 
-                String datee = ex.getDate();
+                    String datee = ex.getDate();
 
-                System.out.println("l" + tim + currentTime);
-                if(tim!=null){
-                LocalTime specifiedTime = LocalTime.parse(tim, DateTimeFormatter.ofPattern("HH:mm"));
+                    System.out.println("l" + tim + currentTime);
+                    if (tim != null) {
+                        LocalTime specifiedTime = LocalTime.parse(tim, DateTimeFormatter.ofPattern("HH:mm"));
 //                System.out.println("l" + specifiedTime);
 //                int comparisonResult = currentTime.compareTo(specifiedTime);
-                LocalTime futureTime = specifiedTime.plusMinutes(ex.getTimerr());
-                int comparisonResult2 = currentTime.compareTo(futureTime);
-                LocalDate date = LocalDate.parse(datee, formatter);
-                formattedDate = date.format(formatter);
-                formattedLocalDate = LocalDate.parse(formattedDate, formatter);
-                System.out.println("lllll"+futureTime+"''"+ex.getTime()+"''''"+ex.getTimerr());
-                if ((currentDate.isEqual(formattedLocalDate)) && ((comparisonResult2 <= 0))) {
-                    Button bb = new Button("Log In");
-                    bb.setLayoutX(layoutXB);
-                    bb.setLayoutY(layoutYB);
+                        LocalTime futureTime = specifiedTime.plusMinutes(ex.getTimerr());
+                        int comparisonResult2 = currentTime.compareTo(futureTime);
+                        LocalDate date = LocalDate.parse(datee, formatter);
+                        formattedDate = date.format(formatter);
+                        formattedLocalDate = LocalDate.parse(formattedDate, formatter);
+                        System.out.println("lllll" + futureTime + "''" + ex.getTime() + "''''" + ex.getTimerr());
+                        if ((currentDate.isEqual(formattedLocalDate)) && ((comparisonResult2 <= 0))) {
+                            Button bb = new Button("Log In");
+                            bb.setLayoutX(layoutXB);
+                            bb.setLayoutY(layoutYB);
 //                        anchor.getChildren().add(bb);
 
-                    bb.setOnAction(new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent event) {
-                            exam = ex;
-                            TextField code = new TextField("");
-                            code.setLayoutX(layoutXC);
-                            code.setLayoutY(bb.getLayoutY());
-                            code.textProperty().addListener(new ChangeListener<String>() {
+                            ExamStudent finalEx = ex;
+                            bb.setOnAction(new EventHandler<ActionEvent>() {
                                 @Override
-                                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                                    codee = newValue;
+                                public void handle(ActionEvent event) {
+                                    exam = finalEx;
+                                    TextField code = new TextField("");
+                                    code.setLayoutX(layoutXC);
+                                    code.setLayoutY(bb.getLayoutY());
+                                    code.textProperty().addListener(new ChangeListener<String>() {
+                                        @Override
+                                        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                                            codee = newValue;
+                                        }
+                                    });
+                                    anchor.getChildren().add(code);
+                                    layoutYC = layoutYC + 62;
+                                    System.out.println("" + codee);
                                 }
                             });
-                            anchor.getChildren().add(code);
-                            layoutYC = layoutYC + 62;
-                            System.out.println("" + codee);
-                        }
-                    });
 //                        TextField cod=new TextField("Enter The Code");
 //                        cod.setLayoutX(layoutXC);
 //                        cod.setLayoutY(layoutYC);
-                    anchor.getChildren().add(bb);
-                    //  layoutYC = layoutYC + 62;
+                            anchor.getChildren().add(bb);
+                            //  layoutYC = layoutYC + 62;
+                        }
+                    }
                 }
-            }
-            }
 //                }
 //                else{
 //                    j++;
 //                }
 //            }
-            layoutYB = layoutYB + 63;
+                layoutYB = layoutYB + 63;
 
+            }
         }
-
     }
 
 
@@ -234,8 +245,18 @@ public class StExamButtonController implements Serializable {
             alert.showAndWait();
         }
         else {
-            if ((exam.isComputed())) {
+            System.out.println("QQ"+exam.isExecuted());
+            if(exam.isExecuted()==true)
+            {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("WARNING");
+                alert.setHeaderText(null);
+                alert.setContentText("You Did it!");
+                alert.showAndWait();
+            }
+            else if ((exam.isComputed())) {
                 /// computed exam
+
                 message.add("#StartComputedExam");
                 message.add(exam);
                 SimpleClient.getClient().sendToServer(message);
@@ -245,6 +266,7 @@ public class StExamButtonController implements Serializable {
 
 
             } else { /// manual exam
+
                 if (codee != "") {
                     // System.out.println(""+StEx.getStudent().getStudentExams().size());
                     message.add("#GoToExStudentBUTTON");
