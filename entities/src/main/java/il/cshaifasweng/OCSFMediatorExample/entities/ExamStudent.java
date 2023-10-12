@@ -38,6 +38,7 @@ public class ExamStudent  implements Serializable {
     }
 
     public ExamStudent(String Time, String date, boolean computed, Exam exam, String Code) {
+        this.Time=Time;
         this.grade = grade;
         Date = date;
         this.computed = computed;

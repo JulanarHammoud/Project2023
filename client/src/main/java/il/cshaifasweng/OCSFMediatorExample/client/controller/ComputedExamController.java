@@ -78,7 +78,20 @@ public class ComputedExamController {
 
     @FXML
     void initialize() throws IOException {
-
+        int t = 1;
+        while (t == 1) {
+            if (timeInMinutes > 60) {
+                hoursParams = timeInMinutes / 60;
+                timeInMinutes = timeInMinutes - 60 * hoursParams;
+            } else {
+                t = 2;
+            }
+        }
+        if((hoursParams%2==0)&&(timeInMinutes==0))
+        {
+            hoursParams--;
+            timeInMinutes=60;
+        }
         exam.setExecuted(true);
         hourN.setText(String.valueOf(hoursParams));
         minuteN.setText(String.valueOf(timeInMinutes - 1));

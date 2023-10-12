@@ -16,6 +16,7 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
@@ -68,6 +69,8 @@ public class StExamButtonController implements Serializable {
     String formattedDate="";
     LocalDate formattedLocalDate;
     Student student = StEx.getStudent();
+    LocalTime currentTime = LocalTime.now();
+
 //    @FXML
 //    private TextField code1;
 //
@@ -86,6 +89,8 @@ public class StExamButtonController implements Serializable {
     private AnchorPane anchor;
     //final TextField[] cod = {null};
     double layoutYC = 73.0;
+    double layoutYB=73;
+    double layoutYT = 90;
     @FXML
     void initialize() {
 //                  ExamStudent mm=new ExamStudent();
@@ -109,13 +114,13 @@ public class StExamButtonController implements Serializable {
 //        code4.setDisable(true);
 //        code2.setDisable(true);
 //        code3.setDisable(true);
-
+        double layoutXT = 100.0;
         double layoutX = 35.0;
         double layoutY=90;
         double layoutXD = 181.0;
         double layoutYD=90;
         double layoutXB = 323.0;
-        double layoutYB=73;
+
         double layoutXC = 444.0;
 
         for(CourseStudent cor : list){
@@ -133,7 +138,7 @@ public class StExamButtonController implements Serializable {
 //                if(st.get(j).getSubject().equals(cor.getName()))
 //                {
             ExamStudent ex=cor.getLastExam();
-            if(ex != null){
+            if(ex != null) {
                 Text datet = new Text(ex.getDate());
                 datet.setLayoutX(layoutXD);
                 datet.setLayoutY(layoutYD);
@@ -141,21 +146,38 @@ public class StExamButtonController implements Serializable {
                 layoutYD = layoutYD + 63;
                 Flag = 0;
 
+                String tim = ex.getTime();
+//                String tim="02:15";
+                Text Timee = new Text(tim);
+                Timee.setLayoutX(layoutXT);
+                Timee.setLayoutY(layoutYT);
+                anchor.getChildren().add(Timee);
+                layoutYT = layoutYT + 63;
+
+
                 String datee = ex.getDate();
+
+                System.out.println("l" + tim + currentTime);
+                if(tim!=null){
+                LocalTime specifiedTime = LocalTime.parse(tim, DateTimeFormatter.ofPattern("HH:mm"));
+//                System.out.println("l" + specifiedTime);
+//                int comparisonResult = currentTime.compareTo(specifiedTime);
+                LocalTime futureTime = specifiedTime.plusMinutes(ex.getTimerr());
+                int comparisonResult2 = currentTime.compareTo(futureTime);
                 LocalDate date = LocalDate.parse(datee, formatter);
                 formattedDate = date.format(formatter);
                 formattedLocalDate = LocalDate.parse(formattedDate, formatter);
-                if (currentDate.isEqual(formattedLocalDate)) {
+                System.out.println("lllll"+futureTime+"''"+ex.getTime()+"''''"+ex.getTimerr());
+                if ((currentDate.isEqual(formattedLocalDate)) && ((comparisonResult2 <= 0))) {
                     Button bb = new Button("Log In");
                     bb.setLayoutX(layoutXB);
                     bb.setLayoutY(layoutYB);
 //                        anchor.getChildren().add(bb);
-                    layoutYB = layoutYB + 63;
 
                     bb.setOnAction(new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {
-                            exam =ex;
+                            exam = ex;
                             TextField code = new TextField("");
                             code.setLayoutX(layoutXC);
                             code.setLayoutY(bb.getLayoutY());
@@ -177,11 +199,13 @@ public class StExamButtonController implements Serializable {
                     //  layoutYC = layoutYC + 62;
                 }
             }
+            }
 //                }
 //                else{
 //                    j++;
 //                }
 //            }
+            layoutYB = layoutYB + 63;
 
         }
 

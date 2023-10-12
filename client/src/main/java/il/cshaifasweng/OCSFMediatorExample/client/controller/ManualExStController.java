@@ -83,6 +83,12 @@ public class ManualExStController {
                 t = 2;
             }
         }
+        if((hoursParams%2==0)&&(timeInMinutes==0))
+        {
+            hoursParams--;
+            timeInMinutes=60;
+        }
+        System.out.println(""+timeInMinutes+";;;"+hours+";;");
         hourN.setText(String.valueOf(hoursParams));
         minuteN.setText(String.valueOf(timeInMinutes - 1));
         secondN.setText("60");

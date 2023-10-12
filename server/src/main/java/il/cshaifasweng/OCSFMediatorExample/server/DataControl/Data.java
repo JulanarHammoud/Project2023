@@ -902,13 +902,18 @@ public class Data {
       try{
           System.out.println(student.getId() + " " + student.getFirstName());
           ExamStudent e = new ExamStudent(exam.getTime(),exam.getDate(), exam.isComputed(),exam.getExam(),exam.getCode());
-          e.setQuestions(exam.getQuestions());
+         // e.setQuestions(exam.getQuestions());
+          List<DetailedQuestion> ff=new ArrayList<>();
+
           e.setExecuted(exam.isExecuted());
           e.setComputed(exam.isComputed());
-          for(DetailedQuestion q : e.getQuestions()){
+          for(DetailedQuestion q : exam.getQuestions()){
               DetailedQuestion question = new DetailedQuestion(q.getPoints(), q.getQuestion());
-              generateData(question);
+             int Qid= generateData(question);
+              question=getDataById(DetailedQuestion.class,Qid);
+              ff.add(question);
           }
+          e.setQuestions(ff);
           int id =  generateData(e);
           SessionFactory sessionFactory = getSessionFactory();
           session = sessionFactory.openSession();
