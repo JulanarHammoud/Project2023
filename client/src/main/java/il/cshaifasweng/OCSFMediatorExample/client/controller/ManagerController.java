@@ -112,5 +112,6 @@ public void LogOut(ActionEvent event) throws IOException {
     message.add("#LogOut");
     message.add("mangerlogout");
     SimpleClient.getClient().sendToServer(message);
+    setRoot("primary");
 }
 }

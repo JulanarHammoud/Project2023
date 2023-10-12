@@ -58,7 +58,7 @@ public class ShowExamController {
     private String Code;
 
     private String Type;
-    int datecheck;
+    int datecheck,timecheck;
     int CR,X,T;
 
     @FXML
@@ -121,6 +121,7 @@ public class ShowExamController {
                     T=1;
                 }
             });
+            DateTimeFormatter TimeFormatter = DateTimeFormatter.ofPattern("HH:MM");
             testshow.getChildren().add(fillTime);
             //<ComboBox fx:id="type" layoutX="321.0" layoutY="133.0" prefHeight="26.0" prefWidth="110.0" promptText="select type" />
             ComboBox<String> type = new ComboBox<>();
@@ -223,6 +224,8 @@ public class ShowExamController {
          int good=1;
          int c=1;
          int ggg=1;
+         int tm=0;
+         int nnnnn=0;
         if(message.isFlag()){
             // publishing new exam
             exam.setQuestions(questions);
@@ -234,6 +237,15 @@ public class ShowExamController {
                 good=0;
                 datecheck=0;
                 System.out.println("Invalid date format. Please use dd.MM.yyyy.");
+            }
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:MM");
+            try {
+                timecheck=1;
+                LocalTime date1 = LocalTime.parse(Time, timeFormatter);
+            } catch (Exception e) {
+                good=0;
+                timecheck=0;
+                System.out.println("Invalid Time format. Please use dd.MM.yyyy.");
             }
 
             if(datecheck==1) { // if the format is good continue to check if the date is not in the past
@@ -247,8 +259,30 @@ public class ShowExamController {
                     good = 0;
                     x=0;
                     System.out.println("The date is in the past.");
-                } else {
+                } else if (dateToCheck.equals(currentDate)){
                     x = 1;
+                }else{
+                    nnnnn=1;
+                    x=1;
+                }
+            }
+            if(timecheck==1) { // if the format is good continue to check if the date is not in the past
+                LocalTime currentTime = LocalTime.now();
+                LocalTime timeToCheck = LocalTime.parse(Time, timeFormatter);
+                if(T==0){
+                    good = 0;
+                    tm=0;
+                }
+                else if(nnnnn==0){ //its today
+                    if (timeToCheck.isBefore(LocalTime.now())) {
+                        good = 0;
+                        tm=0;
+                        System.out.println("The time is in the past.");
+                    } else {
+                        tm = 1;
+                    }
+                } else{
+                    tm=1;
                 }
             }
             if(Type==null){
@@ -292,6 +326,8 @@ public class ShowExamController {
                 messageToServer.add(t);
                 messageToServer.add(c);
                 messageToServer.add(ggg);
+                messageToServer.add(timecheck);
+                messageToServer.add(tm);
             }
         }
         else {

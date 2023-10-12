@@ -90,5 +90,6 @@ public class ExamManagerController{
         LinkedList<Object> message = new LinkedList<Object>();
         message.add("#LogOut");
         SimpleClient.getClient().sendToServer(message);
+        setRoot("primary");
     }
 }

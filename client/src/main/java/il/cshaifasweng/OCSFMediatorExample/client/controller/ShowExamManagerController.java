@@ -95,4 +95,11 @@ public class ShowExamManagerController {
             e.printStackTrace();
         }
     }
+    @FXML
+    public void LogOut (ActionEvent event) throws IOException {
+        LinkedList<Object> message = new LinkedList<Object>();
+        message.add("#LogOut");
+        SimpleClient.getClient().sendToServer(message);
+        setRoot("primary");
+    }
 }
