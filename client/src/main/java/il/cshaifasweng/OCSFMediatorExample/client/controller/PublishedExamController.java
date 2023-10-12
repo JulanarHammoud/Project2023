@@ -10,7 +10,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Button;
+import javafx.event.ActionEvent;
 
+
+import javax.transaction.UserTransaction;
+import java.awt.*;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +28,10 @@ public class PublishedExamController {
    // SubjectTeacher subject =  getSubject.getSubjectTeacher();
     List<ExamTeacher> exams = teacher.getPublishedExams();
     //CourseTeacher courseteacher = getSubject.getCourseTeacher();
-
+    @FXML
+    private Button back1;
+    @FXML
+    private Button logout2;
     @FXML
     private TableView<ExamTeacher> Etable;
     @FXML
@@ -80,6 +88,27 @@ public class PublishedExamController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    void backaction(ActionEvent event) {
+        SimpleClient.getParams().add(teacher);
+        try {
+            setRoot("teacherpage");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void logoutaction(ActionEvent event) throws IOException {
+        LinkedList<Object> message = new LinkedList<Object>();
+        message.add("#LogOut");
+        message.add(teacher.getId());
+        message.add("teacher");
+        SimpleClient.getClient().sendToServer(message);
+
+    }
+
 }
 
 

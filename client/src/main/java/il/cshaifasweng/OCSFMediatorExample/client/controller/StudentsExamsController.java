@@ -6,6 +6,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
@@ -16,7 +18,6 @@ import javafx.scene.text.Text;
 import javafx.util.Pair;
 
 import javax.swing.text.TabableView;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static il.cshaifasweng.OCSFMediatorExample.client.App.set;
+import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
 public class StudentsExamsController implements Serializable {
 
@@ -42,7 +44,11 @@ public class StudentsExamsController implements Serializable {
     @FXML
     AnchorPane pane;
     @FXML
-    Button approve;
+    private Button approve;
+    @FXML
+    private Button back2;
+    @FXML
+    private Button logout1;
 
 
     public void initialize() {
@@ -175,7 +181,7 @@ public class StudentsExamsController implements Serializable {
 
 
     @FXML
-    public void approve (javafx.event.ActionEvent event) {
+    public void approve (ActionEvent event) {
         Dialog<Pair<String, String>> dialog = new Dialog<>();
         dialog.setTitle("Approve the Grade");
         dialog.setHeaderText("do you want to approve the student grade?");
@@ -254,5 +260,22 @@ public class StudentsExamsController implements Serializable {
     private boolean isNumeric(String str) {
         // Check if a string is numeric
         return str.matches("\\d*");
+    }
+    @FXML
+    void backaction(ActionEvent event) {
+        SimpleClient.getParams().add(teacher);
+        try {
+            setRoot("PublishedExam");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    void logoutactio(ActionEvent event) throws IOException {
+        LinkedList<Object> message = new LinkedList<Object>();
+        message.add("#LogOut");
+        message.add(teacher.getId());
+        message.add("teacher");
+        SimpleClient.getClient().sendToServer(message);
     }
 }
