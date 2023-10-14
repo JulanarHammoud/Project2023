@@ -853,10 +853,11 @@ public class SimpleServer extends AbstractServer {
 						LocalTime newTime1 = currentTime.plus(timeToAdd);
 						//String finishTime = String.valueOf(newTime1);
 						examTeacher.setFinishTime(newTime1.toString());
+						int newTimer =examTeacher.getExam().getTimerr() + AdditionalTime;
 						Data.updateTime(newTime1.toString(),examTeacher.getId());
-						Data.updateTimer(examTeacher.getExam().getTimerr() + AdditionalTime,examTeacher.getExam().getId());
+						Data.updateTimer(newTimer,examTeacher.getExamStdId(),examTeacher.getId());
 						List<ConnectionToClient> clients = studentsInExam.get(examteacherid);
-						UpdateTimer updateTimer = new UpdateTimer(examTeacher.getExam().getTimerr() + AdditionalTime);
+						UpdateTimer updateTimer = new UpdateTimer(newTimer);
 						Warning wr = new Warning("the theacher gave you additional time");
 						for(ConnectionToClient std : clients ){
 							std.sendToClient(updateTimer);

@@ -866,8 +866,9 @@ public class Data {
         for(DetailedQuestion q : exam1.getQuestions()){
             generateData(q);
         }
-        int ExTId = generateExamTeacher(exam2);
         int ExStdId =generateExamStudent(exam1);
+        exam2.setExamStdId(ExStdId);
+        int ExTId = generateExamTeacher(exam2);
         SubjectStudent sub = findSubjectStd(subject);
         CourseStudent cour = getCourByName(exam1.getExam().getCourse());
 
@@ -902,10 +903,11 @@ public class Data {
       try{
           System.out.println(student.getId() + " " + student.getFirstName());
           ExamStudent e = new ExamStudent(exam.getTime(),exam.getDate(), exam.isComputed(),exam.getExam(),exam.getCode(),exam.getTeacherPubId());
+          e.setGrade(exam.getGrade());
          // e.setQuestions(exam.getQuestions());
           List<DetailedQuestion> ff=new ArrayList<>();
 
-          e.setExecuted(exam.isExecuted());
+          e.setExecuted(true);
           e.setOnTime(exam.isOnTime());
           e.setExamTId(exam.getExamTId());
           for(DetailedQuestion q : exam.getQuestions()){
@@ -1089,13 +1091,16 @@ public class Data {
         session.getTransaction().commit();
         session.close();
     }
-    public static void updateTimer(int timer , int id){
+    public static void updateTimer(int timer , int idStd, int idT){
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
-         Exam change =session.get(Exam.class,id);
-        change.setTimerr(timer);
-        session.saveOrUpdate(change);
+         ExamTeacher change1 =session.get(ExamTeacher.class,idT);
+         ExamStudent change2 =session.get(ExamStudent.class,idStd);
+        change1.setNewTimer(timer);
+        change2.setNewTimer(timer);
+        session.saveOrUpdate(change1);
+        session.saveOrUpdate(change2);
         session.flush();
         session.getTransaction().commit();
         session.close();

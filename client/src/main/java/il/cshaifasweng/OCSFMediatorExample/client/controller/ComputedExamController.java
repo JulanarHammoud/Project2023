@@ -85,6 +85,7 @@ public class ComputedExamController {
     Timeline timelineMinutes;
     Timeline timelineHours;
     boolean onTime = true;
+    Timeline timeline;
 
     @FXML
     void initialize() throws IOException {
@@ -96,7 +97,7 @@ public class ComputedExamController {
 
         javafx.util.Duration sec = javafx.util.Duration.seconds(1);
 
-        Timeline timeline = new Timeline(new KeyFrame(sec, event -> {
+        timeline = new Timeline(new KeyFrame(sec, event -> {
             updateCountdown();
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -160,6 +161,7 @@ public class ComputedExamController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        timeline.stop();
     }
 
     public  void handleRadioButtonClick(String ans, DetailedQuestion question,int position){

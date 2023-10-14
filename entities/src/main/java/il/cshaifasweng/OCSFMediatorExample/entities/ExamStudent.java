@@ -22,6 +22,7 @@ public class ExamStudent  implements Serializable {
     String stdName;
     boolean approve = false;
     int teacherPubId;
+    int newTimer = -1;
 
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -190,5 +191,13 @@ public class ExamStudent  implements Serializable {
 
     public void setTeacherPubId(int teacherPubId) {
         this.teacherPubId = teacherPubId;
+    }
+
+    public int getNewTimer() {
+        return newTimer;
+    }
+
+    public void setNewTimer(int newTimer) {
+        this.newTimer = newTimer;
     }
 }

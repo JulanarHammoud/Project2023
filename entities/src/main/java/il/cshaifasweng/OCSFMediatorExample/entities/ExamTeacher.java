@@ -24,6 +24,8 @@ public class ExamTeacher implements Serializable {
     boolean computed;
     int start;
     int finish;
+    int newTimer = -1;
+    int examStdId;
     @OneToOne
     @JoinColumn(name = "exam_id")
     Exam exam;
@@ -147,5 +149,21 @@ public class ExamTeacher implements Serializable {
 
     public int getId() {
         return Id;
+    }
+
+    public int getNewTimer() {
+        return newTimer;
+    }
+
+    public void setNewTimer(int newTimer) {
+        this.newTimer = newTimer;
+    }
+
+    public int getExamStdId() {
+        return examStdId;
+    }
+
+    public void setExamStdId(int examStdId) {
+        this.examStdId = examStdId;
     }
 }

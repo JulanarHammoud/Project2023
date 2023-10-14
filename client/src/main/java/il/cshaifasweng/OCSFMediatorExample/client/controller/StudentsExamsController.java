@@ -100,7 +100,7 @@ public class StudentsExamsController implements Serializable {
 
 
                    // Create and configure the second text
-                   Text text22 = new Text("The Date Of The Exam: "+StEx.getDate());
+                   Text text22 = new Text("Student Grade is: "+StEx.getGrade());
                    text22.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;");
                    //text22.setTextAlignment(TextAlignment.CENTER);
                    AnchorPane.setTopAnchor(text22, 40.0); // Adjust the vertical position
@@ -125,7 +125,7 @@ public class StudentsExamsController implements Serializable {
 
                    System.out.println("the questio list is null: " + questions == null);
                    for (DetailedQuestion q : questions) {
-                       VBox vbox = new VBox(5); // we put every question in vbox
+                       VBox vbox = new VBox(6); // we put every question in vbox
                        javafx.scene.text.Text text = new javafx.scene.text.Text(q.getQuestion().getQuestion());
                        vbox.getChildren().add(text);
                        System.out.println(q.getQuestion().getQuestion());
@@ -176,6 +176,12 @@ public class StudentsExamsController implements Serializable {
 
 
                        vbox.getChildren().addAll(answer1, answer2, answer3, answer4);
+                       Text stdAnswer = new Text();
+                       if(q.getStdAnswer() == null){
+                           stdAnswer.setText("student didn't answer this question");
+                           stdAnswer.setStyle("-fx-fill: red;");
+                       }
+                       vbox.getChildren().add(stdAnswer);
                        AnchorPane.setTopAnchor(vbox, i);
                        AnchorPane.setLeftAnchor(vbox, 20.0);
                        pane.getChildren().add(vbox); // Add the VBox to the newRoot
