@@ -13,7 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-
+//import javafx.util.Duration;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -90,6 +90,9 @@ public class ComputedExamController {
     void initialize() throws IOException {
         SimpleClient.setPosition("ComputedExam");
 
+        hours = new SimpleIntegerProperty(hoursParams);
+        minutes = new SimpleIntegerProperty(timeInMinutes);
+        seconds = new SimpleIntegerProperty(60);
 
         javafx.util.Duration sec = javafx.util.Duration.seconds(1);
 
@@ -146,6 +149,7 @@ public class ComputedExamController {
         message.add("#StdFinishExam");
         int grade = computeGrade(questions);
         exam.setGrade(grade);
+        exam.setOnTime(true);
         exam.setQuestions(questions);
         exam.setOnTime(onTime);
         System.out.println("student finished exam with graade: " + grade);

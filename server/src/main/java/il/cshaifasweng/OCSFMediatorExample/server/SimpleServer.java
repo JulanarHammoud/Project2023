@@ -412,7 +412,9 @@ public class SimpleServer extends AbstractServer {
 						Warning warning = new Warning("please don't write the question the same as the answer!!");
 						client.sendToClient(warning);
 					} else {
-						Data.updateQuestion(id, ques1, ans1, ans2, ans3, ans4, note, right);
+						Question newq= new Question(ques1, ans1, ans2, ans3, ans4, note, right);
+						Data.generateData(newq);
+						//Data.updateQuestion(id, ques1, ans1, ans2, ans3, ans4, note, right);
 						System.out.println("after data function");
 						Warning warning = new Warning("The Question updated Successfully!!");
 						SubjectTeacher subject = (SubjectTeacher) message.get(3);

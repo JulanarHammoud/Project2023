@@ -305,6 +305,20 @@ public class ShowExamController {
                 ExamTeacher examTeacher = new ExamTeacher(exam,Date,Time,isComputed,Code,0,0,newTime.toString());
                 ExamStudent examStudent = new ExamStudent(Time,Date,isComputed,exam,Code,teacher.getId());
                 examStudent.setQuestions(detailedQuestions);
+               double totalpoints=0;
+                for(DetailedQuestion qes : detailedQuestions){
+                     totalpoints =totalpoints+ qes.getPoints();
+                     System.out.println(qes.getPoints());
+                }
+                System.out.println("the total points is : " +totalpoints);
+                for(DetailedQuestion qes : detailedQuestions){
+                    System.out.println(qes.getPoints());
+                    double realpoints=(qes.getPoints()/totalpoints)*100;
+                    System.out.println(realpoints);
+                    qes.setPoints(realpoints);
+                    System.out.println(qes.getPoints());
+                }
+                System.out.println(detailedQuestions.get(0).getPoints());
                 System.out.println("th first q points is: " + examStudent.getQuestions().get(0).getPoints());
                 messageToServer.add(examTeacher);
                 messageToServer.add(teacher);

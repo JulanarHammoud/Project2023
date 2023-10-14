@@ -11,18 +11,18 @@ public class DetailedQuestion implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int id;
-    int points;
+    double points;
     String stdAnswer;
     @OneToOne
     @JoinColumn(name = "qes_id")
     Question question;
 
-    public DetailedQuestion(int points, Question question) {
+    public DetailedQuestion(double points, Question question) {
         this.points = points;
         this.question = question;
     }
 
-    public DetailedQuestion(int points, String stdAnswer, Question question) {
+    public DetailedQuestion(double points, String stdAnswer, Question question) {
         this.points = points;
         this.stdAnswer = stdAnswer;
         this.question = question;
@@ -37,11 +37,11 @@ public class DetailedQuestion implements Serializable {
         this.stdAnswer = stdAnswer;
     }
 
-    public int getPoints() {
+    public double getPoints() {
         return points;
     }
 
-    public void setPoints(int points) {
+    public void setPoints(double points) {
         this.points = points;
     }
 
