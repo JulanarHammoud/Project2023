@@ -272,15 +272,6 @@ public class ShowExamController {
                 if(T==0){
                     good = 0;
                     tm=0;
-                }
-                else if(nnnnn==0){ //its today
-                    if (timeToCheck.isBefore(LocalTime.now())) {
-                        good = 0;
-                        tm=0;
-                        System.out.println("The time is in the past.");
-                    } else {
-                        tm = 1;
-                    }
                 } else{
                     tm=1;
                 }

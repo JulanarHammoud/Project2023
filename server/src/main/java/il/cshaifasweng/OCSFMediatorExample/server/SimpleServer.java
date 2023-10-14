@@ -18,6 +18,7 @@ import java.util.*;
 public class SimpleServer extends AbstractServer {
 	ConnectionToClient mngr = null;
 	private Map<Integer, ConnectionToClient> onlineTeachers = new HashMap<>();
+	private Map<Integer, List<ConnectionToClient>> studentsInExam = new HashMap<>();
 
 
 	public SimpleServer(int port) {
@@ -44,7 +45,7 @@ public class SimpleServer extends AbstractServer {
 //			Data.MakeQuestion("aaa","bbb","ccc","ddd","ddd","ttt",grammar);
 			//Data.LogOutSt(1);
 			//Data.LogOutSt(4);
-//			Data.generateSubject();
+			//Data.generateSubject();
 			//Data.generateStusent();
 			//Data.generateEnglishQusetions();
 
@@ -851,6 +852,19 @@ public class SimpleServer extends AbstractServer {
 						//String finishTime = String.valueOf(newTime1);
 						examTeacher.setFinishTime(newTime1.toString());
 						Data.updateTime(newTime1.toString(),examTeacher.getId());
+						Data.updateTimer(examTeacher.getExam().getTimerr() + AdditionalTime,examTeacher.getExam().getId());
+						List<ConnectionToClient> clients = studentsInExam.get(examteacherid);
+						UpdateTimer updateTimer = new UpdateTimer(examTeacher.getExam().getTimerr() + AdditionalTime);
+						Warning wr = new Warning("the theacher gave you additional time");
+						for(ConnectionToClient std : clients ){
+							std.sendToClient(updateTimer);
+							std.sendToClient(wr);
+						}
+						ConnectionToClient teacher = onlineTeachers.get(Message.getTID());
+						if(teacher != null){
+						Teacher teacher1 = Data.getDataById(Teacher.class,Message.getTID());
+						ToDuration toDuration= new ToDuration(teacher1,examTeacher);
+						teacher.sendToClient(toDuration);}
 					}
 					GetForManager getForManager = mailManagerEntity.getGFM();
 					List<ManagerMessage> newmanagerm = Data.getAllMessages();
@@ -915,6 +929,7 @@ public class SimpleServer extends AbstractServer {
 				}
 				///// l7d hon mn7ot el exam 3nd teacher and students
 			} else if (message.get(0).equals("#StdFinishExam")){
+
 				System.out.println("StdFinishExam");
 				Student student = (Student) message.get(1);
 				ExamStudent exam = (ExamStudent) message.get(2);
@@ -1096,8 +1111,13 @@ public class SimpleServer extends AbstractServer {
 
 			else if (message.get(0).equals("#StartComputedExam")) {
 				ExamStudent exam =(ExamStudent) message.get(1);
-//				Data.updateExecuted(exam.getId());
-
+				//				Data.updateExecuted(exam.getId());
+				List<ConnectionToClient> clients = studentsInExam.get(exam.getExamTId());
+				if(clients == null){
+					clients = new ArrayList<>();
+				}
+				clients.add(client);
+				studentsInExam.put(exam.getExamTId(),clients);// saving the students clients that making exams
 				int id = exam.getExamTId();
 				int tId = exam.getTeacherPubId();
 				ExamTeacher examTeacher = Data.getDataById(ExamTeacher.class, id);

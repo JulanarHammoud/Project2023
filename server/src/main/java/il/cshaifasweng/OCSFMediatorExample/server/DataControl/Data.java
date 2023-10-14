@@ -1089,4 +1089,15 @@ public class Data {
         session.getTransaction().commit();
         session.close();
     }
+    public static void updateTimer(int timer , int id){
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+         Exam change =session.get(Exam.class,id);
+        change.setTimerr(timer);
+        session.saveOrUpdate(change);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
+    }
 }

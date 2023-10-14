@@ -13,11 +13,21 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
+
 
 import javax.swing.*;
 import java.io.IOException;
-import java.util.*;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.time.Duration;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 
 import static il.cshaifasweng.OCSFMediatorExample.client.App.set;
 import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
@@ -74,111 +84,20 @@ public class ComputedExamController {
     Timeline timelineSeconds;
     Timeline timelineMinutes;
     Timeline timelineHours;
-    boolean onTime = false;
+    boolean onTime = true;
 
     @FXML
     void initialize() throws IOException {
-        int t = 1;
-        while (t == 1) {
-            if (timeInMinutes > 60) {
-                hoursParams = timeInMinutes / 60;
-                timeInMinutes = timeInMinutes - 60 * hoursParams;
-            } else {
-                t = 2;
-            }
-        }
-        if((hoursParams%2==0)&&(timeInMinutes==0))
-        {
-            hoursParams--;
-            timeInMinutes=60;
-        }
-        exam.setExecuted(true);
-        hourN.setText(String.valueOf(hoursParams));
-        minuteN.setText(String.valueOf(timeInMinutes - 1));
-        secondN.setText("60");
+        SimpleClient.setPosition("ComputedExam");
 
-        hours = new SimpleIntegerProperty(hoursParams);
-        minutes = new SimpleIntegerProperty(timeInMinutes);
-        seconds = new SimpleIntegerProperty(60);
 
-        //hour//
-        timelineHours = new Timeline(new KeyFrame(Duration.hours(1), e -> {
-            hours.set(hours.get() - 1);
+        javafx.util.Duration sec = javafx.util.Duration.seconds(1);
+
+        Timeline timeline = new Timeline(new KeyFrame(sec, event -> {
+            updateCountdown();
         }));
-        timelineHours.setCycleCount(Timeline.INDEFINITE);
-        timelineHours.play();
-
-        // Create a timeline for minutes
-        timelineMinutes = new Timeline(new KeyFrame(Duration.minutes(1), e -> {
-            minutes.set(minutes.get() - 1);
-        }));
-        timelineMinutes.setCycleCount(Timeline.INDEFINITE);
-        timelineMinutes.play();
-
-        // Create a timeline for seconds
-        timelineSeconds = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
-            seconds.set(seconds.get() - 1);
-
-            // Handle rollover when seconds reach 0
-            if ((seconds.get() == 0) || (seconds.get() < 0)) {
-                if (("0".equals(hourN.getText())) && ("0".equals(minuteN.getText()))) {
-                    shouldStopSec = true;
-                    timelineSeconds.stop();
-                    try {
-                       if(!onTime){
-                           LinkedList<Object> message = new LinkedList<Object>();
-                           // we have to add the exam to the examTeacher
-                           // and generate new exam for the student and adding it to the list
-                           message.add("#StdFinishExam");
-                           int grade = computeGrade(questions);
-                           exam.setGrade(grade);
-                           System.out.println("student finished exam with graade: " + grade);
-                           message.add(std);
-                           message.add(exam);
-                           SimpleClient.getClient().sendToServer(message);
-                       }
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
-                    }
-                } else {
-                    seconds.set(59);
-                    minutes.set(minutes.get() - 1);
-                }
-
-            }
-            // Handle rollover when minutes reach 0
-            if (minutes.get() < 0) {
-                if ("0".equals(hourN.getText())) {
-                    timelineMinutes.stop();
-                } else {
-                    minutes.set(59);
-                    hours.set(hours.get() - 1);
-                }
-
-                // Handle rollover when hours reach 0 (or you can stop the timer)
-                if (hours.get() < 0) {
-                    hours.set(0);
-                }
-            }
-
-        }));
-        timelineSeconds.setCycleCount(Timeline.INDEFINITE);
-        timelineSeconds.play();
-
-        // Bind StringProperties to update UI
-        StringProperty hourText = new SimpleStringProperty();
-        StringProperty minuteText = new SimpleStringProperty();
-        StringProperty secondText = new SimpleStringProperty();
-
-        hourText.bind(hours.asString());
-        minuteText.bind(minutes.asString());
-        secondText.bind(seconds.asString());
-
-        // Example: Print the values to the console
-        hourText.addListener((obs, oldVal, newVal) -> hourN.setText(newVal));
-        minuteText.addListener((obs, oldVal, newVal) -> minuteN.setText(newVal));
-        secondText.addListener((obs, oldVal, newVal) -> secondN.setText(newVal));
-
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
         /*****************************************************************/
         //test = new AnchorPane();
         examTime.setText("exam time is: " + exam.getTimerr());
@@ -219,18 +138,16 @@ public class ComputedExamController {
 
 
     @FXML
-    public void Finish (ActionEvent event) {
-        onTime = true;
+    public void Finish () {
+
         LinkedList<Object> message = new LinkedList<Object>();
         // we have to add the exam to the examTeacher
         // and generate new exam for the student and adding it to the list
         message.add("#StdFinishExam");
         int grade = computeGrade(questions);
         exam.setGrade(grade);
-        exam.setOnTime(true);
         exam.setQuestions(questions);
-        System.out.println("chhhecckkk33");
-        System.out.println(questions.get(1).getQuestion()+questions.get(1).getStdAnswer());
+        exam.setOnTime(onTime);
         System.out.println("student finished exam with graade: " + grade);
         message.add(std);
         message.add(exam);
@@ -259,5 +176,35 @@ public class ComputedExamController {
         return grade;
 
     }
+    public void updateCountdown(){
+        int last = SimpleClient.getMesFromClient().size() - 1;
+        if(last != -1) {
+            //System.out.println(SimpleClient.getMesFromClient().get(last).getClass());
+            if (SimpleClient.getMesFromClient().get(last).getClass().equals(UpdateTimer.class)) {
+                UpdateTimer updateTimer = (UpdateTimer) SimpleClient.getMesFromClient().get(last);
+                int newTimer = updateTimer.getTimer();
+                if (exam.getExam().getTimerr() != newTimer) {
+                    System.out.println(newTimer);
+                    exam.getExam().setTimerr(newTimer);
+                }
+                System.out.println("the timer is: " + exam.getTimerr());
+            }
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime parsedTime = LocalTime.parse(exam.getTime(),formatter);
+        LocalTime currentTime = LocalTime.now();
+        LocalTime endTime = parsedTime.plusMinutes(exam.getTimerr());
+        Duration remainingTime = Duration.between(currentTime, endTime);
+        String formattedTime = String.format("%02d:%02d:%02d",
+                remainingTime.toHours(), (remainingTime.toMinutes() % 60), (remainingTime.getSeconds() % 60));
+        minuteN.setText(formattedTime);
+        if( remainingTime.toHours()<=0 && (remainingTime.toMinutes() % 60)<=0 && (remainingTime.getSeconds() % 60)<=0){
+            System.out.println("time finished before submitting");
+            onTime = false;
+            Finish();
+        }
+
+    }
+
 
 }

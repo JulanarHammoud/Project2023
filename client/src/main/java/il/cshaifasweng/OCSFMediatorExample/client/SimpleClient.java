@@ -133,6 +133,9 @@ public class SimpleClient extends AbstractClient {
 		else if (msg.getClass().equals(ToDuration.class)) {
 			EventBus.getDefault().post(new ToDurationEvent((ToDuration) msg));
 		}
+		else if (msg.getClass().equals(UpdateTimer.class)) {
+			EventBus.getDefault().post(new UpdateTimerEvevnt((UpdateTimer) msg));
+		}
 
 	}
 

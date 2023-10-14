@@ -438,6 +438,17 @@ public class App extends Application {
 
         });}
 
+    @Subscribe
+    public void UpdateTimerEvevnt(UpdateTimerEvevnt event) {
+        Platform.runLater(() -> {
+            if(SimpleClient.getPosition().equals("ComputedExam")){
+               // System.out.println(" the client updating the duration to: " + event.getToDuration().getExamTeacher().getStart());
+                SimpleClient.getMesFromClient().add(event.getUpdateTimer());
+
+            }
+
+        });}
+
 
 	public static void main(String[] args) {
         launch();
