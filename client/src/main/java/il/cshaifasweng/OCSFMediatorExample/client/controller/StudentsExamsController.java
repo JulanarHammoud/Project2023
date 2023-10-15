@@ -258,8 +258,9 @@ public class StudentsExamsController implements Serializable {
             int i=studentsExams.indexOf(selectedExam);
            String student=studentsExams.get(i).getStdName();
             System.out.println(";;;;;"+i+studentsExams.get(i).getCode());
-
-            selectedExam.setGrade(Integer.parseInt(grade));
+            if(!grade.equals("")){
+                selectedExam.setGrade(Integer.parseInt(grade));
+            }
             selectedExam.setApprove(approved);
             System.out.println("pp"+studentsExams.get(i).getGrade()+studentsExams.get(i).isApprove());
             exam.setExamsOfStudents(studentsExams);

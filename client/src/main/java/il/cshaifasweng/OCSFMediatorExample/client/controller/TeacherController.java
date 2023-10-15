@@ -90,7 +90,6 @@ public class TeacherController {
             }
             courseContainer.setContent(content);
             container.getPanes().add(courseContainer);
-
         }
 
     }
@@ -119,8 +118,22 @@ public class TeacherController {
 
     @FXML
     void gradesaction(ActionEvent event) {
-
-
+//        try{
+//            LinkedList<Object> message = new LinkedList<Object>();
+//            message.add("#GetGrades");
+//            message.add(subject);
+//            message.add(teacher);
+//
+//            for (CourseTeacher c : courses) {
+//                if (c.getName().equals(selectedCour)) {
+//                    message.add(c);
+//                }
+//                SimpleClient.getParams().add(message);
+//                setRoot("Gradesteacher");
+//            }
+//        }catch (IOException e){
+//            e.printStackTrace();
+//        }
     }
 
     @FXML
@@ -147,19 +160,6 @@ public class TeacherController {
                 message.add(c);
             }
             SimpleClient.getClient().sendToServer(message);
-        }
-    }
-    @FXML
-    void messagetomanager(ActionEvent event) throws IOException{
-        try {
-            LinkedList<Object> message = new LinkedList<>();
-            message.add("SendMassage");
-            message.add(teacher);
-            message.add(1); // this should be ExamTeacher id
-            SimpleClient.getClient().sendToServer(message);
-        }
-        catch (IOException e){
-            e.printStackTrace();
         }
     }
 

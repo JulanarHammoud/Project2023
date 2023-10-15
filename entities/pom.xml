@@ -25,7 +25,13 @@
       <version>4.13.1</version>
       <scope>test</scope>
     </dependency>
-    <!--    <dependency>-->
+      <dependency>
+          <groupId>org.openjfx</groupId>
+          <artifactId>javafx-base</artifactId>
+          <version>17.0.2</version>
+          <scope>compile</scope>
+      </dependency>
+      <!--    <dependency>-->
     <!--      <groupId>${groupId}</groupId>-->
     <!--      <artifactId>entities</artifactId>-->
     <!--    </dependency>-->

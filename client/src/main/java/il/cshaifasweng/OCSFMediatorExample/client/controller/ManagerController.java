@@ -61,10 +61,47 @@ int lastIndex = SimpleClient.getParams().size() - 1;
 
         VBox resultbuttons = new VBox(3); // Result pane in the Accordion
         Button TeachersButtons = new Button("Teachers Results");
+        TeachersButtons.setOnAction(this::TeachersButtons);
         Button StudentsButtons = new Button("Students Results");
+        StudentsButtons.setOnAction(this::StudentsButtons);
         Button ExamsResultButtons = new Button("Exams Results");
+        ExamsResultButtons.setOnAction(this::ExamsResultButtons);
         resultbuttons.getChildren().addAll(TeachersButtons,StudentsButtons,ExamsResultButtons);
         ResultPane.setContent(resultbuttons);
+    }
+
+    @FXML
+    void TeachersButtons(ActionEvent event) {
+//        try {
+//            LinkedList<Object> message = new LinkedList<Object>();
+//            message.add(pickedcourse);
+//            message.add(getForManager);
+//            SimpleClient.getParams().add(message);
+//            setRoot("TeacherResults");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+    }
+    @FXML
+    void StudentsButtons(ActionEvent event) {
+        try {
+            SimpleClient.getParams().add(getForManager);
+            setRoot("StudentResults");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    void ExamsResultButtons(ActionEvent event) {
+//        try {
+//            LinkedList<Object> message = new LinkedList<Object>();
+//            message.add(pickedcourse);
+//            message.add(getForManager);
+//            SimpleClient.getParams().add(message);
+//            setRoot("ExamResults");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @FXML

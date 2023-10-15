@@ -6,12 +6,9 @@ import il.cshaifasweng.OCSFMediatorExample.server.ocsf.AbstractServer;
 import il.cshaifasweng.OCSFMediatorExample.server.ocsf.ConnectionToClient;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.text.DecimalFormat;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
@@ -57,9 +54,7 @@ public class SimpleServer extends AbstractServer {
 			System.out.print("there is an error");
 			e.printStackTrace();
 		}
-
 		System.out.println("Server Is Ready...");
-
 	}
 
 
@@ -1043,14 +1038,13 @@ public class SimpleServer extends AbstractServer {
 				String grade = (String) message.get(5);
 				ExamStudent examm = (ExamStudent) message.get(6);
 				int idd=exam.getId();
-				//if(!approved)
-				//{
-				Data.updateGrade(Integer.parseInt(grade),approved,examm.getId());
-				//}
+				if(!approved)
+				{
+					Data.updateGrade(Integer.parseInt(grade),true,examm.getId());
+				}else{
+					Data.updateGrade(examm.getGrade(),true,examm.getId());
+				}
 				ExamTeacher ex=Data.getDataById(ExamTeacher.class,idd);
-//				exam.setGrade(Integer.parseInt(grade));
-//				exam.setApprove(approved);
-
 //				StudentsExams ee=new StudentsExams();
 
 				List<Student> st=null;
@@ -1143,8 +1137,6 @@ public class SimpleServer extends AbstractServer {
 				}
 
 			}
-
 		}
-
 	}
 }

@@ -48,8 +48,6 @@ public class PublishedExamController {
     ObservableList<ExamTeacher> data ;
     public void initialize() {
         data = FXCollections.observableArrayList(exams);
-        //Etable.setEditable(true);
-       // id.setCellValueFactory(new PropertyValueFactory<ExamTeacher, Integer>("Id"));
         Subject.setCellValueFactory(dataValueFactory ->
                 new SimpleStringProperty(dataValueFactory.getValue().getExam().getSubject()));
         Teacher.setCellValueFactory(dataValueFactory ->
@@ -106,9 +104,7 @@ public class PublishedExamController {
         message.add(teacher.getId());
         message.add("teacher");
         SimpleClient.getClient().sendToServer(message);
-
     }
-
 }
 
 
