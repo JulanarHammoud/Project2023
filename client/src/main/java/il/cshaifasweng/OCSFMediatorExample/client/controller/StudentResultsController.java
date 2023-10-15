@@ -67,13 +67,13 @@ public class StudentResultsController {
                     CategoryAxis xAxis = new CategoryAxis();
                     NumberAxis yAxis = new NumberAxis();
 
-                    // Create the BarChart and set the axis labels
+// Create the BarChart and set the axis labels
                     BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
                     barChart.setTitle("Grades Bar Chart");
                     xAxis.setLabel("Grades");
                     yAxis.setLabel("Distribution");
 
-                    // Create a data series and add data points
+// Create a data series and add data points
                     XYChart.Series<String, Number> series = new XYChart.Series<>();
                     series.setName("Data Series");
 
@@ -95,7 +95,7 @@ public class StudentResultsController {
                     series.getData().add(new XYChart.Data<>("81->90", gradesEntity.getDistribution(9)));
                     series.getData().add(new XYChart.Data<>("91->100", gradesEntity.getDistribution(10)));
 
-                    // Add the data series to the BarChart
+// Add the data series to the BarChart
                     barChart.getData().add(series);
                     pane.getChildren().add(barChart);
                     pane.setTopAnchor(barChart, 10.0); // Adjust the vertical position

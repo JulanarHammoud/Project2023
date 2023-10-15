@@ -15,7 +15,7 @@ public class SimpleClient extends AbstractClient {
 	private static SimpleClient client = null;
 	private  static List<Object> params=new LinkedList<>();
 	private  static List<ExamStudent> exams=new LinkedList<>();
-	private static String position;
+	private static String position="";
 	private  static List<Object> mesFromClient=new LinkedList<>();
 
 	private SimpleClient(String host, int port) {

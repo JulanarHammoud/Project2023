@@ -58,7 +58,7 @@ int[] arrayhelp1=new int[101];
                 med = array[middle];
             }
         }else{
-            med=array[i];
+            med=array[i-1];
         }
         this.median = med;
         return median;

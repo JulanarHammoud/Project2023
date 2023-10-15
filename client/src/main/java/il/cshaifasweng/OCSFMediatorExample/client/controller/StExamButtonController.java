@@ -173,7 +173,9 @@ public class StExamButtonController implements Serializable {
 //                System.out.println("l" + specifiedTime);
 //                int comparisonResult = currentTime.compareTo(specifiedTime);
                         LocalTime futureTime = specifiedTime.plusMinutes(ex.getTimerr());
+                        System.out.println("futuretime"+futureTime.toString());
                         int comparisonResult2 = currentTime.compareTo(futureTime);
+                        System.out.println("comparosonresult"+comparisonResult2);
                         LocalDate date = LocalDate.parse(datee, formatter);
                         formattedDate = date.format(formatter);
                         formattedLocalDate = LocalDate.parse(formattedDate, formatter);
