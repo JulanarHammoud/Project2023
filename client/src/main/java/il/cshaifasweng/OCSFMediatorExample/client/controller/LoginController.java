@@ -22,25 +22,28 @@ public class LoginController {
     @FXML
     private ComboBox<String> role;
 
-    public void initialize(){
-        role.getItems().addAll("Student","Teacher","manager");
-    }
+    /*public void initialize(){
+        //role.getItems().addAll("Student","Teacher","manager");
+    }*/
     @FXML
     void SelectRole(ActionEvent event) throws IOException {
-        String choose = role.getSelectionModel().getSelectedItem();
+
+        // String choose = role.getSelectionModel().getSelectedItem();
         LinkedList<Object> message = new LinkedList<Object>();
-        if(choose==null || !choose.equals("manager")){
+        //if(choose==null || !choose.equals("manager")){
+        if (password.getText().equals("123") && username.getText().equals("malki")) {
+            message.add("#GetAllSubjectsSimpleServer");
+            SimpleClient.getClient().sendToServer(message);
+        } else {
             System.out.println("hi");
             message.add("#Login");
             message.add(username.getText());
             message.add(password.getText());
             System.out.println("Selected item: " + username.getText());
             System.out.println("Selected item: " + password.getText());
-            System.out.println("Selected item: " + choose);
-            message.add(choose);
             SimpleClient.getClient().sendToServer(message);
-        }
-        else if(choose.equals("manager")){
+            //}
+        /*else if(choose.equals("manager")){
             if(password.getText().equals("123")&& username.getText().equals("malki")){
                 message.add("#GetAllSubjectsSimpleServer");
                 SimpleClient.getClient().sendToServer(message);
@@ -50,6 +53,7 @@ public class LoginController {
                 message.add(password.getText());
                 SimpleClient.getClient().sendToServer(message);
             }
+        }*/
         }
     }
 

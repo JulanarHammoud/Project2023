@@ -304,10 +304,7 @@ public class Data {
         return -1;
     }
 
-    public static Teacher TeacherLog(String username, String password) throws Exception {
-        List<Teacher> teachers = getAllTeachers();
-        System.out.println(teachers);
-        for (Teacher teacher : teachers) {
+    public static Teacher TeacherLog(String username, String password,Teacher teacher) throws Exception {
             if (teacher.getUserName().equals(username)) {
                 if (password.equals(teacher.getPassWord())) {
                     return teacher;
@@ -316,15 +313,12 @@ public class Data {
                     return teacher;
                 }
             }
-        }
+
         Teacher teachernotfound = new Teacher(null, null, null, null, null);
         return teachernotfound;
     }
 
-    public static Student StudentLog(String username, String password) throws Exception {
-        List<Student> students = getAllStudents();
-        System.out.println(students);
-        for (Student student : students) {
+    public static Student StudentLog(String username, String password,Student student) throws Exception {
             if (student.getUserName().equals(username)) {
                 if (password.equals(student.getPassWord())) {
                     return student;
@@ -333,7 +327,7 @@ public class Data {
                     return student;
                 }
             }
-        }
+
         Student studentnotfound = new Student(null, null, null, null, null);
         return studentnotfound;
     }
@@ -368,10 +362,10 @@ public class Data {
         CourseStudent Mat = new CourseStudent("Math",subjectst2);
         LinkedList<CourseStudent> course = new LinkedList<>();
         course.add(Mat);
-        Student julanar = new Student("Julanar", "Hammoud","jula123","0101",course);
+        Student julanar = new Student("Julanar", "Hammoud","1jula","0101",course);
         course.add(Eng);
-        Student rozaleen = new Student("Rozaleen", "Hassanin", "roza99","1999",course);
-
+        Student rozaleen = new Student("Rozaleen", "Hassanin", "2roza","1999",course);
+        Student Lana = new Student("Lana","Abbas","3lana" ,"159",course);
         Question Num1 = new Question("I'm very happy _____ in India. I really miss being there.", "to live", "to have lived", "to be lived", "to be living","" ,"to live");
         Question Num2 = new Question("They didn't reach an agreement ______ their differences.", "on account of", "due", "because", "owing","bay extra attention" ,"owing");
         Question Num3 = new Question("I wish I _____ those words. But now it's too late.", "not having said", "have never said", "never said", "had never said","good luck" ,"have never said");
@@ -410,9 +404,9 @@ public class Data {
         CourseTeacher Math =new CourseTeacher("Math",subject2);
         LinkedList<CourseTeacher> courses = new LinkedList<>();
         courses.add(English);
-        Teacher mona = new Teacher("Mona","Amara","mona123","1234",courses);
+        Teacher mona = new Teacher("Mona","Amara","1mona","1234",courses);
         courses.add(Math);
-        Teacher noran = new Teacher("Noran","morad","noran123","1235",courses);
+        Teacher noran = new Teacher("Noran","morad","2noran","1235",courses);
 
         try {
             SessionFactory sessionFactory = getSessionFactory();
@@ -428,6 +422,7 @@ public class Data {
             session.saveOrUpdate(Mat);
             session.saveOrUpdate(julanar);
             session.saveOrUpdate(rozaleen);
+            session.saveOrUpdate(Lana);
             session.saveOrUpdate(Num1);
             session.saveOrUpdate(Num2);
             session.saveOrUpdate(Num3);
@@ -539,6 +534,7 @@ public class Data {
         // Exam ex=new Exam(0,NumQ,chose,"T",TNotes,SNotes,cc);
         Question newquestion =new Question(Q,an1,an2,an3,an4, note,right);
         try {
+            if(subjects!=null){
             for(SubjectTeacher s :subjects){
                 SessionFactory sessionFactory = getSessionFactory();
                 session = sessionFactory.openSession();
@@ -552,7 +548,8 @@ public class Data {
                 session.flush();
                 session.getTransaction().commit(); // Save everything.
                 session.close();
-            }
+            }}
+            else{
             System.out.println("in make Question2 ");
             SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
@@ -565,7 +562,7 @@ public class Data {
             session.saveOrUpdate(change);
             session.flush();
             session.getTransaction().commit(); // Save everything.
-            return change;
+            return change;}
 
         } catch (Exception exception) {
             if (session != null) {
@@ -1024,7 +1021,6 @@ public class Data {
         session = sessionFactory.openSession();
         session.beginTransaction();
         T data =session.get(entityType,id);
-
         session.flush();
         session.getTransaction().commit();
         session.close();

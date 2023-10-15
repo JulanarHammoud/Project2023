@@ -43,7 +43,7 @@ public class SimpleServer extends AbstractServer {
 			//Data.LogOutSt(1);
 			//Data.LogOutSt(4);
 			//Data.generateSubject();
-			//Data.generateStusent();
+			//////////Data.generateStusent();
 			//Data.generateEnglishQusetions();
 
 			//Data.main(null);
@@ -117,7 +117,8 @@ public class SimpleServer extends AbstractServer {
 			else if (message.get(0).equals("#Login")) {
 				System.out.println("im in login ");
 				try {
-					if (message.get(2).equals("") && message.get(3)==null && message.get(1).equals("")){
+					System.out.println("in try login");
+					if (message.get(2).equals("")  && message.get(1).equals("")){
 						System.out.println("nothing is filled");
 						Warning warning = new Warning("please fill the informations!!");
 						client.sendToClient(warning);
@@ -131,7 +132,7 @@ public class SimpleServer extends AbstractServer {
 							Warning warning = new Warning("please fill the username!!");
 							client.sendToClient(warning);
 						}
-					} else if (message.get(2).equals("")) {
+					} /*else if (message.get(2).equals("")) {
 						if (message.get(3) == null) {
 							System.out.println("no role and password yet");
 							Warning warning = new Warning("please fill the password, and pick your role!!");
@@ -185,6 +186,58 @@ public class SimpleServer extends AbstractServer {
 						} else {
 							Data.activateSt(studentlog.getId());
 							client.sendToClient(studentlog);
+						}
+					}*/
+					System.out.println("checkkkkkkk");
+					String username = (String) message.get(1);
+					int  id = (int )username.charAt(0);
+					id = id-48;
+					System.out.println(id);
+					Student student = Data.getDataById(Student.class,id);
+					if(student==null){System.out.println(" The user is student "); }
+					Teacher teacher = Data.getDataById(Teacher.class,id);
+					if(teacher==null){System.out.println(" The user is teacher "); }
+					if(student.getUserName().equals(username)){
+						System.out.println("the user is a student ");
+						Student studentlog = Data.StudentLog((String) message.get(1), (String) message.get(2),student);
+						System.out.println("the username is " + (String) message.get(1));
+						System.out.println(studentlog.getFirstName());
+						if (studentlog.getFirstName() == null) {
+							System.out.println("the user is not in the database ");
+							Warning warning = new Warning("there is no student with this name, please try again!!");
+							client.sendToClient(warning);
+						} else if (studentlog.getFirstName().equals("wrongstudentpassword")) {
+							System.out.println("wrong password to this teacher's name ");
+							Warning warning = new Warning("wrong password, please try again!!");
+							client.sendToClient(warning);
+						} else if (studentlog.getActive() == true) {
+							Warning warning = new Warning("you are already in");
+							client.sendToClient(warning);
+						} else {
+							Data.activateSt(studentlog.getId());
+							client.sendToClient(studentlog);
+						}
+					}
+					else if (teacher.getUserName().equals(username)){
+						System.out.println("the user is a teacher ");
+						Teacher teacherlog = Data.TeacherLog((String) message.get(1), (String) message.get(2),teacher);
+						System.out.println("the username is " + (String) message.get(1));
+						System.out.println(teacherlog.getFirstName());
+						if (teacherlog.getFirstName() == null) {
+							System.out.println("the user is not in the database ");
+							Warning warning = new Warning("there is no teacher with this name, please try again!!");
+							client.sendToClient(warning);
+						} else if (teacherlog.getFirstName().equals("wrongteacherpassword")) {
+							System.out.println("wrong password to this teacher's name ");
+							Warning warning = new Warning("wrong password, please try again!!");
+							client.sendToClient(warning);
+						} else if (teacherlog.getActive() == true) {
+							Warning warning = new Warning("you are already in");
+							client.sendToClient(warning);
+						} else {
+							onlineTeachers.put(teacherlog.getId(),client);
+							Data.activateTeacher(teacherlog.getId());
+							client.sendToClient(teacherlog);
 						}
 					}
 				} catch (IOException e) {
@@ -409,7 +462,9 @@ public class SimpleServer extends AbstractServer {
 						client.sendToClient(warning);
 					} else {
 						Question newq= new Question(ques1, ans1, ans2, ans3, ans4, note, right);
-						Data.MakeQuestion(ques1,ans1,ans2,ans3,ans4,note,right,subjectteacher,null);
+						LinkedList nulllinked = new LinkedList();
+						nulllinked = null;
+						Data.MakeQuestion(ques1,ans1,ans2,ans3,ans4,note,right,subjectteacher,nulllinked);
 						//Data.updateQuestion(id, ques1, ans1, ans2, ans3, ans4, note, right);
 						System.out.println("after data function");
 						Warning warning = new Warning("The Question updated Successfully!!");
