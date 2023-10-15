@@ -6,7 +6,7 @@ import java.util.List;
 public class GradesEntity {
 int id;
 List<ExamStudent> ExamsOfStudents;
-int average;
+double average;
 int median;
 int distribution;
 int distribution1;
@@ -23,14 +23,14 @@ int[] arrayhelp1=new int[101];
         return ExamsOfStudents;
     }
 
-    public int getAverage() {
+    public double getAverage() {
         int gradetotal=0;
         for(ExamStudent examStudent:ExamsOfStudents){
             if(examStudent.isApprove()) {
                 gradetotal=gradetotal+examStudent.getGrade();
             }
         }
-        int avg = gradetotal/ExamsOfStudents.size();
+        double avg = gradetotal/ExamsOfStudents.size();
         this.average = avg;
         return average;
     }
@@ -47,10 +47,10 @@ int[] arrayhelp1=new int[101];
         }
         // Sort the array in ascending order
         Arrays.sort(array);
-        int middle = i / 2;
+        int middle = (i-1) / 2;
         int med;
         if(i>1){
-            if (i % 2 == 0) {
+            if ((i-1) % 2 == 0) {
                 // If there's an even number of elements, calculate the average of the two middle values
                 med = (array[middle - 1] + array[middle]) / 2;
             } else {
@@ -58,7 +58,7 @@ int[] arrayhelp1=new int[101];
                 med = array[middle];
             }
         }else{
-            med=array[i-1];
+            med=array[0];
         }
         this.median = med;
         return median;
@@ -69,7 +69,10 @@ public void setDistribution(int Grade) {
     }
     for(ExamStudent examStudent:ExamsOfStudents){
         if(examStudent.isApprove()) {
-            arrayhelp[examStudent.grade/10]++;
+            if(examStudent.grade==0){
+                arrayhelp[0]++;
+            }
+            arrayhelp[(examStudent.grade-1)/10]++;
         }
     }
     this.distribution = arrayhelp[Grade/10];

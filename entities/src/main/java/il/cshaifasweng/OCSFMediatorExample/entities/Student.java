@@ -1,9 +1,9 @@
 package il.cshaifasweng.OCSFMediatorExample.entities;
+
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -44,6 +44,4 @@ public class Student extends Person{
     public  void setStudentExams(List<ExamStudent> studentExams) {
         StudentExams = studentExams;
     }
-
-
 }

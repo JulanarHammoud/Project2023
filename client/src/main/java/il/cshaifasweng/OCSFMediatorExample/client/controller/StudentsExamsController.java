@@ -2,13 +2,11 @@ package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.*;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
+import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
@@ -18,17 +16,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Pair;
 
-import javax.swing.text.TabableView;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
-import static il.cshaifasweng.OCSFMediatorExample.client.App.set;
 import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
 public class StudentsExamsController implements Serializable {
@@ -83,7 +76,6 @@ public class StudentsExamsController implements Serializable {
                    ExamStudent StEx = newSelection;
                    selectedExam =newSelection;
                    List<DetailedQuestion> questions = StEx.getQuestions();
-                   System.out.println(questions.get(1).getQuestion());
                    double i = 100.0; // this index to set the position of the question on the screen
 
                    /////////////////////////////

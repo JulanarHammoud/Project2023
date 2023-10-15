@@ -78,24 +78,23 @@ public class StudentResultsController {
                     series.setName("Data Series");
 
                     for (ExamStudent examStudent : St.getStudentExams()) {
-                        System.out.println("hereeeeeeeeee"+examStudent.isApprove());
                         if(examStudent.isApprove()){
                             gradesEntity.setDistribution(examStudent.getGrade());
                         }
                     }
 
-                    series.getData().add(new XYChart.Data<>("0->10", gradesEntity.getDistribution(1)));
-                    series.getData().add(new XYChart.Data<>("11->20", gradesEntity.getDistribution(2)));
-                    series.getData().add(new XYChart.Data<>("21->30", gradesEntity.getDistribution(3)));
-                    series.getData().add(new XYChart.Data<>("31->40", gradesEntity.getDistribution(4)));
-                    series.getData().add(new XYChart.Data<>("41->50", gradesEntity.getDistribution(5)));
-                    series.getData().add(new XYChart.Data<>("51->60", gradesEntity.getDistribution(6)));
-                    series.getData().add(new XYChart.Data<>("61->70", gradesEntity.getDistribution(7)));
-                    series.getData().add(new XYChart.Data<>("71->80", gradesEntity.getDistribution(8)));
-                    series.getData().add(new XYChart.Data<>("81->90", gradesEntity.getDistribution(9)));
-                    series.getData().add(new XYChart.Data<>("91->100", gradesEntity.getDistribution(10)));
+                    series.getData().add(new XYChart.Data<>("0->10", gradesEntity.getDistribution(0)));
+                    series.getData().add(new XYChart.Data<>("11->20", gradesEntity.getDistribution(1)));
+                    series.getData().add(new XYChart.Data<>("21->30", gradesEntity.getDistribution(2)));
+                    series.getData().add(new XYChart.Data<>("31->40", gradesEntity.getDistribution(3)));
+                    series.getData().add(new XYChart.Data<>("41->50", gradesEntity.getDistribution(4)));
+                    series.getData().add(new XYChart.Data<>("51->60", gradesEntity.getDistribution(5)));
+                    series.getData().add(new XYChart.Data<>("61->70", gradesEntity.getDistribution(6)));
+                    series.getData().add(new XYChart.Data<>("71->80", gradesEntity.getDistribution(7)));
+                    series.getData().add(new XYChart.Data<>("81->90", gradesEntity.getDistribution(8)));
+                    series.getData().add(new XYChart.Data<>("91->100", gradesEntity.getDistribution(9)));
 
-// Add the data series to the BarChart
+                    // Add the data series to the BarChart
                     barChart.getData().add(series);
                     pane.getChildren().add(barChart);
                     pane.setTopAnchor(barChart, 10.0); // Adjust the vertical position
@@ -123,6 +122,8 @@ public class StudentResultsController {
                         distributiont.setCellValueFactory(cellData -> cellData.getValue().distributionProperty().asObject());
                         Gtable.setItems(studentsList);
                     }
+                }else{
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();

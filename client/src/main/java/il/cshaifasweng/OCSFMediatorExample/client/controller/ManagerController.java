@@ -72,15 +72,12 @@ int lastIndex = SimpleClient.getParams().size() - 1;
 
     @FXML
     void TeachersButtons(ActionEvent event) {
-//        try {
-//            LinkedList<Object> message = new LinkedList<Object>();
-//            message.add(pickedcourse);
-//            message.add(getForManager);
-//            SimpleClient.getParams().add(message);
-//            setRoot("TeacherResults");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            SimpleClient.getParams().add(getForManager);
+            setRoot("TeacherResults");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     void StudentsButtons(ActionEvent event) {
@@ -94,11 +91,8 @@ int lastIndex = SimpleClient.getParams().size() - 1;
     @FXML
     void ExamsResultButtons(ActionEvent event) {
 //        try {
-//            LinkedList<Object> message = new LinkedList<Object>();
-//            message.add(pickedcourse);
-//            message.add(getForManager);
-//            SimpleClient.getParams().add(message);
-//            setRoot("ExamResults");
+//            SimpleClient.getParams().add(getForManager);
+//            setRoot("TeacherResults");
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }

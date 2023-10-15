@@ -21,7 +21,7 @@ public class SimpleServer extends AbstractServer {
 	public SimpleServer(int port) {
 		super(port);
 		try {
-			//Data.LogOutSt(1);
+			Data.LogOutSt(1);
 			List<Student> s = Data.getAllStudents();
 			int i = 0;
 			int j = 0;
