@@ -50,7 +50,6 @@ public class ShowExamManagerController {
     void initialize() throws IOException {
         examTime.setText("exam time is: " + exam.getTimerr());
         noteStudent.setText("notes for students: " + exam.getStudentNotes());
-        noteTeacher.setText("notes for teachesrs: " + exam.getTeacherNotes());
         sub.setText("exam sub is: " + exam.getSubject());
 
         double i = 150.0; // this index to set the position of the question on the screen
