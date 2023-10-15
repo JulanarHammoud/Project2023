@@ -15,6 +15,7 @@ public abstract class Subject implements Serializable {
     private  String sb_name;
 
 
+
     public int getId() {
         return Id;
     }
@@ -36,6 +37,8 @@ public abstract class Subject implements Serializable {
     public void setId(int id) {
         Id = id;
     }
+
+
 
     public Subject(String sb_name) {
         this.sb_name=sb_name;

@@ -534,17 +534,30 @@ public class Data {
         return 0;
     }
 
-    public static SubjectTeacher MakeQuestion(String Q, String an1, String an2, String an3, String an4, String right, String note, SubjectTeacher sub) {
+    public static SubjectTeacher MakeQuestion(String Q, String an1, String an2, String an3, String an4, String right, String note, SubjectTeacher sub,LinkedList<SubjectTeacher> subjects) {
         System.out.println("in make Question ");
         // Exam ex=new Exam(0,NumQ,chose,"T",TNotes,SNotes,cc);
         Question newquestion =new Question(Q,an1,an2,an3,an4, note,right);
         try {
+            for(SubjectTeacher s :subjects){
+                SessionFactory sessionFactory = getSessionFactory();
+                session = sessionFactory.openSession();
+                session.beginTransaction();
+                System.err.println("Generated starts ...");
+                session.saveOrUpdate(newquestion);
+                System.err.println("Generated ends ...");
+                SubjectTeacher change = session.get(SubjectTeacher.class,s.getId());
+                change.getQuestions().add(newquestion);
+                session.saveOrUpdate(change);
+                session.flush();
+                session.getTransaction().commit(); // Save everything.
+                session.close();
+            }
             System.out.println("in make Question2 ");
             SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();
             session.beginTransaction();
             System.err.println("Generated starts ...");
-
             session.saveOrUpdate(newquestion);
             System.err.println("Generated ends ...");
             SubjectTeacher change = session.get(SubjectTeacher.class,sub.getId());

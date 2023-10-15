@@ -396,6 +396,7 @@ public class App extends Application {
             }
         });}
 
+
     @Subscribe
     public void onStudentsExamsEvent(StudentsExamsEvent event) {
         Platform.runLater(() -> {

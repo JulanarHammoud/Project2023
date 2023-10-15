@@ -380,6 +380,7 @@ public class SimpleServer extends AbstractServer {
 					String right = question.getThe_right_ans();
 					String note = question.getNote();
 					int id = Data.returnid(oldquestion.getQuestion());
+					SubjectTeacher subjectteacher = (SubjectTeacher) message.get(3);
 					System.out.println("before data function");
 					if (ques1.isEmpty()) {
 						if (ans1.isEmpty() || ans2.isEmpty() || ans3.isEmpty() || ans4.isEmpty()) {
@@ -413,7 +414,7 @@ public class SimpleServer extends AbstractServer {
 						client.sendToClient(warning);
 					} else {
 						Question newq= new Question(ques1, ans1, ans2, ans3, ans4, note, right);
-						Data.generateData(newq);
+						Data.MakeQuestion(ques1,ans1,ans2,ans3,ans4,note,right,subjectteacher,null);
 						//Data.updateQuestion(id, ques1, ans1, ans2, ans3, ans4, note, right);
 						System.out.println("after data function");
 						Warning warning = new Warning("The Question updated Successfully!!");
@@ -478,10 +479,12 @@ public class SimpleServer extends AbstractServer {
 						Warning warning = new Warning("please don't write the question the same as the answer!!");
 						client.sendToClient(warning);
 					} else { //the input is good
+						LinkedList<SubjectTeacher> subjects = (LinkedList<SubjectTeacher>) message.get(13);
 						SubjectTeacher subjectTeacher = (SubjectTeacher) message.get(1);
-						SubjectTeacher subjectTeacher1 = Data.MakeQuestion(ques1, ans1, ans2, ans3, ans4, right, note, subjectTeacher);
+						SubjectTeacher subjectTeacher1 = Data.MakeQuestion(ques1, ans1, ans2, ans3, ans4, right, note, subjectTeacher,subjects);
 						LinkedList<Question> questions = (LinkedList<Question>) message.get(11);
 						SubjectAndId subid;
+						teacher=Data.getDataById(Teacher.class,teacher.getId());
 						if (questions == null) { // make new question coming from question table
 							subid = new SubjectAndId(subjectTeacher1, id, teacher);
 						} else { // make new question coming from make exam
