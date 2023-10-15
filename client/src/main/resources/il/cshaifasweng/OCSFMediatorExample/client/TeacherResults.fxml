@@ -1,14 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.TeacherResultsController"
             prefHeight="400.0" prefWidth="600.0">
+    <children>
+        <TableView fx:id="Stable" layoutY="32.0" prefHeight="471.0" prefWidth="114.0">
+            <columns>
+                <TableColumn fx:id="name" prefWidth="113.0" text="Students" />
+            </columns>
+        </TableView>
+        <Button layoutX="70.0" layoutY="2.0" mnemonicParsing="false" onAction="#back" text="Back" textFill="#088a15">
+            <font>
+                <Font name="System Bold Italic" size="12.0" />
+            </font>
+        </Button>
+        <Button layoutY="2.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#dd1b1b">
+            <font>
+                <Font name="System Bold Italic" size="12.0" />
+            </font>
+        </Button>
+        <ScrollPane layoutX="122.0" layoutY="-2.0" prefHeight="507.0" prefWidth="573.0">
+            <content>
+                <AnchorPane fx:id="pane" minHeight="0.0" minWidth="0.0" prefHeight="1213.0" prefWidth="1069.0">
+                    <children>
+                        <Label layoutY="419.0" prefHeight="25.0" prefWidth="79.0" text="Average:">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font></Label>
+                        <Label fx:id="avg" layoutX="87.0" layoutY="420.0" prefHeight="25.0" prefWidth="87.0" text="Label">
+                            <font>
+                                <Font size="18.0" />
+                            </font></Label>
+                        <Label layoutX="211.0" layoutY="420.0" prefHeight="27.0" prefWidth="100.0" text="Median:">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="mid" layoutX="290.0" layoutY="415.0" prefHeight="38.0" prefWidth="134.0" text="Label">
+                            <font>
+                                <Font size="18.0" />
+                            </font></Label>
+                        <Label layoutY="469.0" prefHeight="60.0" prefWidth="213.0" text="Grades Table:">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="Sname" layoutX="2.0" layoutY="5.0" prefHeight="32.0" prefWidth="520.0" text="Student">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <TableView fx:id="Gtable" layoutX="14.0" layoutY="549.0" prefHeight="618.0" prefWidth="459.0">
+                            <columns>
+                                <TableColumn fx:id="courset" prefWidth="146.0" text="Course" />
+                                <TableColumn fx:id="gradet" prefWidth="162.0" text="Grade" />
+                                <TableColumn fx:id="distributiont" prefWidth="150.0" text="Distribution" />
+                            </columns>
+                        </TableView>
+                    </children></AnchorPane>
+            </content>
+        </ScrollPane>
+    </children>
 
 </AnchorPane>

@@ -107,8 +107,8 @@ public class StudentResultsController {
                         if(examStudent.isApprove()) {
                             String course = examStudent.getExam().getCourse();
                             int grade = examStudent.getGrade();
-                            gradesEntity.setDistribution(examStudent.getGrade());
-                            int distribution = gradesEntity.getDistribution(examStudent.getGrade()/10);
+                            gradesEntity.setDistribution1(examStudent.getGrade());
+                            int distribution = gradesEntity.getDistribution1(examStudent.getGrade());
                             c++;
                             GD gd = new GD(course, grade, distribution);
                             gradesArray[i] = gd;

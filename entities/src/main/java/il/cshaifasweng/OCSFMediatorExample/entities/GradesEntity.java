@@ -9,7 +9,9 @@ List<ExamStudent> ExamsOfStudents;
 int average;
 int median;
 int distribution;
+int distribution1;
 int[] arrayhelp=new int[11];
+int[] arrayhelp1=new int[101];
     public GradesEntity(List<ExamStudent> examsOfStudents) {
         ExamsOfStudents = examsOfStudents;
     }
@@ -76,4 +78,21 @@ public void setDistribution(int Grade) {
     public int getDistribution(int Grade) {
         return arrayhelp[Grade];
     }
+
+    public int getDistribution1(int Grade) {
+        return arrayhelp1[Grade];
+    }
+
+    public void setDistribution1(int Grade) {
+        for(int i=0; i<101; i++){
+            arrayhelp1[i]=0;
+        }
+        for(ExamStudent examStudent:ExamsOfStudents){
+            if(examStudent.isApprove()) {
+                arrayhelp1[examStudent.grade]++;
+            }
+        }
+        this.distribution1 = arrayhelp1[Grade];
+    }
 }
+
