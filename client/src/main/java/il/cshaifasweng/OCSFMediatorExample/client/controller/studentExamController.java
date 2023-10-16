@@ -23,12 +23,8 @@ public class studentExamController {
 
     @FXML
     void initialize() throws IOException {
-        //FXMLLoader loader = new FXMLLoader(getClass().getResource("studentExam.fxml"));
-        // Parent root = loader.load();
-        //Parent root = App.loadFXML("studentExam");
         ok.setText("please");
         button1= new RadioButton("true");
-        //item = new RadioButtonMenuItem("hi");
         Button button = new Button("hiii");
         test=new AnchorPane();
         AnchorPane.setTopAnchor(button, 10.0);
@@ -37,7 +33,6 @@ public class studentExamController {
         test.getChildren().add(button1);
         int j =0;
         LinkedList<RadioButton> listr= new LinkedList<>();
-
         ToggleGroup bg = new ToggleGroup();
         for(double i = 50.0;i<1000.0;i=i+50.0){
             if (j%5==0){
@@ -62,22 +57,17 @@ public class studentExamController {
                 }
                 bg= new ToggleGroup();
                 listr.clear();
-
             }
             else{
                 RadioButton button2= new RadioButton(Integer.toString(j));
                 button2.setToggleGroup(bg);
                 listr.add(button2);
-
             }
             j++;
         }
         ScrollPane scroll= new ScrollPane(test);
-        //scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
         button.setOnAction(event -> {
-            // Handle button click event here
             try {
                 setRoot("primary");
             } catch (IOException e) {
@@ -89,13 +79,7 @@ public class studentExamController {
             // Handle button click event here
             System.out.println("choosing this " + button1.getText());
         });
-      /*  root.getChildren().add(button);
-        root.getChildren().add(button1);
-        test.setTopAnchor(button1,10.0);*/
         set(scroll);
-
     }
-
-
 }
 

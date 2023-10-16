@@ -5,10 +5,15 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class GD {
     String course;
+    String date;
     int grade;
     int distribution;
     public SimpleStringProperty courseProperty() {
         return new SimpleStringProperty(course);
+    }
+
+    public SimpleStringProperty dateProperty() {
+        return new SimpleStringProperty(date);
     }
 
     // IntegerProperty for "grade"
@@ -21,8 +26,9 @@ public class GD {
         return new SimpleIntegerProperty(distribution);
     }
 
-    public GD(String course, int grade, int distribution) {
+    public GD(String course, String date, int grade, int distribution) {
         this.course = course;
+        this.date = date;
         this.grade = grade;
         this.distribution = distribution;
     }
@@ -33,6 +39,14 @@ public class GD {
 
     public void setCourse(String course) {
         this.course = course;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public int getGrade() {

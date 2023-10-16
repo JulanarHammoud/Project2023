@@ -24,14 +24,19 @@ int[] arrayhelp1=new int[101];
     }
 
     public double getAverage() {
-        int gradetotal=0;
+        int gradetotal=0,i=0;
         for(ExamStudent examStudent:ExamsOfStudents){
             if(examStudent.isApprove()) {
                 gradetotal=gradetotal+examStudent.getGrade();
+                i++;
             }
         }
-        double avg = gradetotal/ExamsOfStudents.size();
-        this.average = avg;
+        if(i==0){
+            this.average=0;
+        }else{
+            double avg = gradetotal/i;
+            this.average = avg;
+        }
         return average;
     }
 

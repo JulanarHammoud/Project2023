@@ -1102,7 +1102,6 @@ public class SimpleServer extends AbstractServer {
 					Data.updateGrade(examm.getGrade(),true,examm.getId());
 				}
 				ExamTeacher ex=Data.getDataById(ExamTeacher.class,idd);
-//				StudentsExams ee=new StudentsExams();
 
 				List<Student> st=null;
 				try{
@@ -1125,8 +1124,6 @@ public class SimpleServer extends AbstractServer {
 					}
 				}
 				System.out.println(exam.getSubject()+"RRR"+t.getFirstName()+exam.getCode()+exam.getExamsOfStudents().get(0).getGrade());
-//				System.out.println(approved);
-//				System.out.println(grade);
 				Student studentt=st.get(i);
 				List<ExamStudent> gg=studentt.getStudentExams();
 				int l=0;
@@ -1189,6 +1186,26 @@ public class SimpleServer extends AbstractServer {
 						ToDuration toDuration = new ToDuration(teacher,examTeacher,true);
 						teacherClient.sendToClient(toDuration);
 					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			} else if (message.get(0).equals("WrongResult")) {
+				try{
+				int x = (int) message.get(1);
+				if(x==0){
+					Warning warning = new Warning("there are no grades yet!!");
+					client.sendToClient(warning);
+				}else if(x==1){
+					Warning warning = new Warning("there are no published exams yet!!");
+					client.sendToClient(warning);
+				}else if(x==2){
+					Warning warning = new Warning("you didn's select the teacher!!");
+					client.sendToClient(warning);
+				}else if(x==3){
+					Warning warning = new Warning("you didn's select the student!!");
+					client.sendToClient(warning);
+				}
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
