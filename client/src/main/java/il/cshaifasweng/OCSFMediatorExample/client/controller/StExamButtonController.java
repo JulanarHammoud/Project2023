@@ -213,6 +213,8 @@ public class StExamButtonController implements Serializable {
 //                        anchor.getChildren().add(bb);
 
                             ExamStudent finalEx = ex;
+
+
                             bb.setOnAction(new EventHandler<ActionEvent>() {
                                 @Override
                                 public void handle(ActionEvent event) {
