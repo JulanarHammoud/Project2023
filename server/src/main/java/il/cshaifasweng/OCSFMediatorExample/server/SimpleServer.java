@@ -1226,7 +1226,6 @@ public class SimpleServer extends AbstractServer {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-
 			}
 			else if (message.get(0).equals("#toDuration")) {
 				Teacher teacher = (Teacher) message.get(1);
@@ -1241,7 +1240,6 @@ public class SimpleServer extends AbstractServer {
 				}
 
 			}
-
 			else if (message.get(0).equals("#SubmitManual")) {
 				StudentWillMakeEx makeEx = (StudentWillMakeEx) message.get(1);
 				String targetPath = (String) message.get(2);
@@ -1250,8 +1248,6 @@ public class SimpleServer extends AbstractServer {
 				exam.setComputed(false);
 				exam.setManualPath(targetPath);
 				Data.SubmitManual(std,exam);
-
-
 			}
 		}
 	}

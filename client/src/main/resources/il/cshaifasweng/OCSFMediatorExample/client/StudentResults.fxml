@@ -25,24 +25,24 @@
         <content>
           <AnchorPane fx:id="pane" minHeight="0.0" minWidth="0.0" prefHeight="1213.0" prefWidth="1069.0">
                <children>
-                  <Label layoutY="419.0" prefHeight="25.0" prefWidth="79.0" text="Average:">
+                  <Label layoutX="5.0" layoutY="486.0" prefHeight="25.0" prefWidth="114.0" text="Average:">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font></Label>
-                  <Label fx:id="avg" layoutX="87.0" layoutY="420.0" prefHeight="25.0" prefWidth="87.0" text="Label">
+                  <Label fx:id="avg" layoutX="131.0" layoutY="486.0" prefHeight="27.0" prefWidth="114.0" text="Label">
                      <font>
                         <Font size="18.0" />
                      </font></Label>
-                  <Label layoutX="211.0" layoutY="420.0" prefHeight="27.0" prefWidth="100.0" text="Median:">
+                  <Label layoutX="262.0" layoutY="486.0" prefHeight="27.0" prefWidth="114.0" text="Median:">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="mid" layoutX="290.0" layoutY="415.0" prefHeight="38.0" prefWidth="134.0" text="Label">
+                  <Label fx:id="mid" layoutX="376.0" layoutY="486.0" prefHeight="27.0" prefWidth="114.0" text="Label">
                      <font>
                         <Font size="18.0" />
                      </font></Label>
-                  <Label layoutY="469.0" prefHeight="60.0" prefWidth="213.0" text="Grades Table:">
+                  <Label layoutY="563.0" prefHeight="27.0" prefWidth="247.0" text="Grades Table:">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
@@ -52,7 +52,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="Gtable" layoutX="2.0" layoutY="521.0" prefHeight="257.0" prefWidth="459.0">
+                  <TableView fx:id="Gtable" layoutY="588.0" prefHeight="257.0" prefWidth="459.0">
                     <columns>
                       <TableColumn fx:id="courset" prefWidth="106.0" text="Course" />
                         <TableColumn fx:id="date" prefWidth="116.0" text="Date" />
@@ -60,6 +60,7 @@
                         <TableColumn fx:id="distributiont" prefWidth="122.0" text="Distribution" />
                     </columns>
                   </TableView>
+                  <AnchorPane fx:id="pane1" layoutX="5.0" layoutY="48.0" prefHeight="385.0" prefWidth="548.0" />
                </children></AnchorPane>
         </content>
       </ScrollPane>

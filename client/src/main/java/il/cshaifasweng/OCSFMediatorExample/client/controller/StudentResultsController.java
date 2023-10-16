@@ -34,6 +34,8 @@ public class StudentResultsController {
     @FXML
     AnchorPane pane;
     @FXML
+    AnchorPane pane1;
+    @FXML
     Label avg;
     @FXML
     Label Sname;
@@ -52,12 +54,20 @@ public class StudentResultsController {
     int x=0;
     @FXML
     void initialize() throws IOException {
+        // Create the BarChart and set the axis labels
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
+        barChart.setTitle("Grades Bar Chart");
+        xAxis.setLabel("Grades");
+        yAxis.setLabel("Distribution");
         data = FXCollections.observableArrayList(students);
         Stable.setEditable(true);
         name.setCellValueFactory(dataValueFactory ->
                 new SimpleStringProperty(dataValueFactory.getValue().getUserName()));
         Stable.setItems(data);
         Stable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            barChart.getData().clear();
             try {
                 if (newSelection != null) {
                     System.out.println("Selected Name: " + newSelection.getUserName());
@@ -67,18 +77,12 @@ public class StudentResultsController {
                     Sname.setText(name);
                     avg.setText(String.valueOf(gradesEntity.getAverage()));
                     mid.setText(String.valueOf(gradesEntity.getMedian()));
-                    CategoryAxis xAxis = new CategoryAxis();
-                    NumberAxis yAxis = new NumberAxis();
-
-// Create the BarChart and set the axis labels
-                    BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
-                    barChart.setTitle("Grades Bar Chart");
-                    xAxis.setLabel("Grades");
-                    yAxis.setLabel("Distribution");
-
-// Create a data series and add data points
-                    XYChart.Series<String, Number> series = new XYChart.Series<>();
-                    series.setName("Data Series");
+                    // Clear the existing children in the AnchorPane
+                    pane1.getChildren().clear();
+                    // Add the new BarChart
+                    pane1.getChildren().add(barChart);
+                    pane1.setTopAnchor(barChart, 10.0); // Adjust the vertical position
+                    pane1.setLeftAnchor(barChart, 5.0);
 
                     for (ExamStudent examStudent : St.getStudentExams()) {
                         if(examStudent.isApprove()){
@@ -86,23 +90,30 @@ public class StudentResultsController {
                             x++;
                         }
                     }
+
+                    // Create a new data series and add data points for each grade category
+                    XYChart.Series<String, Number> series = new XYChart.Series<>();
+                    series.setName("Data Series");
+
+                    for (int i = 0; i < 10; i++) {
+                        int distribution = gradesEntity.getDistribution(i);
+                        String label = (i * 10) + 1 + "->" + ((i + 1) * 10);
+                        series.getData().add(new XYChart.Data<>(label, distribution));
+                    }
+
                     if(x!=0){
-                        series.getData().add(new XYChart.Data<>("0->10", gradesEntity.getDistribution(0)));
-                        series.getData().add(new XYChart.Data<>("11->20", gradesEntity.getDistribution(1)));
-                        series.getData().add(new XYChart.Data<>("21->30", gradesEntity.getDistribution(2)));
-                        series.getData().add(new XYChart.Data<>("31->40", gradesEntity.getDistribution(3)));
-                        series.getData().add(new XYChart.Data<>("41->50", gradesEntity.getDistribution(4)));
-                        series.getData().add(new XYChart.Data<>("51->60", gradesEntity.getDistribution(5)));
-                        series.getData().add(new XYChart.Data<>("61->70", gradesEntity.getDistribution(6)));
-                        series.getData().add(new XYChart.Data<>("71->80", gradesEntity.getDistribution(7)));
-                        series.getData().add(new XYChart.Data<>("81->90", gradesEntity.getDistribution(8)));
-                        series.getData().add(new XYChart.Data<>("91->100", gradesEntity.getDistribution(9)));
+                        for (int i = 0; i < 10; i++) {
+                            // Get the distribution for each grade category
+                            int distribution = gradesEntity.getDistribution(i);
+
+                            // Set the label for each category based on the grade range
+                            String label = (i * 10) + 1 + "->" + ((i + 1) * 10);
+
+                            series.getData().add(new XYChart.Data<>(label, distribution));
+                        }
 
                         // Add the data series to the BarChart
                         barChart.getData().add(series);
-                        pane.getChildren().add(barChart);
-                        pane.setTopAnchor(barChart, 10.0); // Adjust the vertical position
-                        pane.setLeftAnchor(barChart, 5.0);
 
                         GD[] gradesArray = new GD[St.getStudentExams().size()]; // Initialize the array
                         int i = 0,c=0;

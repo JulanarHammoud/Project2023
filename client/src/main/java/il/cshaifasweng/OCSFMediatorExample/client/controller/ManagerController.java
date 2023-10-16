@@ -64,9 +64,9 @@ int lastIndex = SimpleClient.getParams().size() - 1;
         TeachersButtons.setOnAction(this::TeachersButtons);
         Button StudentsButtons = new Button("Students Results");
         StudentsButtons.setOnAction(this::StudentsButtons);
-        Button ExamsResultButtons = new Button("Exams Results");
-        ExamsResultButtons.setOnAction(this::CoursesResultButtons);
-        resultbuttons.getChildren().addAll(TeachersButtons,StudentsButtons,ExamsResultButtons);
+        Button CourseResultButtons = new Button("Courses Results");
+        CourseResultButtons.setOnAction(this::CoursesResultButtons);
+        resultbuttons.getChildren().addAll(TeachersButtons,StudentsButtons,CourseResultButtons);
         ResultPane.setContent(resultbuttons);
     }
 
@@ -92,7 +92,7 @@ int lastIndex = SimpleClient.getParams().size() - 1;
     void CoursesResultButtons(ActionEvent event) {
         try {
             SimpleClient.getParams().add(getForManager);
-            setRoot("CourseResults.fxml");
+            setRoot("CourseResults");
         } catch (IOException e) {
             e.printStackTrace();
         }

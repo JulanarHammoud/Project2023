@@ -1,14 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.CourseResultsController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.CourseResultsController">
+    <children>
+        <TableView fx:id="Ttable" layoutY="32.0" prefHeight="471.0" prefWidth="114.0">
+            <columns>
+                <TableColumn fx:id="name" prefWidth="113.0" text="Courses" />
+            </columns>
+        </TableView>
+        <Button layoutX="70.0" layoutY="2.0" mnemonicParsing="false" onAction="#back" text="Back" textFill="#088a15">
+            <font>
+                <Font name="System Bold Italic" size="12.0" />
+            </font>
+        </Button>
+        <Button layoutY="2.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#dd1b1b">
+            <font>
+                <Font name="System Bold Italic" size="12.0" />
+            </font>
+        </Button>
+        <ScrollPane layoutX="122.0" layoutY="-2.0" prefHeight="507.0" prefWidth="573.0">
+            <content>
+                <AnchorPane fx:id="pane" minHeight="0.0" minWidth="0.0" prefHeight="1213.0" prefWidth="1069.0">
+                    <children>
+                        <Label layoutY="488.0" prefHeight="25.0" prefWidth="114.0" text="Average:">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font></Label>
+                        <Label fx:id="avg" layoutX="114.0" layoutY="488.0" prefHeight="25.0" prefWidth="114.0" text="Label">
+                            <font>
+                                <Font size="18.0" />
+                            </font></Label>
+                        <Label layoutX="238.0" layoutY="488.0" prefHeight="25.0" prefWidth="123.0" text="Median:">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="mid" layoutX="361.0" layoutY="488.0" prefHeight="27.0" prefWidth="114.0" text="Label">
+                            <font>
+                                <Font size="18.0" />
+                            </font></Label>
+                        <Label layoutX="1.0" layoutY="529.0" prefHeight="27.0" prefWidth="129.0" text="Grades Table:">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="Tname" layoutX="2.0" layoutY="5.0" prefHeight="32.0" prefWidth="520.0" text="Course">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <TableView fx:id="Gtable" layoutX="-1.0" layoutY="556.0" prefHeight="278.0" prefWidth="459.0">
+                            <columns>
+                                <TableColumn fx:id="courset" prefWidth="120.0" text="Course" />
+                                <TableColumn fx:id="date" prefWidth="117.0" text="Date" />
+                                <TableColumn fx:id="gradet" prefWidth="110.0" text="Average Grade" />
+                                <TableColumn fx:id="distributiont" prefWidth="111.0" text="Distribution" />
+                            </columns>
+                        </TableView>
+                  <AnchorPane fx:id="pane1" layoutX="-1.0" layoutY="34.0" prefHeight="371.0" prefWidth="558.0" />
+                    </children></AnchorPane>
+            </content>
+        </ScrollPane>
+    </children>
 </AnchorPane>
