@@ -65,7 +65,7 @@ int lastIndex = SimpleClient.getParams().size() - 1;
         Button StudentsButtons = new Button("Students Results");
         StudentsButtons.setOnAction(this::StudentsButtons);
         Button ExamsResultButtons = new Button("Exams Results");
-        ExamsResultButtons.setOnAction(this::ExamsResultButtons);
+        ExamsResultButtons.setOnAction(this::CoursesResultButtons);
         resultbuttons.getChildren().addAll(TeachersButtons,StudentsButtons,ExamsResultButtons);
         ResultPane.setContent(resultbuttons);
     }
@@ -89,13 +89,13 @@ int lastIndex = SimpleClient.getParams().size() - 1;
         }
     }
     @FXML
-    void ExamsResultButtons(ActionEvent event) {
-//        try {
-//            SimpleClient.getParams().add(getForManager);
-//            setRoot("TeacherResults");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+    void CoursesResultButtons(ActionEvent event) {
+        try {
+            SimpleClient.getParams().add(getForManager);
+            setRoot("CourseResults.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

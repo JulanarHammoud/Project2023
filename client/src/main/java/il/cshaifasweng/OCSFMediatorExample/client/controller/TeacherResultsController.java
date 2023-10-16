@@ -78,9 +78,11 @@ public class TeacherResultsController {
                                         i++;
                                     }
                                 }
-                                EST.setGrade(gradetotal / i); // make the grade of the est equals the average of the grades of the exam teacher
-                                EST.setApprove(true);
-                                examStudentteacher.add(EST);
+                                if(i!=0) {
+                                    EST.setGrade(gradetotal / i); // make the grade of the est equals the average of the grades of the exam teacher
+                                    EST.setApprove(true);
+                                    examStudentteacher.add(EST);
+                                }
                             }
                         }
                         if(examStudentteacher.size()!=0){
