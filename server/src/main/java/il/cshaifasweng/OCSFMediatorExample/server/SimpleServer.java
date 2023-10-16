@@ -132,7 +132,12 @@ public class SimpleServer extends AbstractServer {
 							Warning warning = new Warning("please fill the username!!");
 							client.sendToClient(warning);
 						}
-					} /*else if (message.get(2).equals("")) {
+					}
+					else if(!message.get(1).equals("") && message.get(2).equals("")){
+						Warning warning = new Warning("please fill the password!!");
+						client.sendToClient(warning);
+					}
+					/*else if (message.get(2).equals("")) {
 						if (message.get(3) == null) {
 							System.out.println("no role and password yet");
 							Warning warning = new Warning("please fill the password, and pick your role!!");
@@ -194,10 +199,10 @@ public class SimpleServer extends AbstractServer {
 					id = id-48;
 					System.out.println(id);
 					Student student = Data.getDataById(Student.class,id);
-					if(student==null){System.out.println(" The user is student "); }
+					//if(student==null){System.out.println(" The user is student "); }
 					Teacher teacher = Data.getDataById(Teacher.class,id);
-					if(teacher==null){System.out.println(" The user is teacher "); }
-					if(student.getUserName().equals(username)){
+					//if(teacher==null){System.out.println(" The user is teacher "); }
+					if(student!=null && student.getUserName().equals(username)){
 						System.out.println("the user is a student ");
 						Student studentlog = Data.StudentLog((String) message.get(1), (String) message.get(2),student);
 						System.out.println("the username is " + (String) message.get(1));
@@ -218,7 +223,7 @@ public class SimpleServer extends AbstractServer {
 							client.sendToClient(studentlog);
 						}
 					}
-					else if (teacher.getUserName().equals(username)){
+					else if (teacher!=null && teacher.getUserName().equals(username)){
 						System.out.println("the user is a teacher ");
 						Teacher teacherlog = Data.TeacherLog((String) message.get(1), (String) message.get(2),teacher);
 						System.out.println("the username is " + (String) message.get(1));
@@ -239,6 +244,18 @@ public class SimpleServer extends AbstractServer {
 							Data.activateTeacher(teacherlog.getId());
 							client.sendToClient(teacherlog);
 						}
+					}
+					else if (teacher!=null && !(teacher.getUserName().equals(username))){
+						Warning warning = new Warning("There is no user with this name, please try again!!");
+						client.sendToClient(warning);
+					}
+					else if (student!=null && !(student.getUserName().equals(username))){
+						Warning warning = new Warning("There is no user with this name, please try again!!");
+						client.sendToClient(warning);
+					}
+					else if (teacher==null && student==null){
+						Warning warning = new Warning("There is no user with this name, please try again!!");
+						client.sendToClient(warning);
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
