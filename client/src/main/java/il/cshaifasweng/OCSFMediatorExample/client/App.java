@@ -1,10 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client;
 
 import il.cshaifasweng.OCSFMediatorExample.client.EventBus.*;
-import il.cshaifasweng.OCSFMediatorExample.client.controller.StudentsExamsController;
-import il.cshaifasweng.OCSFMediatorExample.entities.MailManagerEntity;
-import il.cshaifasweng.OCSFMediatorExample.entities.StudentsExams;
-import il.cshaifasweng.OCSFMediatorExample.entities.UpdatedExams;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -435,6 +431,19 @@ public class App extends Application {
                     throw new RuntimeException(e);
                 }
 
+            }
+
+        });}
+    @Subscribe
+    public void onexamandgradeEvent(ExamandGrageEvent event) {
+        Platform.runLater(() -> {
+            System.out.println("MailManagerEvent App-client");
+            SimpleClient.getParams().add(event.getExgr());
+            try {
+                System.out.println("Move to manager mail page");
+                setRoot("TestPaper");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
 
         });}

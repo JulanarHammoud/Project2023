@@ -376,9 +376,11 @@ public class SimpleServer extends AbstractServer {
 				try {
 					System.out.println("I'm in server ");
 					ExamStudent ex= (ExamStudent) message.get(1);
+					GradeSt gradeSt=(GradeSt) message.get(2);
 					//System.out.println("I'm in server "+ex.getGrade()+ex.getQuestions().get(0).getThe_student_ans());
 					System.out.println("Sent exam's student to the client ");
-					client.sendToClient(ex);
+					ExamStudentsandGrade exgr=new ExamStudentsandGrade(ex,gradeSt);
+					client.sendToClient(exgr);
 
 				} catch (IOException e) {
 					e.printStackTrace();

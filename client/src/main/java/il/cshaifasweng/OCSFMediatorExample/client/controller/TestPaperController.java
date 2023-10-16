@@ -1,34 +1,32 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.*;
+import il.cshaifasweng.OCSFMediatorExample.entities.DetailedQuestion;
+import il.cshaifasweng.OCSFMediatorExample.entities.ExamStudent;
+import il.cshaifasweng.OCSFMediatorExample.entities.ExamStudentsandGrade;
+import il.cshaifasweng.OCSFMediatorExample.entities.GradeSt;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
-import javafx.event.ActionEvent;
-
 
 import static il.cshaifasweng.OCSFMediatorExample.client.App.set;
 import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
 public class TestPaperController {
     int lastIndex= SimpleClient.getParams().size()-1;
-//    int lastIndex2= SimpleClient.getParams().size()-2;
-    ExamStudent StEx = (ExamStudent) SimpleClient.getParams().get(lastIndex);
-//    GradeSt grade=(GradeSt) SimpleClient.getParams().get(lastIndex);
+    ExamStudentsandGrade exgr = (ExamStudentsandGrade) SimpleClient.getParams().get(lastIndex);
+    GradeSt grade=exgr.getGradeSt();
+    ExamStudent StEx =exgr.getExamStudent();
 
     List<DetailedQuestion> questions =  StEx.getQuestions();
     RadioButton button1;
@@ -51,17 +49,17 @@ public class TestPaperController {
         Button back=new Button("back");
         back.setLayoutX(521);
         back.setLayoutY(10);
-//        back.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//                try {
-//                    SimpleClient.getParams().add(grade);
-//                    setRoot("GradesButton");
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
+       back.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    SimpleClient.getParams().add(grade);
+                    setRoot("GradesButton");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         //back.setOnAction(this::backaction);
         // Create and configure the first text
         Text text11 = new Text("The Subject: "+StEx.getSubject());
