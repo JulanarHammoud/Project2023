@@ -42,7 +42,7 @@ public class SimpleServer extends AbstractServer {
 //			Data.MakeQuestion("aaa","bbb","ccc","ddd","ddd","ttt",grammar);
 			//Data.LogOutSt(1);
 			//Data.LogOutSt(4);
-			//Data.generateSubject();
+//			Data.generateSubject();
 			//////////Data.generateStusent();
 			//Data.generateEnglishQusetions();
 

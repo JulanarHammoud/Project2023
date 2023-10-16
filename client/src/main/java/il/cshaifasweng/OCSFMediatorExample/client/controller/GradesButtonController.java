@@ -496,7 +496,7 @@ public class GradesButtonController {
             }
         }
         if(Firstt!=null)
-        {System.out.println("gggg");
+        {   System.out.println("gggg");
             String s= String.valueOf(Firstt.getGrade());
             System.out.println("llL"+Firstt.getGrade());
             //FirstGrade = (Text) k.getChildren().get(7); // Assuming it's the 8th child in the Pane's children list

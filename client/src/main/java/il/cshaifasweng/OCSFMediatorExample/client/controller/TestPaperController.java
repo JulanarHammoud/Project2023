@@ -26,9 +26,10 @@ import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
 public class TestPaperController {
     int lastIndex= SimpleClient.getParams().size()-1;
-    int lastIndex2= SimpleClient.getParams().size()-2;
-    ExamStudent StEx = (ExamStudent) SimpleClient.getParams().get(lastIndex2);
-    GradeSt grade=(GradeSt) SimpleClient.getParams().get(lastIndex);
+//    int lastIndex2= SimpleClient.getParams().size()-2;
+    ExamStudent StEx = (ExamStudent) SimpleClient.getParams().get(lastIndex);
+//    GradeSt grade=(GradeSt) SimpleClient.getParams().get(lastIndex);
+
     List<DetailedQuestion> questions =  StEx.getQuestions();
     RadioButton button1;
     JRadioButtonMenuItem item;
@@ -40,7 +41,7 @@ public class TestPaperController {
 
     @FXML
     void initialize() throws IOException {
-
+//System.out.println(";;;"+grade.getSs().getFirstName());
         AnchorPane newRoot = new AnchorPane(); // Create a new AnchorPane for the root
 
         double i = 100.0; // this index to set the position of the question on the screen
@@ -48,19 +49,19 @@ public class TestPaperController {
         /////////////////////////////
          // Adjust the position for the first text
         Button back=new Button("back");
-        back.setLayoutX(10);
+        back.setLayoutX(521);
         back.setLayoutY(10);
-        back.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                try {
-                    SimpleClient.getParams().add(grade);
-                    setRoot("GradesButton");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+//        back.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent event) {
+//                try {
+//                    SimpleClient.getParams().add(grade);
+//                    setRoot("GradesButton");
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
         //back.setOnAction(this::backaction);
         // Create and configure the first text
         Text text11 = new Text("The Subject: "+StEx.getSubject());

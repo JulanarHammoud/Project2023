@@ -156,7 +156,7 @@ public class StExamButtonController implements Serializable {
                     layoutYD = layoutYD + 63;
                     Flag = 0;
 
-                    String tim = ex.getTime();
+                    String tim = ex.getTime();          ////////////////////
 //                String tim="02:15";
                     Text Timee = new Text(tim);
                     Timee.setLayoutX(layoutXT);
@@ -170,17 +170,37 @@ public class StExamButtonController implements Serializable {
                     System.out.println("l" + tim + currentTime);
                     if (tim != null) {
                         LocalTime specifiedTime = LocalTime.parse(tim, DateTimeFormatter.ofPattern("HH:mm"));
-//                System.out.println("l" + specifiedTime);
-//                int comparisonResult = currentTime.compareTo(specifiedTime);
+
+                        DateTimeFormatter formatter33 = DateTimeFormatter.ofPattern("HH:mm");
+                        String formattedTime22 = currentTime.format(formatter33);
+                        LocalTime specifiedTime22 = LocalTime.parse(formattedTime22, formatter33); // Uncomment this line
+                        System.out.println("OOOOO" + specifiedTime22);
+
+
+
+                        DateTimeFormatter formatter55 = DateTimeFormatter.ofPattern("HH:mm");
+
+                        // Parse the time string into a LocalTime object
+                        LocalTime localTime55 = LocalTime.parse(tim, formatter55);
+                         System.out.println("l" + specifiedTime);
+                        int comparisonResult = specifiedTime22.compareTo(localTime55);
+
+
                         LocalTime futureTime = specifiedTime.plusMinutes(ex.getTimerr());
                         System.out.println("futuretime"+futureTime.toString());
-                        int comparisonResult2 = currentTime.compareTo(futureTime);
+                        int comparisonResult2 = specifiedTime22.compareTo(futureTime);
+                        System.out.println("RRRRRRRRRRRRR"+specifiedTime22+"''''''''''''"+futureTime);
                         System.out.println("comparosonresult"+comparisonResult2);
+
+
+
+
                         LocalDate date = LocalDate.parse(datee, formatter);
                         formattedDate = date.format(formatter);
                         formattedLocalDate = LocalDate.parse(formattedDate, formatter);
                         System.out.println("lllll" + futureTime + "''" + ex.getTime() + "''''" + ex.getTimerr());
-                        if ((currentDate.isEqual(formattedLocalDate)) && ((comparisonResult2 <= 0))) {
+
+                        if ((comparisonResult==0)||(comparisonResult2<0)) {
                             Button bb = new Button("Log In");
                             bb.setLayoutX(layoutXB);
                             bb.setLayoutY(layoutYB);
