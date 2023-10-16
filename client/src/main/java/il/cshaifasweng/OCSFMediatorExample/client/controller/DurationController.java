@@ -23,9 +23,9 @@ import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
 public class DurationController {
     int lastIndex = SimpleClient.getParams().size() - 1;
-    LinkedList<Object> message = (LinkedList<Object>) SimpleClient.getParams().get(lastIndex);
-    Teacher teacher = (Teacher) message.get(0);
-    ExamTeacher examTeacher = (ExamTeacher) message.get(1);
+    ToDuration message = (ToDuration) SimpleClient.getParams().get(lastIndex);
+    Teacher teacher = message.getTeacher();
+    ExamTeacher examTeacher = message.getExamTeacher();
     @FXML
     private Accordion extratime;
     @FXML Label starttime;

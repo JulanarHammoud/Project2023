@@ -23,6 +23,7 @@ public class ExamStudent  implements Serializable {
     boolean approve = false;
     int teacherPubId;
     int newTimer = -1;
+    String manualPath;
 
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -199,5 +200,13 @@ public class ExamStudent  implements Serializable {
 
     public void setNewTimer(int newTimer) {
         this.newTimer = newTimer;
+    }
+
+    public String getManualPath() {
+        return manualPath;
+    }
+
+    public void setManualPath(String manualPath) {
+        this.manualPath = manualPath;
     }
 }

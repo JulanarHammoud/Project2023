@@ -422,10 +422,22 @@ public class App extends Application {
     @Subscribe
     public void onToDurationEvent(ToDurationEvent event) {
         Platform.runLater(() -> {
-            if(SimpleClient.getPosition().equals("Duration")){
-                System.out.println(" the client updating the duration to: " + event.getToDuration().getExamTeacher().getStart());
-                SimpleClient.getMesFromClient().add(event.getToDuration());
+            if(event.getToDuration().isUpdate()) {
+                if (SimpleClient.getPosition().equals("Duration")) {
+                    System.out.println(" the client updating the duration to: " + event.getToDuration().getExamTeacher().getStart());
+                    SimpleClient.getMesFromClient().add(event.getToDuration());
+                    try {
+                        setRoot("Duration");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                }
+            }
+            else {
+                SimpleClient.getParams().add(event.getToDuration());
                 try {
+                    System.out.println("Move to Duration page");
                     setRoot("Duration");
                 } catch (IOException e) {
                     throw new RuntimeException(e);

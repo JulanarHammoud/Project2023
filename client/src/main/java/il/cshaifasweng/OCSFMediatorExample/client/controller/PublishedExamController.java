@@ -77,11 +77,12 @@ public class PublishedExamController {
     void examDuration(ActionEvent event) throws IOException{
         try{
             LinkedList<Object> message = new LinkedList<>();
+            message.add("#toDuration");
             message.add(teacher);
             ExamTeacher exam = Etable.getSelectionModel().getSelectedItem();
             message.add(exam);
-            SimpleClient.getParams().add(message);
-            setRoot("Duration");
+            SimpleClient.getClient().sendToServer(message);
+           // setRoot("Duration");
         }catch (IOException e){
             e.printStackTrace();
         }

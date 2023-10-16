@@ -94,7 +94,7 @@ public class StudentResultsController {
                     series.getData().add(new XYChart.Data<>("81->90", gradesEntity.getDistribution(8)));
                     series.getData().add(new XYChart.Data<>("91->100", gradesEntity.getDistribution(9)));
 
-                    // Add the data series to the BarChart
+// Add the data series to the BarChart
                     barChart.getData().add(series);
                     pane.getChildren().add(barChart);
                     pane.setTopAnchor(barChart, 10.0); // Adjust the vertical position

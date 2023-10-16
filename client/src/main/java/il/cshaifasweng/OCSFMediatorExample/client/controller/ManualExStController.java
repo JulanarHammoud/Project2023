@@ -251,7 +251,7 @@ public class ManualExStController {
         if (selectedDocument != null) {
             try {
                 // Define the target directory within your IntelliJ project
-                String targetDirectory = "src/main/resources/il/cshaifasweng/OCSFMediatorExample/client"; // Relative path in your project
+                String targetDirectory = "src/main/java/il/cshaifasweng/OCSFMediatorExample/client/manualExams"; // Relative path in your project
 
                 // Define the target path for the copied document
                 String targetPath = targetDirectory + "/" + selectedDocument.getName();
@@ -261,6 +261,17 @@ public class ManualExStController {
 
                 // Now you can access the copied document from your IntelliJ project
                 System.out.println("Copied Word Document to: " + targetPath);
+                try {
+                    SimpleClient.getClient().sendToServer("#WarningSubmit");
+                    LinkedList<Object> message = new LinkedList<>();
+                    message.add("#SubmitManual");
+                    message.add(ExSt);
+                    message.add(targetPath);
+                    SimpleClient.getClient().sendToServer(message);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
                 System.err.println("Error copying the Word document.");
@@ -268,11 +279,7 @@ public class ManualExStController {
         } else {
             System.out.println("No Word document selected.");
         }
-        try {
-            SimpleClient.getClient().sendToServer("#WarningSubmit");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
     }
 }

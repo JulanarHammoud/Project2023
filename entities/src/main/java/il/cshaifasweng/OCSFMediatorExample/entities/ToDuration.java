@@ -5,10 +5,12 @@ import java.io.Serializable;
 public class ToDuration implements Serializable {
     Teacher teacher;
     ExamTeacher examTeacher;
+    boolean update;
 
-    public ToDuration(Teacher teacher, ExamTeacher examTeacher) {
+    public ToDuration(Teacher teacher, ExamTeacher examTeacher, boolean update) {
         this.teacher = teacher;
         this.examTeacher = examTeacher;
+        this.update = update;
     }
 
     public Teacher getTeacher() {
@@ -25,5 +27,13 @@ public class ToDuration implements Serializable {
 
     public void setExamTeacher(ExamTeacher examTeacher) {
         this.examTeacher = examTeacher;
+    }
+
+    public boolean isUpdate() {
+        return update;
+    }
+
+    public void setUpdate(boolean update) {
+        this.update = update;
     }
 }

@@ -921,7 +921,7 @@ public class SimpleServer extends AbstractServer {
 						ConnectionToClient teacher = onlineTeachers.get(Message.getTID());
 						if(teacher != null){
 						Teacher teacher1 = Data.getDataById(Teacher.class,Message.getTID());
-						ToDuration toDuration= new ToDuration(teacher1,examTeacher);
+						ToDuration toDuration= new ToDuration(teacher1,examTeacher,true);
 						teacher.sendToClient(toDuration);}
 					}
 					GetForManager getForManager = mailManagerEntity.getGFM();
@@ -1006,7 +1006,7 @@ public class SimpleServer extends AbstractServer {
 						List<ExamStudent> examStudents = examTeacher.getExamsOfStudents();
 						UpdatedExams updatedExams = new UpdatedExams(examStudents);
 						teacherClient.sendToClient(updatedExams);
-						ToDuration toDuration = new ToDuration(teacher,examTeacher);
+						ToDuration toDuration = new ToDuration(teacher,examTeacher,true);
 						teacherClient.sendToClient(toDuration);
 					}
 					System.out.println("sending " + std.getFirstName() + "'s detailes to client");
@@ -1186,12 +1186,37 @@ public class SimpleServer extends AbstractServer {
 					System.out.println(" the sudents in the exam: " + x);
 					ConnectionToClient teacherClient = onlineTeachers.get(tId);
 					if(teacherClient != null){
-						ToDuration toDuration = new ToDuration(teacher,examTeacher);
+						ToDuration toDuration = new ToDuration(teacher,examTeacher,true);
 						teacherClient.sendToClient(toDuration);
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+
+			}
+			else if (message.get(0).equals("#toDuration")) {
+				Teacher teacher = (Teacher) message.get(1);
+				ExamTeacher examTeacher = (ExamTeacher) message.get(2);
+				teacher = Data.getDataById(Teacher.class,teacher.getId());
+				examTeacher = Data.getDataById(ExamTeacher.class,examTeacher.getId());
+				ToDuration toDuration = new ToDuration(teacher,examTeacher,false);
+				try {
+					client.sendToClient(toDuration);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			}
+
+			else if (message.get(0).equals("#SubmitManual")) {
+				StudentWillMakeEx makeEx = (StudentWillMakeEx) message.get(1);
+				String targetPath = (String) message.get(2);
+				Student std = makeEx.getSs();
+				ExamStudent exam = makeEx.getEx();
+				exam.setComputed(false);
+				exam.setManualPath(targetPath);
+				Data.SubmitManual(std,exam);
+
 
 			}
 		}
