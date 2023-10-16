@@ -200,7 +200,13 @@ public class StExamButtonController implements Serializable {
                         formattedLocalDate = LocalDate.parse(formattedDate, formatter);
                         System.out.println("lllll" + futureTime + "''" + ex.getTime() + "''''" + ex.getTimerr());
 
-                        if ((comparisonResult==0)||(comparisonResult2<0)) {
+
+                        int comparisonResult4 = specifiedTime22.compareTo(localTime55);
+
+                        System.out.println("1."+comparisonResult+"  "+specifiedTime22.toString()+"  "+localTime55.toString());
+                        System.out.println("2."+comparisonResult2+"  "+specifiedTime22.toString()+"  "+futureTime.toString());
+
+                        if ((comparisonResult==0)||((comparisonResult2<0)&&(comparisonResult4>0))) {
                             Button bb = new Button("Log In");
                             bb.setLayoutX(layoutXB);
                             bb.setLayoutY(layoutYB);
