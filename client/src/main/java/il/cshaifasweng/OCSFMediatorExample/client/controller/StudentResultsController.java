@@ -73,83 +73,95 @@ public class StudentResultsController {
                 if (newSelection != null) {
                     System.out.println("Selected Name: " + newSelection.getUserName());
                     Student St = newSelection;
-                    GradesEntity gradesEntity = new GradesEntity(St.getStudentExams());
-                    String name = St.getFirstName()+" "+St.getLastName();
-                    Sname.setText(name);
-                    avg.setText(String.valueOf(gradesEntity.getAverage()));
-                    mid.setText(String.valueOf(gradesEntity.getMedian()));
-                    // Clear the existing children in the AnchorPane
-                    pane1.getChildren().clear();
-                    // Add the new BarChart
-                    pane1.getChildren().add(barChart);
-                    pane1.setTopAnchor(barChart, 10.0); // Adjust the vertical position
-                    pane1.setLeftAnchor(barChart, 5.0);
+                    System.out.println(" is there exams ?  " + St.getStudentExams().isEmpty());
+                    if(!St.getStudentExams().isEmpty()) {
+                        GradesEntity gradesEntity = new GradesEntity(St.getStudentExams());
+                        String name = St.getFirstName() + " " + St.getLastName();
+                        Sname.setText(name);
+                        avg.setText(String.valueOf(gradesEntity.getAverage()));
+                        mid.setText(String.valueOf(gradesEntity.getMedian()));
+                        // Clear the existing children in the AnchorPane
+                        pane1.getChildren().clear();
+                        // Add the new BarChart
+                        pane1.getChildren().add(barChart);
+                        pane1.setTopAnchor(barChart, 10.0); // Adjust the vertical position
+                        pane1.setLeftAnchor(barChart, 5.0);
 
-                    for (ExamStudent examStudent : St.getStudentExams()) {
-                        System.out.println(examStudent.getGrade()+"here"+examStudent.isApprove());
-                        if(examStudent.isApprove()){
-                            gradesEntity.setDistribution(examStudent.getGrade());
-                            x++;
-                        }
-                    }
-
-                    // Create a new data series and add data points for each grade category
-                    XYChart.Series<String, Number> series = new XYChart.Series<>();
-                    series.setName("Data Series");
-
-                    for (int i = 0; i < 10; i++) {
-                        int distribution = gradesEntity.getDistribution(i);
-                        String label = (i * 10) + 1 + "->" + ((i + 1) * 10);
-                        series.getData().add(new XYChart.Data<>(label, distribution));
-                    }
-
-                    if(x!=0){
-                        for (int i = 0; i < 10; i++) {
-                            // Get the distribution for each grade category
-                            int distribution = gradesEntity.getDistribution(i);
-
-                            // Set the label for each category based on the grade range
-                            String label = (i * 10) + 1 + "->" + ((i + 1) * 10);
-
-                            series.getData().add(new XYChart.Data<>(label, distribution));
-                        }
-
-                        // Add the data series to the BarChart
-                        barChart.getData().add(series);
-
-                        List<GD> gradesArray=new ArrayList<>();
-                        int i = 0,c=0;
                         for (ExamStudent examStudent : St.getStudentExams()) {
-                            if(examStudent.isApprove()) {
-                                String course = examStudent.getExam().getCourse();
-                                System.out.println("HEREEEEEEEEEE "+examStudent.getExam().getCourse());
-                                String date = examStudent.getDate();
-                                int grade = examStudent.getGrade();
-                                gradesEntity.setDistribution1(examStudent.getGrade());
-                                int distribution = gradesEntity.getDistribution1(examStudent.getGrade());
-                                c++;
-                                GD gd = new GD(course, date, grade, distribution);
-                                gradesArray.add(gd);
+                            System.out.println(examStudent.getGrade() + "here" + examStudent.isApprove());
+                            if (examStudent.isApprove()) {
+                                gradesEntity.setDistribution(examStudent.getGrade());
+                                x++;
                             }
                         }
-                        if(c!=0) {
-                            if(gradesArray!=null) {
-                                ObservableList<GD> studentsList = FXCollections.observableArrayList(gradesArray);
-                                Gtable.setEditable(true);
-                                courset.setCellValueFactory(cellData -> cellData.getValue().courseProperty());
-                                date.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
-                                gradet.setCellValueFactory(cellData -> cellData.getValue().gradeProperty().asObject());
-                                distributiont.setCellValueFactory(cellData -> cellData.getValue().distributionProperty().asObject());
-                                Gtable.setItems(studentsList);
+
+                        // Create a new data series and add data points for each grade category
+                        XYChart.Series<String, Number> series = new XYChart.Series<>();
+                        series.setName("Data Series");
+
+                        for (int i = 0; i < 10; i++) {
+                            int distribution = gradesEntity.getDistribution(i);
+                            if(i == 0){
+                                series.getData().add(new XYChart.Data<>("0->10", distribution));
                             }
+                            else{
+                            String label = (i * 10) + 1 + "->" + ((i + 1) * 10);
+                            series.getData().add(new XYChart.Data<>(label, distribution));}
                         }
-                    }else{//no approved grades yet
+
+                        if (x != 0) {
+                            for (int i = 0; i < 10; i++) {
+                                // Get the distribution for each grade category
+                                int distribution = gradesEntity.getDistribution(i);
+
+                                // Set the label for each category based on the grade range
+                                String label = (i * 10) + 1 + "->" + ((i + 1) * 10);
+
+                                series.getData().add(new XYChart.Data<>(label, distribution));
+                            }
+
+                            // Add the data series to the BarChart
+                            barChart.getData().add(series);
+
+                            List<GD> gradesArray = new ArrayList<>();
+                            int i = 0, c = 0;
+                            for (ExamStudent examStudent : St.getStudentExams()) {
+                                if (examStudent.isApprove()) {
+                                    String course = examStudent.getExam().getCourse();
+                                    System.out.println("HEREEEEEEEEEE " + examStudent.getExam().getCourse());
+                                    String date = examStudent.getDate();
+                                    int grade = examStudent.getGrade();
+                                    gradesEntity.setDistribution1(examStudent.getGrade());
+                                    int distribution = gradesEntity.getDistribution1(examStudent.getGrade());
+                                    c++;
+                                    GD gd = new GD(course, date, grade, distribution);
+                                    gradesArray.add(gd);
+                                }
+                            }
+                            if (c != 0) {
+                                if (gradesArray != null) {
+                                    ObservableList<GD> studentsList = FXCollections.observableArrayList(gradesArray);
+                                    Gtable.setEditable(true);
+                                    courset.setCellValueFactory(cellData -> cellData.getValue().courseProperty());
+                                    date.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+                                    gradet.setCellValueFactory(cellData -> cellData.getValue().gradeProperty().asObject());
+                                    distributiont.setCellValueFactory(cellData -> cellData.getValue().distributionProperty().asObject());
+                                    Gtable.setItems(studentsList);
+                                }
+                            }
+                        } else {//no approved grades yet
+                            LinkedList message = new LinkedList<>();
+                            message.add("WrongResult");
+                            message.add(0);
+                            SimpleClient.getClient().sendToServer(message);
+                        }
+                    }else{
                         LinkedList message = new LinkedList<>();
                         message.add("WrongResult");
                         message.add(0);
                         SimpleClient.getClient().sendToServer(message);
                     }
-                }else{
+                } else{
                     //you didn't select anything
                     LinkedList message = new LinkedList<>();
                     message.add("WrongResult");
