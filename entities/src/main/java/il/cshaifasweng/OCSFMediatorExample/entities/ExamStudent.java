@@ -24,6 +24,7 @@ public class ExamStudent  implements Serializable {
     int teacherPubId;
     int newTimer = -1;
     String manualPath;
+    int teacherid;
 
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -40,7 +41,7 @@ public class ExamStudent  implements Serializable {
     public ExamStudent() {
     }
 
-    public ExamStudent(String Time, String date, boolean computed, Exam exam, String Code, int teacherPubId) {
+    public ExamStudent(String Time, String date, boolean computed, Exam exam, String Code, int teacherPubId, int teacherid) {
         this.Time=Time;
         this.grade = grade;
         Date = date;
@@ -48,6 +49,7 @@ public class ExamStudent  implements Serializable {
         this.exam = exam;
         this.code = Code;
         this.teacherPubId = teacherPubId;
+        this.teacherid = teacherid;
     }
 
     public String getStudentNotes(){
@@ -208,5 +210,13 @@ public class ExamStudent  implements Serializable {
 
     public void setManualPath(String manualPath) {
         this.manualPath = manualPath;
+    }
+
+    public int getTeacherid() {
+        return teacherid;
+    }
+
+    public void setTeacherid(int teacherid) {
+        this.teacherid = teacherid;
     }
 }

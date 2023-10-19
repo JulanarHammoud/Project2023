@@ -38,18 +38,6 @@ public class SimpleServer extends AbstractServer {
 				Data.LogOutTeacher(j2);
 				i2++;
 			}
-//			SubjectTeacher grammar=  Data.findsubject("Grammar");
-//			Data.MakeQuestion("aaa","bbb","ccc","ddd","ddd","ttt",grammar);
-			//Data.LogOutSt(1);
-			//Data.LogOutSt(4);
-//			Data.generateSubject();
-			//////////Data.generateStusent();
-			//Data.generateEnglishQusetions();
-
-			//Data.main(null);
-			//System.out.println("why there is exeption");
-			//Data.updatePrice(500,1);
-
 		} catch (Exception e) {
 			System.out.print("there is an error");
 			e.printStackTrace();
@@ -329,7 +317,7 @@ public class SimpleServer extends AbstractServer {
 							client.sendToClient(warning);
 						} else {System.out.println("1");
 							System.out.println(t_N+"" +timm+ ""+S_N+""+ course.getName()+""+ sub.getSb_name()+""+ teacherr);
-							int id = Data.MakeExam(0, t_N, timm, S_N, course.getName(), sub, teacherr);System.out.println("2");
+							int id = Data.MakeExam(0, t_N, timm, S_N, course.getName(), sub, teacherr,teacher.getId());System.out.println("2");
 							DecimalFormat formatter = new DecimalFormat("00");System.out.println("3");
 							String cor_id = formatter.format(course.getId());System.out.println("4");
 							String sub_id = formatter.format(sub.getId());System.out.println("5");
@@ -768,7 +756,7 @@ public class SimpleServer extends AbstractServer {
 								String name = teacher.getFirstName() + " " + teacher.getLastName();
 								id = Data.MakeExam(exFromClient.getNumOfQuestions(), TeacherNote,
 										Time, StudentNote, exFromClient.getCourse(),
-										subject, name);
+										subject, name,teacher.getId());
 								exam = Data.setQuestions(id, (LinkedList<Question>) message.get(8));
 
 								DecimalFormat formatter = new DecimalFormat("00");
@@ -823,7 +811,7 @@ public class SimpleServer extends AbstractServer {
 							if (flag == 1) { //New Exam Copy
 								id = Data.MakeExam(ex.getNumOfQuestions(), TeacherNote,
 										Time, StudentNote, ex.getCourse(),
-										subject, ex.getTeacher());
+										subject, ex.getTeacher(),teacher.getId());
 								ex = Data.setQuestions(id, (LinkedList<Question>) message.get(11));
 								DecimalFormat formatter = new DecimalFormat("00");
 								String cor_id = formatter.format(course.getId());//course
@@ -1256,6 +1244,18 @@ public class SimpleServer extends AbstractServer {
 				exam.setComputed(false);
 				exam.setManualPath(targetPath);
 				Data.SubmitManual(std,exam);
+			}
+			else if (message.get(0).equals("#GetGradesTeacher")) {
+				Teacher teacher = (Teacher) message.get(1);
+				CourseTeacher courseTeacher = (CourseTeacher) message.get(2);
+				SubjectTeacher subjectTeacher =(SubjectTeacher) message.get(3);
+				List<ExamTeacher> examTeachers=Data.getAllExamteacher();
+				GradeTeacher gradeTeacher = new GradeTeacher(teacher,courseTeacher,subjectTeacher,examTeachers);
+				try {
+					client.sendToClient(gradeTeacher);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}

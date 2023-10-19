@@ -120,6 +120,7 @@ public class TeacherController {
     void gradesaction(ActionEvent event) {
         try{
             LinkedList<Object> message = new LinkedList<Object>();
+            message.add("#GetGradesTeacher");
             message.add(teacher);
             for (CourseTeacher c : courses) {
                 if (c.getName().equals(selectedCour)) {
@@ -131,8 +132,8 @@ public class TeacherController {
                 }
             }
             System.out.println(" sending " + selectedCour + " and " + selectedSub);
-            SimpleClient.getParams().add(message);
-            setRoot("Gradesteacher");
+            SimpleClient.getClient().sendToServer(message);
+           // setRoot("Gradesteacher");
         }catch (IOException e){
             e.printStackTrace();
         }

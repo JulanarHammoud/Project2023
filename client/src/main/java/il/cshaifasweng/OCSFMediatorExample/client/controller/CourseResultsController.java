@@ -81,7 +81,7 @@ public class CourseResultsController {
                                 if (e.getExam().getCourse().equals(C.getName())) { //if the exam is on this course
                                     if (e.getExamsOfStudents().size() != 0) { //there are students who have participated in this exam
                                         ExamStudent s = e.getExamsOfStudents().get(0);//take the data from the first exam
-                                        ExamStudent EST = new ExamStudent(s.getTime(), s.getDate(), s.isComputed(), s.getExam(), s.getCode(), s.getTeacherPubId());//fill the data in new exam
+                                        ExamStudent EST = new ExamStudent(s.getTime(), s.getDate(), s.isComputed(), s.getExam(), s.getCode(), s.getTeacherPubId(),s.getTeacherid());//fill the data in new exam
                                         int gradetotal = 0, i = 0;
                                         for (ExamStudent examStudent : e.getExamsOfStudents()) {
                                             if (examStudent.isApprove()) {

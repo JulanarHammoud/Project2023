@@ -25,9 +25,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-    	EventBus.getDefault().register(this);
-    	client = SimpleClient.getClient();
-    	client.openConnection();
+        EventBus.getDefault().register(this);
+        client = SimpleClient.getClient();
+        client.openConnection();
         scene = new Scene(loadFXML("primary"), 640, 480);
         this.stage=stage;
         stage.setScene(scene);
@@ -52,23 +52,23 @@ public class App extends Application {
     
 
     @Override
-	public void stop() throws Exception {
-		// TODO Auto-generated method stub
-    	EventBus.getDefault().unregister(this);
-		super.stop();
-	}
+    public void stop() throws Exception {
+        // TODO Auto-generated method stub
+        EventBus.getDefault().unregister(this);
+        super.stop();
+    }
     
     @Subscribe
     public void onWarningEvent(WarningEvent event) {
-    	Platform.runLater(() -> {
+        Platform.runLater(() -> {
             Alert alert = new Alert(AlertType.WARNING);
             alert.setTitle("WARNING");
             alert.setHeaderText(null);
             alert.setContentText(event.getWarning().getMessage());
             alert.showAndWait();
-    	});
+        });
 
-    	
+
     }
 
     @Subscribe
@@ -340,10 +340,8 @@ public class App extends Application {
     public void onExamShowEvent (ExamShowEvent event){
         Platform.runLater(() -> {
             try {
-                //System.out.println("im in teacherlog event");
                 System.out.println("Exam Show App-client");
                 SimpleClient.getParams().add(event.getExamSubjectTeacher());
-                // System.out.println(event.getStudent().getStudent().getSt_name());
                 System.out.println("Move to show exam page");
                 setRoot("ShowExam");
             } catch (IOException e) {
@@ -471,8 +469,21 @@ public class App extends Application {
 
         });}
 
+    @Subscribe
+    public void onGradeTeacherEvent(GradeTeacherEvent event) {
+        Platform.runLater(() -> {
+            System.out.println("GradeTeacherEvent App-client");
+            SimpleClient.getParams().add(event.getGradeTeacher());
+            try {
+                System.out.println("Move to Gradesteacher page");
+                setRoot("Gradesteacher");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });}
 
-	public static void main(String[] args) {
+
+        public static void main(String[] args) {
         launch();
     }
 

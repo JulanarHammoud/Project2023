@@ -140,6 +140,11 @@ public class SimpleClient extends AbstractClient {
 		else if (msg.getClass().equals(UpdateTimer.class)) {
 			EventBus.getDefault().post(new UpdateTimerEvevnt((UpdateTimer) msg));
 		}
+		else if(msg.getClass().equals(GradeTeacher.class)){
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
+			System.out.println("GradeTeacher simpleclient");
+			EventBus.getDefault().post(new GradeTeacherEvent((GradeTeacher) msg));
+		}
 
 	}
 

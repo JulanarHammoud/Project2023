@@ -10,7 +10,6 @@ import org.hibernate.service.ServiceRegistry;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -496,8 +495,8 @@ public class Data {
         }
     }
 
-    public static int MakeExam(int NumQ, String TNotes, String timm, String SNotes, String course, SubjectTeacher sub, String teacher) {
-        Exam ex = new Exam(NumQ, TNotes, timm, SNotes, course, sub.getSb_name(), teacher);
+    public static int MakeExam(int NumQ, String TNotes, String timm, String SNotes, String course, SubjectTeacher sub, String teacher, int teacherid) {
+        Exam ex = new Exam(NumQ, TNotes, timm, SNotes, course, sub.getSb_name(), teacher, teacherid);
         try {
             System.out.println("generating an exam");
             SessionFactory sessionFactory = getSessionFactory();
@@ -912,7 +911,7 @@ public class Data {
         // and generate new exam for the student and adding it to the list
       try{
           System.out.println(student.getId() + " " + student.getFirstName());
-          ExamStudent e = new ExamStudent(exam.getTime(),exam.getDate(), exam.isComputed(),exam.getExam(),exam.getCode(),exam.getTeacherPubId());
+          ExamStudent e = new ExamStudent(exam.getTime(),exam.getDate(), exam.isComputed(),exam.getExam(),exam.getCode(),exam.getTeacherPubId(),exam.getTeacherid());
           e.setGrade(exam.getGrade());
          // e.setQuestions(exam.getQuestions());
           List<DetailedQuestion> ff=new ArrayList<>();
@@ -1117,7 +1116,7 @@ public class Data {
     public static Student SubmitManual(Student student,ExamStudent exam){
         try{
             System.out.println(student.getId() + " " + student.getFirstName());
-            ExamStudent e = new ExamStudent(exam.getTime(),exam.getDate(), exam.isComputed(),exam.getExam(),exam.getCode(),exam.getTeacherPubId());
+            ExamStudent e = new ExamStudent(exam.getTime(),exam.getDate(), exam.isComputed(),exam.getExam(),exam.getCode(),exam.getTeacherPubId(),exam.getTeacherid());
             e.setGrade(exam.getGrade());
             e.setManualPath(exam.getManualPath());
             int id =  generateData(e);
@@ -1150,5 +1149,17 @@ public class Data {
         }
         return null;
 
+    }
+    public static List<ExamTeacher> getAllExamteacher() {
+        SessionFactory sessionFactory = getSessionFactory();
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<ExamTeacher> query = builder.createQuery(ExamTeacher.class);
+        query.from(ExamTeacher.class);
+        List<ExamTeacher> result = session.createQuery(query).getResultList();
+        session.close();
+        System.out.println(result.size());
+        return result;
     }
 }

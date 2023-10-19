@@ -73,7 +73,6 @@ public class StudentResultsController {
                 if (newSelection != null) {
                     System.out.println("Selected Name: " + newSelection.getUserName());
                     Student St = newSelection;
-                    System.out.println(" is there exams ?  " + St.getStudentExams().isEmpty());
                     if(!St.getStudentExams().isEmpty()) {
                         GradesEntity gradesEntity = new GradesEntity(St.getStudentExams());
                         String name = St.getFirstName() + " " + St.getLastName();
@@ -117,7 +116,6 @@ public class StudentResultsController {
                             for (ExamStudent examStudent : St.getStudentExams()) {
                                 if (examStudent.isApprove()) {
                                     String course = examStudent.getExam().getCourse();
-                                    System.out.println("HEREEEEEEEEEE " + examStudent.getExam().getCourse());
                                     String date = examStudent.getDate();
                                     int grade = examStudent.getGrade();
                                     gradesEntity.setDistribution1(examStudent.getGrade());

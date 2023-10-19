@@ -50,20 +50,23 @@ int[] arrayhelp1=new int[101];
                 i++;
             }
         }
-        // Sort the array in ascending order
-        Arrays.sort(array);
-        int middle = (i-1) / 2;
-        int med;
-        if(i>1){
-            if ((i-1) % 2 == 0) {
-                // If there's an even number of elements, calculate the average of the two middle values
-                med = (array[middle - 1] + array[middle]) / 2;
-            } else {
-                // If there's an odd number of elements, the median is the middle value
-                med = array[middle];
+        int med = 0;
+        if(i==0){
+            med=0;
+        }
+        else{
+            // Sort the array in ascending order
+            Arrays.sort(array);
+            int middle = i / 2;
+            if(i>=1){
+                if (i % 2 == 0) {
+                    // If there's an even number of elements, calculate the average of the two middle values
+                    med = (array[middle - 1] + array[middle]) / 2;
+                } else {
+                    // If there's an odd number of elements, the median is the middle value
+                    med = array[middle];
+                }
             }
-        }else{
-            med=array[0];
         }
         this.median = med;
         return median;

@@ -5,8 +5,6 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -26,6 +24,7 @@ public class ExamTeacher implements Serializable {
     int finish;
     int newTimer = -1;
     int examStdId;
+    int teacherid;
     @OneToOne
     @JoinColumn(name = "exam_id")
     Exam exam;
@@ -68,7 +67,7 @@ public class ExamTeacher implements Serializable {
         return exam.getTeacher();
     }
 
-    public ExamTeacher(Exam exam, String Date, String Time, boolean isComputed, String Code,int start,int finish,String finishTime){
+    public ExamTeacher(Exam exam, String Date, String Time, boolean isComputed, String Code,int start,int finish,String finishTime,int teacherid){
         this.exam = exam;
         this.Date = Date;
         this.Time = Time;
@@ -77,6 +76,7 @@ public class ExamTeacher implements Serializable {
         this.start=start;
         this.finish=finish;
         this.finishTime=finishTime;
+        this.teacherid=teacherid;
     }
 
     public void setId(int id) {
@@ -165,5 +165,13 @@ public class ExamTeacher implements Serializable {
 
     public void setExamStdId(int examStdId) {
         this.examStdId = examStdId;
+    }
+
+    public int getTeacherid() {
+        return teacherid;
+    }
+
+    public void setTeacherid(int teacherid) {
+        this.teacherid = teacherid;
     }
 }

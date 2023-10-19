@@ -306,8 +306,9 @@ public class ShowExamController {
                 LocalTime currentTime = LocalTime.parse(Time);
                 Duration timeToAdd = Duration.ofMinutes(exam.getTimerr());
                 LocalTime newTime = currentTime.plus(timeToAdd);
-                ExamTeacher examTeacher = new ExamTeacher(exam,Date,Time,isComputed,Code,0,0,newTime.toString());
-                ExamStudent examStudent = new ExamStudent(Time,Date,isComputed,exam,Code,teacher.getId());
+                ExamTeacher examTeacher = new ExamTeacher(exam,Date,Time,isComputed,Code,0,0,newTime.toString(),exam.getTeacherid());
+
+                ExamStudent examStudent = new ExamStudent(Time,Date,isComputed,exam,Code,teacher.getId(),exam.getTeacherid());
                 examStudent.setQuestions(detailedQuestions);
                double totalpoints=0;
                 for(DetailedQuestion qes : detailedQuestions){

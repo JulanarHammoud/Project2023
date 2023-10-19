@@ -1,25 +1,68 @@
-<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<?xml version="1.0" encoding="UTF-8"?>
 
-<!--<?import javafx.scene.control.*?>-->
-<!--<?import javafx.scene.layout.*?>-->
-<!--<?import javafx.scene.text.*?>-->
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<!--<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.GradesteacherController">-->
-<!--   <children>-->
-<!--      <Button mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#ab0f0f">-->
-<!--         <font>-->
-<!--            <Font name="System Bold Italic" size="12.0" />-->
-<!--         </font></Button>-->
-<!--      <Button layoutX="62.0" mnemonicParsing="false" onAction="#back" text="Back" textFill="#289a22">-->
-<!--         <font>-->
-<!--            <Font name="System Bold Italic" size="12.0" />-->
-<!--         </font></Button>-->
-<!--      <TableView fx:id="Gtable" layoutX="-1.0" layoutY="53.0" prefHeight="345.0" prefWidth="600.0">-->
-<!--        <columns>-->
-<!--          <TableColumn fx:id="examid" prefWidth="175.0" text="exam id" />-->
-<!--          <TableColumn fx:id="studentid" prefWidth="227.0" text="student id" />-->
-<!--            <TableColumn fx:id="grade" prefWidth="197.0" text="grade" />-->
-<!--        </columns>-->
-<!--      </TableView>-->
-<!--   </children>-->
-<!--</AnchorPane>-->
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.GradesteacherController">
+    <children>
+        <TableView fx:id="Stable" layoutY="32.0" prefHeight="471.0" prefWidth="114.0">
+            <columns>
+                <TableColumn fx:id="name" prefWidth="113.0" text="Exam's Date" />
+            </columns>
+        </TableView>
+        <Button layoutX="70.0" layoutY="2.0" mnemonicParsing="false" onAction="#back" text="Back" textFill="#088a15">
+            <font>
+                <Font name="System Bold Italic" size="12.0" />
+            </font>
+        </Button>
+        <Button layoutY="2.0" mnemonicParsing="false" onAction="#LogOut" text="LogOut" textFill="#dd1b1b">
+            <font>
+                <Font name="System Bold Italic" size="12.0" />
+            </font>
+        </Button>
+        <ScrollPane layoutX="122.0" layoutY="-2.0" prefHeight="507.0" prefWidth="573.0">
+            <content>
+                <AnchorPane fx:id="pane" minHeight="0.0" minWidth="0.0" prefHeight="1213.0" prefWidth="1069.0">
+                    <children>
+                        <Label layoutX="5.0" layoutY="486.0" prefHeight="25.0" prefWidth="114.0" text="Average:">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font></Label>
+                        <Label fx:id="avg" layoutX="131.0" layoutY="486.0" prefHeight="27.0" prefWidth="114.0" text="Label">
+                            <font>
+                                <Font size="18.0" />
+                            </font></Label>
+                        <Label layoutX="262.0" layoutY="486.0" prefHeight="27.0" prefWidth="114.0" text="Median:">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="mid" layoutX="376.0" layoutY="486.0" prefHeight="27.0" prefWidth="114.0" text="Label">
+                            <font>
+                                <Font size="18.0" />
+                            </font></Label>
+                        <Label layoutY="563.0" prefHeight="27.0" prefWidth="247.0" text="Grades Table:">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="Sname" layoutX="2.0" layoutY="5.0" prefHeight="32.0" prefWidth="520.0" text="Date">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <TableView fx:id="Gtable" layoutY="588.0" prefHeight="257.0" prefWidth="459.0">
+                            <columns>
+                                <TableColumn fx:id="courset" prefWidth="106.0" text="Students" />
+                                <TableColumn fx:id="date" prefWidth="116.0" text="Teacher" />
+                                <TableColumn fx:id="gradet" prefWidth="114.0" text="Grade" />
+                                <TableColumn fx:id="distributiont" prefWidth="122.0" text="Distribution" />
+                            </columns>
+                        </TableView>
+                        <AnchorPane fx:id="pane1" layoutX="5.0" layoutY="48.0" prefHeight="385.0" prefWidth="548.0" />
+                    </children></AnchorPane>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>
