@@ -17,6 +17,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -85,6 +86,7 @@ public class StudentResultsController {
                     pane1.setLeftAnchor(barChart, 5.0);
 
                     for (ExamStudent examStudent : St.getStudentExams()) {
+                        System.out.println(examStudent.getGrade()+"here"+examStudent.isApprove());
                         if(examStudent.isApprove()){
                             gradesEntity.setDistribution(examStudent.getGrade());
                             x++;
@@ -115,29 +117,31 @@ public class StudentResultsController {
                         // Add the data series to the BarChart
                         barChart.getData().add(series);
 
-                        GD[] gradesArray = new GD[St.getStudentExams().size()]; // Initialize the array
+                        List<GD> gradesArray=new ArrayList<>();
                         int i = 0,c=0;
                         for (ExamStudent examStudent : St.getStudentExams()) {
                             if(examStudent.isApprove()) {
                                 String course = examStudent.getExam().getCourse();
+                                System.out.println("HEREEEEEEEEEE "+examStudent.getExam().getCourse());
                                 String date = examStudent.getDate();
                                 int grade = examStudent.getGrade();
                                 gradesEntity.setDistribution1(examStudent.getGrade());
                                 int distribution = gradesEntity.getDistribution1(examStudent.getGrade());
                                 c++;
                                 GD gd = new GD(course, date, grade, distribution);
-                                gradesArray[i] = gd;
-                                i++;
+                                gradesArray.add(gd);
                             }
                         }
                         if(c!=0) {
-                            ObservableList<GD> studentsList = FXCollections.observableArrayList(gradesArray);
-                            Gtable.setEditable(true);
-                            courset.setCellValueFactory(cellData -> cellData.getValue().courseProperty());
-                            date.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
-                            gradet.setCellValueFactory(cellData -> cellData.getValue().gradeProperty().asObject());
-                            distributiont.setCellValueFactory(cellData -> cellData.getValue().distributionProperty().asObject());
-                            Gtable.setItems(studentsList);
+                            if(gradesArray!=null) {
+                                ObservableList<GD> studentsList = FXCollections.observableArrayList(gradesArray);
+                                Gtable.setEditable(true);
+                                courset.setCellValueFactory(cellData -> cellData.getValue().courseProperty());
+                                date.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+                                gradet.setCellValueFactory(cellData -> cellData.getValue().gradeProperty().asObject());
+                                distributiont.setCellValueFactory(cellData -> cellData.getValue().distributionProperty().asObject());
+                                Gtable.setItems(studentsList);
+                            }
                         }
                     }else{//no approved grades yet
                         LinkedList message = new LinkedList<>();

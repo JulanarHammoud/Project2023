@@ -132,7 +132,7 @@ public class TeacherResultsController {
                             // Add the data series to the BarChart
                             barChart.getData().add(series);
 
-                            GD[] gradesArray = new GD[examStudentteacher.size()]; // Initialize the array
+                            List<GD> gradesArray=new ArrayList<>();
                             int j = 0;
                             for (ExamStudent examStudent : examStudentteacher) {
                                 String course = examStudent.getExam().getCourse();
@@ -141,7 +141,7 @@ public class TeacherResultsController {
                                 int distribution = gradesEntity.getDistribution1(examStudent.getGrade());
                                 String date = examStudent.getDate();
                                 GD gd = new GD(course, date, grade, distribution);
-                                gradesArray[j] = gd;
+                                gradesArray.add(gd);
                                 j++;
                             }
                             if (j != 0) {
