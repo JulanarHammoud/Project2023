@@ -77,7 +77,7 @@ public void setDistribution(int Grade) {
             if(examStudent.grade==0){
                 arrayhelp[0]++;
             }
-            arrayhelp[(examStudent.grade-1)/10]++;
+            else arrayhelp[(examStudent.grade-1)/10]++;
         }
     }
     this.distribution = arrayhelp[Grade/10];
