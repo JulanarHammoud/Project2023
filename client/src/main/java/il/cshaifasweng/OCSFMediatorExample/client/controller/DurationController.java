@@ -2,9 +2,10 @@ package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
 import il.cshaifasweng.OCSFMediatorExample.entities.ExamTeacher;
-import il.cshaifasweng.OCSFMediatorExample.entities.StudentsExams;
 import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
 import il.cshaifasweng.OCSFMediatorExample.entities.ToDuration;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -12,11 +13,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
-import java.time.Duration;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 
 import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
@@ -37,6 +37,8 @@ public class DurationController {
     String tim;
     String des;
     int t,d;
+    Timeline timeline=new Timeline();
+
     @FXML
     void initialize() throws IOException {
         SimpleClient.setPosition("Duration");
@@ -92,6 +94,18 @@ public class DurationController {
                 des=Des; d=1;
             }
         });
+        javafx.util.Duration sec = javafx.util.Duration.seconds(1);
+        timeline = new Timeline(new KeyFrame(sec, event -> {
+           LocalTime currentTime = LocalTime.now();
+           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+           LocalTime parsedTime = LocalTime.parse(examTeacher.getFinishTime(),formatter);
+           int comparison = currentTime.compareTo(parsedTime);
+           if(comparison>0){
+                submit.setDisable(true);
+           }
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
         submit.setOnAction(this::extratime);
         timemessage.setContent(timeVbox);
     }
@@ -99,6 +113,7 @@ public class DurationController {
     public void extratime(ActionEvent event){
         LinkedList<Object> message = new LinkedList<Object>();
         try{
+            timeline.stop();
             message.add("SendMassage");
             message.add(teacher);
             message.add(examTeacher);
@@ -113,6 +128,7 @@ public class DurationController {
     @FXML
     public void Back (ActionEvent event) throws IOException {
         try{
+            timeline.stop();
             SimpleClient.setPosition("");
             SimpleClient.getParams().add(teacher);
             setRoot("teacherpage");
@@ -123,6 +139,7 @@ public class DurationController {
     }
     @FXML
     public void LogOut (ActionEvent event) throws IOException {
+        timeline.stop();
         LinkedList<Object> message = new LinkedList<Object>();
         SimpleClient.setPosition("");
         message.add("#LogOut");

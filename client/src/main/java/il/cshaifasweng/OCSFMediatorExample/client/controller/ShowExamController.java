@@ -20,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static il.cshaifasweng.OCSFMediatorExample.client.App.set;
+import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
 
 public class ShowExamController {
@@ -36,6 +37,9 @@ public class ShowExamController {
     List<DetailedQuestion> detailedQuestions = new ArrayList<>();
     @FXML
     private AnchorPane testshow;
+
+    @FXML
+    private Button back1;
 
     @FXML
     private Label examTime;
@@ -344,6 +348,16 @@ public class ShowExamController {
             SimpleClient.getClient().sendToServer(messageToServer);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+    @FXML
+    void backaction(ActionEvent event) {
+        GetSubject getSubject = new GetSubject(subject,teacher,courseTeacher);
+        SimpleClient.getParams().add(getSubject);
+        try {
+            setRoot("allExams");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

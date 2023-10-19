@@ -931,10 +931,11 @@ public class SimpleServer extends AbstractServer {
 						List<ConnectionToClient> clients = studentsInExam.get(examteacherid);
 						UpdateTimer updateTimer = new UpdateTimer(newTimer);
 						Warning wr = new Warning("the theacher gave you additional time");
+						if(clients!=null){
 						for(ConnectionToClient std : clients ){
 							std.sendToClient(updateTimer);
 							std.sendToClient(wr);
-						}
+						}}
 						ConnectionToClient teacher = onlineTeachers.get(Message.getTID());
 						if(teacher != null){
 						Teacher teacher1 = Data.getDataById(Teacher.class,Message.getTID());
