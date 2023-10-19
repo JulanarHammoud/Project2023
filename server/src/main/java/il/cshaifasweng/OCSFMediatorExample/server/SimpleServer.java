@@ -925,11 +925,17 @@ public class SimpleServer extends AbstractServer {
 						LocalTime newTime1 = currentTime.plus(timeToAdd);
 						//String finishTime = String.valueOf(newTime1);
 						examTeacher.setFinishTime(newTime1.toString());
-						int newTimer =examTeacher.getExam().getTimerr() + AdditionalTime;
+						int newTimer;
+						if(examTeacher.getNewTimer() == -1){
+						 newTimer =examTeacher.getExam().getTimerr() + AdditionalTime;}
+						else {
+							newTimer = examTeacher.getNewTimer() + AdditionalTime;
+						}
 						Data.updateTime(newTime1.toString(),examTeacher.getId());
 						Data.updateTimer(newTimer,examTeacher.getExamStdId(),examTeacher.getId());
 						List<ConnectionToClient> clients = studentsInExam.get(examteacherid);
 						UpdateTimer updateTimer = new UpdateTimer(newTimer);
+						System.out.println("the new timer is: " + updateTimer.getTimer());
 						Warning wr = new Warning("the theacher gave you additional time");
 						if(clients!=null){
 						for(ConnectionToClient std : clients ){
@@ -1026,6 +1032,7 @@ public class SimpleServer extends AbstractServer {
 						teacherClient.sendToClient(updatedExams);
 						ToDuration toDuration = new ToDuration(teacher,examTeacher,true);
 						teacherClient.sendToClient(toDuration);
+						studentsInExam.remove(std.getId());// removing the client of the student
 					}
 					System.out.println("sending " + std.getFirstName() + "'s detailes to client");
 					client.sendToClient(std);

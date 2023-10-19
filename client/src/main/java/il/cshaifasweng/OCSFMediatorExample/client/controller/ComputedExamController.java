@@ -104,7 +104,8 @@ public class ComputedExamController {
         timeline.play();
         /*****************************************************************/
         //test = new AnchorPane();
-        examTime.setText("exam time is: " + exam.getTimerr());
+        int timer = (exam.getNewTimer() == -1) ? exam.getTimerr() : exam.getNewTimer();
+        examTime.setText("exam time is: " + timer);
         noteStudent.setText("notes for students: " + exam.getStudentNotes());
         //noteStudent.set
         //noteTeacher.setText("notes for teachesrs: " + exam.getTeacherNotes());
@@ -183,6 +184,7 @@ public class ComputedExamController {
 
     }
     public void updateCountdown(){
+        int timer = (exam.getNewTimer() == -1) ? exam.getTimerr() : exam.getNewTimer();
         int last = SimpleClient.getMesFromClient().size() - 1;
         if(last != -1) {
             //System.out.println(SimpleClient.getMesFromClient().get(last).getClass());
@@ -192,6 +194,8 @@ public class ComputedExamController {
                 if (exam.getExam().getTimerr() != newTimer) {
                     System.out.println(newTimer);
                     exam.getExam().setTimerr(newTimer);
+                    timer = newTimer;
+                    examTime.setText("exam time is: " + timer);
                 }
                 System.out.println("the timer is: " + exam.getTimerr());
             }
@@ -199,7 +203,7 @@ public class ComputedExamController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime parsedTime = LocalTime.parse(exam.getTime(),formatter);
         LocalTime currentTime = LocalTime.now();
-        LocalTime endTime = parsedTime.plusMinutes(exam.getTimerr());
+        LocalTime endTime = parsedTime.plusMinutes(timer);
         Duration remainingTime = Duration.between(currentTime, endTime);
         String formattedTime = String.format("%02d:%02d:%02d",
                 remainingTime.toHours(), (remainingTime.toMinutes() % 60), (remainingTime.getSeconds() % 60));
