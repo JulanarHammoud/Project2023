@@ -121,8 +121,12 @@ public class CourseResultsController {
                         XYChart.Series<String, Number> series = new XYChart.Series<>();
                         series.setName("Data Series");
                         for (int i = 0; i < 10; i++) {
+                            // Get the distribution for each grade category
                             int distribution = gradesEntity.getDistribution(i);
-                            String label = (i * 10) + 1 + "->" + ((i + 1) * 10);
+                            String label;
+                            if(i==0) {label="0->10";}
+                            // Set the label for each category based on the grade range
+                            else label = (i * 10) + 1 + "->" + ((i + 1) * 10);
                             series.getData().add(new XYChart.Data<>(label, distribution));
                         }
 

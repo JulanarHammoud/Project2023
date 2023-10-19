@@ -118,22 +118,24 @@ public class TeacherController {
 
     @FXML
     void gradesaction(ActionEvent event) {
-//        try{
-//            LinkedList<Object> message = new LinkedList<Object>();
-//            message.add("#GetGrades");
-//            message.add(subject);
-//            message.add(teacher);
-//
-//            for (CourseTeacher c : courses) {
-//                if (c.getName().equals(selectedCour)) {
-//                    message.add(c);
-//                }
-//                SimpleClient.getParams().add(message);
-//                setRoot("Gradesteacher");
-//            }
-//        }catch (IOException e){
-//            e.printStackTrace();
-//        }
+        try{
+            LinkedList<Object> message = new LinkedList<Object>();
+            message.add(teacher);
+            for (CourseTeacher c : courses) {
+                if (c.getName().equals(selectedCour)) {
+                    message.add(c);
+                    List<SubjectTeacher> subjects = c.getSubjectTeacher();
+                    for (SubjectTeacher sub : subjects)
+                        if (sub.getSb_name().equals(selectedSub))
+                            message.add(sub);
+                }
+            }
+            System.out.println(" sending " + selectedCour + " and " + selectedSub);
+            SimpleClient.getParams().add(message);
+            setRoot("Gradesteacher");
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     @FXML

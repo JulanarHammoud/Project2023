@@ -88,7 +88,6 @@ public class StudentResultsController {
                         pane1.setLeftAnchor(barChart, 5.0);
 
                         for (ExamStudent examStudent : St.getStudentExams()) {
-                            System.out.println(examStudent.getGrade() + "here" + examStudent.isApprove());
                             if (examStudent.isApprove()) {
                                 gradesEntity.setDistribution(examStudent.getGrade());
                                 x++;
@@ -99,24 +98,14 @@ public class StudentResultsController {
                         XYChart.Series<String, Number> series = new XYChart.Series<>();
                         series.setName("Data Series");
 
-                        for (int i = 0; i < 10; i++) {
-                            int distribution = gradesEntity.getDistribution(i);
-                            if(i == 0){
-                                series.getData().add(new XYChart.Data<>("0->10", distribution));
-                            }
-                            else{
-                            String label = (i * 10) + 1 + "->" + ((i + 1) * 10);
-                            series.getData().add(new XYChart.Data<>(label, distribution));}
-                        }
-
                         if (x != 0) {
                             for (int i = 0; i < 10; i++) {
                                 // Get the distribution for each grade category
                                 int distribution = gradesEntity.getDistribution(i);
-
+                                String label;
+                                if(i==0) {label="0->10";}
                                 // Set the label for each category based on the grade range
-                                String label = (i * 10) + 1 + "->" + ((i + 1) * 10);
-
+                                else label = (i * 10) + 1 + "->" + ((i + 1) * 10);
                                 series.getData().add(new XYChart.Data<>(label, distribution));
                             }
 
