@@ -13,6 +13,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
+import java.util.LinkedList;
 
 /**
  * JavaFX App
@@ -106,8 +107,28 @@ public class App extends Application {
         });
 
 
-    }
 
+    }
+    @Subscribe
+    public void onFDlEvent(CourseFormangerEvent event) {
+        Platform.runLater(() -> {
+            try {
+
+                System.out.println("im in FD");
+                LinkedList<Object> msg =new LinkedList<>();
+                SimpleClient.getParams().add(event.getCF());
+                // System.out.println(event.getStudent().getStudents().get(0).getSt_name());
+                //System.out.println("Move to ChooseQes page");
+                setRoot("ExamManager");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+
+
+
+    }
     @Subscribe
     public void onStudentEvent(StudentEvent event) {
         Platform.runLater(() -> {
@@ -313,6 +334,9 @@ public class App extends Application {
             try {
                 System.out.println("saving SubId");
                 SimpleClient.getParams().add(event.getSubId());
+                System.out.println(event.getSubId().getSubject().getSb_name());
+                //System.out.println(
+                        //event.getSubId().getSubject().getQuestions().get(0).getQuestion());
                 System.out.println("Move to choose question page");
                 setRoot("ChooseQes");
             } catch (IOException e) {

@@ -109,12 +109,13 @@ public class addQuestionController {
 
             // Add an event handler to a button or some other UI element to capture selected subjects
                 for (SubjectTeacher subject : data) {
-                    if(subject.getId()!=subjectTeacher.getId())
-                    {   if (subject.getSelect_to_add()) {
+                      if (subject.getSelect_to_add()) {
+                          System.out.println("selected"+subject.getSb_name());
                         selectedSubjects.add(subject);
-                    }}
-                    else{}
+                    }
                 }
+
+                //System.out.println("in clieeeeent"+ selectedSubjects.get(0).getSb_name());
             System.out.println("Im in add question controller");
             LinkedList<Object> message = new LinkedList<Object>();
             String question = theQ.getText();
@@ -126,6 +127,7 @@ public class addQuestionController {
             String note = notes.getText();
             message.add("MakenewQuestion");
             message.add(subjectTeacher);
+            System.out.println("it's subjectteacher" + subjectTeacher.getSb_name());
             message.add(question);
             message.add(answer1);
             message.add(answer2);
@@ -135,8 +137,10 @@ public class addQuestionController {
             message.add(note);
             message.add(id);
             message.add(teacher);
+           // System.out.println(questions.get(0).getQuestion());
             message.add(questions);
             message.add(0);
+            System.out.println("the selectedddddddddd"+selectedSubjects);
             message.add(selectedSubjects);
             SimpleClient.getClient().sendToServer(message);
         }

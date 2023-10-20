@@ -532,9 +532,11 @@ public class Data {
         System.out.println("in make Question ");
         // Exam ex=new Exam(0,NumQ,chose,"T",TNotes,SNotes,cc);
         Question newquestion =new Question(Q,an1,an2,an3,an4, note,right);
+        SubjectTeacher change1=new SubjectTeacher();
         try {
-            if(subjects!=null){
+        //    System.out.println("dataaaaaaaaaaaaaaaa"+subjects.get(0).getSb_name());
             for(SubjectTeacher s :subjects){
+                System.out.println(s.getSb_name());
                 SessionFactory sessionFactory = getSessionFactory();
                 session = sessionFactory.openSession();
                 session.beginTransaction();
@@ -547,22 +549,8 @@ public class Data {
                 session.flush();
                 session.getTransaction().commit(); // Save everything.
                 session.close();
-            }}
-            else{
-            System.out.println("in make Question2 ");
-            SessionFactory sessionFactory = getSessionFactory();
-            session = sessionFactory.openSession();
-            session.beginTransaction();
-            System.err.println("Generated starts ...");
-            session.saveOrUpdate(newquestion);
-            System.err.println("Generated ends ...");
-            SubjectTeacher change = session.get(SubjectTeacher.class,sub.getId());
-            change.getQuestions().add(newquestion);
-            session.saveOrUpdate(change);
-            session.flush();
-            session.getTransaction().commit(); // Save everything.
-            return change;}
-
+                if(sub.getId()==change.getId()){ change1=change; System.out.println("change1:" + change.getSb_name());}
+            }
         } catch (Exception exception) {
             if (session != null) {
                 session.getTransaction().rollback();
@@ -573,8 +561,9 @@ public class Data {
             if(session != null) {
                 session.close();
             }
+            return change1;
+
         }
-        return null;
     }
 
     public static List<CourseTeacher> getAllCourses() throws Exception {

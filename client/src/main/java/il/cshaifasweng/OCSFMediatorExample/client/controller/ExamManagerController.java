@@ -19,9 +19,9 @@ import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
 public class ExamManagerController{
     int lastIndex= SimpleClient.getParams().size()-1;
-    LinkedList<Object> msg = (LinkedList<Object>) SimpleClient.getParams().get(lastIndex);
-    CourseTeacher course = (CourseTeacher) msg.get(0);
-    GetForManager getForManager = (GetForManager) msg.get(1);
+    Formangerandcourseteacher msg = (Formangerandcourseteacher) SimpleClient.getParams().get(lastIndex);
+    CourseTeacher course = (CourseTeacher) msg.getCourseTeacher();
+    GetForManager getForManager = (GetForManager) msg.getGetForManager();
     ObservableList<Exam> data;
     @FXML
     private TableView<Exam> Etable;

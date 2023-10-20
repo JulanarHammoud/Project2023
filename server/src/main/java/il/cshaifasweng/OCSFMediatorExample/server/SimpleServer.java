@@ -505,6 +505,7 @@ public class SimpleServer extends AbstractServer {
 					int id = (int) message.get(9);
 					Teacher teacher = (Teacher) message.get(10);
 					//int x=0;
+					LinkedList<SubjectTeacher> subjects = (LinkedList<SubjectTeacher>) message.get(13);
 					if (ques1.isEmpty()) {
 						if (ans1.isEmpty() || ans2.isEmpty() || ans3.isEmpty() || ans4.isEmpty()) {
 							System.out.println("there is no question or 4 possible answers yet");
@@ -535,14 +536,20 @@ public class SimpleServer extends AbstractServer {
 						System.out.println("the question is in the answers too");
 						Warning warning = new Warning("please don't write the question the same as the answer!!");
 						client.sendToClient(warning);
-					} else { //the input is good
-						LinkedList<SubjectTeacher> subjects = (LinkedList<SubjectTeacher>) message.get(13);
+					} else if(subjects.size()==0){
+						System.out.println("the subjects is null");
+						Warning warning =new Warning("You should choose subject");
+						client.sendToClient(warning);
+					}
+					else { //the input is good
 						SubjectTeacher subjectTeacher = (SubjectTeacher) message.get(1);
 						SubjectTeacher subjectTeacher1 = Data.MakeQuestion(ques1, ans1, ans2, ans3, ans4, right, note, subjectTeacher,subjects);
+						System.out.println("I'm after function "+subjectTeacher1);
 						LinkedList<Question> questions = (LinkedList<Question>) message.get(11);
 						SubjectAndId subid;
 						teacher=Data.getDataById(Teacher.class,teacher.getId());
 						if (questions == null) { // make new question coming from question table
+							System.out.println("in makenew" + subjectTeacher1.getSb_name());
 							subid = new SubjectAndId(subjectTeacher1, id, teacher);
 						} else { // make new question coming from make exam
 							subid = new SubjectAndId(subjectTeacher1, id, teacher, questions);
@@ -556,11 +563,13 @@ public class SimpleServer extends AbstractServer {
 							Exam exam = Data.findExam(id);
 							CourseTeacher course = Data.FindCourse(exam.getCourse());
 							SubjectTeacher subject1 = Data.GetSubjectById(subjectTeacher.getId());
+							System.out.println("what is the subject"  + subject1);
 							ExamSubjectTeacherEdit examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject1, exam, flag, course);
 							client.sendToClient(warning);
 							client.sendToClient(examSubjectTeacherEdit);
 						} else { //we are in make new question page
 							client.sendToClient(warning);
+							System.out.println("Cccccclient"+subid.getSubject().getSb_name());
 							client.sendToClient(subid);
 						}
 					}
@@ -1230,6 +1239,22 @@ public class SimpleServer extends AbstractServer {
 				try {
 					client.sendToClient(toDuration);
 				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			}
+			else if (message.get(0).equals("#ExamManger")) {
+				try {
+				List<Teacher> teachers = (List<Teacher>) Data.getAllTeachers();
+				List<Student> students = Data.getAllStudents();
+				List<CourseTeacher> courses = Data.getAllCourses();
+				GetForManager getForManager = new GetForManager(teachers, students, courses);
+				CourseTeacher courseTeacher= (CourseTeacher) message.get(1);
+				Formangerandcourseteacher Fd=new Formangerandcourseteacher(courseTeacher,getForManager);
+					client.sendToClient(Fd);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 
