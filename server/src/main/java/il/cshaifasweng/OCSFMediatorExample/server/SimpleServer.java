@@ -983,9 +983,7 @@ public class SimpleServer extends AbstractServer {
 						throw new RuntimeException(e);
 					}
 				}
-			} else if (message.get(0).equals("ExitMessages")){
-				mngr.setInfo("Maill",0);//we are not in the mail manager
-			} else if (message.get(0).equals("#PublishExam")){
+			}else if (message.get(0).equals("#PublishExam")){
 				ExamTeacher examTeacher = (ExamTeacher) message.get(1);
 				Teacher teacher = (Teacher) message.get(2);
 				ExamStudent examStudent = (ExamStudent) message.get(3);
@@ -1254,6 +1252,75 @@ public class SimpleServer extends AbstractServer {
 				try {
 					client.sendToClient(gradeTeacher);
 				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			else if (message.get(0).equals("QuestionManagerServer")) {
+				try {
+					CourseTeacher courseTeacher = (CourseTeacher) message.get(1);
+					List<Teacher> teachers = Data.getAllTeachers();
+					List<Student> students = Data.getAllStudents();
+					List<CourseTeacher> courses = Data.getAllCourses();
+					GetForManager getForManager = new GetForManager(teachers, students, courses);
+					QuestionManager1 questionManager = new QuestionManager1(courseTeacher, getForManager);
+					System.out.println("1");
+					client.sendToClient(questionManager);
+				}catch (IOException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			else if (message.get(0).equals("StudentsResultServer")) {
+				try {
+					List<Teacher> teachers = Data.getAllTeachers();
+					List<Student> students = Data.getAllStudents();
+					List<CourseTeacher> courses = Data.getAllCourses();
+					GetForManager1 getForManager = new GetForManager1(teachers, students, courses);
+					client.sendToClient(getForManager);
+				}catch (IOException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			else if (message.get(0).equals("TeachersResultServer")) {
+				try {
+					List<Teacher> teachers = Data.getAllTeachers();
+					List<Student> students = Data.getAllStudents();
+					List<CourseTeacher> courses = Data.getAllCourses();
+					GetForManager2 getForManager = new GetForManager2(teachers, students, courses);
+					client.sendToClient(getForManager);
+				}catch (IOException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			else if (message.get(0).equals("CoursesResultServer")) {
+				try {
+					List<Teacher> teachers = Data.getAllTeachers();
+					List<Student> students = Data.getAllStudents();
+					List<CourseTeacher> courses = Data.getAllCourses();
+					GetForManager3 getForManager = new GetForManager3(teachers, students, courses);
+					client.sendToClient(getForManager);
+				}catch (IOException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			else if (message.get(0).equals("ExitMessages")) {
+				try {
+					mngr.setInfo("Maill",0);//we are not in the mail manager
+					List<Teacher> teachers = Data.getAllTeachers();
+					List<Student> students = Data.getAllStudents();
+					List<CourseTeacher> courses = Data.getAllCourses();
+					GetForManager getForManager = new GetForManager(teachers, students, courses);
+					client.sendToClient(getForManager);
+				}catch (IOException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}

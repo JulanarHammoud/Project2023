@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.ShowMessageController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.ShowMessageController">
    <children>
-      <ImageView fitHeight="600.0" fitWidth="700.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="1275.0" fitWidth="1278.0" layoutY="-167.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@student.jpg" />
          </image>
@@ -23,41 +21,41 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Label fx:id="teachername" layoutX="83.0" layoutY="14.0" prefHeight="39.0" prefWidth="167.0" text="teacher">
+      <Label fx:id="teachername" layoutX="134.0" layoutY="14.0" prefHeight="39.0" prefWidth="167.0" text="teacher">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="time" layoutX="155.0" layoutY="110.0" prefHeight="39.0" prefWidth="103.0" text="Time" textFill="#c03b3b">
+      <Label fx:id="time" layoutX="190.0" layoutY="110.0" prefHeight="39.0" prefWidth="103.0" text="Time" textFill="#c03b3b">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="msgcontent" layoutX="133.0" layoutY="149.0" prefHeight="167.0" prefWidth="443.0" text="Message Content">
+      <Label fx:id="msgcontent" layoutX="118.0" layoutY="175.0" prefHeight="167.0" prefWidth="443.0" text="Message Content">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="14.0" prefHeight="39.0" prefWidth="103.0" text="Teacher:  ">
+      <Label layoutX="52.0" layoutY="14.0" prefHeight="39.0" prefWidth="103.0" text="Teacher:  ">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="110.0" prefHeight="39.0" prefWidth="131.0" text="Additional Time:  ">
+      <Label layoutX="52.0" layoutY="110.0" prefHeight="39.0" prefWidth="131.0" text="Additional Time:  ">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="208.0" prefHeight="50.0" prefWidth="103.0" text="Reason:  ">
+      <Label layoutX="52.0" layoutY="175.0" prefHeight="50.0" prefWidth="103.0" text="Reason:  ">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
-      <Label layoutX="14.0" layoutY="65.0" prefHeight="28.0" prefWidth="103.0" text="Exam:  ">
+      <Label layoutX="52.0" layoutY="65.0" prefHeight="28.0" prefWidth="103.0" text="Exam:  ">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="exam" layoutX="83.0" layoutY="65.0" prefHeight="28.0" prefWidth="167.0" text="exam">
+      <Label fx:id="exam" layoutX="134.0" layoutY="65.0" prefHeight="28.0" prefWidth="167.0" text="exam">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>

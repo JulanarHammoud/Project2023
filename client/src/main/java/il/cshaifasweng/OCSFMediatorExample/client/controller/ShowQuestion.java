@@ -55,7 +55,7 @@ public class ShowQuestion {
                 setRoot("ChooseQes");
             }
             else{ // coming from manager's question table
-                LinkedList<Object> msg1 = (LinkedList<Object>) msg.get(3);
+                QuestionManager1 msg1 = (QuestionManager1) msg.get(3);
                 SimpleClient.getParams().add(msg1);
                 setRoot("QuestionManager");
             }

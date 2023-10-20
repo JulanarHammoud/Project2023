@@ -481,6 +481,51 @@ public class App extends Application {
                 throw new RuntimeException(e);
             }
         });}
+    @Subscribe
+    public void onQuestionManagerEvent(QuestionManagerEvent event) {
+        Platform.runLater(() -> {
+            System.out.println("Question manager App-client");
+            SimpleClient.getParams().add(event.getQuestionManager());
+            try {
+                System.out.println("Move to QuestionManager page");
+                setRoot("QuestionManager");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });}
+    @Subscribe
+    public void onGetForManagerEvent1(GetForManagerEvent1 event) {
+        Platform.runLater(() -> {
+            System.out.println("GetForManager1 App-client");
+            SimpleClient.getParams().add(event.getGetForManager1());
+            try {
+                setRoot("StudentResults");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });}
+    @Subscribe
+    public void onGetForManagerEvent2(GetForManagerEvent2 event) {
+        Platform.runLater(() -> {
+            System.out.println("GetForManager2 App-client");
+            SimpleClient.getParams().add(event.getGetForManager2());
+            try {
+                setRoot("TeacherResults");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });}
+    @Subscribe
+    public void onGetForManagerEvent3(GetForManagerEvent3 event) {
+        Platform.runLater(() -> {
+            System.out.println("GetForManager3 App-client");
+            SimpleClient.getParams().add(event.getGetForManager3());
+            try {
+                setRoot("CourseResults");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });}
 
 
         public static void main(String[] args) {

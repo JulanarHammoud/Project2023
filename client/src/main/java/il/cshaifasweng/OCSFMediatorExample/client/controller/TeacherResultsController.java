@@ -25,7 +25,7 @@ import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
 public class TeacherResultsController {
     int lastIndex = SimpleClient.getParams().size() - 1;
-    GetForManager getForManager = (GetForManager) SimpleClient.getParams().get(lastIndex);
+    GetForManager2 getForManager = (GetForManager2) SimpleClient.getParams().get(lastIndex);
     List<Teacher> teachers = getForManager.getTeachers();
     @FXML
     private TableView<Teacher> Ttable;
@@ -187,7 +187,6 @@ public class TeacherResultsController {
             message.add("ExitMessages");
             message.add(0);
             SimpleClient.getClient().sendToServer(message);
-            setRoot("Manager");
         } catch (IOException e) {
             e.printStackTrace();
         }

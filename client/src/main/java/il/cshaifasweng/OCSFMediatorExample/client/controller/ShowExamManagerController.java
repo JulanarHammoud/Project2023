@@ -42,9 +42,6 @@ public class ShowExamManagerController {
     private Label noteStudent;
 
     @FXML
-    private Label noteTeacher;
-
-    @FXML
     private Label sub;
     @FXML
     void initialize() throws IOException {
@@ -72,7 +69,8 @@ public class ShowExamManagerController {
                 btn.setToggleGroup(TG);
             }
             AnchorPane.setTopAnchor(vbox, i);
-            AnchorPane.setLeftAnchor(text, 20.0);
+            AnchorPane.setLeftAnchor(text, 40.0);
+            AnchorPane.setLeftAnchor(vbox,40.0);
             testshowmanager.getChildren().add(vbox);
             i = i + 150;
             answers.clear();

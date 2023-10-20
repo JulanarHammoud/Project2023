@@ -1,21 +1,17 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.*;
+import il.cshaifasweng.OCSFMediatorExample.entities.ExamTeacher;
+import il.cshaifasweng.OCSFMediatorExample.entities.Teacher;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.Button;
-import javafx.event.ActionEvent;
 
-
-import javax.transaction.UserTransaction;
-import java.awt.*;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -89,17 +85,18 @@ public class PublishedExamController {
     }
 
     @FXML
-    void backaction(ActionEvent event) {
-        SimpleClient.getParams().add(teacher);
-        try {
+    public void back (ActionEvent event) throws IOException {
+        try{
+            SimpleClient.getParams().add(teacher);
             setRoot("teacherpage");
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    void logoutaction(ActionEvent event) throws IOException {
+    public void LogOut (ActionEvent event) throws IOException {
         LinkedList<Object> message = new LinkedList<Object>();
         message.add("#LogOut");
         message.add(teacher.getId());

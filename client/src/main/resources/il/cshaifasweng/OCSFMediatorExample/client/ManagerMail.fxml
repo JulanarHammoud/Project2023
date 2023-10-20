@@ -7,11 +7,11 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.ManagerMailController">
    <children>
-      <TableView fx:id="Mtable" layoutX="-3.0" layoutY="45.0" prefHeight="355.0" prefWidth="607.0">
+      <TableView fx:id="Mtable" layoutX="-3.0" layoutY="45.0" prefHeight="492.0" prefWidth="655.0">
         <columns>
-          <TableColumn fx:id="id" prefWidth="69.0" text="ID" />
-            <TableColumn fx:id="time" minWidth="0.0" prefWidth="65.0" text="Time" />
-          <TableColumn fx:id="teachermessage" minWidth="0.0" prefWidth="472.0" text="Message" />
+          <TableColumn fx:id="id" prefWidth="78.0" text="ID" />
+            <TableColumn fx:id="time" minWidth="0.0" prefWidth="93.0" text="Time" />
+          <TableColumn fx:id="teachermessage" minWidth="0.0" prefWidth="483.0" text="Message" />
         </columns>
       </TableView>
       <Button layoutX="62.0" layoutY="2.0" mnemonicParsing="false" onAction="#back" text="Back" textFill="#197917">
@@ -22,11 +22,11 @@
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-      <Button layoutX="544.0" layoutY="3.0" mnemonicParsing="false" onAction="#open" text="Open" textFill="#051894">
+      <Button layoutX="601.0" layoutY="2.0" mnemonicParsing="false" onAction="#open" prefHeight="25.0" prefWidth="51.0" text="Open" textFill="#051894">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-      <Label layoutX="266.0" layoutY="2.0" text="Mail">
+      <Label layoutX="276.0" layoutY="2.0" text="Mail">
          <font>
             <Font name="System Bold Italic" size="35.0" />
          </font>

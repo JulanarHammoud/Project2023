@@ -1,9 +1,6 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.CourseTeacher;
-import il.cshaifasweng.OCSFMediatorExample.entities.GetForManager;
-import il.cshaifasweng.OCSFMediatorExample.entities.Question;
-import il.cshaifasweng.OCSFMediatorExample.entities.SubjectTeacher;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,9 +17,10 @@ import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
 public class QuestionManagerController {
     int lastIndex= SimpleClient.getParams().size()-1;
-    LinkedList<Object> msg = (LinkedList<Object>) SimpleClient.getParams().get(lastIndex);
-    CourseTeacher course = (CourseTeacher) msg.get(0);
-    GetForManager getForManager = (GetForManager) msg.get(1);
+    QuestionManager1 questionManager = (QuestionManager1) SimpleClient.getParams().get(lastIndex);
+
+    CourseTeacher course = (CourseTeacher) questionManager.getCourseTeacher();
+    GetForManager getForManager = (GetForManager) questionManager.getGetForManager();
     ObservableList<Question> data;
 
     @FXML
@@ -79,7 +77,7 @@ public class QuestionManagerController {
         message.add("ShowQuestionn");
         message.add(1); //comming from manager question page
         message.add(1);
-        message.add(msg);
+        message.add(questionManager);
         message.add(1);
         message.add(question1);
         if(question1 == null){

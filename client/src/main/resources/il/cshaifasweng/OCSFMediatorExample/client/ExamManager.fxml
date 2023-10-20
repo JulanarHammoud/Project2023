@@ -16,21 +16,21 @@
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="548.0" mnemonicParsing="false" onAction="#show" text="Show" textFill="#1a7a9e">
+      <Button layoutX="589.0" layoutY="2.0" mnemonicParsing="false" onAction="#show" text="Show" textFill="#1a7a9e">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Button>
-      <TableView fx:id="Etable" layoutY="25.0" prefHeight="371.0" prefWidth="600.0">
+      <TableView fx:id="Etable" layoutY="25.0" prefHeight="444.0" prefWidth="639.0">
         <columns>
           <TableColumn fx:id="IdCode" prefWidth="109.0" text="Exam Code" />
-          <TableColumn fx:id="subjectExam" prefWidth="109.0" text="subject" />
-            <TableColumn fx:id="teacherExam" prefWidth="130.0" text="teacher" />
-            <TableColumn fx:id="NumOfQuestions" minWidth="0.0" prefWidth="133.0" text="num of questions" />
-            <TableColumn fx:id="timerr" prefWidth="118.0" text="timer" />
+          <TableColumn fx:id="subjectExam" prefWidth="146.0" text="subject" />
+            <TableColumn fx:id="teacherExam" prefWidth="144.0" text="teacher" />
+            <TableColumn fx:id="NumOfQuestions" minWidth="0.0" prefWidth="121.0" text="num of questions" />
+            <TableColumn fx:id="timerr" prefWidth="120.0" text="timer" />
         </columns>
       </TableView>
-      <Label fx:id="Course" layoutX="261.0" layoutY="-2.0" prefHeight="25.0" prefWidth="147.0" text="course">
+      <Label fx:id="Course" layoutX="307.0" layoutY="1.0" prefHeight="25.0" prefWidth="147.0" text="course">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

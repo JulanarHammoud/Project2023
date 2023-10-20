@@ -145,6 +145,22 @@ public class SimpleClient extends AbstractClient {
 			System.out.println("GradeTeacher simpleclient");
 			EventBus.getDefault().post(new GradeTeacherEvent((GradeTeacher) msg));
 		}
+		else if(msg.getClass().equals(QuestionManager1.class)){
+			System.out.println("2");
+			EventBus.getDefault().post(new QuestionManagerEvent((QuestionManager1) msg));
+		}
+		else if (msg.getClass().equals(GetForManager1.class)) {
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
+			EventBus.getDefault().post(new GetForManagerEvent1((GetForManager1) msg));
+		}
+		else if (msg.getClass().equals(GetForManager2.class)) {
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
+			EventBus.getDefault().post(new GetForManagerEvent2((GetForManager2) msg));
+		}
+		else if (msg.getClass().equals(GetForManager3.class)) {
+			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
+			EventBus.getDefault().post(new GetForManagerEvent3((GetForManager3) msg));
+		}
 
 	}
 

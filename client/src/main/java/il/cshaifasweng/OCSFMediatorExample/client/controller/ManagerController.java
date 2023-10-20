@@ -73,8 +73,9 @@ int lastIndex = SimpleClient.getParams().size() - 1;
     @FXML
     void TeachersButtons(ActionEvent event) {
         try {
-            SimpleClient.getParams().add(getForManager);
-            setRoot("TeacherResults");
+            LinkedList<Object> message = new LinkedList<Object>();
+            message.add("TeachersResultServer");
+            SimpleClient.getClient().sendToServer(message);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -82,8 +83,9 @@ int lastIndex = SimpleClient.getParams().size() - 1;
     @FXML
     void StudentsButtons(ActionEvent event) {
         try {
-            SimpleClient.getParams().add(getForManager);
-            setRoot("StudentResults");
+            LinkedList<Object> message = new LinkedList<Object>();
+            message.add("StudentsResultServer");
+            SimpleClient.getClient().sendToServer(message);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -91,8 +93,9 @@ int lastIndex = SimpleClient.getParams().size() - 1;
     @FXML
     void CoursesResultButtons(ActionEvent event) {
         try {
-            SimpleClient.getParams().add(getForManager);
-            setRoot("CourseResults");
+            LinkedList<Object> message = new LinkedList<Object>();
+            message.add("CoursesResultServer");
+            SimpleClient.getClient().sendToServer(message);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -102,10 +105,9 @@ int lastIndex = SimpleClient.getParams().size() - 1;
     void x(ActionEvent event) throws IOException {
         try {
         LinkedList<Object> message = new LinkedList<Object>();
+        message.add("QuestionManagerServer");
         message.add(pickedcourse);
-        message.add(getForManager);
-        SimpleClient.getParams().add(message);
-        setRoot("QuestionManager");
+        SimpleClient.getClient().sendToServer(message);
         } catch (IOException e) {
         e.printStackTrace();
         }
