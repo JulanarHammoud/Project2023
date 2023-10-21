@@ -63,7 +63,7 @@ public class StExamButtonController implements Serializable {
     StudentWillDoEx StEx = (StudentWillDoEx) SimpleClient.getParams().get(lastIndex);
     List<CourseStudent> list =StEx.getStudent().getCourses();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-   // List<ExamStudent> st=StEx.getStudent().getStudentExams();
+    // List<ExamStudent> st=StEx.getStudent().getStudentExams();
     ExamStudent exam;
     LocalDate currentDate = LocalDate.now();
     String formattedDate="";
@@ -71,7 +71,7 @@ public class StExamButtonController implements Serializable {
     Student student = StEx.getStudent();
     LocalTime currentTime = LocalTime.now();
 
-//    @FXML
+    //    @FXML
 //    private TextField code1;
 //
 //    @FXML
@@ -91,6 +91,7 @@ public class StExamButtonController implements Serializable {
     double layoutYC = 73.0;
     double layoutYB=73;
     double layoutYT = 90;
+    boolean IS=false;
     @FXML
     void initialize() {
 //                  ExamStudent mm=new ExamStudent();
@@ -182,7 +183,7 @@ public class StExamButtonController implements Serializable {
 
                         // Parse the time string into a LocalTime object
                         LocalTime localTime55 = LocalTime.parse(tim, formatter55);
-                         System.out.println("l" + specifiedTime);
+                        System.out.println("l" + specifiedTime);
                         int comparisonResult = specifiedTime22.compareTo(localTime55);
 
 
@@ -231,6 +232,7 @@ public class StExamButtonController implements Serializable {
                                     anchor.getChildren().add(code);
                                     layoutYC = layoutYC + 62;
                                     System.out.println("" + codee);
+                                    IS=true;
                                 }
                             });
 //                        TextField cod=new TextField("Enter The Code");
@@ -264,10 +266,16 @@ public class StExamButtonController implements Serializable {
 //        {codee=code2.getText();}
 //        if (!code4.getText().equals(""))
 //        {codee=code4.getText();}
-        LinkedList<Object> message = new LinkedList<Object>();
-        System.out.println("exam code is: " + exam.getCode());
-        System.out.println("the student wrote: " + codee);
-        if(!codee.equals(exam.getCode())){ // the student wrote wrong code
+
+        if(IS==false)
+        {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("WARNING");
+            alert.setHeaderText(null);
+            alert.setContentText("There is no exams!");
+            alert.showAndWait();
+        }
+        else if(!codee.equals(exam.getCode())){ // the student wrote wrong code
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("WARNING");
             alert.setHeaderText(null);
@@ -275,6 +283,10 @@ public class StExamButtonController implements Serializable {
             alert.showAndWait();
         }
         else {
+
+            LinkedList<Object> message = new LinkedList<Object>();
+            System.out.println("exam code is: " + exam.getCode());
+            System.out.println("the student wrote: " + codee);
             System.out.println("QQ"+exam.isExecuted());
             if(exam.isExecuted()==true)
             {
@@ -309,7 +321,7 @@ public class StExamButtonController implements Serializable {
 
             }
         }
-        }
+    }
     @FXML
     void back (ActionEvent event) {
         try{

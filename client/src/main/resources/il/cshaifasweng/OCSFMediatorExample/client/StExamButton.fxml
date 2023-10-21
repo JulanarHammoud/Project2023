@@ -17,22 +17,22 @@
             <Font name="Arial Bold" size="20.0" />
          </font>
       </Text>
-<!--      <Text fx:id="Sub1" layoutX="35.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="English" wrappingWidth="80.13671875" />-->
-<!--      <Text fx:id="date1" layoutX="181.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="71.13671875" />-->
-<!--      <Text fx:id="sub2" layoutX="35.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Math" wrappingWidth="80.13671875" />-->
-<!--      <Text fx:id="date2" layoutX="181.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="71.13671875" />-->
-<!--      <Button fx:id="logIn1" layoutX="323.0" layoutY="73.0" mnemonicParsing="false" onAction="#logIn1Act" prefHeight="25.0" prefWidth="80.0" text="Log in" />-->
-<!--      <Button fx:id="LogIn2" layoutX="323.0" layoutY="136.0" mnemonicParsing="false" onAction="#LogIn2Act" prefHeight="25.0" prefWidth="80.0" text="Log in" />-->
-<!--      <Text fx:id="sub3" layoutX="35.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Arabic" wrappingWidth="80.13671875" />-->
-<!--      <Text fx:id="sub4" layoutX="35.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hebrow" wrappingWidth="80.13671875" />-->
-<!--      <Text fx:id="date3" layoutX="181.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="71.13671875" />-->
-<!--      <Text fx:id="date4" layoutX="181.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="71.13671875" />-->
-<!--      <Button fx:id="LogIn3" layoutX="323.0" layoutY="195.0" mnemonicParsing="false" onAction="#LogIn3Act" prefHeight="25.0" prefWidth="80.0" text="Log in" />-->
-<!--      <Button fx:id="LogIn4" layoutX="323.0" layoutY="249.0" mnemonicParsing="false" onAction="#LogIn4Act" prefHeight="25.0" prefWidth="80.0" text="Log in" />-->
-<!--      <TextField fx:id="code1" layoutX="444.0" layoutY="73.0" onAction="#code1Act" prefHeight="25.0" prefWidth="142.0" promptText="ENTER THE EXAM CODE" />-->
-<!--      <TextField fx:id="code2" layoutX="444.0" layoutY="137.0" onAction="#code2Act" prefHeight="25.0" prefWidth="142.0" promptText="ENTER THE EXAM CODE" />-->
-<!--      <TextField fx:id="code3" layoutX="444.0" layoutY="195.0" onAction="#code3Act" prefHeight="25.0" prefWidth="142.0" promptText="ENTER THE EXAM CODE" />-->
-<!--      <TextField fx:id="code4" layoutX="444.0" layoutY="248.0" onAction="#code4Act" prefHeight="25.0" prefWidth="142.0" promptText="ENTER THE EXAM CODE" />-->
+      <!--      <Text fx:id="Sub1" layoutX="35.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="English" wrappingWidth="80.13671875" />-->
+      <!--      <Text fx:id="date1" layoutX="181.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="71.13671875" />-->
+      <!--      <Text fx:id="sub2" layoutX="35.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Math" wrappingWidth="80.13671875" />-->
+      <!--      <Text fx:id="date2" layoutX="181.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="71.13671875" />-->
+      <!--      <Button fx:id="logIn1" layoutX="323.0" layoutY="73.0" mnemonicParsing="false" onAction="#logIn1Act" prefHeight="25.0" prefWidth="80.0" text="Log in" />-->
+      <!--      <Button fx:id="LogIn2" layoutX="323.0" layoutY="136.0" mnemonicParsing="false" onAction="#LogIn2Act" prefHeight="25.0" prefWidth="80.0" text="Log in" />-->
+      <!--      <Text fx:id="sub3" layoutX="35.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Arabic" wrappingWidth="80.13671875" />-->
+      <!--      <Text fx:id="sub4" layoutX="35.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hebrow" wrappingWidth="80.13671875" />-->
+      <!--      <Text fx:id="date3" layoutX="181.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="71.13671875" />-->
+      <!--      <Text fx:id="date4" layoutX="181.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="71.13671875" />-->
+      <!--      <Button fx:id="LogIn3" layoutX="323.0" layoutY="195.0" mnemonicParsing="false" onAction="#LogIn3Act" prefHeight="25.0" prefWidth="80.0" text="Log in" />-->
+      <!--      <Button fx:id="LogIn4" layoutX="323.0" layoutY="249.0" mnemonicParsing="false" onAction="#LogIn4Act" prefHeight="25.0" prefWidth="80.0" text="Log in" />-->
+      <!--      <TextField fx:id="code1" layoutX="444.0" layoutY="73.0" onAction="#code1Act" prefHeight="25.0" prefWidth="142.0" promptText="ENTER THE EXAM CODE" />-->
+      <!--      <TextField fx:id="code2" layoutX="444.0" layoutY="137.0" onAction="#code2Act" prefHeight="25.0" prefWidth="142.0" promptText="ENTER THE EXAM CODE" />-->
+      <!--      <TextField fx:id="code3" layoutX="444.0" layoutY="195.0" onAction="#code3Act" prefHeight="25.0" prefWidth="142.0" promptText="ENTER THE EXAM CODE" />-->
+      <!--      <TextField fx:id="code4" layoutX="444.0" layoutY="248.0" onAction="#code4Act" prefHeight="25.0" prefWidth="142.0" promptText="ENTER THE EXAM CODE" />-->
       <Button fx:id="next" layoutX="252.0" layoutY="326.0" mnemonicParsing="false" onAction="#nextAct" prefHeight="36.0" prefWidth="80.0" text="NEXT" textFill="#a19c22">
          <font>
             <Font name="System Bold Italic" size="12.0" />
