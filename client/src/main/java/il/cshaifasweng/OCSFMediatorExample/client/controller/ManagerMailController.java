@@ -1,12 +1,9 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
-import com.mysql.cj.xdevapi.Client;
-import com.sun.jdi.BooleanValue;
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.*;
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import il.cshaifasweng.OCSFMediatorExample.entities.GetForManager;
+import il.cshaifasweng.OCSFMediatorExample.entities.MailManagerEntity;
+import il.cshaifasweng.OCSFMediatorExample.entities.ManagerMessage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,13 +13,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
-import static java.time.zone.ZoneRulesProvider.refresh;
-import static javafx.beans.property.BooleanProperty.booleanProperty;
 
 public class ManagerMailController {
     int lastIndex = SimpleClient.getParams().size() - 1;
@@ -64,7 +58,7 @@ public class ManagerMailController {
             message.add(MME);
             try {
                 LinkedList<Object> message1 = new LinkedList<>();
-                message1.add("ExitMessages");
+                message1.add("ExitMessages1");
                 message1.add(0);
                 SimpleClient.getClient().sendToServer(message1);
                 SimpleClient.getParams().add(message);

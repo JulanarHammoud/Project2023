@@ -973,7 +973,7 @@ public class SimpleServer extends AbstractServer {
 					} catch (IOException e) {
 						throw new RuntimeException(e);
 					}
-				}else if (pass.equals("")) {
+				} else if (pass.equals("")) {
 					Warning warning = new Warning("please fill the password!");
 					try {
 						client.sendToClient(warning);
@@ -988,9 +988,7 @@ public class SimpleServer extends AbstractServer {
 						throw new RuntimeException(e);
 					}
 				}
-			} else if (message.get(0).equals("ExitMessages")){
-				mngr.setInfo("Maill",0);//we are not in the mail manager
-			} else if (message.get(0).equals("#PublishExam")){
+			}else if (message.get(0).equals("#PublishExam")){
 				ExamTeacher examTeacher = (ExamTeacher) message.get(1);
 				Teacher teacher = (Teacher) message.get(2);
 				ExamStudent examStudent = (ExamStudent) message.get(3);
@@ -1002,7 +1000,6 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				///// l7d hon mn7ot el exam 3nd teacher and students
 			} else if (message.get(0).equals("#StdFinishExam")){
 
 				System.out.println("StdFinishExam");
@@ -1346,7 +1343,9 @@ public class SimpleServer extends AbstractServer {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
+			} else if (message.get(0).equals("ExitMessages1")){
+			mngr.setInfo("Maill",0);//we are not in the mail manager
 		}
+	}
 	}
 }

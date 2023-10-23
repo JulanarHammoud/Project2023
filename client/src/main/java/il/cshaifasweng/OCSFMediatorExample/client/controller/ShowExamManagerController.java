@@ -1,10 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.CourseTeacher;
-import il.cshaifasweng.OCSFMediatorExample.entities.Exam;
-import il.cshaifasweng.OCSFMediatorExample.entities.GetForManager;
-import il.cshaifasweng.OCSFMediatorExample.entities.Question;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -83,10 +80,11 @@ public class ShowExamManagerController {
     @FXML
     public void back (ActionEvent event) {
         try {
-            LinkedList<Object> message1 = new LinkedList<Object>();
-            message1.add(course);
-            message1.add(getForManager);
-            SimpleClient.getParams().add(message1);
+            //LinkedList<Object> message1 = new LinkedList<Object>();
+            //message1.add(course);
+            Formangerandcourseteacher formangerandcourseteacher = new Formangerandcourseteacher(course,getForManager);
+            //message1.add(getForManager);
+            SimpleClient.getParams().add(formangerandcourseteacher);
             setRoot("ExamManager");
         } catch (IOException e) {
             e.printStackTrace();
