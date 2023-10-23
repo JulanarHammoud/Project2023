@@ -78,7 +78,6 @@ public class PublishedExamController {
             ExamTeacher exam = Etable.getSelectionModel().getSelectedItem();
             message.add(exam);
             SimpleClient.getClient().sendToServer(message);
-           // setRoot("Duration");
         }catch (IOException e){
             e.printStackTrace();
         }

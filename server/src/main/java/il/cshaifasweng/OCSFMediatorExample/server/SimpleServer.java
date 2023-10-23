@@ -1006,11 +1006,13 @@ public class SimpleServer extends AbstractServer {
 				Student student = (Student) message.get(1);
 				ExamStudent exam = (ExamStudent) message.get(2);
 				ExamTeacher examTeacher = Data.getDataById(ExamTeacher.class, exam.getExamTId());
-				int x;
-				x=examTeacher.getFinish()+1;
-				examTeacher.setFinish(x);
-				Data.updateExamstartandfinish(x, examTeacher.getStart(), exam.getExamTId());
-				System.out.println(x);
+				if(exam.isOnTime()){
+					int x;
+					x=examTeacher.getFinish()+1;
+					examTeacher.setFinish(x);
+					Data.updateExamstartandfinish(x, examTeacher.getStart(), exam.getExamTId());
+					System.out.println(x);
+				}
 				Student std = Data.SubmitExam(student, exam);
 				examTeacher = Data.getDataById(ExamTeacher.class, exam.getExamTId());
 				Teacher teacher = Data.getDataById(Teacher.class, exam.getTeacherPubId());
@@ -1095,13 +1097,21 @@ public class SimpleServer extends AbstractServer {
 				ExamTeacher examTeacher = (ExamTeacher) message.get(2);
 				Teacher teacher = Data.getDataById(Teacher.class,teacherId);
 				ExamTeacher exam = Data.getDataById(ExamTeacher.class, examTeacher.getId());
-				StudentsExams event = new StudentsExams(teacher,exam);
-				try {
-					client.sendToClient(event);
-				} catch (IOException e) {
-					e.printStackTrace();
+				if(exam.getStart()==0){
+					Warning warning1 = new Warning("There is no students who compleated the eam!");
+					try {
+						client.sendToClient(warning1);
+					} catch (Exception e) {
+						throw new RuntimeException(e);
+					}
+				}else{
+					StudentsExams event = new StudentsExams(teacher,exam);
+					try {
+						client.sendToClient(event);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
-
 			} else if(message.get(0).equals("#ApprovingGrade")){
 				ExamTeacher exam = (ExamTeacher) message.get(1);
 				Teacher t=(Teacher) message.get(2);

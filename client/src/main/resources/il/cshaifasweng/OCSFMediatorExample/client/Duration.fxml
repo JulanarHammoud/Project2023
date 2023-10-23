@@ -14,14 +14,14 @@
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-      <Accordion fx:id="extratime" layoutX="15.0" layoutY="228.0" prefHeight="128.0" prefWidth="510.0" />
+      <Accordion fx:id="extratime" layoutX="15.0" layoutY="258.0" prefHeight="128.0" prefWidth="510.0" />
       <Label layoutX="14.0" layoutY="138.0" prefHeight="36.0" prefWidth="308.0" text="The number of students who initiated the exam:" />
       <Label fx:id="startstudent" layoutX="281.0" layoutY="138.0" prefHeight="36.0" prefWidth="102.0" text="Label">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Label layoutX="14.0" layoutY="181.0" prefHeight="36.0" prefWidth="277.0" text="The number of students who completed the exam:" />
-      <Label fx:id="completestudent" layoutX="300.0" layoutY="182.0" prefHeight="36.0" prefWidth="102.0" text="Label">
+      <Label layoutX="15.0" layoutY="174.0" prefHeight="36.0" prefWidth="277.0" text="The number of students who completed the exam:" />
+      <Label fx:id="completestudent" layoutX="300.0" layoutY="174.0" prefHeight="36.0" prefWidth="102.0" text="Label">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
@@ -45,5 +45,11 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
+      <Label layoutX="15.0" layoutY="218.0" prefHeight="17.0" prefWidth="336.0" text="The number of students who didn't complete the exam yet:" />
+      <Label fx:id="didintcompletestudent" layoutX="338.0" layoutY="209.0" prefHeight="36.0" prefWidth="102.0" text="Label">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

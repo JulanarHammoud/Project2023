@@ -30,6 +30,7 @@ public class DurationController {
     private Accordion extratime;
     @FXML Label starttime;
     @FXML Label startstudent;
+    @FXML Label didintcompletestudent;
     @FXML Label date;
     @FXML Label completestudent;
     @FXML Label finish;
@@ -61,6 +62,7 @@ public class DurationController {
         starttime.setText(examTeacher.getTime());
         startstudent.setText(String.valueOf(examTeacher.getStart()));
         completestudent.setText(String.valueOf(examTeacher.getFinish()));
+        didintcompletestudent.setText(String.valueOf(examTeacher.getStart()-examTeacher.getFinish()));
         t=0; d=0;
         TitledPane timemessage = new TitledPane();
         timemessage.setText("Request For Extra Time");

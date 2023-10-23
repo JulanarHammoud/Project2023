@@ -257,16 +257,6 @@ public class StExamButtonController implements Serializable {
 
     @FXML
     void nextAct(ActionEvent event) throws IOException {
-//        if (!code1.getText().equals(""))
-//        {codee=code1.getText();
-//        System.out.println(""+code1.getText()+"ll"+codee);}
-//        if (!code3.getText().equals(""))
-//        {codee=code3.getText();}
-//        if (!code2.getText().equals(""))
-//        {codee=code2.getText();}
-//        if (!code4.getText().equals(""))
-//        {codee=code4.getText();}
-
         if(IS==false)
         {
             Alert alert = new Alert(Alert.AlertType.WARNING);

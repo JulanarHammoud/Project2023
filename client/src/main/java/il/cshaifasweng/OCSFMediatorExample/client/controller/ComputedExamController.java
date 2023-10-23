@@ -5,43 +5,29 @@ import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-//import javafx.util.Duration;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.time.Duration;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 
 import static il.cshaifasweng.OCSFMediatorExample.client.App.set;
-import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
 
 public class ComputedExamController {
     RadioButton button1;
     JRadioButtonMenuItem item;
 
     int lastIndex = SimpleClient.getParams().size() - 1;
-    //    ExamSubjectTeacher message = (ExamSubjectTeacher) SimpleClient.getParams().get(lastIndex);
-//    Exam exam = message.getExam();
-//    List<Question> questions = exam.getQuestions();
-//    Teacher teacher = message.getTeacher();
-//    SubjectTeacher subject = message.getSubjectTeacher();
     StartCompExam initial = (StartCompExam) SimpleClient.getParams().get(lastIndex);
     Student std = initial.getStudent();
     ExamStudent exam = initial.getExam();
@@ -70,9 +56,6 @@ public class ComputedExamController {
 
     @FXML
     private Label sub;
-
-    // @FXML
-    // private AnchorPane mainAnchor;
     @FXML
     private List<CheckBox> selectedCheckboxes = new ArrayList<>();
     int timeInMinutes = exam.getExam().getTimerr();
@@ -103,12 +86,9 @@ public class ComputedExamController {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
         /*****************************************************************/
-        //test = new AnchorPane();
         int timer = (exam.getNewTimer() == -1) ? exam.getTimerr() : exam.getNewTimer();
         examTime.setText("exam time is: " + timer);
         noteStudent.setText("notes for students: " + exam.getStudentNotes());
-        //noteStudent.set
-        //noteTeacher.setText("notes for teachesrs: " + exam.getTeacherNotes());
         sub.setText("exam sub is: " + exam.getSubject());
 
         double i = 150.0; // this index to set the position of the question on the screen
@@ -144,7 +124,6 @@ public class ComputedExamController {
 
     @FXML
     public void Finish () {
-
         LinkedList<Object> message = new LinkedList<Object>();
         // we have to add the exam to the examTeacher
         // and generate new exam for the student and adding it to the list
@@ -168,7 +147,6 @@ public class ComputedExamController {
     public  void handleRadioButtonClick(String ans, DetailedQuestion question,int position){
         question.setStdAnswer(ans);
         questions.set(position,question);
-
     }
 
     public int computeGrade( List<DetailedQuestion> questions){
@@ -181,7 +159,6 @@ public class ComputedExamController {
            }
         }
         return grade;
-
     }
     public void updateCountdown(){
         int timer = (exam.getNewTimer() == -1) ? exam.getTimerr() : exam.getNewTimer();
@@ -213,8 +190,5 @@ public class ComputedExamController {
             onTime = false;
             Finish();
         }
-
     }
-
-
 }
