@@ -267,6 +267,9 @@ public class ExamEditController {
     @FXML
     public void add(ActionEvent event){
         LinkedList<Object> message = new LinkedList<Object>();
+        LinkedList<SubjectTeacher> selectedSubjects = new LinkedList<>();
+        selectedSubjects.add(subject);
+
         //if the labels haven't been pressed
         if(q==0){Qst="";}
         if(a1==0){Answ1="";}
@@ -289,6 +292,7 @@ public class ExamEditController {
         message.add(teacher);
         message.add(QUEStions);
         message.add(1);
+        message.add(selectedSubjects);
         message.add(exam);
         message.add(examSubjectTeacherEdit.getFlag());
         try {

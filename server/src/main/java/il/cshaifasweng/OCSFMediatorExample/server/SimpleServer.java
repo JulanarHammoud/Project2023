@@ -544,12 +544,10 @@ public class SimpleServer extends AbstractServer {
 					else { //the input is good
 						SubjectTeacher subjectTeacher = (SubjectTeacher) message.get(1);
 						SubjectTeacher subjectTeacher1 = Data.MakeQuestion(ques1, ans1, ans2, ans3, ans4, right, note, subjectTeacher,subjects);
-						System.out.println("I'm after function "+subjectTeacher1);
 						LinkedList<Question> questions = (LinkedList<Question>) message.get(11);
 						SubjectAndId subid;
 						teacher=Data.getDataById(Teacher.class,teacher.getId());
 						if (questions == null) { // make new question coming from question table
-							System.out.println("in makenew" + subjectTeacher1.getSb_name());
 							subid = new SubjectAndId(subjectTeacher1, id, teacher);
 						} else { // make new question coming from make exam
 							subid = new SubjectAndId(subjectTeacher1, id, teacher, questions);
@@ -557,19 +555,17 @@ public class SimpleServer extends AbstractServer {
 						}
 						Warning warning = new Warning("The Question added Successfully!!");
 						if ((Integer) message.get(12) == 1) { //we are in edit exam page
-							int flag = (Integer) message.get(14);
+							int flag = (Integer) message.get(15);
 							subid.setQuestions(questions);
-							id = subid.getId();
-							Exam exam = Data.findExam(id);
+							Exam exam = (Exam) message.get(14);
+							Exam newexam = Data.findExam(exam.getId());
 							CourseTeacher course = Data.FindCourse(exam.getCourse());
 							SubjectTeacher subject1 = Data.GetSubjectById(subjectTeacher.getId());
-							System.out.println("what is the subject"  + subject1);
-							ExamSubjectTeacherEdit examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject1, exam, flag, course);
+							ExamSubjectTeacherEdit examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject1, newexam, flag, course);
 							client.sendToClient(warning);
 							client.sendToClient(examSubjectTeacherEdit);
 						} else { //we are in make new question page
 							client.sendToClient(warning);
-							System.out.println("Cccccclient"+subid.getSubject().getSb_name());
 							client.sendToClient(subid);
 						}
 					}
@@ -992,7 +988,9 @@ public class SimpleServer extends AbstractServer {
 						throw new RuntimeException(e);
 					}
 				}
-			}else if (message.get(0).equals("#PublishExam")){
+			} else if (message.get(0).equals("ExitMessages")){
+				mngr.setInfo("Maill",0);//we are not in the mail manager
+			} else if (message.get(0).equals("#PublishExam")){
 				ExamTeacher examTeacher = (ExamTeacher) message.get(1);
 				Teacher teacher = (Teacher) message.get(2);
 				ExamStudent examStudent = (ExamStudent) message.get(3);

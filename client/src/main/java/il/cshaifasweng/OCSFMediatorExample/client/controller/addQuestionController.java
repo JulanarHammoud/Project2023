@@ -137,10 +137,8 @@ public class addQuestionController {
             message.add(note);
             message.add(id);
             message.add(teacher);
-           // System.out.println(questions.get(0).getQuestion());
             message.add(questions);
             message.add(0);
-            System.out.println("the selectedddddddddd"+selectedSubjects);
             message.add(selectedSubjects);
             SimpleClient.getClient().sendToServer(message);
         }
