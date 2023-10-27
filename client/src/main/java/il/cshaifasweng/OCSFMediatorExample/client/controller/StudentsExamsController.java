@@ -64,6 +64,9 @@ public class StudentsExamsController implements Serializable {
         name.setCellValueFactory(dataValueFactory ->
                 new SimpleStringProperty(dataValueFactory.getValue().getStdName()));
         table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if(oldSelection!=newSelection){
+                pane.getChildren().clear();
+            }
            try{
                if (newSelection != null) {
 //                   if(newSelection.isApprove()){
