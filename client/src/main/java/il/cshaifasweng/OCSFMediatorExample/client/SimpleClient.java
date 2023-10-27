@@ -30,6 +30,10 @@ public class SimpleClient extends AbstractClient {
 			EventBus.getDefault().post(new WarningEvent((Warning) msg));
 			System.out.println("im in the warning");
 		}
+		if (msg.getClass().equals(Message.class)) {
+			EventBus.getDefault().post(new MassegeEvent((Message) msg));
+			System.out.println("im in the Messsage");
+		}
 		else if(msg.getClass().equals(StudentWillDoEx.class)){
 			System.out.println("Received message class: " + msg.getClass().getName() +"from server");
 			EventBus.getDefault().post(new StudentWillDoExEvent((StudentWillDoEx) msg));

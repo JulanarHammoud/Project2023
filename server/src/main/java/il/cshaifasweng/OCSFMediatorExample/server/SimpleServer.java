@@ -204,8 +204,8 @@ public class SimpleServer extends AbstractServer {
 							Warning warning = new Warning("wrong password, please try again!!");
 							client.sendToClient(warning);
 						} else if (studentlog.getActive() == true) {
-							Warning warning = new Warning("you are already in");
-							client.sendToClient(warning);
+							Message message1 = new Message("you are already in");
+							client.sendToClient(message1);
 						} else {
 							Data.activateSt(studentlog.getId());
 							client.sendToClient(studentlog);
@@ -225,8 +225,8 @@ public class SimpleServer extends AbstractServer {
 							Warning warning = new Warning("wrong password, please try again!!");
 							client.sendToClient(warning);
 						} else if (teacherlog.getActive() == true) {
-							Warning warning = new Warning("you are already in");
-							client.sendToClient(warning);
+							Message message1 = new Message("you are already in");
+							client.sendToClient(message1);
 						} else {
 							onlineTeachers.put(teacherlog.getId(),client);
 							Data.activateTeacher(teacherlog.getId());
@@ -275,8 +275,8 @@ public class SimpleServer extends AbstractServer {
 				try {
 					client.sendToClient(logOut);
 					System.out.format("Sent logout to client %s\n", client.getInetAddress().getHostAddress());
-					Warning warning = new Warning("you loged out successfully");
-					client.sendToClient(warning);
+					Message message1 = new Message("you loged out successfully");
+					client.sendToClient(message1);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -425,7 +425,7 @@ public class SimpleServer extends AbstractServer {
 					Question question = (Question) message.get(1);
 					Question oldquestion = (Question) message.get(5);
 					int flag = (Integer) message.get(6);
-					System.out.println("in edit question ");
+					System.out.println("in edit question");
 					System.out.println(question.getQuestion());
 					String ques1 = question.getQuestion();
 					String ans1 = question.getAns1();
@@ -470,11 +470,11 @@ public class SimpleServer extends AbstractServer {
 					} else {
 						Question newq= new Question(ques1, ans1, ans2, ans3, ans4, note, right);
 						LinkedList nulllinked = new LinkedList();
-						nulllinked = null;
+						nulllinked.add(subjectteacher);
 						Data.MakeQuestion(ques1,ans1,ans2,ans3,ans4,note,right,subjectteacher,nulllinked);
 						//Data.updateQuestion(id, ques1, ans1, ans2, ans3, ans4, note, right);
 						System.out.println("after data function");
-						Warning warning = new Warning("The Question updated Successfully!!");
+						Message message12 = new Message("The Question updated Successfully!!");
 						SubjectTeacher subject = (SubjectTeacher) message.get(3);
 						SubjectTeacher newsubject = Data.GetSubjectById(subject.getId());
 						SubjectAndId subid;
@@ -484,7 +484,7 @@ public class SimpleServer extends AbstractServer {
 						} else {
 							subid = new SubjectAndId(newsubject, (Integer) message.get(2), teacher);
 						}
-						client.sendToClient(warning);
+						client.sendToClient(message12);
 						client.sendToClient(subid);
 					}
 				} catch (IOException e) {
@@ -553,7 +553,7 @@ public class SimpleServer extends AbstractServer {
 							subid = new SubjectAndId(subjectTeacher1, id, teacher, questions);
 							subid.setQuestions(questions);
 						}
-						Warning warning = new Warning("The Question added Successfully!!");
+						Message message1 = new Message("The Question added Successfully!!");
 						if ((Integer) message.get(12) == 1) { //we are in edit exam page
 							int flag = (Integer) message.get(15);
 							subid.setQuestions(questions);
@@ -562,10 +562,10 @@ public class SimpleServer extends AbstractServer {
 							CourseTeacher course = Data.FindCourse(exam.getCourse());
 							SubjectTeacher subject1 = Data.GetSubjectById(subjectTeacher.getId());
 							ExamSubjectTeacherEdit examSubjectTeacherEdit = new ExamSubjectTeacherEdit(teacher, subject1, newexam, flag, course);
-							client.sendToClient(warning);
+							client.sendToClient(message1);
 							client.sendToClient(examSubjectTeacherEdit);
 						} else { //we are in make new question page
-							client.sendToClient(warning);
+							client.sendToClient(message1);
 							client.sendToClient(subid);
 						}
 					}
@@ -867,7 +867,7 @@ public class SimpleServer extends AbstractServer {
 				int time = (Integer) message.get(3);
 				String exp = (String) message.get(4);
 				Data.GenerateMessage(time, exp, teacher.getId(), examteacher.getId());
-				Warning warning = new Warning("Message Added Successfully");
+				Message message1 = new Message("Message Added Successfully");
 				try {
 					if (mngr != null) {
 						if(mngr.getInfo("Maill").toString().equals("1")) // if the manager is in the maill page, refresh it
@@ -881,7 +881,7 @@ public class SimpleServer extends AbstractServer {
 							System.out.println("Sent mail manger to the client ");
 							mngr.sendToClient(mailManagerEntity);
 						}
-						client.sendToClient(warning);
+						client.sendToClient(message1);
 					} else {
 						Warning warning1 = new Warning("The message have been sent, but the manager is not available");
 						client.sendToClient(warning1);

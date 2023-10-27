@@ -528,7 +528,7 @@ public class Data {
         return 0;
     }
 
-    public static SubjectTeacher MakeQuestion(String Q, String an1, String an2, String an3, String an4, String right, String note, SubjectTeacher sub,LinkedList<SubjectTeacher> subjects) {
+    public static SubjectTeacher MakeQuestion(String Q, String an1, String an2, String an3, String an4, String note, String right, SubjectTeacher sub,LinkedList<SubjectTeacher> subjects) {
         System.out.println("in make Question ");
         // Exam ex=new Exam(0,NumQ,chose,"T",TNotes,SNotes,cc);
         Question newquestion =new Question(Q,an1,an2,an3,an4, note,right);

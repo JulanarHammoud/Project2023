@@ -48,6 +48,7 @@ public class StudentsExamsController implements Serializable {
     private Button logout1;
 
     public void initialize() {
+        pane.getChildren().clear();
         SimpleClient.setPosition("StudentsExams");
         int last = SimpleClient.getMesFromClient().size() - 1;
         System.out.println(" the list size is: " + last) ;

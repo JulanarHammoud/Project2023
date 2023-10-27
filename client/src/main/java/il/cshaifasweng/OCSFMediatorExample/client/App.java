@@ -6,8 +6,11 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -66,6 +69,39 @@ public class App extends Application {
             alert.setTitle("WARNING");
             alert.setHeaderText(null);
             alert.setContentText(event.getWarning().getMessage());
+            alert.showAndWait();
+        });
+
+
+    }
+    @Subscribe
+    public void onMessageEvent(MassegeEvent event) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText(null);
+            ImageView imageView = new ImageView(new Image("il/cshaifasweng/OCSFMediatorExample/client/34950617-3d-illustration-of-right-sign-in-green-color.jpg"));
+            imageView.setFitWidth(70);  // Set the desired width
+            imageView.setFitHeight(70); // Set the desired height
+            Label messageLabel = new Label(event.getMessage().getMsg());
+
+            VBox content = new VBox(10); // 10 is the spacing between the image and the message
+            content.getChildren().addAll(imageView, messageLabel);
+
+            DialogPane dialogPane = new DialogPane();
+            Button closeButton = new Button("Close");
+            closeButton.setOnAction(e -> {
+                alert.setResult(ButtonType.CLOSE);
+                alert.hide();
+            });
+            closeButton.setStyle("-fx-background-color: #f0f0f0;"); // Customize the close button style
+            dialogPane.getButtonTypes().clear(); // Remove default button types
+            dialogPane.getButtonTypes().add(ButtonType.CLOSE); // Add a custom button type
+            dialogPane.setContent(content);
+            dialogPane.setGraphic(imageView);
+            dialogPane.setPrefWidth(500); // Set the desired width
+            dialogPane.setPrefHeight(50);
+            alert.setDialogPane(dialogPane);
             alert.showAndWait();
         });
 
