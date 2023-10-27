@@ -68,16 +68,15 @@ public class GradesteacherController {
         xAxis.setLabel("Grades");
         yAxis.setLabel("Distribution");
         List<ExamTeacher> exams=new ArrayList<>();
-//        for (ExamTeacher examTeacher : examTeachers) {
-//            if(examTeacher.getSubject().equals(sub.getSb_name())){
-//                exams.add(examTeacher);
-//            }
-//        }
+        int tt;
         for(ExamTeacher examTeacher:examTeachersall){
-            for(ExamTeacher e: examTeachers) {
-                if (examTeacher.getTeacherid() == teacher.getId() || examTeacher.getId() ==e.getId()) {
-                    if(examTeacher.getSubject().equals(sub.getSb_name())){
+            tt=0;
+            for (ExamTeacher e : examTeachers) {
+                if (examTeacher.getTeacherid() == teacher.getId() || examTeacher.getId() == e.getId()) {
+                    if (examTeacher.getSubject().equals(sub.getSb_name()) && tt==0) {
+                        tt = 1;
                         exams.add(examTeacher);
+                        System.out.println(examTeacher.getDate());
                     }
                 }
             }
