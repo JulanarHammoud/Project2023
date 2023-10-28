@@ -56,12 +56,7 @@ public class ManualExStController {
     int timeInMinutes = ExSt.getEx().getTimerr();
     //int timeInMinutes=130;
     boolean shouldStopSec = false;
-    private SimpleIntegerProperty hours;
-    private SimpleIntegerProperty minutes;
-    private SimpleIntegerProperty seconds;
-    Timeline timelineSeconds;
-    Timeline timelineMinutes;
-    Timeline timelineHours;
+
     @FXML
     private Button finish;
     Exam ex = new Exam();
@@ -73,9 +68,10 @@ public class ManualExStController {
     }
     @FXML
     void finishACt(ActionEvent event) {
-        timelineSeconds.stop();
-        timelineMinutes.stop();
-        timelineHours.stop();
+
+        if(timeline != null){
+            timeline.stop();
+        }
         SimpleClient.getParams().add(student);
         try {
             setRoot("PrimaryStudent");
@@ -90,9 +86,6 @@ public class ManualExStController {
 
         downloaded.setDisable(true);
 
-        hours = new SimpleIntegerProperty(hoursParams);
-        minutes = new SimpleIntegerProperty(timeInMinutes);
-        seconds = new SimpleIntegerProperty(60);
 
         javafx.util.Duration sec = javafx.util.Duration.seconds(1);
         timeline = new Timeline(new KeyFrame(sec, event -> {
@@ -241,6 +234,7 @@ public class ManualExStController {
         if( remainingTime.toHours()<=0 && (remainingTime.toMinutes() % 60)<=0 && (remainingTime.getSeconds() % 60)<=0){
             System.out.println("time finished before submitting");
           submitt.setDisable(true);
+          timeline.stop();
         }
 
     }
