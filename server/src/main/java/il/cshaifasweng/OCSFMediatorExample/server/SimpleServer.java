@@ -317,7 +317,8 @@ public class SimpleServer extends AbstractServer {
 							client.sendToClient(warning);
 						} else {System.out.println("1");
 							System.out.println(t_N+"" +timm+ ""+S_N+""+ course.getName()+""+ sub.getSb_name()+""+ teacherr);
-							int id = Data.MakeExam(0, t_N, timm, S_N, course.getName(), sub, teacherr,teacher.getId());System.out.println("2");
+							int id = Data.MakeExam(0, t_N, timm, S_N, course.getName(), sub, teacherr,teacher.getId());
+							System.out.println("2");
 							DecimalFormat formatter = new DecimalFormat("00");System.out.println("3");
 							String cor_id = formatter.format(course.getId());System.out.println("4");
 							String sub_id = formatter.format(sub.getId());System.out.println("5");
@@ -354,25 +355,29 @@ public class SimpleServer extends AbstractServer {
 					StudentWillMakeEx StEx=new StudentWillMakeEx();
 					StEx.setSs(studentFull);
 					StEx.setEx(exam);
-					//List<ExamStudent> t=studentFull.getStudentExams();
-
-//						ExamStudent x=new ExamStudent();
-//						System.out.println("1");
-//						int i=0;
-//						while(i<t.size()){
-//							System.out.println("2"+i+t.size());
-//							x=t.get(i);
-//							System.out.println("3"+x.getCodeGivenByTeacher()+"3"+code);
-//							if(code.equals(x.getCodeGivenByTeacher())) {
-//								System.out.println("4");
-//								i=t.size();
-//								System.out.println("5"+i+t.size());
-//							} else{
-//								System.out.println("6");
-//								i++;
-//							}
-//						}
-//						StEx.setEx(x);
+					List<ConnectionToClient> clients = studentsInExam.get(exam.getExamTId());
+					if(clients == null){
+						clients = new ArrayList<>();
+					}
+					clients.add(client);
+					studentsInExam.put(exam.getExamTId(),clients);// saving the students clients that making exams
+					int id = exam.getExamTId();
+					int tId = exam.getTeacherPubId();
+					ExamTeacher examTeacher = Data.getDataById(ExamTeacher.class, id);
+					int x = examTeacher.getStart() + 1;
+					examTeacher.setStart(x);
+					Data.updateExamstartandfinish(examTeacher.getFinish(), x, id);
+					Teacher teacher = Data.getDataById(Teacher.class,tId);
+					try {
+						System.out.println(" the sudents in the exam: " + x);
+						ConnectionToClient teacherClient = onlineTeachers.get(tId);
+						if(teacherClient != null){
+							ToDuration toDuration = new ToDuration(teacher,examTeacher,true);
+							teacherClient.sendToClient(toDuration);
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 					client.sendToClient(StEx);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -1265,13 +1270,37 @@ public class SimpleServer extends AbstractServer {
 
 			}
 			else if (message.get(0).equals("#SubmitManual")) {
+
 				StudentWillMakeEx makeEx = (StudentWillMakeEx) message.get(1);
 				String targetPath = (String) message.get(2);
 				Student std = makeEx.getSs();
 				ExamStudent exam = makeEx.getEx();
 				exam.setComputed(false);
 				exam.setManualPath(targetPath);
-				Data.SubmitManual(std,exam);
+				Student student =Data.SubmitManual(std,exam);
+				ExamTeacher examTeacher = Data.getDataById(ExamTeacher.class,exam.getExamTId());
+				int x;
+				x=examTeacher.getFinish()+1;
+				examTeacher.setFinish(x);
+				Data.updateExamstartandfinish(x, examTeacher.getStart(), exam.getExamTId());
+				System.out.println(x);
+				Teacher teacher = Data.getDataById(Teacher.class, exam.getTeacherPubId());
+				try {
+					ConnectionToClient teacherClient = onlineTeachers.get(exam.getTeacherPubId());
+					if (teacherClient != null) {
+						List<ExamStudent> examStudents = examTeacher.getExamsOfStudents();
+						UpdatedExams updatedExams = new UpdatedExams(examStudents);
+						teacherClient.sendToClient(updatedExams);
+						ToDuration toDuration = new ToDuration(teacher,examTeacher,true);
+						teacherClient.sendToClient(toDuration);
+						studentsInExam.remove(std.getId());// removing the client of the student
+					}
+					System.out.println("sending " + std.getFirstName() + "'s detailes to client");
+					client.sendToClient(student);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
 			}
 			else if (message.get(0).equals("#GetGradesTeacher")) {
 				Teacher teacher = (Teacher) message.get(1);

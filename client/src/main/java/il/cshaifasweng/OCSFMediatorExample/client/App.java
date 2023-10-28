@@ -456,7 +456,7 @@ public class App extends Application {
         Platform.runLater(() -> {
             System.out.println("StudentExamsEvent App-client");
             SimpleClient.getParams().add(event.getStudentsExams());
-            System.out.println(event.getStudentsExams().getExam().getExamsOfStudents().get(0).getQuestions().get(0).getStdAnswer());
+            //System.out.println(event.getStudentsExams().getExam().getExamsOfStudents().get(0).getQuestions().get(0).getStdAnswer());
             try {
                 setRoot("StudentsExams");
             } catch (IOException e) {
@@ -521,7 +521,7 @@ public class App extends Application {
     @Subscribe
     public void UpdateTimerEvevnt(UpdateTimerEvevnt event) {
         Platform.runLater(() -> {
-            if(SimpleClient.getPosition().equals("ComputedExam")){
+            if(SimpleClient.getPosition().equals("ComputedExam" ) || SimpleClient.getPosition().equals("ManualExam")){
                // System.out.println(" the client updating the duration to: " + event.getToDuration().getExamTeacher().getStart());
                 SimpleClient.getMesFromClient().add(event.getUpdateTimer());
 

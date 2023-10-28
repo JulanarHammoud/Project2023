@@ -10,6 +10,7 @@ import org.hibernate.service.ServiceRegistry;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -495,8 +496,8 @@ public class Data {
         }
     }
 
-    public static int MakeExam(int NumQ, String TNotes, String timm, String SNotes, String course, SubjectTeacher sub, String teacher, int teacherid) {
-        Exam ex = new Exam(NumQ, TNotes, timm, SNotes, course, sub.getSb_name(), teacher, teacherid);
+    public static int MakeExam(int NumQ, String TNotes, String timm, String SNotes, String course, SubjectTeacher sub, String teacher ,int teacherid) {
+        Exam ex = new Exam(NumQ, TNotes, timm, SNotes, course, sub.getSb_name(), teacher,teacherid);
         try {
             System.out.println("generating an exam");
             SessionFactory sessionFactory = getSessionFactory();
@@ -534,7 +535,7 @@ public class Data {
         Question newquestion =new Question(Q,an1,an2,an3,an4, note,right);
         SubjectTeacher change1=new SubjectTeacher();
         try {
-        //    System.out.println("dataaaaaaaaaaaaaaaa"+subjects.get(0).getSb_name());
+            //    System.out.println("dataaaaaaaaaaaaaaaa"+subjects.get(0).getSb_name());
             for(SubjectTeacher s :subjects){
                 System.out.println(s.getSb_name());
                 SessionFactory sessionFactory = getSessionFactory();
@@ -1106,8 +1107,8 @@ public class Data {
         try{
             System.out.println(student.getId() + " " + student.getFirstName());
             ExamStudent e = new ExamStudent(exam.getTime(),exam.getDate(), exam.isComputed(),exam.getExam(),exam.getCode(),exam.getTeacherPubId(),exam.getTeacherid());
-            e.setGrade(exam.getGrade());
             e.setManualPath(exam.getManualPath());
+            e.setComputed(false);
             int id =  generateData(e);
             SessionFactory sessionFactory = getSessionFactory();
             session = sessionFactory.openSession();

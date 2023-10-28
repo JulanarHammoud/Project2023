@@ -15,7 +15,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Pair;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -78,116 +81,126 @@ public class StudentsExamsController implements Serializable {
 //                   }
                    System.out.println("Selected Name: " + newSelection.getStdName());
                    ExamStudent StEx = newSelection;
-                   selectedExam =newSelection;
-                   List<DetailedQuestion> questions = StEx.getQuestions();
-                   double i = 100.0; // this index to set the position of the question on the screen
+                   selectedExam = newSelection;
+                   if (selectedExam.isComputed()) {
+                       List<DetailedQuestion> questions = StEx.getQuestions();
+                       double i = 100.0; // this index to set the position of the question on the screen
 
-                   /////////////////////////////
-                   // Adjust the position for the first text
+                       /////////////////////////////
+                       // Adjust the position for the first text
 
-                   // Create and configure the first text
-                   Text text11 = new Text("The Subject: "+StEx.getSubject());
-                   text11.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;");
-                   //text11.setTextAlignment(TextAlignmcent.CENTER);
-                   AnchorPane.setTopAnchor(text11, 10.0); // Adjust the vertical position
-                   AnchorPane.setLeftAnchor(text11, 0.0);
+                       // Create and configure the first text
+                       Text text11 = new Text("The Subject: " + StEx.getSubject());
+                       text11.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;");
+                       //text11.setTextAlignment(TextAlignmcent.CENTER);
+                       AnchorPane.setTopAnchor(text11, 10.0); // Adjust the vertical position
+                       AnchorPane.setLeftAnchor(text11, 0.0);
 
-                   // Increment the position for the next text
-
-
-                   // Create and configure the second text
-                   Text text22 = new Text("Student Grade is: "+StEx.getGrade());
-                   text22.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;");
-                   //text22.setTextAlignment(TextAlignment.CENTER);
-                   AnchorPane.setTopAnchor(text22, 40.0); // Adjust the vertical position
-                   AnchorPane.setLeftAnchor(text22, 0.0); // Center horizontally
-
-                   // Increment the position for the third text
+                       // Increment the position for the next text
 
 
-                   // Create and configure the third text
-                   Text text33 = new Text("The Teacher: "+StEx.getTeacher());
-                   text33.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;");
-                   //text33.setTextAlignment(TextAlignment.CENTER);
-                   AnchorPane.setTopAnchor(text33, 70.0); // Adjust the vertical position
-                   AnchorPane.setLeftAnchor(text33, 0.0); // Center horizontally
+                       // Create and configure the second text
+                       Text text22 = new Text("Student Grade is: " + StEx.getGrade());
+                       text22.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;");
+                       //text22.setTextAlignment(TextAlignment.CENTER);
+                       AnchorPane.setTopAnchor(text22, 40.0); // Adjust the vertical position
+                       AnchorPane.setLeftAnchor(text22, 0.0); // Center horizontally
+
+                       // Increment the position for the third text
 
 
-                   // Continue with the rest of your code to display questions and answers
+                       // Create and configure the third text
+                       Text text33 = new Text("The Teacher: " + StEx.getTeacher());
+                       text33.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;");
+                       //text33.setTextAlignment(TextAlignment.CENTER);
+                       AnchorPane.setTopAnchor(text33, 70.0); // Adjust the vertical position
+                       AnchorPane.setLeftAnchor(text33, 0.0); // Center horizontally
 
-                   // Add the texts and other content to the newRoot
-                   pane.getChildren().addAll(text11, text22, text33);
-                   ////////////////////////////
 
-                   System.out.println("the questio list is null: " + questions == null);
-                   for (DetailedQuestion q : questions) {
-                       VBox vbox = new VBox(6); // we put every question in vbox
-                       javafx.scene.text.Text text = new javafx.scene.text.Text(q.getQuestion().getQuestion());
-                       vbox.getChildren().add(text);
-                       System.out.println(q.getQuestion().getQuestion());
+                       // Continue with the rest of your code to display questions and answers
 
-                       // Display the answers as Text
-                       javafx.scene.text.Text answer1 = new javafx.scene.text.Text(q.getQuestion().getAns1());
-                       javafx.scene.text.Text answer2 = new javafx.scene.text.Text(q.getQuestion().getAns2());
-                       javafx.scene.text.Text answer3 = new javafx.scene.text.Text(q.getQuestion().getAns3());
-                       javafx.scene.text.Text answer4 = new Text(q.getQuestion().getAns4());
+                       // Add the texts and other content to the newRoot
+                       pane.getChildren().addAll(text11, text22, text33);
+                       ////////////////////////////
 
-                       // Set the selected answer
-                       System.out.println("checccccck");
-                       System.out.println(q.getStdAnswer());
-                       System.out.println(""+q.getStdAnswer()+q.getQuestion().getThe_right_ans());
-                       answer1.setStyle("-fx-fill: black;"); // Set text color to black for the selected answer
-                       if (q.getQuestion().getAns1().equals(q.getQuestion().getThe_right_ans())) {
-                           answer1.setStyle("-fx-fill: green;");
+                       System.out.println("the questio list is null: " + questions == null);
+                       for (DetailedQuestion q : questions) {
+                           VBox vbox = new VBox(6); // we put every question in vbox
+                           javafx.scene.text.Text text = new javafx.scene.text.Text(q.getQuestion().getQuestion());
+                           vbox.getChildren().add(text);
+                           System.out.println(q.getQuestion().getQuestion());
+
+                           // Display the answers as Text
+                           javafx.scene.text.Text answer1 = new javafx.scene.text.Text(q.getQuestion().getAns1());
+                           javafx.scene.text.Text answer2 = new javafx.scene.text.Text(q.getQuestion().getAns2());
+                           javafx.scene.text.Text answer3 = new javafx.scene.text.Text(q.getQuestion().getAns3());
+                           javafx.scene.text.Text answer4 = new Text(q.getQuestion().getAns4());
+
+                           // Set the selected answer
+                           System.out.println("checccccck");
+                           System.out.println(q.getStdAnswer());
+                           System.out.println("" + q.getStdAnswer() + q.getQuestion().getThe_right_ans());
+                           answer1.setStyle("-fx-fill: black;"); // Set text color to black for the selected answer
+                           if (q.getQuestion().getAns1().equals(q.getQuestion().getThe_right_ans())) {
+                               answer1.setStyle("-fx-fill: green;");
+                           } else if ((q.getQuestion().getAns1().equals(q.getStdAnswer()))) {
+                               answer1.setStyle("-fx-fill: red;");
+                           }
+
+                           answer2.setStyle("-fx-fill: black;");
+                           if (q.getQuestion().getAns2().equals(q.getQuestion().getThe_right_ans())) {
+                               answer2.setStyle("-fx-fill: green;");
+                           } else if ((q.getQuestion().getAns2().equals(q.getStdAnswer()))) {
+                               answer2.setStyle("-fx-fill: red;");
+                           }
+
+                           answer3.setStyle("-fx-fill: black;");
+                           if (q.getQuestion().getAns3().equals(q.getQuestion().getThe_right_ans())) {
+                               answer3.setStyle("-fx-fill: green;");
+                           } else if ((q.getQuestion().getAns3().equals(q.getStdAnswer()))) {
+                               answer3.setStyle("-fx-fill: red;");
+                           }
+
+                           answer4.setStyle("-fx-fill: black;");
+                           if (q.getQuestion().getAns4().equals(q.getQuestion().getThe_right_ans())) {
+                               answer4.setStyle("-fx-fill: green;");
+                           } else if ((q.getQuestion().getAns4().equals(q.getStdAnswer()))) {
+                               answer4.setStyle("-fx-fill: red;");
+                           }
+
+
+                           vbox.getChildren().addAll(answer1, answer2, answer3, answer4);
+                           Text stdAnswer = new Text();
+                           if (q.getStdAnswer() == null) {
+                               stdAnswer.setText("student didn't answer this question");
+                               stdAnswer.setStyle("-fx-fill: red;");
+                           }
+                           vbox.getChildren().add(stdAnswer);
+                           AnchorPane.setTopAnchor(vbox, i);
+                           AnchorPane.setLeftAnchor(vbox, 20.0);
+                           pane.getChildren().add(vbox); // Add the VBox to the newRoot
+                           i = i + 150;
                        }
-                       else if ((q.getQuestion().getAns1().equals(q.getStdAnswer()))) {
-                           answer1.setStyle("-fx-fill: red;");
-                       }
-
-                       answer2.setStyle("-fx-fill: black;");
-                       if (q.getQuestion().getAns2().equals(q.getQuestion().getThe_right_ans())) {
-                           answer2.setStyle("-fx-fill: green;");
-                       }
-                       else if ((q.getQuestion().getAns2().equals(q.getStdAnswer()))) {
-                           answer2.setStyle("-fx-fill: red;");
-                       }
-
-                       answer3.setStyle("-fx-fill: black;");
-                       if (q.getQuestion().getAns3().equals(q.getQuestion().getThe_right_ans())) {
-                           answer3.setStyle("-fx-fill: green;");
-                       }
-                       else if ((q.getQuestion().getAns3().equals(q.getStdAnswer()))) {
-                           answer3.setStyle("-fx-fill: red;");
-                       }
-
-                       answer4.setStyle("-fx-fill: black;");
-                       if (q.getQuestion().getAns4().equals(q.getQuestion().getThe_right_ans())) {
-                           answer4.setStyle("-fx-fill: green;");
-                       }
-                       else if ((q.getQuestion().getAns4().equals(q.getStdAnswer()))) {
-                           answer4.setStyle("-fx-fill: red;");
-                       }
-
-
-
-
-                       vbox.getChildren().addAll(answer1, answer2, answer3, answer4);
-                       Text stdAnswer = new Text();
-                       if(q.getStdAnswer() == null){
-                           stdAnswer.setText("student didn't answer this question");
-                           stdAnswer.setStyle("-fx-fill: red;");
-                       }
-                       vbox.getChildren().add(stdAnswer);
-                       AnchorPane.setTopAnchor(vbox, i);
-                       AnchorPane.setLeftAnchor(vbox, 20.0);
-                       pane.getChildren().add(vbox); // Add the VBox to the newRoot
-                       i = i + 150;
-                   }
 
 //                   ScrollPane scroll = new ScrollPane(pane); // Use newRoot as the content of the ScrollPane
 //                   scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 //                   //set(scroll);
 
+                   } else { // manual exam
+                       TextArea textArea = new TextArea();
+                       String path = selectedExam.getManualPath();
+                       try {
+                           textArea.setText(readWordFile(path));
+                       }
+                       catch (Exception e){
+                           e.printStackTrace();
+                       }
+                       textArea.setPrefHeight(324.0);
+                       textArea.setPrefWidth(431.0);
+                       pane.getChildren().add(textArea);
+
+
+                   }
                }
            }catch (Exception e){
                e.printStackTrace();
@@ -301,7 +314,20 @@ public class StudentsExamsController implements Serializable {
         SimpleClient.getClient().sendToServer(message);
     }
 
+    private String readWordFile(String filePath) throws IOException {
+        FileInputStream fis = new FileInputStream(filePath);
+        XWPFDocument document = new XWPFDocument(fis);
+        fis.close();
 
+        StringBuilder content = new StringBuilder();
+
+        for (XWPFParagraph paragraph : document.getParagraphs()) {
+            content.append(paragraph.getText());
+            content.append('\n');
+        }
+
+        return content.toString();
+    }
 
 
 }

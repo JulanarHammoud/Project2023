@@ -1,8 +1,7 @@
 package il.cshaifasweng.OCSFMediatorExample.client.controller;
 
 import il.cshaifasweng.OCSFMediatorExample.client.SimpleClient;
-import il.cshaifasweng.OCSFMediatorExample.entities.Student;
-import il.cshaifasweng.OCSFMediatorExample.entities.StudentWillMakeEx;
+import il.cshaifasweng.OCSFMediatorExample.entities.*;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -13,12 +12,13 @@ import javafx.scene.text.Text;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
-import il.cshaifasweng.OCSFMediatorExample.entities.Exam;
-import il.cshaifasweng.OCSFMediatorExample.entities.Question;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -66,7 +66,11 @@ public class ManualExStController {
     private Button finish;
     Exam ex = new Exam();
     Student student = ExSt.getSs();
+    Timeline timeline;
 
+    public void initialize() {
+       SimpleClient.setPosition("ManualExam");
+    }
     @FXML
     void finishACt(ActionEvent event) {
         timelineSeconds.stop();
@@ -81,95 +85,21 @@ public class ManualExStController {
 
     }
     @FXML
-    void downloadedAct(ActionEvent event) {
+    void downloadedAct() {
         createWord();
 
         downloaded.setDisable(true);
-        int t = 1;
-        while (t == 1) {
-            if (timeInMinutes > 60) {
-                hoursParams = timeInMinutes / 60;
-                timeInMinutes = timeInMinutes - 60 * hoursParams;
-            } else {
-                t = 2;
-            }
-        }
-        if((hoursParams%2==0)&&(timeInMinutes==0))
-        {
-            hoursParams--;
-            timeInMinutes=60;
-        }
-        System.out.println(""+timeInMinutes+";;;"+hours+";;");
-        hourN.setText(String.valueOf(hoursParams));
-        minuteN.setText(String.valueOf(timeInMinutes - 1));
-        secondN.setText("60");
 
         hours = new SimpleIntegerProperty(hoursParams);
         minutes = new SimpleIntegerProperty(timeInMinutes);
         seconds = new SimpleIntegerProperty(60);
 
-        //hour//
-        timelineHours = new Timeline(new KeyFrame(Duration.hours(1), e -> {
-            hours.set(hours.get() - 1);
+        javafx.util.Duration sec = javafx.util.Duration.seconds(1);
+        timeline = new Timeline(new KeyFrame(sec, event -> {
+            updateCountdown();
         }));
-        timelineHours.setCycleCount(Timeline.INDEFINITE);
-        timelineHours.play();
-
-        // Create a timeline for minutes
-        timelineMinutes = new Timeline(new KeyFrame(Duration.minutes(1), e -> {
-            minutes.set(minutes.get() - 1);
-        }));
-        timelineMinutes.setCycleCount(Timeline.INDEFINITE);
-        timelineMinutes.play();
-
-        // Create a timeline for seconds
-        timelineSeconds = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
-            seconds.set(seconds.get() - 1);
-
-            // Handle rollover when seconds reach 0
-            if ((seconds.get() == 0) || (seconds.get() < 0)) {
-                if (("0".equals(hourN.getText())) && ("0".equals(minuteN.getText()))) {
-                    shouldStopSec = true;
-                    timelineSeconds.stop();
-                    submitt.setDisable(true);
-                } else {
-                    seconds.set(59);
-                    minutes.set(minutes.get() - 1);
-                }
-
-            }
-            // Handle rollover when minutes reach 0
-            if (minutes.get() < 0) {
-                if ("0".equals(hourN.getText())) {
-                    timelineMinutes.stop();
-                } else {
-                    minutes.set(59);
-                    hours.set(hours.get() - 1);
-                }
-
-                // Handle rollover when hours reach 0 (or you can stop the timer)
-                if (hours.get() < 0) {
-                    hours.set(0);
-                }
-            }
-
-        }));
-        timelineSeconds.setCycleCount(Timeline.INDEFINITE);
-        timelineSeconds.play();
-
-        // Bind StringProperties to update UI
-        StringProperty hourText = new SimpleStringProperty();
-        StringProperty minuteText = new SimpleStringProperty();
-        StringProperty secondText = new SimpleStringProperty();
-
-        hourText.bind(hours.asString());
-        minuteText.bind(minutes.asString());
-        secondText.bind(seconds.asString());
-
-        // Example: Print the values to the console
-        hourText.addListener((obs, oldVal, newVal) -> hourN.setText(newVal));
-        minuteText.addListener((obs, oldVal, newVal) -> minuteN.setText(newVal));
-        secondText.addListener((obs, oldVal, newVal) -> secondN.setText(newVal));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 
     public void createWord() {
@@ -280,6 +210,38 @@ public class ManualExStController {
             System.out.println("No Word document selected.");
         }
 
+
+    }
+
+    public void updateCountdown(){
+        ExamStudent exam =ExSt.getEx();
+        int timer = (exam.getNewTimer() == -1) ? exam.getTimerr() : exam.getNewTimer();
+        int last = SimpleClient.getMesFromClient().size() - 1;
+        if(last != -1) {
+            //System.out.println(SimpleClient.getMesFromClient().get(last).getClass());
+            if (SimpleClient.getMesFromClient().get(last).getClass().equals(UpdateTimer.class)) {
+                UpdateTimer updateTimer = (UpdateTimer) SimpleClient.getMesFromClient().get(last);
+                int newTimer = updateTimer.getTimer();
+                if (exam.getExam().getTimerr() != newTimer) {
+                    System.out.println(newTimer);
+                    exam.getExam().setTimerr(newTimer);
+                    timer = newTimer;
+                }
+                System.out.println("the timer is: " + exam.getTimerr());
+            }
+        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime parsedTime = LocalTime.parse(exam.getTime(),formatter);
+        LocalTime currentTime = LocalTime.now();
+        LocalTime endTime = parsedTime.plusMinutes(timer);
+        java.time.Duration remainingTime = java.time.Duration.between(currentTime, endTime);
+        String formattedTime = String.format("%02d:%02d:%02d",
+                remainingTime.toHours(), (remainingTime.toMinutes() % 60), (remainingTime.getSeconds() % 60));
+        minuteN.setText(formattedTime);
+        if( remainingTime.toHours()<=0 && (remainingTime.toMinutes() % 60)<=0 && (remainingTime.getSeconds() % 60)<=0){
+            System.out.println("time finished before submitting");
+          submitt.setDisable(true);
+        }
 
     }
 }
