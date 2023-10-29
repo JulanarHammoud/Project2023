@@ -548,7 +548,7 @@ public class SimpleServer extends AbstractServer {
 					}
 					else { //the input is good
 						SubjectTeacher subjectTeacher = (SubjectTeacher) message.get(1);
-						SubjectTeacher subjectTeacher1 = Data.MakeQuestion(ques1, ans1, ans2, ans3, ans4, right, note, subjectTeacher,subjects);
+						SubjectTeacher subjectTeacher1 = Data.MakeQuestion(ques1, ans1, ans2, ans3, ans4,  note, right, subjectTeacher,subjects);
 						LinkedList<Question> questions = (LinkedList<Question>) message.get(11);
 						SubjectAndId subid;
 						teacher=Data.getDataById(Teacher.class,teacher.getId());
