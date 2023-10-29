@@ -20,6 +20,7 @@ public class Data {
     private static Session session;
 
     private static SessionFactory getSessionFactory() throws HibernateException {
+        try{
         Configuration configuration = new Configuration();
         // Add ALL of your entities here. You can also try adding a whole package.
         configuration.addAnnotatedClass(Student.class);
@@ -39,7 +40,14 @@ public class Data {
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                 .applySettings(configuration.getProperties())
                 .build();
-        return configuration.buildSessionFactory(serviceRegistry); }
+        return configuration.buildSessionFactory(serviceRegistry);}
+        catch (HibernateException e) {
+
+            e.printStackTrace();
+
+            return null;
+        }
+    }
     public static void generateStusent() throws Exception {
         SubjectStudent ST11 = new SubjectStudent("Grammar");
         SubjectStudent ST2 = new SubjectStudent("Geometry");
@@ -96,6 +104,7 @@ public class Data {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         for(CourseStudent cour :list){
             if(cour.getName().equals(name)){
                 System.out.println(cour.getName());
@@ -105,6 +114,7 @@ public class Data {
         return null;
     }
     public static List<Student> getAllStudents() throws Exception {
+        try{
         SessionFactory sessionFactory = getSessionFactory();
         session = sessionFactory.openSession();
         session.beginTransaction();
@@ -114,28 +124,44 @@ public class Data {
         List<Student> result = session.createQuery(query).getResultList();
         session.close();
         System.out.println(result.size());
-        return result;
+        return result;}
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return null;
     }
 
     public static List<Teacher> getAllTeachers() throws Exception {
-        System.out.println("line 1");
-        SessionFactory sessionFactory = getSessionFactory();
-        System.out.println("line 2");
-        session = sessionFactory.openSession();
-        System.out.println("line 3");
-        session.beginTransaction();
-        System.out.println("line 4");
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        System.out.println("line 5");
-        CriteriaQuery<Teacher> query = builder.createQuery(Teacher.class);
-        System.out.println("line 6");
-        query.from(Teacher.class);
-        System.out.println("line 7");
-        List<Teacher> result = session.createQuery(query).getResultList();
-        System.out.println("line 8");
-        session.close();
-        System.out.println(result.size());
-        return result;
+        try {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Teacher> query = builder.createQuery(Teacher.class);
+            query.from(Teacher.class);
+            List<Teacher> result = session.createQuery(query).getResultList();
+            session.close();
+            System.out.println(result.size());
+            return result;
+        }
+        catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return null;
     }
     public static Exam BringExamBasedOnCode(int Id) throws Exception {
         System.out.println("in BringExamBasedOnCode "+Id);
@@ -156,13 +182,29 @@ public class Data {
 
     public static Student getStudent(int id) throws Exception {
 
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        Student student =session.get(Student.class,id);
-        session.close();
-        //  System.out.println(student.getSt_name());
-        return student;
+        try {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            Student student = session.get(Student.class, id);
+            session.close();
+            //  System.out.println(student.getSt_name());
+            return student;
+        }
+        catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return null;
+
     }
 
     public static void codeStudentId(int id) throws Exception {
@@ -191,7 +233,16 @@ public class Data {
         session.getTransaction().commit();
         session.close();}
         catch (Exception e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
             e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
@@ -209,7 +260,16 @@ public class Data {
         session.close();
         System.out.println(change.getActive()+"change active status");}
         catch (Exception e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
             e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
@@ -229,48 +289,89 @@ public class Data {
 
     public static void activateSt(int id) throws Exception {
         // Student student = getStudent(id);
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        Student change =session.get(Student.class,id);
-        change.setActive(true);
-        session.saveOrUpdate(change);
-        session.flush();
-        session.getTransaction().commit();
-        session.close();
+        try {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            Student change = session.get(Student.class, id);
+            change.setActive(true);
+            session.saveOrUpdate(change);
+            session.flush();
+            session.getTransaction().commit();
+            session.close();
+        }catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
 
     }
 
     public static void activateTeacher(int id) throws Exception {
-        // Student student = getStudent(id);
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        Teacher change =session.get(Teacher.class,id);
-        change.setActive(true);
-        session.saveOrUpdate(change);
-        session.flush();
-        session.getTransaction().commit();
-        session.close();
+        try {
+            // Student student = getStudent(id);
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            Teacher change = session.get(Teacher.class, id);
+            change.setActive(true);
+            session.saveOrUpdate(change);
+            session.flush();
+            session.getTransaction().commit();
+            session.close();
+        }
+        catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
 
     }
     public static String updateExamId(String IdCourse , int currentid, String IdSubject){
-        System.out.println("I am updating: "+IdCourse+" "+currentid+" "+IdSubject);
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        Exam change =session.get(Exam.class,currentid);
-        String s=IdCourse+IdSubject;
-        DecimalFormat formatter=new DecimalFormat("00");
-        String aFormatted=formatter.format(currentid);
-        s=s+aFormatted;
-        System.out.println(""+s);
-        change.setIdCode(s);
-        session.saveOrUpdate(change);
-        session.flush();
-        session.getTransaction().commit();
-        session.close();
-        return s;
+        try {
+            System.out.println("I am updating: " + IdCourse + " " + currentid + " " + IdSubject);
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            Exam change = session.get(Exam.class, currentid);
+            String s = IdCourse + IdSubject;
+            DecimalFormat formatter = new DecimalFormat("00");
+            String aFormatted = formatter.format(currentid);
+            s = s + aFormatted;
+            System.out.println("" + s);
+            change.setIdCode(s);
+            session.saveOrUpdate(change);
+            session.flush();
+            session.getTransaction().commit();
+            session.close();
+            return s;
+        }catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return null;
     }
     public static void updateQuestion(int IdQuestion , String q,String ans1 ,String ans2,String ans3 ,String ans4, String note ,String right ){
        System.out.println("I am updating: " + IdQuestion + " " + q + " "+ans1);
@@ -568,29 +669,59 @@ public class Data {
     }
 
     public static List<CourseTeacher> getAllCourses() throws Exception {
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<CourseTeacher> query = builder.createQuery(CourseTeacher.class);
-        query.from(CourseTeacher.class);
-        List<CourseTeacher> result = session.createQuery(query).getResultList();
-        session.close();
-        System.out.println(result.size());
-        return result;
+        try {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<CourseTeacher> query = builder.createQuery(CourseTeacher.class);
+            query.from(CourseTeacher.class);
+            List<CourseTeacher> result = session.createQuery(query).getResultList();
+            session.close();
+            System.out.println(result.size());
+            return result;
+        }
+        catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return null;
     }
 
     public static List<Question> getAllQuestions() throws Exception {
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Question> query = builder.createQuery(Question.class);
-        query.from(Question.class);
-        List<Question> result = session.createQuery(query).getResultList();
-        session.close();
-        System.out.println(result.size());
-        return result;
+        try {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Question> query = builder.createQuery(Question.class);
+            query.from(Question.class);
+            List<Question> result = session.createQuery(query).getResultList();
+            session.close();
+            System.out.println(result.size());
+            return result;
+        }
+        catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return null;
     }
 
     public static CourseTeacher FindCourse(String name) throws Exception {
@@ -608,60 +739,109 @@ public class Data {
     }
 
     public static List<SubjectTeacher> getAllSubjects() {
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<SubjectTeacher> query = builder.createQuery(SubjectTeacher.class);
-        query.from(SubjectTeacher.class);
-        List<SubjectTeacher> result = session.createQuery(query).getResultList();
-        session.close();
-        System.out.println(result.size());
-        return result;
+        try {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<SubjectTeacher> query = builder.createQuery(SubjectTeacher.class);
+            query.from(SubjectTeacher.class);
+            List<SubjectTeacher> result = session.createQuery(query).getResultList();
+            session.close();
+            System.out.println(result.size());
+            return result;
+        } catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return null;
     }
 
     public static void updateExam(int examId, String TeacherNote, String StudentNote, int ExamTime) {
-        System.out.println("I am updating: " + TeacherNote + " " + StudentNote + " " + ExamTime);
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        Exam exam = session.get(Exam.class, examId);
-        exam.setTimerr(ExamTime);
-        exam.setTeacherNotes(TeacherNote);
-        exam.setStudentNotes(StudentNote);
-        session.saveOrUpdate(exam);
-        session.flush();
-        session.getTransaction().commit();
-        session.close();
+        try {
+            System.out.println("I am updating: " + TeacherNote + " " + StudentNote + " " + ExamTime);
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            Exam exam = session.get(Exam.class, examId);
+            exam.setTimerr(ExamTime);
+            exam.setTeacherNotes(TeacherNote);
+            exam.setStudentNotes(StudentNote);
+            session.saveOrUpdate(exam);
+            session.flush();
+            session.getTransaction().commit();
+            session.close();
+        }
+        catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
 
     public static List<CourseTeacher> getAllCoutsrss() {
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<CourseTeacher> query = builder.createQuery(CourseTeacher.class);
-        query.from(CourseTeacher.class);
-        List<CourseTeacher> result = session.createQuery(query).getResultList();
-        session.close();
-        System.out.println(result.size());
-        return result;
+        try {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<CourseTeacher> query = builder.createQuery(CourseTeacher.class);
+            query.from(CourseTeacher.class);
+            List<CourseTeacher> result = session.createQuery(query).getResultList();
+            session.close();
+            System.out.println(result.size());
+            return result;
+        } catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return null;
+
     }
 
     public static CourseTeacher findcourse(String choose) {
-        System.out.println("I'm in findcourse method");
-        System.out.println(choose);
-        List<CourseTeacher> list = Data.getAllCoutsrss();
-        System.out.println(list.get(1).getName());
-        System.out.println(list.get(0).getName());
-        for (CourseTeacher course : list) {
-            if (course.getName().equals(choose)) {
-                System.out.println(course.getName());
-                return course;
+        try {
+            System.out.println("I'm in findcourse method");
+            System.out.println(choose);
+            List<CourseTeacher> list = Data.getAllCoutsrss();
+            System.out.println(list.get(1).getName());
+            System.out.println(list.get(0).getName());
+            for (CourseTeacher course : list) {
+                if (course.getName().equals(choose)) {
+                    System.out.println(course.getName());
+                    return course;
+                }
             }
+            CourseTeacher notfound = new CourseTeacher(null, null);
+            return notfound;
+        } catch (Exception e){
+
+            e.printStackTrace();
         }
-        CourseTeacher notfound = new CourseTeacher(null, null);
-        return notfound;
+        return null;
     }
 
     public static SubjectTeacher findsubject(String choose) {
@@ -679,45 +859,90 @@ public class Data {
     }
 
     public static Exam findExam(int id) {
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        Exam exam = session.get(Exam.class, id);
-        session.flush();
-        session.getTransaction().commit();
-        session.close();
-        return exam;
+        try {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            Exam exam = session.get(Exam.class, id);
+            session.flush();
+            session.getTransaction().commit();
+            session.close();
+            return exam;
+        }
+        catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return null;
 
     }
 
     public static Exam setQuestions(int exId, LinkedList<Question> questions) {
-        System.out.println("the server is sitting the questions");
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
+        try {
+            System.out.println("the server is sitting the questions");
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
 
-        Exam exam = session.get(Exam.class, exId);
-        exam.setQuestions(questions);
+            Exam exam = session.get(Exam.class, exId);
+            exam.setQuestions(questions);
 
-        session.saveOrUpdate(exam);
-        session.flush();
-        session.getTransaction().commit();
-        session.close();
-        return exam;
+            session.saveOrUpdate(exam);
+            session.flush();
+            session.getTransaction().commit();
+            session.close();
+            return exam;
+        }
+        catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return null;
 
     }
 
     public static SubjectTeacher GetSubjectById(int id) {
-        System.out.println("the server is getting the subject");
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        SubjectTeacher sub = session.get(SubjectTeacher.class, id);
+        try {
+            System.out.println("the server is getting the subject");
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            SubjectTeacher sub = session.get(SubjectTeacher.class, id);
 
-        session.flush();
-        session.getTransaction().commit();
-        session.close();
-        return sub;
+            session.flush();
+            session.getTransaction().commit();
+            session.close();
+            return sub;
+        }
+        catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return null;
     }
 
     public static void deleteExamSub(int id, SubjectTeacher sub) {
@@ -733,7 +958,16 @@ public class Data {
             session.getTransaction().commit();
             session.close();
         } catch (Exception e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
             e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
@@ -748,20 +982,44 @@ public class Data {
             session.getTransaction().commit();
             session.close();
         } catch (Exception e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
             e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
     public static List<SubjectStudent> getAllSubjectStd() throws Exception {
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<SubjectStudent> query = builder.createQuery(SubjectStudent.class);
-        query.from(SubjectStudent.class);
-        List<SubjectStudent> result = session.createQuery(query).getResultList();
-        session.close();
-        System.out.println(result.size());
-        return result;
+        try {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<SubjectStudent> query = builder.createQuery(SubjectStudent.class);
+            query.from(SubjectStudent.class);
+            List<SubjectStudent> result = session.createQuery(query).getResultList();
+            session.close();
+            System.out.println(result.size());
+            return result;
+        }
+        catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return null;
     }
     public static int generateExamTeacher(ExamTeacher exam){
         int id = -1;
@@ -871,29 +1129,44 @@ public class Data {
         SubjectStudent sub = findSubjectStd(subject);
         CourseStudent cour = getCourByName(exam1.getExam().getCourse());
 
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        ExamTeacher exam =session.get(ExamTeacher.class,ExTId);
-        ExamStudent examStudent =session.get(ExamStudent.class,ExStdId);
-        Teacher changeTeacher = session.get(Teacher.class,teacher.getId());
-        SubjectStudent changeSub =session.get(SubjectStudent.class,sub.getId());
-        CourseStudent course = session.get(CourseStudent.class,cour.getId());
-        List<ExamStudent> examsSt = changeSub.getExams();
-        examStudent.setExamTId(ExTId);
-        session.saveOrUpdate(examStudent);
-        examsSt.add(examStudent);
-        changeSub.setExams(examsSt);
-        course.setLastExam(examStudent);
-        session.saveOrUpdate(changeSub); /// adding the exam to the sbjectStudent
-        session.saveOrUpdate(course);
-        List<ExamTeacher> exams = changeTeacher.getPublishedExams();
-        exams.add(exam);
-        changeTeacher.setPublishedExams(exams); /// adding the exam to the publisshed exams list for teacher
-        session.flush();
-        session.getTransaction().commit();
-        session.close();
-        return changeTeacher;
+        try {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            ExamTeacher exam = session.get(ExamTeacher.class, ExTId);
+            ExamStudent examStudent = session.get(ExamStudent.class, ExStdId);
+            Teacher changeTeacher = session.get(Teacher.class, teacher.getId());
+            SubjectStudent changeSub = session.get(SubjectStudent.class, sub.getId());
+            CourseStudent course = session.get(CourseStudent.class, cour.getId());
+            List<ExamStudent> examsSt = changeSub.getExams();
+            examStudent.setExamTId(ExTId);
+            session.saveOrUpdate(examStudent);
+            examsSt.add(examStudent);
+            changeSub.setExams(examsSt);
+            course.setLastExam(examStudent);
+            session.saveOrUpdate(changeSub); /// adding the exam to the sbjectStudent
+            session.saveOrUpdate(course);
+            List<ExamTeacher> exams = changeTeacher.getPublishedExams();
+            exams.add(exam);
+            changeTeacher.setPublishedExams(exams); /// adding the exam to the publisshed exams list for teacher
+            session.flush();
+            session.getTransaction().commit();
+            session.close();
+            return changeTeacher;
+        }
+        catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return null;
 
     }
     public static Student SubmitExam(Student student,ExamStudent exam){
@@ -942,7 +1215,16 @@ public class Data {
           session.close();
           return updateStd;
       } catch (Exception e){
+          if (session != null) {
+              session.getTransaction().rollback();
+          }
+          System.err.println("An error occured, changes have been rolled back.");
           e.printStackTrace();
+      }
+      finally {
+          if (session != null) {
+              session.close();
+          }
       }
       return null;
 
@@ -978,16 +1260,31 @@ public class Data {
     }
 
     public static List<ManagerMessage> getAllMessages() throws Exception {
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<ManagerMessage> query = builder.createQuery(ManagerMessage.class);
-        query.from(ManagerMessage.class);
-        List<ManagerMessage> result = session.createQuery(query).getResultList();
-        session.close();
-        System.out.println(result.size());
-        return result;
+        try {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<ManagerMessage> query = builder.createQuery(ManagerMessage.class);
+            query.from(ManagerMessage.class);
+            List<ManagerMessage> result = session.createQuery(query).getResultList();
+            session.close();
+            System.out.println(result.size());
+            return result;
+        }
+        catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return null;
     }
     public static void DeleteMessage(int id) {
         try {
@@ -1001,107 +1298,225 @@ public class Data {
             session.close();
             System.out.println("Deleted Successfully");
         } catch (Exception e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
             e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
     public static <T> T getDataById(Class<T> entityType, int id) {
-        System.out.println("the server is getting the Data");
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        T data =session.get(entityType,id);
-        session.flush();
-        session.getTransaction().commit();
-        session.close();
-        return data;
+        try {
+            System.out.println("the server is getting the Data");
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            T data =session.get(entityType,id);
+            session.flush();
+            session.getTransaction().commit();
+            session.close();
+            return data;
+        }
+        catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+       return null;
     }
     public static <T> List<T> getDataList(Class<T> entityType) throws Exception {
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<T> query = builder.createQuery(entityType);
-        query.from(entityType);
-        List<T> result = session.createQuery(query).getResultList();
-        session.close();
-        System.out.println(result.size());
-        return result;
+        try {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<T> query = builder.createQuery(entityType);
+            query.from(entityType);
+            List<T> result = session.createQuery(query).getResultList();
+            session.close();
+            System.out.println(result.size());
+            return result;
+        } catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return null;
     }
     public static void setNumberOfQuestions(int numberofquestions ,int examId) {
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        Exam exam = session.get(Exam.class, examId);
-        exam.setNumOfQuestions(numberofquestions);
-        session.saveOrUpdate(exam);
-        session.flush();
-        session.getTransaction().commit();
-        session.close();
+        try {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            Exam exam = session.get(Exam.class, examId);
+            exam.setNumOfQuestions(numberofquestions);
+            session.saveOrUpdate(exam);
+            session.flush();
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
 
     public static void updateGrade(int grade,boolean approve , int id){
-        System.out.println("I am updating: "+grade+" "+approve+" "+id);
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        ExamStudent change =session.get(ExamStudent.class,id);
-        change.setApprove(approve);
-        change.setGrade(grade);
-        session.saveOrUpdate(change);
-        session.flush();
-        session.getTransaction().commit();
-        session.close();
+        try {
+            System.out.println("I am updating: " + grade + " " + approve + " " + id);
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            ExamStudent change = session.get(ExamStudent.class, id);
+            change.setApprove(approve);
+            change.setGrade(grade);
+            session.saveOrUpdate(change);
+            session.flush();
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
     public static void updateExamstartandfinish(int finish,int start , int id){
-        System.out.println("I am updating: "+start+" "+finish+" "+id);
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        ExamTeacher change =session.get(ExamTeacher.class,id);
-        change.setFinish(finish);
-        change.setStart(start);
-        session.saveOrUpdate(change);
-        session.flush();
-        session.getTransaction().commit();
-        session.close();
+        try {
+            System.out.println("I am updating: " + start + " " + finish + " " + id);
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            ExamTeacher change = session.get(ExamTeacher.class, id);
+            change.setFinish(finish);
+            change.setStart(start);
+            session.saveOrUpdate(change);
+            session.flush();
+            session.getTransaction().commit();
+            session.close();
+        }
+        catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
     public static void updateTime(String Time , int id){
-        System.out.println("I am updating: "+Time+" "+id);
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        ExamTeacher change =session.get(ExamTeacher.class,id);
-        change.setFinishTime(Time);
-        session.saveOrUpdate(change);
-        session.flush();
-        session.getTransaction().commit();
-        session.close();
+        try {
+            System.out.println("I am updating: " + Time + " " + id);
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            ExamTeacher change = session.get(ExamTeacher.class, id);
+            change.setFinishTime(Time);
+            session.saveOrUpdate(change);
+            session.flush();
+            session.getTransaction().commit();
+            session.close();
+        } catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
     public static void updateExecuted(int id){
 //        System.out.println("I am updating: "+Time+" "+id);
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        ExamStudent change =session.get(ExamStudent.class,id);
-        change.setExecuted(true);
-        session.saveOrUpdate(change);
-        session.flush();
-        session.getTransaction().commit();
-        session.close();
+        try {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            ExamStudent change = session.get(ExamStudent.class, id);
+            change.setExecuted(true);
+            session.saveOrUpdate(change);
+            session.flush();
+            session.getTransaction().commit();
+            session.close();
+        }
+        catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
     public static void updateTimer(int timer , int idStd, int idT){
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-         ExamTeacher change1 =session.get(ExamTeacher.class,idT);
-         ExamStudent change2 =session.get(ExamStudent.class,idStd);
-        change1.setNewTimer(timer);
-        change2.setNewTimer(timer);
-        session.saveOrUpdate(change1);
-        session.saveOrUpdate(change2);
-        session.flush();
-        session.getTransaction().commit();
-        session.close();
+        try {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            ExamTeacher change1 = session.get(ExamTeacher.class, idT);
+            ExamStudent change2 = session.get(ExamStudent.class, idStd);
+            change1.setNewTimer(timer);
+            change2.setNewTimer(timer);
+            session.saveOrUpdate(change1);
+            session.saveOrUpdate(change2);
+            session.flush();
+            session.getTransaction().commit();
+            session.close();
+        }catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
     public static Student SubmitManual(Student student,ExamStudent exam){
         try{
@@ -1135,21 +1550,45 @@ public class Data {
             session.close();
             return updateStd;
         } catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
             e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
         }
         return null;
 
     }
     public static List<ExamTeacher> getAllExamteacher() {
-        SessionFactory sessionFactory = getSessionFactory();
-        session = sessionFactory.openSession();
-        session.beginTransaction();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<ExamTeacher> query = builder.createQuery(ExamTeacher.class);
-        query.from(ExamTeacher.class);
-        List<ExamTeacher> result = session.createQuery(query).getResultList();
-        session.close();
-        System.out.println(result.size());
-        return result;
+        try {
+            SessionFactory sessionFactory = getSessionFactory();
+            session = sessionFactory.openSession();
+            session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<ExamTeacher> query = builder.createQuery(ExamTeacher.class);
+            query.from(ExamTeacher.class);
+            List<ExamTeacher> result = session.createQuery(query).getResultList();
+            session.close();
+            System.out.println(result.size());
+            return result;
+        }
+        catch (Exception e){
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            System.err.println("An error occured, changes have been rolled back.");
+            e.printStackTrace();
+        }
+        finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return null;
     }
 }

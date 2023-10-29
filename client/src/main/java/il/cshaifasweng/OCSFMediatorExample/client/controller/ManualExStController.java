@@ -15,6 +15,7 @@ import javafx.util.Duration;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalTime;
@@ -173,11 +174,24 @@ public class ManualExStController {
 
         if (selectedDocument != null) {
             try {
+                timeline.stop();
                 // Define the target directory within your IntelliJ project
                 String targetDirectory = "src/main/java/il/cshaifasweng/OCSFMediatorExample/client/manualExams"; // Relative path in your project
 
                 // Define the target path for the copied document
                 String targetPath = targetDirectory + "/" + selectedDocument.getName();
+                Path destinationPath = Paths.get(targetPath);
+
+                if (!Files.exists(destinationPath)){
+                    XWPFDocument document = new XWPFDocument();
+
+                    try (FileOutputStream out = new FileOutputStream(targetPath)) {
+                        // Write the document to the specified file path
+                        document.write(out);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
 
                 // Copy the selected Word document to the target directory
                 Files.copy(selectedDocument.toPath(), Paths.get(targetPath), StandardCopyOption.REPLACE_EXISTING);

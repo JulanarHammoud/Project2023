@@ -31,7 +31,7 @@ public class PublishedExamController {
     @FXML
     private TableView<ExamTeacher> Etable;
     @FXML
-    private TableColumn<ExamTeacher, Integer> id;
+    private TableColumn<ExamTeacher, String> id;
     @FXML
     private TableColumn<ExamTeacher, String> Subject;
     @FXML
@@ -44,14 +44,14 @@ public class PublishedExamController {
     ObservableList<ExamTeacher> data ;
     public void initialize() {
         data = FXCollections.observableArrayList(exams);
+        id.setCellValueFactory(dataValueFactory ->
+                new SimpleStringProperty(dataValueFactory.getValue().getIdCode()));
         Subject.setCellValueFactory(dataValueFactory ->
                 new SimpleStringProperty(dataValueFactory.getValue().getExam().getSubject()));
         Teacher.setCellValueFactory(dataValueFactory ->
                 new SimpleStringProperty(dataValueFactory.getValue().getExam().getTeacher()));
         course.setCellValueFactory(dataValueFactory ->
                 new SimpleStringProperty(dataValueFactory.getValue().getExam().getCourse()));
-        course.setCellValueFactory(dataValueFactory ->
-                new SimpleStringProperty(String.valueOf(dataValueFactory.getValue().getExam().getTimerr())));
         Etable.setItems(data);
     }
 

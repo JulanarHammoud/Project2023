@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.ManualExStController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.ManualExStController">
    <children>
       <ImageView fitHeight="652.0" fitWidth="737.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -20,12 +20,22 @@
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font></Button>
-      <Text fill="#dd3c30" layoutX="153.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hour" textAlignment="CENTER" wrappingWidth="79.13671875" />
-      <Text fill="#dd3636" layoutX="261.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Minute" textAlignment="CENTER" wrappingWidth="73.13671875" />
-      <Text fill="#e14848" layoutX="366.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Second" textAlignment="CENTER" wrappingWidth="73.13671875" />
-      <Text fx:id="hourN" fill="#b50a0a" layoutX="156.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="hour" textAlignment="CENTER" wrappingWidth="73.13671875" />
-      <Text fx:id="minuteN" fill="#9e0913" layoutX="261.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="minute" textAlignment="CENTER" wrappingWidth="73.13671875" />
-      <Text fx:id="secondN" fill="#b90505" layoutX="366.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="second" textAlignment="CENTER" wrappingWidth="73.13671875" />
+      <Text fill="WHITE" layoutX="232.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="h" textAlignment="CENTER" wrappingWidth="38.13671875">
+         <font>
+            <Font size="18.0" />
+         </font></Text>
+      <Text fill="WHITE" layoutX="278.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="m" textAlignment="CENTER" wrappingWidth="38.13671875000006">
+         <font>
+            <Font size="18.0" />
+         </font></Text>
+      <Text fill="WHITE" layoutX="323.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="s" textAlignment="CENTER" wrappingWidth="38.13671875000006">
+         <font>
+            <Font size="18.0" />
+         </font></Text>
+      <Text fx:id="minuteN" fill="#9e0913" layoutX="232.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00" textAlignment="CENTER" wrappingWidth="130.13673400878906">
+         <font>
+            <Font size="35.0" />
+         </font></Text>
       <Text fill="#00ff26" layoutX="233.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="GOOD LUCK :)" textAlignment="CENTER" wrappingWidth="149.0">
          <font>
             <Font name="System Bold" size="18.0" />

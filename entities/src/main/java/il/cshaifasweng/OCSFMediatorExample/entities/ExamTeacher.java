@@ -174,4 +174,9 @@ public class ExamTeacher implements Serializable {
     public void setTeacherid(int teacherid) {
         this.teacherid = teacherid;
     }
+    public String getIdCode() {
+        String exidCode = exam.getIdCode();
+        String twoDigitString = String.format("%02d", Id);
+        return exidCode.substring(0, 4) + twoDigitString;
+    }
 }

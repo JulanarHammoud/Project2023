@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.ShowMessageController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="il.cshaifasweng.OCSFMediatorExample.client.controller.ShowMessageController">
    <children>
       <ImageView fitHeight="1275.0" fitWidth="1278.0" layoutY="-167.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -21,12 +21,12 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Label fx:id="teachername" layoutX="134.0" layoutY="14.0" prefHeight="39.0" prefWidth="167.0" text="teacher">
+      <Label fx:id="teachername" layoutX="134.0" layoutY="14.0" prefHeight="39.0" prefWidth="167.0" text="teacher" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="time" layoutX="190.0" layoutY="110.0" prefHeight="39.0" prefWidth="103.0" text="Time" textFill="#c03b3b">
+      <Label fx:id="time" layoutX="190.0" layoutY="110.0" prefHeight="39.0" prefWidth="103.0" text="Time" textFill="#510606">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -36,26 +36,26 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="52.0" layoutY="14.0" prefHeight="39.0" prefWidth="103.0" text="Teacher:  ">
+      <Label layoutX="52.0" layoutY="14.0" prefHeight="39.0" prefWidth="70.0" text="Teacher:  " textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="52.0" layoutY="110.0" prefHeight="39.0" prefWidth="131.0" text="Additional Time:  ">
+      <Label layoutX="52.0" layoutY="110.0" prefHeight="39.0" prefWidth="131.0" text="Additional Time:  " textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="52.0" layoutY="175.0" prefHeight="50.0" prefWidth="103.0" text="Reason:  ">
+      <Label layoutX="52.0" layoutY="175.0" prefHeight="50.0" prefWidth="103.0" text="Reason:  " textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
-      <Label layoutX="52.0" layoutY="65.0" prefHeight="28.0" prefWidth="103.0" text="Exam:  ">
+      <Label layoutX="52.0" layoutY="65.0" prefHeight="28.0" prefWidth="55.0" text="Exam:  " textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label fx:id="exam" layoutX="134.0" layoutY="65.0" prefHeight="28.0" prefWidth="167.0" text="exam">
+      <Label fx:id="exam" layoutX="134.0" layoutY="65.0" prefHeight="28.0" prefWidth="167.0" text="exam" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>

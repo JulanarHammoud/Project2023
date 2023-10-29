@@ -10,7 +10,7 @@
    <children>
       <ImageView fitHeight="600.0" fitWidth="700.0">
          <image>
-            <Image url="@Student.jpg" />
+            <Image url="@student.jpg" />
          </image>
       </ImageView>
       <Label fx:id="StName" layoutX="57.0" layoutY="27.0" prefHeight="58.0" prefWidth="497.0" text="Student:">
