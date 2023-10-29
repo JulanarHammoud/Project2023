@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+import static il.cshaifasweng.OCSFMediatorExample.client.App.setRoot;
+
 public class AllGradesStudentController {
     @FXML
     private Button back1;
@@ -57,15 +59,9 @@ public class AllGradesStudentController {
     }
 
     @FXML
-    void backaction(ActionEvent event) {
-        LinkedList<Object> message = new LinkedList<Object>();
-        message.add("updates");
-        message.add(StEx);
-        try {
-            SimpleClient.getClient().sendToServer(message);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    void backaction(ActionEvent event) throws IOException {
+       SimpleClient.getParams().add(StEx.getSs());
+       setRoot("PrimaryStudent");
 
     }
 

@@ -10,7 +10,6 @@ import org.hibernate.service.ServiceRegistry;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -470,13 +469,13 @@ public class Data {
         Question Num1 = new Question("I'm very happy _____ in India. I really miss being there.", "to live", "to have lived", "to be lived", "to be living","" ,"to live");
         Question Num2 = new Question("They didn't reach an agreement ______ their differences.", "on account of", "due", "because", "owing","bay extra attention" ,"owing");
         Question Num3 = new Question("I wish I _____ those words. But now it's too late.", "not having said", "have never said", "never said", "had never said","good luck" ,"have never said");
-        Question Num4 = new Question("Each term in the sequence below is five times the previous term. What is the eighth term in the sequence? 4, 20, 100, 500,....", "500 * 8", " 4 * 5^7", " 4 * 5^8", "4^8", "mentioned in lecture 10","4 * 5^7");
-        Question Num5 = new Question("The inequality –4(x – 1) ≤ 2(x + 1) is equivalent to", " x => -1/3", " x=> 1/3", "x <= 1/3", "x <= -1/3","" ,"x=> 1/3");
-        Question Num6 = new Question(" For what values of x is the expression : 3x2 – 3x – 18 equal to 0?", "x = 3, x = –6", "x = –3, x = 2", "x = 3, x = –2", "x = -3, x = –6", "","x = 3, x = –2");
+        Question Num4 = new Question("Each term in the sequence below is five times the previous term. What is the eighth term in the sequence? 4, 20, 100, 500,....", "500 * 8", "4 * 5^7", "4 * 5^8", "4^8", "mentioned in lecture 10","4 * 5^7");
+        Question Num5 = new Question("The inequality –4(x – 1) ≤ 2(x + 1) is equivalent to", "x => -1/3", "x=>1/3", "x <= 1/3", "x <= -1/3","" ,"x=> 1/3");
+        Question Num6 = new Question("For what values of x is the expression : 3x2 – 3x – 18 equal to 0?", "x = 3, x = –6", "x = –3, x = 2", "x = 3, x = –2", "x = -3, x = –6", "","x = 3, x = –2");
         Question Num7 = new Question("A circle has an area of 64π ft.2. What is the circumference of the circle?", "8π ft", "32π ft", "18π ft", "16π ft","Good Luck" ,"8π ft");
         Question Num8 = new Question("A circle has an area of 64π ft.2. What is the circumference of the circle?", "8π ft", "32π ft", "18π ft", "16π ft","" ,"8π ft");
-        Question Num9 = new Question("Which of the following statements is true?", " All squares are rectangles and rhombuses.", " All rectangles are rhombuses, but not allrhombuses are rectangles", " All rhombuses are parallelograms and all parallelograms are rhombuses.", " All rhombuses are squares, but not all squaresare rhombuses.",""," All rhombuses are squares, but not all squares are rhombuses.");
-        Question Num10 = new Question("When winding an old clock, it is important not to overwind it. ", "clocks have changed over the years. ", "old-fashioned clocks become fragile with age. ", ". old-fashioned clocks were operated by an internal spring. ", " time flies when you’re having fun ", "","old-fashioned clocks were operated by an internal spring.");
+        Question Num9 = new Question("Which of the following statements is true?", "All squares are rectangles and rhombuses.", "All rectangles are rhombuses, but not allrhombuses are rectangles", "All rhombuses are parallelograms and all parallelograms are rhombuses.", "All rhombuses are squares, but not all squaresare rhombuses.","","All rhombuses are squares, but not all squares are rhombuses.");
+        Question Num10 = new Question("When winding an old clock, it is important not to overwind it. ", "clocks have changed over the years. ", "old-fashioned clocks become fragile with age. ", "old-fashioned clocks were operated by an internal spring. ", "time flies when you’re having fun ", "","old-fashioned clocks were operated by an internal spring.");
         LinkedList<Question> questions1 = new LinkedList<>();
         LinkedList<Question> questions2 = new LinkedList<>();
         LinkedList<Question> questions3 = new LinkedList<>();
