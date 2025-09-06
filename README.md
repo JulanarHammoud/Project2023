@@ -1,13 +1,112 @@
-# OCSF Mediator Example
+Exam Management System
 
-## Structure
-Pay attention to the three modules:
-1. **client** - a simple client built using JavaFX and OCSF. We use EventBus (which implements the mediator pattern) in order to pass events between classes (in this case: between SimpleClient and PrimaryController.
-2. **server** - a simple server built using OCSF.
-3. **entities** - a shared module where all the entities of the project live.
+A university project developed with Java, JavaFX, Maven, and SQL.
+The system is designed to manage exams for different roles: Administrator (Principal), Teachers, and Students.
 
-## Running
-1. Run Maven install **in the parent project**.
-2. Run the server using the exec:java goal in the server module.
-3. Run the client using the javafx:run goal in the client module.
-4. Press the button and see what happens!
+
+---
+
+🔹 Features
+
+👩‍💼 Administrator (Principal)
+
+Manage teachers and students.
+
+Oversee all exams and results.
+
+Access system-wide analytics and reports.
+
+
+👩‍🏫 Teachers
+
+Create and edit exams (multiple-choice & true/false questions).
+
+Publish and assign exams to students.
+
+Review and grade exams (automatic & manual grading).
+
+Manage recheck requests submitted by students.
+
+Access class analytics and exam statistics.
+
+
+👩‍🎓 Students
+
+Secure login with personalized account.
+
+Take exams online through the system.
+
+View grades and request a recheck.
+
+Track personal progress through analytics dashboard.
+
+
+
+---
+
+🔹 Analytics Dashboards
+
+Students → view their progress and performance trends.
+
+Teachers → analyze class performance and exam results.
+
+Administrator → system-wide performance monitoring.
+
+
+
+---
+
+🔹 Technologies Used
+
+Java
+
+JavaFX
+
+Maven
+
+SQL
+
+Object-Oriented Programming (OOP)
+
+
+
+---
+
+🔹 How to Run
+
+1. Clone the repository:
+
+git clone https://github.com/YourUsername/Exam-Management-System.git
+cd Exam-Management-System
+
+
+2. Run Maven install in the parent project:
+
+mvn clean install
+
+
+3. Configure the SQL database (schema + tables).
+
+
+4. Start the application using your IDE (IntelliJ/Eclipse).
+
+
+
+
+---
+
+🔹 Future Improvements
+
+Add essay-style/open-ended questions.
+
+More advanced analytics with charts and graphs.
+
+Improve UI/UX design.
+
+
+
+---
+
+🔹 Author
+
+👩‍💻 Lana Abbass
